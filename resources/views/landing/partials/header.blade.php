@@ -53,77 +53,64 @@
                         <div class="hidden lg:block lg:col-start-3 lg:col-span-7">
                             <ul class="nav-list flex justify-center">
                                 <li class="nav-item group">
-                                    <a href="#"
+                                    <a href="{{ route('index') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
                                         Home
                                     </a>
                                 </li>
                                 <li class="nav-item group">
-                                    <a href="#"
+                                    <a href="{{ route('about') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
                                         About
                                     </a>
                                 </li>
                                 <li class="nav-item group relative">
-                                    <a
-                                      href="pages/ecommerce/shop.html"
-                                      class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor"
-                                    >
+                                    <a href="{{ route('course') }}"
+                                      class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
                                       Courses
                                       <i class="icofont-rounded-down"></i>
                                     </a>
                                     <!-- dropdown menu -->
-                                    <div
-                                      class="dropdown absolute left-0 translate-y-10 z-medium hidden opacity-0"
-                                      style="transition: 0.3s"
-                                    >
-                                      <div
-                                        class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark"
-                                      >
+                                    <div class="dropdown absolute left-0 translate-y-10 z-medium hidden opacity-0" style="transition: 0.3s">
+                                      <div class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
                                         <ul>
                                           <li>
-                                            <a
-                                              href="pages/ecommerce/shop.html"
-                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark"
-                                              >Course
-                                              <span
-                                                class="text-size-12 font-semibold text-primaryColor bg-whitegrey3 px-15px py-5px rounded"
-                                                >Trending</span
-                                              >
+                                            <a href="{{ route('course') }}"
+                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
+                                              Course
+                                              <span class="text-size-12 font-semibold text-primaryColor bg-whitegrey3 px-15px py-5px rounded">Trending</span>
                                             </a>
                                           </li>
                                           <li>
-                                            <a
-                                              href="pages/ecommerce/product-details.html"
-                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark"
-                                              >Zoom & Webinars
+                                            <a href="{{ route('course') }}"
+                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
+                                              Zoom & Webinars
                                             </a>
                                           </li>
                                           <li>
-                                            <a
-                                              href="pages/ecommerce/cart.html"
-                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark"
-                                              >Event</a
-                                            >
+                                            <a href="{{ route('course') }}"
+                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
+                                              Event
+                                            </a>
                                           </li>
                                         </ul>
                                       </div>
                                     </div>
                                   </li>
                                 <li class="nav-item group relative">
-                                    <a href="pages/dashboards/instructor-dashboard.html"
+                                    <a href="{{ route('blog') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
                                         Blog
                                     </a>
                                 </li>
                                 <li class="nav-item group relative">
-                                    <a href="pages/ecommerce/shop.html"
+                                    <a href="{{ route('contact') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
                                         Contact
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div>                        
                         <!-- navbar right -->
                         <div class="lg:col-start-10 lg:col-span-3">
                             <ul class="relative nav-list flex justify-end items-center">
