@@ -1,3 +1,4 @@
+@section('footer')
 <footer class="bg-darkblack">
     <div class="container pt-65px pb-5 lg:pb-10">
       <!-- footer top or subscription -->
@@ -300,3 +301,4 @@
       </div>
     </div>
   </footer>
+  @show

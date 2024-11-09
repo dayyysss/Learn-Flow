@@ -1,3 +1,4 @@
+@section('header')
 <header>
     <!-- header top start -->
     <div class="bg-blackColor2 dark:bg-lightGrey10-dark hidden lg:block">
@@ -2942,3 +2943,4 @@
       </div>
     </div>
   </header>
+  @show
