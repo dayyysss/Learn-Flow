@@ -5,51 +5,48 @@ use App\Http\Controllers\LandingPageController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\DashboardController;
 
-// Mengubah rute login menjadi /learncourse
-Route::get('/learnflow', function () {
-    return view('auth.login'); // Pastikan tampilan login ada di resources/views/auth/login.blade.php
-})->name('login');
+    Route::controller(LandingPageController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/about', 'about')->name('about');
+        Route::get('/course', 'course')->name('course');
+        Route::get('/blog', 'blog')->name('blog');
+        Route::get('/contact', 'contact')->name('contact');
+    });
 
-// Rute untuk login (POST)
-Route::post('/learnflow', [AuthenticatedSessionController::class, 'store'])
-    ->name('login.post');
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    });
 
-// Mengubah rute register menjadi /signup
-Route::get('/signup', function () {
-    return view('auth.register'); 
-})->name('register');
+    Route::get('/learnflow', function () {
+        return view('auth.login');
+    })->name('login');
 
-// Rute untuk register (POST)
-Route::post('/signup', [RegisteredUserController::class, 'store'])
-    ->name('register.post');
+    Route::post('/learnflow', [AuthenticatedSessionController::class, 'store'])
+        ->name('login.post');
 
-// Mengubah rute logout menjadi /logout
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->name('logout');
+    Route::get('/signup', function () {
+        return view('auth.register'); 
+    })->name('register');
 
-// Mengubah rute untuk reset password menjadi /reset-password
-Route::get('/reset-password', function () {
-    return view('auth.reset-password'); 
-})->name('password.request');
+    Route::post('/signup', [RegisteredUserController::class, 'store'])
+        ->name('register.post');
 
-// Rute untuk mengirimkan reset password (POST)
-Route::post('/reset-password', [NewPasswordController::class, 'store'])
-    ->name('password.update');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
 
-// Mengubah rute untuk verifikasi email
-Route::get('/email/verify', function () {
-    return view('auth.verify-email'); 
-})->name('verification.notice');
+    Route::get('/reset-password', function () {
+        return view('auth.reset-password'); 
+    })->name('password.request');
 
-// Mengubah rute untuk mengirim ulang email verifikasi
-Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])
-    ->name('verification.send');
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])
+        ->name('password.update');
 
-Route::controller(LandingPageController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/about', 'about')->name('about');
-    Route::get('/course', 'course')->name('course');
-    Route::get('/blog', 'blog')->name('blog');
-    Route::get('/contact', 'contact')->name('contact');
-});
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email'); 
+    })->name('verification.notice');
+
+    Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])
+        ->name('verification.send');
+

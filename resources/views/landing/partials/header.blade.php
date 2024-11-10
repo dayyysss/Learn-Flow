@@ -46,7 +46,7 @@
                     <div class="grid grid-cols-2 lg:grid-cols-12 items-center gap-15px">
                         <!-- navbar left -->
                         <div class="lg:col-start-1 lg:col-span-2">
-                            <a href="index.html" class="block"><img src="assets/images/logo/logo_1.png" alt="Logo"
+                            <a href="{{ url('/') }}" class="block"><img src="assets/images/logo/logo_1.png" alt="Logo"
                                     class="w-logo-sm lg:w-auto py-2"></a>
                         </div>
                         <!-- Main menu -->
@@ -66,37 +66,40 @@
                                 </li>
                                 <li class="nav-item group relative">
                                     <a href="{{ route('course') }}"
-                                      class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                      Courses
-                                      <i class="icofont-rounded-down"></i>
+                                        class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
+                                        Courses
+                                        <i class="icofont-rounded-down"></i>
                                     </a>
                                     <!-- dropdown menu -->
-                                    <div class="dropdown absolute left-0 translate-y-10 z-medium hidden opacity-0" style="transition: 0.3s">
-                                      <div class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
-                                        <ul>
-                                          <li>
-                                            <a href="{{ route('course') }}"
-                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
-                                              Course
-                                              <span class="text-size-12 font-semibold text-primaryColor bg-whitegrey3 px-15px py-5px rounded">Trending</span>
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="{{ route('course') }}"
-                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
-                                              Zoom & Webinars
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="{{ route('course') }}"
-                                              class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
-                                              Event
-                                            </a>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                    <div class="dropdown absolute left-0 translate-y-10 z-medium hidden opacity-0"
+                                        style="transition: 0.3s">
+                                        <div
+                                            class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ route('course') }}"
+                                                        class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
+                                                        Course
+                                                        <span
+                                                            class="text-size-12 font-semibold text-primaryColor bg-whitegrey3 px-15px py-5px rounded">Trending</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('course') }}"
+                                                        class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
+                                                        Zoom & Webinars
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('course') }}"
+                                                        class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
+                                                        Event
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                  </li>
+                                </li>
                                 <li class="nav-item group relative">
                                     <a href="{{ route('blog') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
@@ -110,7 +113,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div>                        
+                        </div>
                         <!-- navbar right -->
                         <div class="lg:col-start-10 lg:col-span-3">
                             <ul class="relative nav-list flex justify-end items-center">
@@ -205,15 +208,14 @@
                                     </div>
                                 </li>
                                 <li class="hidden lg:block">
-                                     <a href="{{ url('/login') }}"
+                                    <a href="{{ url('/login') }}"
                                         class="text-size-12 2xl:text-size-15 px-15px py-2 text-blackColor hover:text-whiteColor bg-whiteColor block hover:bg-primaryColor border border-borderColor1 rounded-standard font-semibold mr-[7px] 2xl:mr-15px dark:text-blackColor-dark dark:bg-whiteColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor dark:hover:border-primaryColor"><i
                                             class="icofont-user-alt-5"></i></a>
                                 </li>
-                                {{-- <li class="hidden lg:block">
-                                    <a href="#"
-                                        class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark: dark:hover:text-whiteColor">Get
-                                        Start</a>
-                                </li> --}}
+                                <li class="hidden lg:block">
+                                   <a href="{{ url('/dashboard') }}"
+                                        class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark: dark:hover:text-whiteColor">Dashboard</a>
+                                </li>
                                 <li class="block lg:hidden">
                                     <button
                                         class="open-mobile-menu text-3xl text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
@@ -259,7 +261,7 @@
                                 <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
                                     href="index.html">Home</a>
                             </div>
-                      
+
                         </li>
                         <li class="accordion">
                             <!-- accordion header -->
@@ -290,7 +292,8 @@
                                             </div>
                                             <div class="flex items-center justify-between">
                                                 <a href="#"
-                                                    class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">Zoom & Webinars</a>
+                                                    class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">Zoom
+                                                    & Webinars</a>
                                             </div>
                                             <div class="flex items-center justify-between">
                                                 <a href="#"

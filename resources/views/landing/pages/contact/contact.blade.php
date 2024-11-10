@@ -160,7 +160,7 @@
     <!-- comment form section -->
     <section>
       <div class="container pb-100px">
-        <form id="contact-form" action="https://html.themewin.com/edurcok-preview-tailwind/edurock/mail.php" method="post" class="contact-form p-5 md:p-70px md:pt-90px border border-borderColor2 dark:border-transparent dark:shadow-container" data-aos="fade-up" >
+        <form id="contact-form" method="post" class="contact-form p-5 md:p-70px md:pt-90px border border-borderColor2 dark:border-transparent dark:shadow-container" data-aos="fade-up" >
           <!-- heading -->
           <div class="mb-10">
             <h4
