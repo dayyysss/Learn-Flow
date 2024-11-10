@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\LogoutResponse;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,16 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(
             LogoutResponse::class,
             new class implements LogoutResponse {
+            public function toResponse($request)
+            {
+                return redirect()->route('login');
+            }
+            }
+        );
+
+        $this->app->instance(
+            RegisterResponse::class,
+            new class implements RegisterResponse {
             public function toResponse($request)
             {
                 return redirect()->route('login');

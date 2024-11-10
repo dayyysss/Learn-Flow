@@ -17,6 +17,10 @@ class RolesTableSeeder extends Seeder
             'name' => 'superadmin',
             'guard_name' => 'web'
         ]);
+        Role::create([
+            'name' => 'student',
+            'guard_name' => 'web'
+        ]);
 
     }
 }

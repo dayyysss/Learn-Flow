@@ -176,62 +176,58 @@
                                     </p>
                                 </div>
         
-                                <form class="pt-25px" data-aos="fade-up">
+                                <form class="pt-25px" action="{{ route('register') }}" method="POST" data-aos="fade-up">
+                                    @csrf <!-- Pastikan untuk menambahkan token CSRF -->
+                                    
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">First
-                                                Name</label>
-                                            <input type="text" placeholder="First Name"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">First Name</label>
+                                            <input type="text" name="first_name" placeholder="First Name" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
                                         </div>
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Last
-                                                Name</label>
-                                            <input type="text" placeholder="Last Name"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Last Name</label>
+                                            <input type="text" name="last_name" placeholder="Last Name" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
                                         </div>
                                     </div>
+                                    
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
-                                            <label
-                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Username</label>
-                                            <input type="text" placeholder="Username"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Username</label>
+                                            <input type="text" name="name" placeholder="Username" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
                                         </div>
                                         <div>
-                                            <label
-                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Email</label>
-                                            <input type="email" placeholder="Your Email"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Email</label>
+                                            <input type="email" name="email" placeholder="Your Email" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
                                         </div>
                                     </div>
+                                    
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
-                                            <label
-                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
-                                            <input type="password" placeholder="Password"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
+                                            <input type="password" name="password" placeholder="Password" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
                                         </div>
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Re-Enter
-                                                Password</label>
-                                            <input type="password" placeholder="Re-Enter Password"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Re-Enter Password</label>
+                                            <input type="password" name="password_confirmation" placeholder="Re-Enter Password" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
                                         </div>
                                     </div>
-        
+                                    
                                     <div class="text-contentColor dark:text-contentColor-dark flex items-center">
-                                        <input type="checkbox" id="accept-pp" class="w-18px h-18px mr-2 block box-content" />
-                                        <label for="accept-pp">
-                                            Accept the Terms and Privacy Policy</label>
+                                        <input type="checkbox" id="accept-pp" name="terms" class="w-18px h-18px mr-2 block box-content" required />
+                                        <label for="accept-pp">Accept the Terms and Privacy Policy</label>
                                     </div>
+                                    
+                                    <!-- Input hidden untuk role 'student' -->
+                                    <input type="hidden" name="roles[]" value="student">
+                                
                                     <div class="mt-25px text-center">
-                                        <button type="submit"
-                                            class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Log in
+                                        <button type="submit" class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                            Register
                                         </button>
                                     </div>
                                 </form>
+                                
+                                
                             </div>
                         </div>
                     </div>
