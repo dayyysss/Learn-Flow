@@ -46,9 +46,11 @@
                     <div class="grid grid-cols-2 lg:grid-cols-12 items-center gap-15px">
                         <!-- navbar left -->
                         <div class="lg:col-start-1 lg:col-span-2">
-                            <a href="{{ url('/') }}" class="block"><img src="assets/images/logo/logo_1.png" alt="Logo"
-                                    class="w-logo-sm lg:w-auto py-2"></a>
+                            <a href="{{ url('/') }}" class="block">
+                                <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="Logo" class="w-full lg:w-auto py-2">
+                            </a>
                         </div>
+                        
                         <!-- Main menu -->
                         <div class="hidden lg:block lg:col-start-3 lg:col-span-7">
                             <ul class="nav-list flex justify-center">

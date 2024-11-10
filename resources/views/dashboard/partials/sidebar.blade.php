@@ -1,7 +1,6 @@
 <section>
     <div class="container-fluid-2">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-30px pt-30px pb-100px">
-            <div class="lg:col-start-1 lg:col-span-3">
+            <div class="">
                 <!-- navigation menu -->
                 <div
                     class="p-30px pt-5 lg:p-5 2xl:p-30px 2xl:pt-5 rounded-lg2 shadow-accordion dark:shadow-accordion-dark bg-whiteColor dark:bg-whiteColor-dark">
@@ -104,20 +103,32 @@
                         </li>
 
                         <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                            <a href="#"
-                                class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-volume-1">
+                            <a href="#" class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap" id="logout-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-volume-1">
                                     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                                     <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                                 </svg>
-                                Logout</a>
+                                Logout
+                            </a>
                         </li>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                        
                     </ul>
                 </div>
             </div>
 
-        </div>
     </div>
+
+
+<script>
+    document.getElementById('logout-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('logout-form').submit();
+    });
+</script>
+
 </section>

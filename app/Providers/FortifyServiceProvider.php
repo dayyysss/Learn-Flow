@@ -37,7 +37,7 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements LogoutResponse {
             public function toResponse($request)
             {
-                return redirect()->route('JuraganPanel');
+                return redirect()->route('login');
             }
             }
         );
