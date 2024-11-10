@@ -7,9 +7,11 @@
     <title>@yield('page_title', 'Learn Flow | Course and LMS')</title>
     <link rel="shortcut icon" type="image/x-icon" href=" {{ asset('assets/images/favicon.ico') }}">
     <!-- link stylesheet -->
+    <link rel="stylesheet" href="{{ asset('assets/css/popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/video-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     @yield('head')
 </head>
@@ -64,11 +66,11 @@
         </button>
     </div>
 
-    @include('dashboard.partials.header')
     <main class="bg-transparent">
+    @include('dashboard.partials.header')
+    @include('dashboard.partials.sidebar')
         @yield('content')
     </main>
-    @include('dashboard.partials.sidebar')
 
     <!-- scripts start from here -->
     <script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
