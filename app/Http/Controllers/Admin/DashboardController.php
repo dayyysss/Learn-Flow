@@ -12,7 +12,7 @@ class DashboardController extends Controller
         return view('dashboard.pages.dashboard.index');
     }
 
-    public function profile()
+    public function myProfile()
     {
         return view('dashboard.pages.my-profile.index');
     }
@@ -67,8 +67,18 @@ class DashboardController extends Controller
         return view('dashboard.pages.enrolled-courses.index');
     }
 
+    public function wishlist()
+    {
+        return view('dashboard.pages.wishlist.index');
+    }
+
     public function cart()
     {
         return view('dashboard.pages.cart.index');
+    }
+
+    public function checkout()
+    {
+        return view('dashboard.pages.checkout.index');
     }
 }
