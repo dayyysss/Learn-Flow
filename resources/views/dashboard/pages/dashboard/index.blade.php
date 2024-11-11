@@ -5,7 +5,7 @@
 
     <!--dashbord menu section -->
     <section>
-        <div class="container-fluid-2">
+        <div class="">
                 <!-- dashboard content -->
                 <div class="">
                     <!-- counter -->
