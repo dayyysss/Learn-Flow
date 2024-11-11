@@ -77,7 +77,7 @@
                     been moved or deleted
                 </p>
                 <div class="mt-50px text-center">
-                    <a href="index.html"
+                    <a href=" {{ url("/")}} "
                         class="text-size-15 font-semibold text-whiteColor bg-primaryColor border border-primaryColor px-43px py-4 hover:text-primaryColor hover:bg-whiteColor rounded inline-block dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
                         Back To Home <i class="icofont-simple-right"></i>
                     </a>

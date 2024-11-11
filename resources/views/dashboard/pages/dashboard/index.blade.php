@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.layouts')
-@section('page_title', 'Dashboard Admin')
+@section('page_title', 'LearnFlow | Dashboard')
 
 @section('content')
 

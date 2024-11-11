@@ -15,9 +15,14 @@ use App\Http\Controllers\Admin\DashboardController;
         Route::get('/contact', 'contact')->name('contact');
     });
 
-    Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    });
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/profile', [DashboardController::class, 'profile'])->name('admin.dashboard');
+    Route::get('/message', [DashboardController::class, 'message'])->name('admin.dashboard');
+    Route::get('/courses', [DashboardController::class, 'courses'])->name('admin.dashboard');
+    Route::get('/reviews', [DashboardController::class, 'reviews'])->name('admin.dashboard');
+    Route::get('/quiz', [DashboardController::class, 'quiz'])->name('admin.dashboard');
+    Route::get('/settings', [DashboardController::class, 'settings'])->name('admin.dashboard');
 
     Route::get('/login', function () {
         return view('auth.login');
