@@ -32,16 +32,16 @@ use App\Http\Controllers\Admin\DashboardController;
     Route::get('/message', [DashboardController::class, 'message'])->name('admin.message');
     Route::get('/courses', [DashboardController::class, 'courses'])->name('admin.courses');
     Route::get('/reviews', [DashboardController::class, 'reviews'])->name('admin.reviews');
-    Route::get('/quiz-attempts', [DashboardController::class, 'quizAttempts'])->name('admin.quiz');
+    Route::get('/quiz-attempts', [DashboardController::class, 'quizAttempts'])->name('admin.quizAttempts');
     Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('admin.orderHistory');
-    Route::get('/settings', [DashboardController::class, 'settings'])->name('admin.dashboard');
-    Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('admin.dashboard');
-    Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('admin.dashboard');
-    Route::get('/cart', [DashboardController::class, 'cart'])->name('admin.dashboard');
-    Route::get('/assignments', [DashboardController::class, 'assignments'])->name('admin.dashboard');
-    Route::get('/announcements', [DashboardController::class, 'announcements'])->name('admin.dashboard');
-    Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('admin.dashboard');
-    Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('admin.dashboard');
-    Route::get('/checkout', [DashboardController::class, 'checkout'])->name('admin.dashboard');
+    Route::get('/settings', [DashboardController::class, 'settings'])->name('admin.settings');
+    Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('admin.myProfile');
+    Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('admin.myCourse');
+    Route::get('/cart', [DashboardController::class, 'cart'])->name('admin.cart');
+    Route::get('/assignments', [DashboardController::class, 'assignments'])->name('admin.assignments');
+    Route::get('/announcements', [DashboardController::class, 'announcements'])->name('admin.announcements');
+    Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('admin.enrolledCourses');
+    Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('admin.wishlist');
+    Route::get('/checkout', [DashboardController::class, 'checkout'])->name('admin.checkout');
 
 

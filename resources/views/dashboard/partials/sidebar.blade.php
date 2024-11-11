@@ -11,7 +11,7 @@
                 </h5>
                 <ul>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="admin-dashboard.html"
+                        <a href="{{ route('admin.dashboard') }}"
                             class="text-primaryColor hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -22,7 +22,7 @@
                             Dashboard</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="admin-profile.html"
+                        <a href="{{ route('admin.myProfile') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -34,7 +34,7 @@
                     </li>
                     <li
                         class="py-10px border-b border-borderColor dark:border-borderColor-dark flex justify-between items-center">
-                        <a href="admin-message.html"
+                          <a href="{{ route('admin.message') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -48,7 +48,7 @@
                             class="text-size-10 font-medium text-whiteColor px-9px bg-primaryColor leading-14px rounded-2xl">12</span>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="admin-course.html"
+                        <a href="{{ route('admin.courses') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -58,7 +58,7 @@
                             Courses</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="instructor-wishlist.html"
+                        <a href="{{ route('admin.wishlist') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -68,7 +68,7 @@
                             Wishlist</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="admin-reviews.html"
+                        <a href="{{ route('admin.reviews') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -80,7 +80,7 @@
                             Reviews</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="admin-quiz-attempts.html"
+                        <a href="{{ route('admin.quizAttempts') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -92,7 +92,7 @@
                             Quiz Attempts</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="instructor-order-history.html"
+                        <a href="{{ route('admin.orderHistory') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -104,7 +104,7 @@
                             Order History</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="student-enrolled-courses.html"
+                        <a href="{{ route('admin.enrolledCourses') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -114,7 +114,7 @@
                             Enrolled Courses</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="student-assignments.html"
+                        <a href="{{ route('admin.assignments') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -132,7 +132,7 @@
                 </h5>
                 <ul>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="instructor-course.html"
+                        <a href="{{ route('admin.myCourse') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -145,7 +145,7 @@
                             My Course</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="instructor-announcments.html"
+                        <a href="{{ route('admin.announcements') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -157,7 +157,7 @@
                     </li>
 
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="instructor-quiz-attempts.html"
+                        <a href="{{ route('admin.quizAttempts') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -167,7 +167,7 @@
                             Quiz Attempt</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="instructor-assignments.html"
+                        <a href="{{ route('admin.assignments') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -185,7 +185,7 @@
                 </h5>
                 <ul>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="admin-settings.html"
+                        <a href="{{ route('admin.settings') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -199,7 +199,7 @@
                     </li>
 
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="#"
+                        <a href="{{ route('logout') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"
                             id="logout-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
