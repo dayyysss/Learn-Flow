@@ -26,6 +26,7 @@ class User extends Authenticatable
         'image',
         'first_name',
         'last_name',
+        'role_id',
     ];
 
     /**
@@ -50,6 +51,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
 
     public function quizResults()
     {
