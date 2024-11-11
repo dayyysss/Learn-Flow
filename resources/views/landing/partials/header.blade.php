@@ -225,7 +225,7 @@
                                         <!-- Jika belum login, tampilkan tautan ke login -->
                                         <a href="{{ url('/login') }}"
                                            class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                                           Get Started
+                                           Login / Register
                                         </a>
                                     @endauth
                                 </li>

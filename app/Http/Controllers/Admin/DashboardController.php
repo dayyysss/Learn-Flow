@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
     public function profile()
     {
-        return view('dashboard.pages.profile.index');
+        return view('dashboard.pages.my-profile.index');
     }
 
     public function message()
@@ -40,5 +40,35 @@ class DashboardController extends Controller
     public function settings()
     {
         return view('dashboard.pages.settings.index');
+    }
+
+    public function orderHistory()
+    {
+        return view('dashboard.pages.order-history.index');
+    }
+
+    public function myCourse()
+    {
+        return view('dashboard.pages.my-course.index');
+    }
+
+    public function assignments()
+    {
+        return view('dashboard.pages.assignments.index');
+    }
+
+    public function announcements()
+    {
+        return view('dashboard.pages.announcements.index');
+    }
+
+    public function enrolledCourses()
+    {
+        return view('dashboard.pages.enrolled-courses.index');
+    }
+
+    public function cart()
+    {
+        return view('dashboard.pages.cart.index');
     }
 }
