@@ -210,7 +210,7 @@
                                     </div>
                                 </li>
                                 <li class="hidden lg:block">
-                                    <a href="{{ url('/login') }}"
+                                    <a href="{{ url('/learnflow') }}"
                                         class="text-size-12 2xl:text-size-15 px-15px py-2 text-blackColor hover:text-whiteColor bg-whiteColor block hover:bg-primaryColor border border-borderColor1 rounded-standard font-semibold mr-[7px] 2xl:mr-15px dark:text-blackColor-dark dark:bg-whiteColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor dark:hover:border-primaryColor"><i
                                             class="icofont-user-alt-5"></i></a>
                                 </li>
