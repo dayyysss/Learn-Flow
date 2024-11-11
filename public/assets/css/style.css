@@ -1,51 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap");
 
-/*********************************************************************************
-
-    Template Name: Edurock - Tailwind  Education LMS Template
-    Author: TechBoot
-    Support: techbootmail@gmail.com
-    Description: Edurock -  Education, online course, tailwind v3.0 and vanilla js Template.
-    Version: 1.0.0
-
-****************
-*****************************************************************/
-
-/**************************************************************
-
-	Start Style sheet Indexing
-	|
-	|___ Default Styles
-	|	|___ Variables
-	|	|___ Extend
-  |
-	|___Header Styles
-	|	|___ sticky header
-  |
-	|___tab
-	|
-  |___preloader
-  |
-	|___filter
-	|
-	|___swiper
-  | |___ hero 
-  | |___ featured courses 
-  | |___ testimonial
-  | |___ swiper pagination 
-  |
-	|___tooltip
-	|
-	|___accordion
-  | |___ fees 
-  | |___ faq 
-  | |___ shop 
-	|
-	|___ responsive
-	|
-	|___ tailwind directives
-
-***************************************************************/
 
 /* font family */
 

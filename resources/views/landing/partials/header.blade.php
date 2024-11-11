@@ -3,16 +3,25 @@
         <!-- header top start -->
         <div class="bg-blackColor2 dark:bg-lightGrey10-dark hidden lg:block">
             <div
-                class="container 3xl:container2-lg 4xl:container mx-auto text-whiteColor text-size-12 xl:text-sm py-5px xl:py-9px">
+                class="container 3xl:container-secondary-lg 4xl:container mx-auto text-whiteColor text-size-12 xl:text-sm py-5px xl:py-9px">
                 <div class="flex justify-between items-center">
                     <div>
-                        <p>Call Us: +62 896-0114-9580 - Mail Us: learnflow@mail.com</p>
+                        <p>Event intensif terbaru, Coding Camp 2025 powered by DBS Foundation. Segera Daftar!
+                            <a href="#" rel="nofollow noopener noreferrer" target="_blank" class="dcd-link ml-3" style="color: #1a5ace;">
+                                Lihat di sini 
+                                <i className="ml-1" style="display: inline-flex; vertical-align: middle;">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.4712 4.86128C10.2109 4.60093 9.78878 4.60093 9.52843 4.86128C9.26808 5.12163 9.26808 5.54374 9.52843 5.80409L11.057 7.33268H3.33317C2.96498 7.33268 2.6665 7.63116 2.6665 7.99935C2.6665 8.36754 2.96498 8.66602 3.33317 8.66602H11.057L9.52843 10.1946C9.26808 10.455 9.26808 10.8771 9.52843 11.1374C9.78878 11.3978 10.2109 11.3978 10.4712 11.1374L13.1379 8.47075C13.3983 8.2104 13.3983 7.78829 13.1379 7.52794L10.4712 4.86128Z"></path>
+                                    </svg>
+                                </i>
+                            </a>                                               
+                        </p>
                     </div>
                     <div class="flex gap-37px items-center">
                         <div>
                             <p>
                                 <i class="icofont-location-pin text-primaryColor text-size-15 mr-5px"></i>
-                                <span>684 Taman Pagelaran Street. Ciomas City, ID</span>
+                                <span>684 Taman Pagelaran Street. Ciomas, ID</span>
                             </p>
                         </div>
                         <div>
@@ -39,37 +48,39 @@
         </div>
         <!-- header top end -->
 
+
         <!-- navbar start -->
         <div class="transition-all duration-500 sticky-header z-medium dark:bg-whiteColor-dark">
             <nav>
-                <div class="py-15px lg:py-0 px-15px lg:container 3xl:container2-lg 4xl:container mx-auto relative">
+                <div class="py-15px lg:py-0 px-15px lg:container 3xl:container-secondary-lg 4xl:container mx-auto relative">
                     <div class="grid grid-cols-2 lg:grid-cols-12 items-center gap-15px">
                         <!-- navbar left -->
                         <div class="lg:col-start-1 lg:col-span-2">
                             <a href="{{ url('/') }}" class="block">
-                                <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="Logo" class="w-full lg:w-auto py-2">
+                                <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="Logo"
+                                    class="w-full lg:w-auto py-2">
                             </a>
                         </div>
-                        
+
                         <!-- Main menu -->
                         <div class="hidden lg:block lg:col-start-3 lg:col-span-7">
                             <ul class="nav-list flex justify-center">
                                 <li class="nav-item group">
                                     <a href="{{ route('index') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Home
+                                        Beranda
                                     </a>
                                 </li>
                                 <li class="nav-item group">
                                     <a href="{{ route('about') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        About
+                                        Tentang
                                     </a>
                                 </li>
                                 <li class="nav-item group relative">
                                     <a href="{{ route('course') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Courses
+                                        Kursus
                                         <i class="icofont-rounded-down"></i>
                                     </a>
                                     <!-- dropdown menu -->
@@ -81,7 +92,7 @@
                                                 <li>
                                                     <a href="{{ route('course') }}"
                                                         class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
-                                                        Course
+                                                        Kursus
                                                         <span
                                                             class="text-size-12 font-semibold text-primaryColor bg-whitegrey3 px-15px py-5px rounded">Trending</span>
                                                     </a>
@@ -105,13 +116,13 @@
                                 <li class="nav-item group relative">
                                     <a href="{{ route('blog') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Blog
+                                        Artikel
                                     </a>
                                 </li>
                                 <li class="nav-item group relative">
                                     <a href="{{ route('contact') }}"
                                         class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Contact
+                                        Kontak
                                     </a>
                                 </li>
                             </ul>
@@ -217,19 +228,19 @@
                                 <li class="hidden lg:block">
                                     @auth
                                         <!-- Jika sudah login, tampilkan tautan ke dashboard -->
-                                        <a href="{{ url('/admin/dashboard') }}"
-                                           class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                                           Dashboard
+                                        <a href="{{ url('/dashboard') }}"
+                                            class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
+                                            Dashboard
                                         </a>
                                     @else
                                         <!-- Jika belum login, tampilkan tautan ke login -->
                                         <a href="{{ url('/login') }}"
-                                           class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                                           Get Started
+                                            class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
+                                            Masuk / Daftar
                                         </a>
                                     @endauth
                                 </li>
-                                
+
                                 <li class="block lg:hidden">
                                     <button
                                         class="open-mobile-menu text-3xl text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
