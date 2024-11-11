@@ -15,8 +15,8 @@ use App\Http\Controllers\Admin\DashboardController;
         Route::get('/contact', 'contact')->name('contact');
     });
 
-    Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     });
 
     Route::get('/login', function () {
