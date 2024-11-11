@@ -1,5 +1,5 @@
 <section>
-    <div class=" fixed-top">
+    <div class="fixed-top">
             <div class="">
                 <!-- navigation menu -->
                 <div
