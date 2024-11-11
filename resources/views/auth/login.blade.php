@@ -69,23 +69,24 @@
             <div class="container py-100px">
                 <div class="tab md:w-2/3 mx-auto">
                     <!-- tab controller -->
-        
+
                     <div
                         class="tab-links grid grid-cols-2 gap-11px text-blackColor text-lg lg:text-size-22 font-semibold font-hind mb-43px mt-30px md:mt-0">
                         <button
                             class="py-9px lg:py-6 hover:text-primaryColor dark:text-whiteColor dark:hover:text-primaryColor bg-white dark:bg-whiteColor-dark dark:hover:bg-whiteColor-dark hover:bg-white relative group/btn shadow-bottom hover:shadow-bottom dark:shadow-standard-dark disabled:cursor-pointer rounded-standard">
-                            <span class="absolute w-full h-1 bg-primaryColor top-0 left-0 group-hover/btn:w-full"></span>
-        
+                            <span
+                                class="absolute w-full h-1 bg-primaryColor top-0 left-0 group-hover/btn:w-full"></span>
+
                             Login
                         </button>
                         <button
                             class="py-9px lg:py-6 hover:text-primaryColor dark:hover:text-primaryColor dark:text-whiteColor bg-lightGrey7 dark:bg-lightGrey7-dark hover:bg-white dark:hover:bg-whiteColor-dark relative group/btn hover:shadow-bottom dark:shadow-standard-dark disabled:cursor-pointer rounded-standard">
                             <span class="absolute w-0 h-1 bg-primaryColor top-0 left-0 group-hover/btn:w-full"></span>
-        
+
                             Sign up
                         </button>
                     </div>
-        
+
                     <!--  tab contents -->
                     <div
                         class="shadow-container bg-whiteColor dark:bg-whiteColor-dark pt-10px px-5 pb-10 md:p-50px md:pt-30px rounded-5px">
@@ -106,24 +107,30 @@
                                         </a>
                                     </p>
                                 </div>
-        
+
                                 <form class="pt-25px" action="{{ route('login') }}" method="POST" data-aos="fade-up">
                                     @csrf
                                     <div class="mb-25px">
-                                        <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Username or email</label>
-                                        <input type="text" id="email" name="email" placeholder="Your username or email"
+                                        <label
+                                            class="text-contentColor dark:text-contentColor-dark mb-10px block">Username
+                                            or email</label>
+                                        <input type="text" id="email" name="email"
+                                            placeholder="Your username or email"
                                             class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                     </div>
-                                
+
                                     <div class="mb-25px">
-                                        <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
+                                        <label
+                                            class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
                                         <input type="password" id="password" name="password" placeholder="Password"
                                             class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                     </div>
-                                
-                                    <div class="text-contentColor dark:text-contentColor-dark flex items-center justify-between">
+
+                                    <div
+                                        class="text-contentColor dark:text-contentColor-dark flex items-center justify-between">
                                         <div class="flex items-center">
-                                            <input type="checkbox" id="remember" name="remember" class="w-18px h-18px mr-2 block box-content" />
+                                            <input type="checkbox" id="remember" name="remember"
+                                                class="w-18px h-18px mr-2 block box-content" />
                                             <label for="remember"> Remember me</label>
                                         </div>
                                         <div>
@@ -133,21 +140,23 @@
                                             </a>
                                         </div>
                                     </div>
-                                
+
                                     <div class="my-25px text-center">
                                         <button type="submit"
                                             class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             Log in
                                         </button>
                                     </div>
-                                
+
                                     <!-- other login -->
                                     <div>
-                                        <p class="text-contentColor dark:text-contentColor-dark text-center relative mb-15px before:w-2/5 before:h-1px before:bg-borderColor4 dark:before:bg-borderColor2-dark before:absolute before:left-0 before:top-4 after:w-2/5 after:h-1px after:bg-borderColor4 dark:after:bg-borderColor2-dark after:absolute after:right-0 after:top-4">
+                                        <p
+                                            class="text-contentColor dark:text-contentColor-dark text-center relative mb-15px before:w-2/5 before:h-1px before:bg-borderColor4 dark:before:bg-borderColor2-dark before:absolute before:left-0 before:top-4 after:w-2/5 after:h-1px after:bg-borderColor4 dark:after:bg-borderColor2-dark after:absolute after:right-0 after:top-4">
                                             or Log-in with
                                         </p>
                                     </div>
-                                    <div class="text-center flex gap-x-1 md:gap-x-15px lg:gap-x-25px gap-y-5 items-center justify-center flex-wrap">
+                                    <div
+                                        class="text-center flex gap-x-1 md:gap-x-15px lg:gap-x-25px gap-y-5 items-center justify-center flex-wrap">
                                         <button type="button"
                                             class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             <i class="icofont-facebook"></i> Facebook
@@ -158,7 +167,7 @@
                                         </button>
                                     </div>
                                 </form>
-                                
+
                             </div>
                             <!-- sign up form-->
                             <div class="hidden opacity-0 transition-opacity duration-150 ease-linear">
@@ -175,59 +184,84 @@
                                             In</a>
                                     </p>
                                 </div>
-        
-                                <form class="pt-25px" action="{{ route('register') }}" method="POST" data-aos="fade-up">
+
+                                <form class="pt-25px" action="{{ route('register') }}" method="POST"
+                                    data-aos="fade-up">
                                     @csrf <!-- Pastikan untuk menambahkan token CSRF -->
-                                    
+
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">First Name</label>
-                                            <input type="text" name="first_name" placeholder="First Name" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
+                                            <label
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">First
+                                                Name</label>
+                                            <input type="text" name="first_name" placeholder="First Name"
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                required />
                                         </div>
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Last Name</label>
-                                            <input type="text" name="last_name" placeholder="Last Name" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
+                                            <label
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Last
+                                                Name</label>
+                                            <input type="text" name="last_name" placeholder="Last Name"
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                required />
                                         </div>
                                     </div>
-                                    
+
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Username</label>
-                                            <input type="text" name="name" placeholder="Username" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
+                                            <label
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Username</label>
+                                            <input type="text" name="name" placeholder="Username"
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                required />
                                         </div>
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Email</label>
-                                            <input type="email" name="email" placeholder="Your Email" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
+                                            <label
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Email</label>
+                                            <input type="email" name="email" placeholder="Your Email"
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                required />
                                         </div>
                                     </div>
-                                    
+
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
-                                            <input type="password" name="password" placeholder="Password" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
+                                            <label
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
+                                            <input type="password" name="password" placeholder="Password"
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                required />
                                         </div>
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Re-Enter Password</label>
-                                            <input type="password" name="password_confirmation" placeholder="Re-Enter Password" class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" required />
+                                            <label
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Re-Enter
+                                                Password</label>
+                                            <input type="password" name="password_confirmation"
+                                                placeholder="Re-Enter Password"
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                required />
                                         </div>
                                     </div>
-                                    
+
                                     <div class="text-contentColor dark:text-contentColor-dark flex items-center">
-                                        <input type="checkbox" id="accept-pp" name="terms" class="w-18px h-18px mr-2 block box-content" required />
+                                        <input type="checkbox" id="accept-pp" name="terms"
+                                            class="w-18px h-18px mr-2 block box-content" required />
                                         <label for="accept-pp">Accept the Terms and Privacy Policy</label>
                                     </div>
-                                    
+
                                     <!-- Input hidden untuk role 'student' -->
                                     <input type="hidden" name="roles[]" value="student">
-                                
+
                                     <div class="mt-25px text-center">
-                                        <button type="submit" class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                        <button type="submit"
+                                            class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             Register
                                         </button>
                                     </div>
                                 </form>
-                                
-                                
+
+
                             </div>
                         </div>
                     </div>
@@ -271,6 +305,17 @@
     <script src="{{ asset('assets/js/vanilla-tilt.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <script>
+        document.querySelectorAll('.tab-links button').forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-contents > div').forEach((content, contentIndex) => {
+                    content.classList.toggle('hidden', contentIndex !== index);
+                    content.classList.toggle('opacity-100', contentIndex === index);
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

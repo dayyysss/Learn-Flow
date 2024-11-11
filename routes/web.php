@@ -26,9 +26,9 @@ use App\Http\Controllers\Admin\DashboardController;
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
         ->name('login.post');
 
-    Route::get('/signup', function () {
-        return view('auth.register'); 
-    })->name('register');
+    // Route::get('/signup', function () {
+    //     return view('auth.login'); 
+    // })->name('register');
 
     Route::post('/signup', [RegisteredUserController::class, 'store'])
         ->name('register.post');
