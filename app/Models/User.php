@@ -51,14 +51,17 @@ class User extends Authenticatable
         ];
     }
 
-<<<<<<< HEAD
     public function quizResults()
     {
         return $this->hasMany(QuizResult::class);
-=======
+    }
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
->>>>>>> d59b4cefea5bd1c9dfe4a07a6244c99acace0e8a
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
     }
 }
