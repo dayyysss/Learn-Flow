@@ -32,7 +32,7 @@ class DashboardController extends Controller
         return view('dashboard.pages.reviews.index');
     }
 
-    public function quiz()
+    public function quizAttempts()
     {
         return view('dashboard.pages.quiz.index');
     }
