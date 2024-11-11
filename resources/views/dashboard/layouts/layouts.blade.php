@@ -55,6 +55,8 @@
      @include('landing.partials.header')
     @include('dashboard.partials.header')
 
+    <div class="container-fluid-2">
+
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-30px pt-30px pb-100px">
         <div class="lg:col-start-1 lg:col-span-3">
             @include('dashboard.partials.sidebar')
@@ -66,7 +68,8 @@
         @yield('content')
     </main>
     </div>
-
+    </div>
+    
     </div>
 
     <!-- Scripts -->

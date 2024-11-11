@@ -215,9 +215,21 @@
                                             class="icofont-user-alt-5"></i></a>
                                 </li>
                                 <li class="hidden lg:block">
-                                   <a href="{{ url('/dashboard') }}"
-                                        class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark: dark:hover:text-whiteColor">Dashboard</a>
+                                    @auth
+                                        <!-- Jika sudah login, tampilkan tautan ke dashboard -->
+                                        <a href="{{ url('/admin/dashboard') }}"
+                                           class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
+                                           Dashboard
+                                        </a>
+                                    @else
+                                        <!-- Jika belum login, tampilkan tautan ke login -->
+                                        <a href="{{ url('/learnflow') }}"
+                                           class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
+                                           Get Started
+                                        </a>
+                                    @endauth
                                 </li>
+                                
                                 <li class="block lg:hidden">
                                     <button
                                         class="open-mobile-menu text-3xl text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">

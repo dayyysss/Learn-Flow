@@ -1,5 +1,5 @@
 <section>
-    <div class="container-fluid-2">
+    <div class=" fixed-top">
             <div class="">
                 <!-- navigation menu -->
                 <div
