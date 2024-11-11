@@ -1,10 +1,10 @@
 @extends('dashboard.layouts.layouts')
-@section('page_title', 'LearnFlow | My Quiz Attempts')
+@section('page_title', 'LearnFlow | Assignments')
 
 @section('content')
       <!-- dashboard content -->
       <div class="lg:col-start-4 lg:col-span-9">
-        <!-- quize attempts area -->
+        <!-- assignment area -->
         <div
           class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5"
         >
@@ -15,7 +15,7 @@
             <h2
               class="text-2xl font-bold text-blackColor dark:text-blackColor-dark"
             >
-              My Quiz Attempts
+              Assignments
             </h2>
           </div>
           <!-- filter content -->
@@ -99,11 +99,10 @@
                 class="text-sm md:text-base text-blackColor dark:text-blackColor-dark bg-lightGrey5 dark:bg-whiteColor-dark leading-1.8 md:leading-1.8"
               >
                 <tr>
-                  <th class="px-5px py-10px md:px-5">Quiz</th>
-                  <th class="px-5px py-10px md:px-5">Qus</th>
-                  <th class="px-5px py-10px md:px-5">TM</th>
-                  <th class="px-5px py-10px md:px-5">CA</th>
-                  <th class="px-5px py-10px md:px-5">Status</th>
+                  <th class="px-5px py-10px md:px-5">Assignment Name</th>
+                  <th class="px-5px py-10px md:px-5">Total Marks</th>
+                  <th class="px-5px py-10px md:px-5">Total Submit</th>
+
                   <th class="px-5px py-10px md:px-5"></th>
                 </tr>
               </thead>
@@ -114,38 +113,27 @@
                   <th
                     class="px-5px py-10px md:px-5 font-normal text-wrap"
                   >
-                    <p>December 26, 2024</p>
                     <span
                       class="text-blackColor dark:text-blackColor-dark font-bold"
-                      >Write a on yourself using the 5</span
+                    >
+                      Write a the 5</span
                     >
                     <p>
                       Student:
                       <a
                         class="text-blackColor dark:text-blackColor-dark"
                         href="#"
-                        >Mice Jerry</a
+                        >Fundamentals</a
                       >
                     </p>
                   </th>
                   <td class="px-5px py-10px md:px-5">
-                    <p>4</p>
+                    <p>80</p>
                   </td>
                   <td class="px-5px py-10px md:px-5">
-                    <p>8</p>
+                    <p>2</p>
                   </td>
-                  <td class="px-5px py-10px md:px-5">
-                    <p>4</p>
-                  </td>
-                  <td class="px-5px py-10px md:px-5">
-                    <p class="text-xs">
-                      <span
-                        class="h-22px inline-block px-7px bg-greencolor2 leading-22px font-bold text-whiteColor rounded-md"
-                      >
-                        Running</span
-                      >
-                    </p>
-                  </td>
+
                   <td class="px-5px py-10px md:px-5">
                     <div class="dashboard__button__group">
                       <a
@@ -201,43 +189,34 @@
                     </div>
                   </td>
                 </tr>
+
                 <tr
                   class="leading-1.8 md:leading-1.8 bg-lightGrey5 dark:bg-whiteColor-dark"
                 >
                   <th
                     class="px-5px py-10px md:px-5 font-normal text-wrap"
                   >
-                    <p class="flex">December 26, 2024</p>
                     <span
                       class="text-blackColor dark:text-blackColor-dark font-bold"
-                      >Write a on yourself using the 5</span
+                    >
+                      Write a the 5</span
                     >
                     <p>
                       Student:
                       <a
                         class="text-blackColor dark:text-blackColor-dark"
                         href="#"
-                        >John Due</a
+                        >Fundamentals</a
                       >
                     </p>
                   </th>
                   <td class="px-5px py-10px md:px-5">
-                    <p>4</p>
+                    <p>80</p>
                   </td>
                   <td class="px-5px py-10px md:px-5">
-                    <p>8</p>
+                    <p>2</p>
                   </td>
-                  <td class="px-5px py-10px md:px-5">
-                    <p>4</p>
-                  </td>
-                  <td class="px-5px py-10px md:px-5">
-                    <p class="text-xs">
-                      <span
-                        class="h-22px inline-block px-7px bg-primaryColor leading-22px font-bold text-whiteColor rounded-md"
-                        >Time Over</span
-                      >
-                    </p>
-                  </td>
+
                   <td class="px-5px py-10px md:px-5">
                     <div class="dashboard__button__group">
                       <a
@@ -297,37 +276,27 @@
                   <th
                     class="px-5px py-10px md:px-5 font-normal text-wrap"
                   >
-                    <p class="flex">December 26, 2024</p>
                     <span
                       class="text-blackColor dark:text-blackColor-dark font-bold"
-                      >Write a on yourself using the 5</span
+                    >
+                      Write a the 5</span
                     >
                     <p>
                       Student:
                       <a
                         class="text-blackColor dark:text-blackColor-dark"
                         href="#"
-                        >John Due</a
+                        >Fundamentals</a
                       >
                     </p>
                   </th>
                   <td class="px-5px py-10px md:px-5">
-                    <p>4</p>
+                    <p>80</p>
                   </td>
                   <td class="px-5px py-10px md:px-5">
-                    <p>8</p>
+                    <p>2</p>
                   </td>
-                  <td class="px-5px py-10px md:px-5">
-                    <p>4</p>
-                  </td>
-                  <td class="px-5px py-10px md:px-5">
-                    <p class="text-xs">
-                      <span
-                        class="h-22px inline-block px-7px bg-skycolor leading-22px font-bold text-whiteColor rounded-md"
-                        >Coming</span
-                      >
-                    </p>
-                  </td>
+
                   <td class="px-5px py-10px md:px-5">
                     <div class="dashboard__button__group">
                       <a
@@ -383,43 +352,34 @@
                     </div>
                   </td>
                 </tr>
+
                 <tr
                   class="leading-1.8 md:leading-1.8 bg-lightGrey5 dark:bg-whiteColor-dark"
                 >
                   <th
                     class="px-5px py-10px md:px-5 font-normal text-wrap"
                   >
-                    <p class="flex">December 26, 2024</p>
                     <span
                       class="text-blackColor dark:text-blackColor-dark font-bold"
-                      >Write a on yourself using the 5</span
+                    >
+                      Write a the 5</span
                     >
                     <p>
                       Student:
                       <a
                         class="text-blackColor dark:text-blackColor-dark"
                         href="#"
-                        >John Due</a
+                        >Fundamentals</a
                       >
                     </p>
                   </th>
                   <td class="px-5px py-10px md:px-5">
-                    <p>4</p>
+                    <p>80</p>
                   </td>
                   <td class="px-5px py-10px md:px-5">
-                    <p>8</p>
+                    <p>2</p>
                   </td>
-                  <td class="px-5px py-10px md:px-5">
-                    <p>4</p>
-                  </td>
-                  <td class="px-5px py-10px md:px-5">
-                    <p class="text-xs">
-                      <span
-                        class="h-22px inline-block px-7px bg-secondaryColor leading-22px font-bold text-whiteColor rounded-md"
-                        >Cancel</span
-                      >
-                    </p>
-                  </td>
+
                   <td class="px-5px py-10px md:px-5">
                     <div class="dashboard__button__group">
                       <a
