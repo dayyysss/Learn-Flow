@@ -29,12 +29,12 @@ use App\Http\Controllers\Admin\DashboardController;
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/message', [DashboardController::class, 'message'])->name('admin.dashboard');
-    Route::get('/courses', [DashboardController::class, 'courses'])->name('admin.dashboard');
-    Route::get('/reviews', [DashboardController::class, 'reviews'])->name('admin.dashboard');
-    Route::get('/quiz', [DashboardController::class, 'quiz'])->name('admin.dashboard');
+    Route::get('/message', [DashboardController::class, 'message'])->name('admin.message');
+    Route::get('/courses', [DashboardController::class, 'courses'])->name('admin.courses');
+    Route::get('/reviews', [DashboardController::class, 'reviews'])->name('admin.reviews');
+    Route::get('/quiz-attempts', [DashboardController::class, 'quizAttempts'])->name('admin.quiz');
+    Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('admin.orderHistory');
     Route::get('/settings', [DashboardController::class, 'settings'])->name('admin.dashboard');
-    Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('admin.dashboard');
     Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('admin.dashboard');
     Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('admin.dashboard');
     Route::get('/cart', [DashboardController::class, 'cart'])->name('admin.dashboard');
