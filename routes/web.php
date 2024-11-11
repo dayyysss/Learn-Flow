@@ -19,11 +19,11 @@ use App\Http\Controllers\Admin\DashboardController;
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     });
 
-    Route::get('/learnflow', function () {
+    Route::get('/login', function () {
         return view('auth.login');
     })->name('login');
 
-    Route::post('/learnflow', [AuthenticatedSessionController::class, 'store'])
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
         ->name('login.post');
 
     Route::get('/signup', function () {
