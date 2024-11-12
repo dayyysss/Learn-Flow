@@ -8,9 +8,9 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\DashboardController;
 
     // Auth
-    Route::get('/login', function () { return view('auth.login');})->name('login');
+    Route::get('/login', function () {return view('auth.login');})->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
-    Route::get('/signup', function () { return view('auth.register');})->name('register');
+    Route::get('/signup', function () {return view('auth.register');})->name('register'); 
     Route::post('/signup', [RegisteredUserController::class, 'store'])->name('register.post');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/reset-password', function () { return view('auth.reset-password'); })->name('password.request');

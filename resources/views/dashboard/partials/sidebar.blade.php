@@ -1,5 +1,4 @@
 <section>
-    <div class=" fixed-top">
         <div class="">
             <!-- navigation menu -->
             <div
@@ -217,8 +216,6 @@
                 </ul>
             </div>
         </div>
-
-    </div>
 
 
     <script>
