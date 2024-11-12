@@ -21,10 +21,11 @@ use App\Http\Controllers\Admin\DashboardController;
     // Landing Page
     Route::controller(LandingPageController::class)->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/about', 'about')->name('about');
+        Route::get('/tentang-kami', 'about')->name('about');
         Route::get('/course', 'course')->name('course');
+        Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
         Route::get('/blog', 'blog')->name('blog');
-        Route::get('/contact', 'contact')->name('contact');
+        Route::get('/kontak', 'contact')->name('contact');
     });
 
     // Dashboard

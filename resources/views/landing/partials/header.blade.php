@@ -105,7 +105,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ route('course') }}"
+                                                    <a href="{{ route('zoomWebinar') }}"
                                                         class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
                                                         Zoom & Webinars
                                                     </a>
