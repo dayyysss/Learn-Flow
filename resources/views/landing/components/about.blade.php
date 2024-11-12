@@ -34,35 +34,36 @@
                 <h3
                     class="text-3xl md:text-size-45 leading-10 md:leading-2xl font-bold text-blackColor dark:text-blackColor-dark pb-25px">
                     Selamat datang di
-                  
+
                     Pusat Pembelajaran <span
-                    class="relative after:w-full after:h-[7px] after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5">Online</span>
+                        class="relative after:w-full after:h-[7px] after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5">Online</span>
                 </h3>
                 <p
                     class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark mb-6 pl-3 border-l-2 border-primaryColor">
-                    25+Contrary to popular belief, Lorem Ipsum is not simply random
-                    text roots in a piece of classical Latin literature from 45 BC
+                    Di sini, Anda akan menemukan materi yang dirancang untuk mendukung pembelajaran dalam berbagai
+                    disiplin ilmu. Dari kursus pemrograman hingga desain grafis, kami memastikan semua bahan ajar yang
+                    kami sediakan terupdate dengan perkembangan terbaru di bidangnya.
                 </p>
                 <ul class="space-y-5">
                     <li class="flex items-center group">
                         <i
                             class="icofont-check px-2 py-2 text-primaryColor bg-whitegrey3 bg-opacity-40 group-hover:bg-primaryColor group-hover:text-white group-hover:opacity-100 mr-15px dark:bg-whitegrey1-dark"></i>
                         <p class="text-sm md:text-base font-medium text-blackColor dark:text-blackColor-dark">
-                            Lorem Ipsum is simply dummy
+                            Konten Edukasi Berkualitas Tinggi
                         </p>
                     </li>
                     <li class="flex items-center group">
                         <i
                             class="icofont-check px-2 py-2 text-primaryColor bg-whitegrey3 bg-opacity-40 group-hover:bg-primaryColor group-hover:text-white group-hover:opacity-100 mr-15px dark:bg-whitegrey1-dark"></i>
                         <p class="text-sm md:text-base font-medium text-blackColor dark:text-blackColor-dark">
-                            Explore a variety of fresh educational teach
+                            Akses Kapan Saja dan Di Mana Saja
                         </p>
                     </li>
                     <li class="flex items-center group">
                         <i
                             class="icofont-check px-2 py-2 text-primaryColor bg-whitegrey3 bg-opacity-40 group-hover:bg-primaryColor group-hover:text-white group-hover:opacity-100 mr-15px dark:bg-whitegrey1-dark"></i>
                         <p class="text-sm md:text-base font-medium text-blackColor dark:text-blackColor-dark">
-                            Lorem Ipsum is simply dummy text of
+                            Pengalaman Belajar yang Interaktif
                         </p>
                     </li>
                 </ul>

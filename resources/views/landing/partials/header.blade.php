@@ -8,8 +8,8 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <p>Event intensif terbaru, Coding Camp 2025 powered by DBS Foundation. Segera Daftar!
-                                <a href="{{ route('course') }}" rel="nofollow noopener noreferrer" target="_blank" class="dcd-link ml-3"
-                                    style="color: #1a5ace;">
+                                <a href="{{ route('course') }}" rel="nofollow noopener noreferrer" target="_blank"
+                                    class="dcd-link ml-3" style="color: #1a5ace;">
                                     Lihat di sini
                                     <i class="ml-1" style="display: inline-flex; vertical-align: middle;">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"
@@ -132,104 +132,117 @@
                         <div class="lg:col-start-10 lg:col-span-3">
                             <ul class="relative nav-list flex justify-end items-center">
                                 @auth
-                                <li class="px-5 lg:px-10px 2xl:px-5 lg:py-4 2xl:py-26px 3xl:py-9 group">
-                                    <a href="{{ url('/cart') }}" class="relative block"><i
-                                            class="icofont-cart-alt text-2xl text-blackColor group-hover:text-secondaryColor transition-all duration-300 dark:text-blackColor-dark"></i>
-                                        <span
-                                            class="absolute -top-1 2xl:-top-[5px] -right-[10px] lg:right-3/4 2xl:-right-[10px] text-[10px] font-medium text-white dark:text-whiteColor-dark bg-secondaryColor px-1 py-[2px] leading-1 rounded-full z-50 block">3</span></a>
-                                    <!-- dropdown menu -->
-                                    <div class="dropdown absolute top-full right-0 lg:right-8 z-medium hidden opacity-0"
-                                        style="transition: 0.3s">
-                                        <div
-                                            class="shadow-dropdown-secodary max-w-dropdown3 w-2000 rounded-standard p-5 bg-white dark:bg-whiteColor-dark">
-                                            <ul
-                                                class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
-                                                <li class="relative flex gap-x-15px items-center">
-                                                    <a href="course-details.html"><img src="assets/images/grid/cart1.jpg"
-                                                            alt="photo" class="w-card-img py-[3px]"></a>
-                                                    <div>
-                                                        <a href="course-details.html"
-                                                            class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">web
-                                                            dictionary</a>
-                                                        <p
-                                                            class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
-                                                            1 x
-                                                            <span class="text-secondaryColor">$ 80.00</span>
-                                                        </p>
-                                                    </div>
+                                    <li class="px-5 lg:px-10px 2xl:px-5 lg:py-4 2xl:py-26px 3xl:py-9 group">
+                                        <a href="{{ url('/cart') }}" class="relative block"><i
+                                                class="icofont-cart-alt text-3xl text-blackColor group-hover:text-secondaryColor transition-all duration-300 dark:text-blackColor-dark"></i>
+                                            <span
+                                                class="absolute -top-1 2xl:-top-[5px] -right-[10px] lg:right-3/4 2xl:-right-[10px] text-[10px] font-medium text-white dark:text-whiteColor-dark bg-secondaryColor px-1 py-[2px] leading-1 rounded-full z-50 block">3</span></a>
+                                        <!-- dropdown menu -->
+                                        <div class="dropdown absolute top-full right-0 lg:right-8 z-medium hidden opacity-0"
+                                            style="transition: 0.3s">
+                                            <div
+                                                class="shadow-dropdown-secodary max-w-dropdown3 w-2000 rounded-standard p-5 bg-white dark:bg-whiteColor-dark">
+                                                <ul
+                                                    class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
+                                                    <li class="relative flex gap-x-15px items-center">
+                                                        <a href="course-details.html"><img src="assets/images/grid/cart1.jpg"
+                                                                alt="photo" class="w-card-img py-[3px]"></a>
+                                                        <div>
+                                                            <a href="course-details.html"
+                                                                class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">web
+                                                                dictionary</a>
+                                                            <p
+                                                                class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
+                                                                1 x
+                                                                <span class="text-secondaryColor">$ 80.00</span>
+                                                            </p>
+                                                        </div>
 
-                                                    <button
-                                                        class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
-                                                        <i class="icofont-close-line"></i>
-                                                    </button>
-                                                </li>
-                                                <li class="relative flex gap-x-15px items-center">
-                                                    <a href="course-details.html"><img src="assets/images/grid/cart2.jpg"
-                                                            alt="photo" class="w-card-img py-[3px]"></a>
-                                                    <div>
-                                                        <a href="course-details.html"
-                                                            class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">Design
-                                                            Minois</a>
-                                                        <p
-                                                            class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
-                                                            1 x
-                                                            <span class="text-secondaryColor">$ 60.00</span>
-                                                        </p>
-                                                    </div>
+                                                        <button
+                                                            class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
+                                                            <i class="icofont-close-line"></i>
+                                                        </button>
+                                                    </li>
+                                                    <li class="relative flex gap-x-15px items-center">
+                                                        <a href="course-details.html"><img src="assets/images/grid/cart2.jpg"
+                                                                alt="photo" class="w-card-img py-[3px]"></a>
+                                                        <div>
+                                                            <a href="course-details.html"
+                                                                class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">Design
+                                                                Minois</a>
+                                                            <p
+                                                                class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
+                                                                1 x
+                                                                <span class="text-secondaryColor">$ 60.00</span>
+                                                            </p>
+                                                        </div>
 
-                                                    <button
-                                                        class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
-                                                        <i class="icofont-close-line"></i>
-                                                    </button>
-                                                </li>
-                                                <li class="relative flex gap-x-15px items-center">
-                                                    <a href="course-details.html"><img src="assets/images/grid/cart3.jpg"
-                                                            alt="photo" class="w-card-img py-[3px]"></a>
-                                                    <div>
-                                                        <a href="course-details.html"
-                                                            class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">Crash
-                                                            Course</a>
-                                                        <p
-                                                            class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
-                                                            1 x
-                                                            <span class="text-secondaryColor">$ 70.00</span>
-                                                        </p>
-                                                    </div>
+                                                        <button
+                                                            class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
+                                                            <i class="icofont-close-line"></i>
+                                                        </button>
+                                                    </li>
+                                                    <li class="relative flex gap-x-15px items-center">
+                                                        <a href="course-details.html"><img src="assets/images/grid/cart3.jpg"
+                                                                alt="photo" class="w-card-img py-[3px]"></a>
+                                                        <div>
+                                                            <a href="course-details.html"
+                                                                class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">Crash
+                                                                Course</a>
+                                                            <p
+                                                                class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
+                                                                1 x
+                                                                <span class="text-secondaryColor">$ 70.00</span>
+                                                            </p>
+                                                        </div>
 
-                                                    <button
-                                                        class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
-                                                        <i class="icofont-close-line"></i>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                            <!-- total price -->
-                                            <div>
-                                                <p
-                                                    class="text-size-17 text-contentColor dark:text-contentColor-dark pb-5 flex justify-between">
-                                                    Total Price:
-                                                    <span class="font-bold text-secondaryColor">$ 210.00</span>
-                                                </p>
-                                            </div>
+                                                        <button
+                                                            class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
+                                                            <i class="icofont-close-line"></i>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                                <!-- total price -->
+                                                <div>
+                                                    <p
+                                                        class="text-size-17 text-contentColor dark:text-contentColor-dark pb-5 flex justify-between">
+                                                        Total Price:
+                                                        <span class="font-bold text-secondaryColor">$ 210.00</span>
+                                                    </p>
+                                                </div>
 
-                                            <!-- action buttons -->
-                                            <div class="flex flex-col gap-y-5">
-                                                <a href="{{ url('/cart') }}"
-                                                    class="text-sm font-bold text-contentColor dark:text-contentColor-dark hover:text-whiteColor hover:bg-secondaryColor text-center py-10px border border-secondaryColor">View
-                                                    Cart</a>
-                                                <a href="{{ url('/checkout') }}"
-                                                    class="text-sm font-bold bg-darkblack dark:bg-darkblack-dark text-whiteColor dark:text-whiteColor-dark hover:bg-secondaryColor dark:hover:bg-secondaryColor text-center py-10px">Checkout</a>
+                                                <!-- action buttons -->
+                                                <div class="flex flex-col gap-y-5">
+                                                    <a href="{{ url('/cart') }}"
+                                                        class="text-sm font-bold text-contentColor dark:text-contentColor-dark hover:text-whiteColor hover:bg-secondaryColor text-center py-10px border border-secondaryColor">View
+                                                        Cart</a>
+                                                    <a href="{{ url('/checkout') }}"
+                                                        class="text-sm font-bold bg-darkblack dark:bg-darkblack-dark text-whiteColor dark:text-whiteColor-dark hover:bg-secondaryColor dark:hover:bg-secondaryColor text-center py-10px">Checkout</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                            
-                                <li class="hidden lg:block">
-                                    <a href="{{ url('/login') }}"
-                                        class="text-size-12 2xl:text-size-15 px-15px py-2 text-blackColor hover:text-whiteColor bg-whiteColor block hover:bg-primaryColor border border-borderColor1 rounded-standard font-semibold mr-[7px] 2xl:mr-15px dark:text-blackColor-dark dark:bg-whiteColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor dark:hover:border-primaryColor"><i
-                                            class="icofont-user-alt-5"></i></a>
-                                </li>
-                                <li class="hidden lg:block">
-                                 
+                                    </li>
+
+                                    <!-- Profile Picture and Dropdown -->
+                                    <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
+                                        <div class="mr-5 cursor-pointer group">
+                                            <img src="../../assets/images/dashbord/dashbord__2.jpg" alt="Profil"
+                                                class="w-8 h-8 rounded-full p-1 border-2 border-darkdeep7 box-content">
+                                        </div>
+
+                                        <!-- Profile Dropdown -->
+                                        <div
+                                            class="dropdown-profile absolute top-full right-0 hidden group-hover:block opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50 bg-white rounded-lg shadow-md p-4">
+                                            <a href="{{ url('/dashboard') }}"
+                                                class="block text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Dashboard</a>
+                                            <a href="{{ url('/settings') }}"
+                                                class="block mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Settings</a>
+                                            <a href="{{ url('/logout') }}"
+                                                class="block mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Logout</a>
+                                        </div>
+                                    </li>
+                                    <li class="hidden lg:block">
+
                                         <!-- Jika sudah login, tampilkan tautan ke dashboard -->
                                         <a href="{{ url('/dashboard') }}"
                                             class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
