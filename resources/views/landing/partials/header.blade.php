@@ -2,52 +2,59 @@
     <header>
         <!-- header top start -->
         <div class="bg-blackColor2 dark:bg-lightGrey10-dark hidden lg:block">
-            <div
-                class="container 3xl:container-secondary-lg 4xl:container mx-auto text-whiteColor text-size-12 xl:text-sm py-5px xl:py-9px">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p>Event intensif terbaru, Coding Camp 2025 powered by DBS Foundation. Segera Daftar!
-                            <a href="#" rel="nofollow noopener noreferrer" target="_blank" class="dcd-link ml-3" style="color: #1a5ace;">
-                                Lihat di sini 
-                                <i className="ml-1" style="display: inline-flex; vertical-align: middle;">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10.4712 4.86128C10.2109 4.60093 9.78878 4.60093 9.52843 4.86128C9.26808 5.12163 9.26808 5.54374 9.52843 5.80409L11.057 7.33268H3.33317C2.96498 7.33268 2.6665 7.63116 2.6665 7.99935C2.6665 8.36754 2.96498 8.66602 3.33317 8.66602H11.057L9.52843 10.1946C9.26808 10.455 9.26808 10.8771 9.52843 11.1374C9.78878 11.3978 10.2109 11.3978 10.4712 11.1374L13.1379 8.47075C13.3983 8.2104 13.3983 7.78829 13.1379 7.52794L10.4712 4.86128Z"></path>
-                                    </svg>
-                                </i>
-                            </a>                                               
-                        </p>
-                    </div>
-                    <div class="flex gap-37px items-center">
+            @guest
+                <div
+                    class="container 3xl:container-secondary-lg 4xl:container mx-auto text-whiteColor text-size-12 xl:text-sm py-5px xl:py-9px">
+                    <div class="flex justify-between items-center">
                         <div>
-                            <p>
-                                <i class="icofont-location-pin text-primaryColor text-size-15 mr-5px"></i>
-                                <span>684 Taman Pagelaran Street. Ciomas, ID</span>
+                            <p>Event intensif terbaru, Coding Camp 2025 powered by DBS Foundation. Segera Daftar!
+                                <a href="#" rel="nofollow noopener noreferrer" target="_blank" class="dcd-link ml-3"
+                                    style="color: #1a5ace;">
+                                    Lihat di sini
+                                    <i class="ml-1" style="display: inline-flex; vertical-align: middle;">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.4712 4.86128C10.2109 4.60093 9.78878 4.60093 9.52843 4.86128C9.26808 5.12163 9.26808 5.54374 9.52843 5.80409L11.057 7.33268H3.33317C2.96498 7.33268 2.6665 7.63116 2.6665 7.99935C2.6665 8.36754 2.96498 8.66602 3.33317 8.66602H11.057L9.52843 10.1946C9.26808 10.455 9.26808 10.8771 9.52843 11.1374C9.78878 11.3978 10.2109 11.3978 10.4712 11.1374L13.1379 8.47075C13.3983 8.2104 13.3983 7.78829 13.1379 7.52794L10.4712 4.86128Z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                </a>
                             </p>
                         </div>
-                        <div>
-                            <!-- header social list -->
-                            <ul class="flex gap-13px text-size-15">
-                                <li>
-                                    <a class="hover:text-primaryColor" href="#"><i class="icofont-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a class="hover:text-primaryColor" href="#"><i class="icofont-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a class="hover:text-primaryColor" href="#"><i class="icofont-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a class="hover:text-primaryColor" href="#"><i
-                                            class="icofont-youtube-play"></i></a>
-                                </li>
-                            </ul>
+                        <div class="flex gap-37px items-center">
+                            <div>
+                                <p>
+                                    <i class="icofont-location-pin text-primaryColor text-size-15 mr-5px"></i>
+                                    <span>684 Taman Pagelaran Street. Ciomas, ID</span>
+                                </p>
+                            </div>
+                            <div>
+                                <!-- header social list -->
+                                <ul class="flex gap-13px text-size-15">
+                                    <li>
+                                        <a class="hover:text-primaryColor" href="#"><i class="icofont-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a class="hover:text-primaryColor" href="#"><i class="icofont-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a class="hover:text-primaryColor" href="#"><i class="icofont-instagram"></i></a>
+                                    </li>
+                                    <li>
+                                        <a class="hover:text-primaryColor" href="#"><i
+                                                class="icofont-youtube-play"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endguest
         </div>
         <!-- header top end -->
 
+        <!-- header top end -->
 
         <!-- navbar start -->
         <div class="transition-all duration-500 sticky-header z-medium dark:bg-whiteColor-dark">
@@ -130,6 +137,7 @@
                         <!-- navbar right -->
                         <div class="lg:col-start-10 lg:col-span-3">
                             <ul class="relative nav-list flex justify-end items-center">
+                                @auth
                                 <li class="px-5 lg:px-10px 2xl:px-5 lg:py-4 2xl:py-26px 3xl:py-9 group">
                                     <a href="{{ url('/cart') }}" class="relative block"><i
                                             class="icofont-cart-alt text-2xl text-blackColor group-hover:text-secondaryColor transition-all duration-300 dark:text-blackColor-dark"></i>
@@ -220,13 +228,14 @@
                                         </div>
                                     </div>
                                 </li>
+                            
                                 <li class="hidden lg:block">
                                     <a href="{{ url('/login') }}"
                                         class="text-size-12 2xl:text-size-15 px-15px py-2 text-blackColor hover:text-whiteColor bg-whiteColor block hover:bg-primaryColor border border-borderColor1 rounded-standard font-semibold mr-[7px] 2xl:mr-15px dark:text-blackColor-dark dark:bg-whiteColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor dark:hover:border-primaryColor"><i
                                             class="icofont-user-alt-5"></i></a>
                                 </li>
                                 <li class="hidden lg:block">
-                                    @auth
+                                 
                                         <!-- Jika sudah login, tampilkan tautan ke dashboard -->
                                         <a href="{{ url('/dashboard') }}"
                                             class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
