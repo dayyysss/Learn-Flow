@@ -14,10 +14,31 @@ class Course extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'instruktur_id');
     }
+    public function babs()
+    {
+        return $this->hasMany(Bab::class);
+    }
 
     public function category_courses()
     {
         return $this->belongsTo(CategoryCourse::class);
     }
+
+    public static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($course) {
+        $slug = \Str::slug($course->name);
+        $count = self::where('slug', 'like', $slug . '%')->count();
+        $course->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
+    });
+
+    static::updating(function ($course) {
+        $slug = \Str::slug($course->name);
+        $count = self::where('slug', 'like', $slug . '%')->where('id', '<>', $course->id)->count();
+        $course->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
+    });
+}
 
 }
