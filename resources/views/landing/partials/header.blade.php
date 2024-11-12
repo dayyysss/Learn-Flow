@@ -8,8 +8,8 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <p>Event intensif terbaru, Coding Camp 2025 powered by DBS Foundation. Segera Daftar!
-                                <a href="{{ route('course') }}" rel="nofollow noopener noreferrer" target="_blank"
-                                    class="dcd-link ml-3" style="color: #1a5ace;">
+                                <a href="{{ route('event') }}" rel="nofollow noopener noreferrer" class="dcd-link ml-3"
+                                    style="color: #1a5ace;">
                                     Lihat di sini
                                     <i class="ml-1" style="display: inline-flex; vertical-align: middle;">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"
@@ -222,25 +222,29 @@
                                             </div>
                                         </div>
                                     </li>
-
                                     <!-- Profile Picture and Dropdown -->
                                     <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
-                                        <div class="mr-5 cursor-pointer group">
+                                        <div class="mr-5 cursor-pointer group relative flex items-center">
+                                            <!-- Gambar Profil -->
                                             <img src="../../assets/images/dashbord/dashbord__2.jpg" alt="Profil"
-                                                class="w-8 h-8 rounded-full p-1 border-2 border-darkdeep7 box-content">
+                                                 class="w-8 h-8 rounded-full p-1 border-2 border-darkdeep7 box-content">
+                                            
+                                            <!-- Tambahkan panah sebagai ikon -->
+                                            <img src="../../assets/images/icon/down-arrow.svg" alt="Arrow Icon" 
+                                                 class="arrow-icon ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            
+                                            <!-- Profile Dropdown -->
+                                            <div
+                                                class="dropdown-profile absolute top-full right-0 mt-2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 z-50 bg-white rounded-lg shadow-md p-10">
+                                                <a href="{{ url('/dashboard') }}"
+                                                   class="block text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Profil Saya</a>
+                                                <a href="{{ url('/settings') }}"
+                                                   class="block mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Pengaturan</a>
+                                                <a href="{{ url('/logout') }}"
+                                                   class="block mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Keluar</a>
+                                            </div>
                                         </div>
-
-                                        <!-- Profile Dropdown -->
-                                        <div
-                                            class="dropdown-profile absolute top-full right-0 hidden group-hover:block opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50 bg-white rounded-lg shadow-md p-4">
-                                            <a href="{{ url('/dashboard') }}"
-                                                class="block text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Dashboard</a>
-                                            <a href="{{ url('/settings') }}"
-                                                class="block mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Settings</a>
-                                            <a href="{{ url('/logout') }}"
-                                                class="block mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Logout</a>
-                                        </div>
-                                    </li>
+                                    </li>                                    
                                     <li class="hidden lg:block">
 
                                         <!-- Jika sudah login, tampilkan tautan ke dashboard -->

@@ -9115,3 +9115,16 @@ video {
     padding-top: 9.6875rem;
   }
 }
+
+/* Atur gaya untuk ikon panah */
+.arrow-icon {
+  width: 16px; /* Sesuaikan ukuran ikon */
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tampilkan ikon panah saat elemen parent di-hover */
+.group:hover .arrow-icon {
+  opacity: 1;
+}
