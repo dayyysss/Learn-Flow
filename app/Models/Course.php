@@ -40,5 +40,9 @@ class Course extends Model
         $course->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
     });
 }
+    public function courseRegistrations()
+    {
+        return $this->hasMany(CourseRegistration::class);
+    }
 
 }
