@@ -20,4 +20,9 @@ class Course extends Model
         return $this->belongsTo(CategoryCourse::class);
     }
 
+    public function courseRegistrations()
+    {
+        return $this->hasMany(CourseRegistration::class);
+    }
+
 }
