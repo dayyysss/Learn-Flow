@@ -57,10 +57,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(QuizResult::class);
     }
-
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
     }
 
     public function courseRegistrations()

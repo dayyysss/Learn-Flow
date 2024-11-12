@@ -29,8 +29,9 @@ use App\Http\Controllers\Admin\DashboardController;
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/message', [DashboardController::class, 'message'])->name('admin.message');
     Route::get('/courses', [DashboardController::class, 'courses'])->name('admin.courses');
+    Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('admin.coursesCreate');
+    Route::get('/message', [DashboardController::class, 'message'])->name('admin.message');
     Route::get('/reviews', [DashboardController::class, 'reviews'])->name('admin.reviews');
     Route::get('/quiz-attempts', [DashboardController::class, 'quizAttempts'])->name('admin.quizAttempts');
     Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('admin.orderHistory');
