@@ -8,7 +8,7 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <p>Event intensif terbaru, Coding Camp 2025 powered by DBS Foundation. Segera Daftar!
-                                <a href="#" rel="nofollow noopener noreferrer" target="_blank" class="dcd-link ml-3"
+                                <a href="{{ route('course') }}" rel="nofollow noopener noreferrer" target="_blank" class="dcd-link ml-3"
                                     style="color: #1a5ace;">
                                     Lihat di sini
                                     <i class="ml-1" style="display: inline-flex; vertical-align: middle;">
@@ -108,12 +108,6 @@
                                                     <a href="{{ route('zoomWebinar') }}"
                                                         class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
                                                         Zoom & Webinars
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ route('course') }}"
-                                                        class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
-                                                        Event
                                                     </a>
                                                 </li>
                                             </ul>

@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\DashboardController;
         Route::get('/tentang-kami', 'about')->name('about');
         Route::get('/course', 'course')->name('course');
         Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
+        Route::get('/event', 'event')->name('event');
         Route::get('/blog', 'blog')->name('blog');
         Route::get('/kontak', 'contact')->name('contact');
     });

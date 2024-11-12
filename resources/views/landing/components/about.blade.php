@@ -33,10 +33,10 @@
                 </span>
                 <h3
                     class="text-3xl md:text-size-45 leading-10 md:leading-2xl font-bold text-blackColor dark:text-blackColor-dark pb-25px">
-                    Welcome to the
-                    <span
-                        class="relative after:w-full after:h-[7px] after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5">Online</span>
-                    Learning Center
+                    Selamat datang di
+                  
+                    Pusat Pembelajaran <span
+                    class="relative after:w-full after:h-[7px] after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5">Online</span>
                 </h3>
                 <p
                     class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark mb-6 pl-3 border-l-2 border-primaryColor">
