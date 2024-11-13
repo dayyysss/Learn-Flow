@@ -1,4 +1,8 @@
 <section>
+<<<<<<< HEAD
+    <div class=" fixed-top">
+=======
+>>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
         <div class="">
             <!-- navigation menu -->
             <div
@@ -33,7 +37,11 @@
                     </li>
                     <li
                         class="py-10px border-b border-borderColor dark:border-borderColor-dark flex justify-between items-center">
+<<<<<<< HEAD
+                        <a href="{{ route('admin.message') }}"
+=======
                           <a href="{{ route('dashboard.message') }}"
+>>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -86,7 +94,8 @@
                                 stroke-linejoin="round" class="feather feather-help-circle">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17">
+                                </line>
                             </svg>
                             Kuis Saya</a>
                     </li>
@@ -97,7 +106,8 @@
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-shopping-bag">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="6" x2="21" y2="6">
+                                </line>
                                 <path d="M16 10a4 4 0 0 1-8 0"></path>
                             </svg>
                             Riwayat Pesanan</a>
@@ -138,8 +148,10 @@
                                 stroke-linejoin="round" class="feather feather-monitor">
                                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2">
                                 </rect>
-                                <line x1="8" y1="21" x2="16" y2="21"></line>
-                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                                <line x1="8" y1="21" x2="16" y2="21">
+                                </line>
+                                <line x1="12" y1="17" x2="12" y2="21">
+                                </line>
                             </svg>
                             Kursus saya</a>
                     </li>
@@ -154,14 +166,18 @@
                             </svg>
                             Pengumuman</a>
                     </li>
+<<<<<<< HEAD
+=======
 
+>>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                         <a href="{{ route('dashboard.quizAttempts') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-message-square">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z">
+                                </path>
                             </svg>
                             Percobaan Kuis</a>
                     </li>
@@ -196,7 +212,6 @@
                             </svg>
                             Pengaturan</a>
                     </li>
-
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                         <a href="{{ route('logout') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"
@@ -216,7 +231,11 @@
                 </ul>
             </div>
         </div>
+<<<<<<< HEAD
+    </div>
+=======
 
+>>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
 
     <script>
         document.getElementById('logout-link').addEventListener('click', function(event) {
