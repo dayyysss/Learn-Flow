@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryCourseController;
-use App\Http\Controllers\Admin\CourseController;
+use App\Models\Course;
+use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\ArtikelController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\CategoryArtikelController;
+use App\Http\Controllers\Admin\CategoryCourseController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Models\CategoryCourse;
-use App\Models\Course;
 
     // Auth
     Route::get('/login', function () {return view('auth.login');})->name('login');
@@ -52,6 +54,8 @@ use App\Models\Course;
     Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
     Route::resource('/kategori-kursus', CategoryCourseController::class);
     Route::resource('/kursus', CourseController::class);
+    Route::resource('/artikel', ArtikelController::class);
+    Route::resource('/kategori-artikel', CategoryArtikelController::class);
     
 
 
