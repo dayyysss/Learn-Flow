@@ -61,9 +61,26 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class);
     }
+<<<<<<< HEAD
 
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
+=======
+    
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function courseRegistrations()
+    {
+        return $this->hasMany(CourseRegistration::class);
+>>>>>>> b4bd9b303a90ae4071cc8b07d89915952cc07f96
     }
 }
