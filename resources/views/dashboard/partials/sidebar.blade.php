@@ -1,8 +1,4 @@
 <section>
-<<<<<<< HEAD
-    <div class=" fixed-top">
-=======
->>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
         <div class="">
             <!-- navigation menu -->
             <div
@@ -37,11 +33,7 @@
                     </li>
                     <li
                         class="py-10px border-b border-borderColor dark:border-borderColor-dark flex justify-between items-center">
-<<<<<<< HEAD
-                        <a href="{{ route('admin.message') }}"
-=======
                           <a href="{{ route('dashboard.message') }}"
->>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -166,10 +158,6 @@
                             </svg>
                             Pengumuman</a>
                     </li>
-<<<<<<< HEAD
-=======
-
->>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                         <a href="{{ route('dashboard.quizAttempts') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
@@ -231,11 +219,6 @@
                 </ul>
             </div>
         </div>
-<<<<<<< HEAD
-    </div>
-=======
-
->>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
 
     <script>
         document.getElementById('logout-link').addEventListener('click', function(event) {
