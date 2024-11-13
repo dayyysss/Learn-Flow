@@ -222,7 +222,6 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <!-- Profile Picture and Dropdown -->
                                     <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
                                         <div class="mr-5 cursor-pointer group relative flex items-center">
                                             <!-- Gambar Profil -->
@@ -231,20 +230,46 @@
                                             
                                             <!-- Tambahkan panah sebagai ikon -->
                                             <img src="../../assets/images/icon/down-arrow.svg" alt="Arrow Icon" 
-                                                 class="arrow-icon ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                 class="arrow-icon ml-2 transition-transform duration-300">
                                             
                                             <!-- Profile Dropdown -->
                                             <div
                                                 class="dropdown-profile absolute top-full right-0 mt-2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 z-50 bg-white rounded-lg shadow-md p-10">
-                                                <a href="{{ url('/dashboard') }}"
-                                                   class="block text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Profil Saya</a>
-                                                <a href="{{ url('/settings') }}"
-                                                   class="block mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Pengaturan</a>
-                                                <a href="{{ url('/logout') }}"
-                                                   class="block mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">Keluar</a>
+                                                
+                                                <a href="{{ route('dashboard.myProfile') }}"
+                                                   class="flex items-center text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">
+                                                   <!-- Ikon SVG -->
+                                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user mr-2">
+                                                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                       <circle cx="12" cy="7" r="4"></circle>
+                                                   </svg>
+                                                   Profil Saya
+                                                </a>
+                                    
+                                                <a href="{{ route('dashboard.settings') }}"
+                                                   class="flex items-center mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">
+                                                   <!-- Ikon SVG -->
+                                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user mr-2">
+                                                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                       <circle cx="12" cy="7" r="4"></circle>
+                                                   </svg>
+                                                   Pengaturan
+                                                </a>
+                                    
+                                                <a href="{{ route('logout') }}"
+                                                   class="flex items-center mt-2 text-darkblack hover:text-secondaryColor dark:text-darkblack-dark dark:hover:text-secondaryColor">
+                                                   <!-- Ikon SVG -->
+                                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user mr-2">
+                                                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                       <circle cx="12" cy="7" r="4"></circle>
+                                                   </svg>
+                                                   Keluar
+                                                </a>
                                             </div>
                                         </div>
-                                    </li>                                    
+                                    </li>
+                                    
+                                
                                     <li class="hidden lg:block">
 
                                         <!-- Jika sudah login, tampilkan tautan ke dashboard -->

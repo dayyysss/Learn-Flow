@@ -49,7 +49,7 @@
                 <p class="text-whiteColor">4.0 (120 Ulasan)</p>
             </div>
             <div>
-                <a href="{{ route('admin.coursesCreate') }}"
+                <a href="{{ route('dashboard.coursesCreate') }}"
                     class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-whiteColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center">
                     Buat Kursus Baru
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
