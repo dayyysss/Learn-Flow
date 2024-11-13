@@ -9115,3 +9115,13 @@ video {
     padding-top: 9.6875rem;
   }
 }
+
+.arrow-icon {
+  width: 20px; 
+  height: auto;
+  transition: transform 0.3s; 
+}
+
+.group:hover .arrow-icon {
+  transform: rotate(180deg);
+}

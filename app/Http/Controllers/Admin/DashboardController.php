@@ -27,6 +27,11 @@ class DashboardController extends Controller
         return view('dashboard.pages.courses.index');
     }
 
+    public function coursesCreate()
+    {
+        return view('dashboard.pages.courses.create');
+    }
+
     public function reviews()
     {
         return view('dashboard.pages.reviews.index');

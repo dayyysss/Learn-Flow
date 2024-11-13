@@ -8,14 +8,14 @@
               <span
                 class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block"
               >
-                News & Blogs
+                Berita & Artikel
               </span>
             </div>
           </div>
           <h3
             class="text-3xl md:text-size-35 2xl:text-size-38 3xl:text-size-42 md:leading-45px 2xl:leading-50px 3xl:leading-2xl font-bold text-blackColor text-center dark:text-blackColor-dark"
           >
-            Leatest News & Blog
+          Berita & Blog Terbaru
           </h3>
         </div>
       </div>

@@ -1,5 +1,8 @@
 <section>
+<<<<<<< HEAD
     <div class=" fixed-top">
+=======
+>>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
         <div class="">
             <!-- navigation menu -->
             <div
@@ -11,7 +14,7 @@
                 </h5>
                 <ul>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.dashboard') }}"
+                        <a href="{{ route('dashboard') }}"
                             class="text-primaryColor hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -22,7 +25,7 @@
                             Dashboard</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.myProfile') }}"
+                        <a href="{{ route('dashboard.myProfile') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -30,11 +33,15 @@
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
-                            My Profile</a>
+                            Profil Saya</a>
                     </li>
                     <li
                         class="py-10px border-b border-borderColor dark:border-borderColor-dark flex justify-between items-center">
+<<<<<<< HEAD
                         <a href="{{ route('admin.message') }}"
+=======
+                          <a href="{{ route('dashboard.message') }}"
+>>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -42,33 +49,33 @@
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                             </svg>
-                            Message
+                            Pesan
                         </a>
                         <span
                             class="text-size-10 font-medium text-whiteColor px-9px bg-primaryColor leading-14px rounded-2xl">12</span>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.courses') }}"
+                        <a href="{{ route('dashboard.courses') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-bookmark">
                                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                             </svg>
-                            Courses</a>
+                            Kursus</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.wishlist') }}"
+                        <a href="{{ route('dashboard.wishlist') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-bookmark">
                                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                             </svg>
-                            Wishlist</a>
+                            Daftar Keinginan</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.reviews') }}"
+                        <a href="{{ route('dashboard.reviews') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -77,10 +84,10 @@
                                     points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
                                 </polygon>
                             </svg>
-                            Reviews</a>
+                            Ulasan</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.quizAttempts') }}"
+                        <a href="{{ route('dashboard.quizAttempts') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -90,10 +97,10 @@
                                 <line x1="12" y1="17" x2="12.01" y2="17">
                                 </line>
                             </svg>
-                            Quiz Attempts</a>
+                            Kuis Saya</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.orderHistory') }}"
+                        <a href="{{ route('dashboard.orderHistory') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -103,20 +110,20 @@
                                 </line>
                                 <path d="M16 10a4 4 0 0 1-8 0"></path>
                             </svg>
-                            Order History</a>
+                            Riwayat Pesanan</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.enrolledCourses') }}"
+                        <a href="{{ route('dashboard.enrolledCourses') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-bookmark">
                                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                             </svg>
-                            Enrolled Courses</a>
+                            Kursus Terdaftar</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.assignments') }}"
+                        <a href="{{ route('dashboard.assignments') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -124,17 +131,17 @@
                                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                             </svg>
-                            Assignments</a>
+                            Tugas</a>
                     </li>
                 </ul>
                 <!-- instructor -->
                 <h5
                     class="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-                    INSTRUCTOR
+                    PENGAJAR
                 </h5>
                 <ul>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.myCourse') }}"
+                        <a href="{{ route('dashboard.myCourse') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -146,10 +153,10 @@
                                 <line x1="12" y1="17" x2="12" y2="21">
                                 </line>
                             </svg>
-                            My Course</a>
+                            Kursus saya</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.announcements') }}"
+                        <a href="{{ route('dashboard.announcements') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -157,10 +164,14 @@
                                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                             </svg>
-                            Announcments</a>
+                            Pengumuman</a>
                     </li>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.quizAttempts') }}"
+                        <a href="{{ route('dashboard.quizAttempts') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -168,10 +179,10 @@
                                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z">
                                 </path>
                             </svg>
-                            Quiz Attempt</a>
+                            Percobaan Kuis</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.assignments') }}"
+                        <a href="{{ route('dashboard.assignments') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -179,7 +190,7 @@
                                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                             </svg>
-                            Assignments</a>
+                            Tugas</a>
                     </li>
                 </ul>
                 <!-- user -->
@@ -189,7 +200,7 @@
                 </h5>
                 <ul>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                        <a href="{{ route('admin.settings') }}"
+                        <a href="{{ route('dashboard.settings') }}"
                             class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -199,7 +210,7 @@
                                     d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
                                 </path>
                             </svg>
-                            Settings</a>
+                            Pengaturan</a>
                     </li>
                     <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                         <a href="{{ route('logout') }}"
@@ -211,7 +222,7 @@
                                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                             </svg>
-                            Logout
+                            Keluar
                         </a>
                     </li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -220,7 +231,11 @@
                 </ul>
             </div>
         </div>
+<<<<<<< HEAD
     </div>
+=======
+
+>>>>>>> a8012daf1e792b1840f10fd6d57818060e5724a5
 
     <script>
         document.getElementById('logout-link').addEventListener('click', function(event) {
