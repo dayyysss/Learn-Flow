@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Auth;
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -13,8 +14,8 @@ use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\LogoutResponse;
-use App\Actions\Fortify\UpdateUserProfileInformation;
 use Laravel\Fortify\Contracts\RegisterResponse;
+use App\Actions\Fortify\UpdateUserProfileInformation;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -23,15 +24,25 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->instance(
-            LoginResponse::class,
-            new class implements LoginResponse {
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
             public function toResponse($request)
             {
-                return redirect()->route('dashboard');
+                if (Auth::check()) {
+                    $user = Auth::user();
+
+                    if ($user->hasRole('superadmin')) {
+                        return redirect()->route('dashboard');
+                    } elseif ($user->hasRole('instructor')) {
+                        return redirect()->route('instructor.dashboard');
+                    } else {
+                        return redirect()->route('student.dashboard');
+                    }
+                }
+
+                return redirect()->route('login')
+                    ->withErrors(['email' => 'The provided credentials do not match our records.']);
             }
-            }
-        );
+        });
 
         $this->app->instance(
             LogoutResponse::class,
