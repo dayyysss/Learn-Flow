@@ -9,7 +9,7 @@ class QuizResult extends Model
     protected $fillable = [
         'user_id',
         'quiz_id',
-        'score',
+        'score_amount',
         'date_quiz',
         'completed_at',
     ];
@@ -22,5 +22,11 @@ class QuizResult extends Model
     public function quiz()
     {
         return $this->belongsTo(Quiz::class);
+    }
+
+    // Tambahkan relasi ke jawaban (answers)
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
     }
 }
