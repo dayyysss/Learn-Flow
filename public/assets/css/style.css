@@ -9135,3 +9135,19 @@ video {
 .arrow-icon-side.rotate-180 {
   transform: rotate(180deg); 
 }
+
+@media (max-width: 420px) {
+  .arrow-icon {
+      display: none; 
+  }
+
+  .arrow-icon {
+      margin-left: -10px; 
+      width: 14px; 
+  }
+
+  .dropdown-profile {
+      right: 10px;
+      width: auto; 
+  }
+}
