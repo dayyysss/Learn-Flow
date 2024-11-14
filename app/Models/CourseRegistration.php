@@ -13,6 +13,9 @@ class CourseRegistration extends Model
         'user_id',
         'course_id',
         'registration_date',
+        'order_date',
+        'method_pembayaran',
+        'harga',
         'registration_status',
     ];
 
