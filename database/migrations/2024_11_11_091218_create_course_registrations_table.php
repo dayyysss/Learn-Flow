@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->date('registration_date');
             $table->enum('registration_status', ['Menunggu', 'Diproses', 'Berhasil'])->default('Menunggu');
+            $table->decimal('harga');
             $table->timestamps();
         });
     }

@@ -10,6 +10,7 @@ class Answer extends Model
         'user_id',
         'question_id',
         'option_id',
+        'quiz_result_id', // Tambahkan `quiz_result_id` untuk referensi ke QuizResult
         'correct_answer',
         'score',
     ];
@@ -28,4 +29,11 @@ class Answer extends Model
     {
         return $this->belongsTo(Option::class);
     }
+
+    // Relasi ke QuizResult untuk sesi hasil kuis
+    public function quizResult()
+    {
+        return $this->belongsTo(QuizResult::class);
+    }
+
 }

@@ -7,7 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = [
-        'user_id', 'name','slug','categories_id','deskripsi','intruktur_id','harga','harga_diskon','tanggal_mulai','tags','informasi_lain','thumbnail','video','course_type','status','rating','rating_count'
+        'user_id',
+        'name',
+        'slug',
+        'categories_id',
+        'deskripsi',
+        'intruktur_id',
+        'harga',
+        'harga_diskon',
+        'tanggal_mulai',
+        'tags',
+        'informasi_lain',
+        'thumbnail',
+        'video',
+        'course_type',
+        'status',
+        'rating',
+        'rating_count'
     ];
 
     public function users()
@@ -25,24 +41,23 @@ class Course extends Model
     }
 
     public static function boot()
-{
-    parent::boot();
+    {
+        parent::boot();
 
-    static::creating(function ($course) {
-        $slug = \Str::slug($course->name);
-        $count = self::where('slug', 'like', $slug . '%')->count();
-        $course->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
-    });
+        static::creating(function ($course) {
+            $slug = \Str::slug($course->name);
+            $count = self::where('slug', 'like', $slug . '%')->count();
+            $course->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
+        });
 
-    static::updating(function ($course) {
-        $slug = \Str::slug($course->name);
-        $count = self::where('slug', 'like', $slug . '%')->where('id', '<>', $course->id)->count();
-        $course->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
-    });
-}
+        static::updating(function ($course) {
+            $slug = \Str::slug($course->name);
+            $count = self::where('slug', 'like', $slug . '%')->where('id', '<>', $course->id)->count();
+            $course->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
+        });
+    }
     public function courseRegistrations()
     {
         return $this->hasMany(CourseRegistration::class);
     }
-
 }

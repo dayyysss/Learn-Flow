@@ -8,7 +8,6 @@ class Option extends Model
 {
     protected $fillable = [
         'question_id',
-        'slug',
         'option_a',
         'option_b',
         'option_c',
