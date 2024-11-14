@@ -2,19 +2,21 @@
 @section('page_title', 'LearnFlow | Kategori Kursus')
 
 @section('content')
-    <!-- dashboard content -->
-    <div class="lg:col-start-4 lg:col-span-9">
-        <div class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
-            <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
-                <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Kategori Kursus</h2>
-                <a id="openModalButton" class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                    Tambah Kategori
-                </a>
-            </div>
+<!-- dashboard content -->
+<div class="lg:col-start-4 lg:col-span-9">
+    <div class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
+        <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Kategori Kursus</h2>
+            <!-- Label untuk membuka modal -->
+            <label for="modalToggle" class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Tambah Kategori
+            </label>
+        </div>
+        @include('dashboard.pages.kategori-kursus.create')
 
             <!-- filter content -->
             <div class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
@@ -132,30 +134,31 @@
             </div>
         </div>
     </div>
-    @include('dashboard.pages.kategori-kursus.create')
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const modal = document.getElementById('categoryModal');
-        const openModalButton = document.getElementById('openModalButton');
-        const closeModalButton = document.getElementById('closeModalButton');
-
-        openModalButton.addEventListener('click', function () {
-            modal.classList.remove('hidden');
-            modal.classList.add('opacity-100');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('categoryModal'); // Sesuaikan ID modal
+            const openModalButton = document.getElementById('openModalButton');
+            const closeModalButton = document.getElementById('closeModalButton');
+    
+            // Buka modal saat tombol diklik
+            openModalButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Mencegah reload halaman
+                modal.classList.add('active'); // Tambah class "active" untuk menampilkan modal
+            });
+    
+            // Tutup modal saat tombol close diklik
+            closeModalButton.addEventListener('click', function () {
+                modal.classList.remove('active'); // Hapus class "active" untuk menyembunyikan modal
+            });
+    
+            // Tutup modal saat klik di luar konten modal
+            window.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
         });
-
-        closeModalButton.addEventListener('click', function () {
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        });
-
-        window.addEventListener('click', function (e) {
-            if (e.target === modal) {
-                modal.classList.add('opacity-0');
-                setTimeout(() => modal.classList.add('hidden'), 300);
-            }
-        });
-    });
-</script>
+    </script>
+    
 @endsection

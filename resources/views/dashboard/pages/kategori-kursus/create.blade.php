@@ -1,35 +1,108 @@
+<!-- Checkbox kontrol untuk modal -->
+<input type="checkbox" id="modalToggle" class="modal-checkbox hidden" />
 
-<style>
-    /* Modal background */
-    #categoryModal {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
+<!-- Modal -->
+<div class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 visibility-hidden transition-opacity duration-300 z-[-1]">
+    <div class="modal-content bg-white rounded-lg p-6 relative w-full max-w-lg transform -translate-y-12 transition-transform duration-300">
+        <!-- Judul Modal -->
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Tambah Kategori Kursus</h2>
 
-    /* Menambah kelas untuk modal fade-in dan fade-out */
-    #categoryModal.opacity-100 {
-        opacity: 1;
-    }
-</style>
-<!-- resources/views/dashboard/kategori/create.blade.php -->
-<div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden transition-opacity">
-    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative fade">
-        <h3 class="text-xl font-semibold mb-4">Tambah Kategori</h3>
-        <form action="#" method="POST">
-            <label for="categoryName" class="block text-sm font-medium text-gray-700">Nama Kategori</label>
-            <input type="text" id="categoryName" name="categoryName" class="w-full border border-gray-300 rounded-md p-2 mt-1 mb-4" placeholder="Masukkan Nama Kategori">
+        <!-- Tombol Close -->
+        <label for="modalToggle" class="absolute top-4 right-4 text-black text-2xl cursor-pointer">X</label>
 
-            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-            <select id="status" name="status" class="w-full border border-gray-300 rounded-md p-2 mt-1 mb-4">
-                <option value="draft">Draft</option>
-                <option value="public">Publik</option>
-            </select>
-
-            <button type="submit" class="bg-primaryColor hover:bg-primaryColor-dark text-white py-2 px-4 rounded">Simpan</button>
-            <button type="button" id="closeModalButton" class="ml-2 bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">Batal</button>
+        <!-- Form -->
+        <form action="{{ route('kategori-kursus.store') }}" method="POST">
+            @csrf
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-700">Nama Kategori</label>
+                <input type="text" id="name" name="name" class="mt-1 p-2 border border-gray-300 rounded w-full" required>
+            </div>
+            <div class="mb-4">
+                <label for="slug" class="block text-sm font-medium text-gray-700">Slug</label>
+                <input type="text" id="slug" name="slug" class="mt-1 p-2 border border-gray-300 rounded w-full" readonly>
+            </div>
+            <div class="mb-4">
+                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                <select id="status" name="status" class="mt-1 p-2 border border-gray-300 rounded w-full">
+                    <option value="publik">Publik</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300 w-full">Tambah</button>
         </form>
     </div>
 </div>
+
+<!-- JavaScript untuk Update Otomatis Slug -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const namaKategoriInput = document.getElementById('name');
+        const slugInput = document.getElementById('slug');
+
+        // Fungsi untuk membuat slug dari input nama kategori
+        function generateSlug(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s-]/g, '') // Hapus karakter spesial
+                .replace(/\s+/g, '-') // Ganti spasi dengan tanda "-"
+                .replace(/-+/g, '-'); // Ganti tanda "-" yang berulang
+        }
+
+        // Update slug secara otomatis ketika nama kategori berubah
+        namaKategoriInput.addEventListener('input', function() {
+            slugInput.value = generateSlug(namaKategoriInput.value);
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const modalToggle = document.getElementById('modalToggle');
+    
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();  // Mencegah submit default form
+        
+        const formData = new FormData(form);
+        
+        // Kirim form data via AJAX
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert(data.message);  // Tampilkan pesan sukses
+                modalToggle.checked = false; // Tutup modal
+                window.location.href = data.redirect_url; // Redirect ke halaman lain jika perlu
+            } else {
+                alert('Terjadi kesalahan. Silakan coba lagi.');
+            }
+        })
+        .catch(error => {
+            alert('Terjadi kesalahan. Silakan coba lagi.');
+        });
+    });
+});
+
+</script>
+
+<!-- Tailwind CSS Custom Styles -->
+<style>
+/* Sembunyikan checkbox modal */
+.modal-checkbox:checked + .modal {
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+}
+
+/* Modal content animation */
+.modal-checkbox:checked + .modal .modal-content {
+    transform: translateY(0);
+}
+</style>

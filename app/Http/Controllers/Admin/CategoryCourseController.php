@@ -20,7 +20,7 @@ class CategoryCourseController extends Controller
   public function create()
   {
     $categories = CategoryCourse::with('users')->get();
-    return view('dashboard.pages.kategori-kursus.index', compact('categories'));
+    return view('dashboard.pages.kategori-kursus.create', compact('categories'));
   }
 
   public function store(Request $request)
@@ -46,10 +46,12 @@ class CategoryCourseController extends Controller
           'slug' => $slug
       ]);
 
+      notify()->success('Laravel Notify is awesome!');
+
       return response()->json([
           'status' => 'success',
           'message' => 'Kategori Kursus berhasil dibuat.',
-          'redirect_url' => route('kategori.layanan.index') // URL tujuan
+          'redirect_url' => route('kategori-kursus.index') // URL tujuan
       ]);
   }
 

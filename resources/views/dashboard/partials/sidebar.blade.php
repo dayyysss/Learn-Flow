@@ -64,7 +64,8 @@
                     </div>
 
                     <!-- Submenu Kategori -->
-                    <ul id="submenu-kategori" class="hidden pl-26px py-2">
+                    <ul id="submenu-kategori"
+                        class="pl-26px py-2 {{ request()->routeIs('dashboard.courses') || request()->routeIs('kategori-kursus.index') ? '' : 'hidden' }}">
                         <li>
                             <a href="{{ route('dashboard.courses') }}"
                                 class="sidebar-link {{ request()->routeIs('dashboard.courses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
@@ -256,14 +257,14 @@
 
     <script>
         function toggleSubmenu(element) {
-            const submenu = element.nextElementSibling; // Mencari elemen submenu yang berada setelah elemen yang diklik
+            const submenu = element.nextElementSibling;
             if (submenu) {
-                submenu.classList.toggle('hidden'); // Toggle class hidden untuk sembunyikan/tampilkan
+                submenu.classList.toggle('hidden');
             }
-            // Toggle rotasi ikon panah
+
             const arrowIcon = element.querySelector('.arrow-icon-side');
             if (arrowIcon) {
-                arrowIcon.classList.toggle('rotate-180'); // Ubah rotasi ikon panah
+                arrowIcon.classList.toggle('rotate-180');
             }
         }
     </script>
