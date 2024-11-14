@@ -22,11 +22,6 @@ class DashboardController extends Controller
         return view('dashboard.pages.message.index');
     }
 
-    public function courses()
-    {
-        return view('dashboard.pages.courses.index');
-    }
-
     public function coursesCreate()
     {
         return view('dashboard.pages.courses.create');

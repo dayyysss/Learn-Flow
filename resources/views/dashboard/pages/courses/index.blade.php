@@ -46,6 +46,7 @@
                 class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-30px"
               >
                 <!-- card 2 -->
+                @foreach($course as $item)
                 <div class="group">
                   <div class="tab-content-wrapper" data-aos="fade-up">
                     <div
@@ -58,20 +59,18 @@
                           class="w-full overflow-hidden rounded"
                         >
                           <img
-                            src="../../assets/images/grid/grid_2.png"
+                            src="{{ asset('storage/' . $item->thumbnail) }}"
                             alt=""
-                            class="w-full transition-all duration-300 group-hover:scale-110"
+                            class="w-full transition-all duration-300 group-hover:scale-110" style="height: 150px"                            s
                           >
                         </a>
                         <div
                           class="absolute left-0 top-1 flex justify-between w-full items-center px-2"
                         >
                           <div>
-                            <p
-                              class="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold"
-                            >
-                              Mechanical
-                            </p>
+                            <p class="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold">
+                              {{ $item->categories->name ?? 'No Category' }}
+                          </p>
                           </div>
                           <a
                             class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
@@ -92,10 +91,11 @@
                               ></i>
                             </div>
                             <div>
-                              <span
-                                class="text-sm text-black dark:text-blackColor-dark"
-                                >29 Lesson</span
-                              >
+                              <span class="text-sm text-black dark:text-blackColor-dark">
+                                {{ $item->babs->sum(function($bab) {
+                                    return $bab->moduls->count();
+                                }) }}
+                            </span> modul
                             </div>
                           </div>
                           <div class="flex items-center">
@@ -107,7 +107,7 @@
                             <div>
                               <span
                                 class="text-sm text-black dark:text-blackColor-dark"
-                                >2 hr 10 min</span
+                                >{{$item->tanggal_mulai}}</span
                               >
                             </div>
                           </div>
@@ -116,7 +116,7 @@
                           href="../../course-details.html"
                           class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
                         >
-                          Nidnies course to under stand about softwere
+                          {{$item->name}}
                         </a>
                         <!-- price -->
                         <div
@@ -174,9 +174,10 @@
                     </div>
                   </div>
                 </div>
+                @endforeach
 
                 <!-- card 3 -->
-                <div class="group">
+                {{-- <div class="group">
                   <div class="tab-content-wrapper" data-aos="fade-up">
                     <div
                       class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark"
@@ -439,7 +440,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
 

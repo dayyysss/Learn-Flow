@@ -67,8 +67,8 @@
                     <ul id="submenu-kategori"
                         class="pl-26px py-2 {{ request()->routeIs('dashboard.courses') || request()->routeIs('kategori-kursus.index') ? '' : 'hidden' }}">
                         <li>
-                            <a href="{{ route('dashboard.courses') }}"
-                                class="sidebar-link {{ request()->routeIs('dashboard.courses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                            <a href="{{ route('courses.index') }}"
+                                class="sidebar-link {{ request()->routeIs('courses.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">

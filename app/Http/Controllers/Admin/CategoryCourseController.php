@@ -51,7 +51,7 @@ class CategoryCourseController extends Controller
       return response()->json([
           'status' => 'success',
           'message' => 'Kategori Kursus berhasil dibuat.',
-          'redirect_url' => route('kategori-kursus.index') // URL tujuan
+        'redirect_url' => route('kategori-kursus.index') // URL tujuan
       ]);
   }
 

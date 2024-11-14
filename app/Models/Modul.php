@@ -4,25 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class Modul extends Model
 {
     protected $fillable = [
-        'user_id', 'name','slug','categories_id','deskripsi','intruktur_id','harga','harga_diskon','tanggal_mulai','tags','thumbnail','video','berbayar','rating','rating_count'
+        'name',
+        'slug',
+        'materi',
+        'video',
+        'file',
+        'bab_id', // Jika ada field lain yang perlu diisi massal, tambahkan di sini
     ];
-
-    public function users()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-    public function babs()
-    {
-        return $this->hasMany(Bab::class);
-    }
-
-    public function categories()
-    {
-        return $this->belongsTo(CategoryCourse::class, 'categories_id');
-    }
 
     public static function boot()
     {
@@ -40,15 +31,11 @@ class Course extends Model
             $course->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
         });
     }
-    public function courseRegistrations()
+
+    public function bab()
     {
-        return $this->hasMany(CourseRegistration::class);
+        return $this->belongsTo(Bab::class, 'bab_id');
     }
 
-    public function certificate()
-    {
-        return $this->hasMany(Certificate::class);
-
-    }
 
 }
