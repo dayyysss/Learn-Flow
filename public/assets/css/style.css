@@ -9125,3 +9125,13 @@ video {
 .group:hover .arrow-icon {
   transform: rotate(180deg);
 }
+
+.arrow-icon-side {
+  width: 20px;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+.arrow-icon-side.rotate-180 {
+  transform: rotate(180deg); 
+}
