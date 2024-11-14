@@ -7,8 +7,10 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\CategoryArtikelController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
@@ -16,17 +18,25 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 // Auth
 Route::get('/login', function () {
-    return view('auth.login'); })->name('login');
+    return view('auth.login');
+})->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
 Route::get('/signup', function () {
-    return view('auth.register'); })->name('register');
+    return view('auth.register');
+})->name('register');
 Route::post('/signup', [RegisteredUserController::class, 'store'])->name('register.post');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-Route::get('/reset-password', function () {
-    return view('auth.reset-password'); })->name('password.request');
-Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('password.request');
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->name('password.reset');
+Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
 Route::get('/email/verify', function () {
-    return view('auth.verify-email'); })->name('verification.notice');
+    return view('auth.verify-email');
+})->name('verification.notice');
 Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 
 // Landing Page
