@@ -91,43 +91,47 @@
                         </tr>
                     </thead>
                     <tbody class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal">
+                        @foreach($categories as $index => $category)
                         <tr class="leading-1.8 md:leading-1.8">
-                            <td class="px-5px py-10px md:px-5">1</td>
-                            <td class="px-5px py-10px md:px-5">Web Design</td>
+                            <td class="px-5px py-10px md:px-5">{{ $index + 1 }}</td>
+                            <td class="px-5px py-10px md:px-5">{{ $category->name }}</td>
                             <td class="px-5px py-10px md:px-5">
                                 <p class="text-xs">
-                                    <span
-                                        class="h-22px inline-block px-7px bg-greencolor2 leading-22px font-bold text-whiteColor rounded-md">
-                                        Running</span>
+                                    <span class="h-22px inline-block px-7px 
+                                                bg-{{ $category->status == 'publik' ? 'greencolor2' : ($category->status == 'draft' ? 'skycolor' : 'red') }} 
+                                                leading-22px font-bold text-whiteColor rounded-md">
+                                        {{ ucfirst($category->status) }}
+                                    </span>
                                 </p>
                             </td>
+                                                      
                             <td class="px-5px py-10px md:px-5">
                                 <div class="dashboard__button__group">
                                     <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"
-                                        href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                        href="{{ route('kategori-kursus.edit', $category->id) }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                         </svg>
                                         Edit</a>
                                     <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-secondaryColor bg-secondaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-secondaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"
-                                        href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                                        href="{{ route('kategori-kursus.destroy', $category->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
                                             <polyline points="3 6 5 6 21 6"></polyline>
-                                            <path
-                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                            </path>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                             <line x1="10" y1="11" x2="10" y2="17"></line>
                                             <line x1="14" y1="11" x2="14" y2="17"></line>
                                         </svg>
                                         Delete</a>
+                                        <!-- Form delete -->
+                                        <form id="delete-form-{{ $category->id }}" action="{{ route('kategori-kursus.destroy', $category->id) }}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                 </div>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
 

@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/video-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    @notifyCss
     @yield('head')
 </head>
 
@@ -68,7 +67,6 @@
     @include('landing.partials.header')
     <main class="bg-transparent">
         @yield('content')
-        <x:notify-messages />
     </main>
     @include('landing.partials.footer')
 
@@ -96,7 +94,6 @@
     <script src="{{ asset('assets/js/vanilla-tilt.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    @notifyJs
 </body>
 
 </html>

@@ -10,50 +10,45 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryCourseController extends Controller
 {
-  public function index()
-  {
-      // Ambil semua data kategori layanan dan muat relasi user
+    public function index()
+    {
+        $categories = CategoryCourse::with('users')->get();
+        return view('dashboard.pages.kategori-kursus.index', compact('categories'));
+    }
+
+    public function create()
+    {
       $categories = CategoryCourse::with('users')->get();
-      return view('dashboard.pages.kategori-kursus.index', compact('categories'));
-  }
+      return view('dashboard.pages.kategori-kursus.create', compact('categories'));
+    }
 
-  public function create()
-  {
-    $categories = CategoryCourse::with('users')->get();
-    return view('dashboard.pages.kategori-kursus.create', compact('categories'));
-  }
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+      
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+      
+        $slug = Str::slug($request->name);
+        $count = CategoryCourse::where('slug', 'like', $slug . '%')->count();
+        $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
+      
+        CategoryCourse::create([
+            'user_id' => auth()->user()->id,
+            'name' => $request->name,
+            'status' => $request->status,
+            'slug' => $slug
+        ]);
+      
+        notify()->success('Kategori Kursus berhasil dibuat.', 'Berhasil!');
+      
+        return redirect()->route('kategori-kursus.index');
+    }
 
-  public function store(Request $request)
-  {
-      $validator = Validator::make($request->all(), [
-          'name' => 'required',
-          'status' => 'required',
-      ]);
-
-      if ($validator->fails()) {
-          return redirect()->back()->withErrors($validator)->withInput();
-      }
-
-
-      $slug = Str::slug($request->name);
-      $count = CategoryCourse::where('slug', 'like', $slug . '%')->count();
-      $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
-
-      CategoryCourse::create([
-          'user_id' => auth()->user()->id, // Mengambil ID pengguna yang sedang login
-          'name' => $request->name,
-          'status' => $request->status,
-          'slug' => $slug
-      ]);
-
-      notify()->success('Laravel Notify is awesome!');
-
-      return response()->json([
-          'status' => 'success',
-          'message' => 'Kategori Kursus berhasil dibuat.',
-        'redirect_url' => route('kategori-kursus.index') // URL tujuan
-      ]);
-  }
 
   public function edit($id)
   {
@@ -66,7 +61,6 @@ class CategoryCourseController extends Controller
 
   public function update(Request $request, $id)
   {
-      // Validasi input
       $validator = Validator::make($request->all(), [
           'name' => 'required',
           'status' => 'required',
@@ -76,10 +70,8 @@ class CategoryCourseController extends Controller
           return redirect()->back()->withErrors($validator)->withInput();
       }
 
-      // Temukan kategori yang akan diupdate
       $category = CategoryCourse::findOrFail($id);
 
-      // Update data kategori
       $category->name = $request->name;
       $category->status = $request->status;
       $category->save();
@@ -87,7 +79,7 @@ class CategoryCourseController extends Controller
       return response()->json([
           'status' => 'success',
           'message' => 'Kategori Kursus berhasil diperbarui.',
-          'redirect_url' => route('kategori.index') // URL tujuan
+          'redirect_url' => route('kategori-kursus.index') 
       ]);
   }
 
@@ -103,7 +95,7 @@ class CategoryCourseController extends Controller
       return response()->json([
           'status' => 'success',
           'message' => 'Kategori kursus berhasil dihapus!',
-          'redirect_url' => route('kategori.index') // URL tujuan
+          'redirect_url' => route('kategori-kursus.index') // URL tujuan
       ]);
   }
 
