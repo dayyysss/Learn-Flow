@@ -50,8 +50,8 @@
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <div class="flex items-center justify-between cursor-pointer" onclick="toggleSubmenu(this)">
-                        <a href="{{ route('dashboard.courses') }}"
-                            class="sidebar-link {{ request()->routeIs('dashboard.courses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                        <a
+                            class="sidebar-link text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-bookmark">
@@ -60,8 +60,9 @@
                             Kursus
                         </a>
                         <img src="../../assets/images/icon/down-arrow.svg" alt="Arrow Icon"
-                            class="arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px" />
+                            class="arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px">
                     </div>
+
                     <!-- Submenu Kategori -->
                     <ul id="submenu-kategori" class="hidden pl-26px py-2">
                         <li>
@@ -76,8 +77,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/kategori-kursus') }}"
-                                class="sidebar-link {{ request()->routeIs('dashboard.courses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 mt-2 flex gap-3 text-nowrap">
+                            <a href="{{ route('kategori-kursus.index') }}"
+                                class="sidebar-link {{ request()->routeIs('kategori-kursus.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 mt-2 flex gap-3 text-nowrap">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">
@@ -255,12 +256,15 @@
 
     <script>
         function toggleSubmenu(element) {
-            const submenu = element.nextElementSibling;
-            const arrow = element.querySelector('.arrow-icon-side');
-
-            submenu.classList.toggle('hidden');
-
-            arrow.classList.toggle('rotate-180');
+            const submenu = element.nextElementSibling; // Mencari elemen submenu yang berada setelah elemen yang diklik
+            if (submenu) {
+                submenu.classList.toggle('hidden'); // Toggle class hidden untuk sembunyikan/tampilkan
+            }
+            // Toggle rotasi ikon panah
+            const arrowIcon = element.querySelector('.arrow-icon-side');
+            if (arrowIcon) {
+                arrowIcon.classList.toggle('rotate-180'); // Ubah rotasi ikon panah
+            }
         }
     </script>
 </section>
