@@ -31,7 +31,7 @@ class CourseController extends Controller
         $instruktur = User::get();
         $categories = CategoryCourse::all();
         // Ambil semua data kategori layanan dan muat relasi user
-        $course = Course::with('users', 'category_courses')->get();
+        $course = Course::with('users', 'categories')->get();
         return view('dashboard.pages.courses.create', compact('course', 'categories', 'instruktur'));
     } 
 

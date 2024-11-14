@@ -254,7 +254,7 @@
           <div class="lg:col-start-4 lg:col-span-6">
             <p class="text-whiteColor">
               Copyright © <span class="text-primaryColor">2024 </span> by
-              edurock. All Rights Reserved.
+              Learn Flow. All Rights Reserved.
             </p>
           </div>
 

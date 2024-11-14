@@ -26,6 +26,11 @@ class LandingPageController extends Controller
         return view('landing.pages.zoom-webinars.zoom');
     }
 
+    public function event()
+    {
+        return view('landing.pages.events.event');
+    }
+
     public function blog()
     {
         return view('landing.pages.blog.blog');

@@ -1,59 +1,83 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryCourseController;
-use App\Http\Controllers\Admin\CourseController;
+use App\Models\Course;
+use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\ArtikelController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Admin\CategoryCourseController;
+use App\Http\Controllers\Admin\CategoryArtikelController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\Admin\CourseRegistrationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Models\CategoryCourse;
-use App\Models\Course;
 
-    // Auth
-    Route::get('/login', function () {return view('auth.login');})->name('login');
-    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
-    Route::get('/signup', function () {return view('auth.register');})->name('register'); 
-    Route::post('/signup', [RegisteredUserController::class, 'store'])->name('register.post');
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-    Route::get('/reset-password', function () { return view('auth.reset-password'); })->name('password.request');
-    Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
-    Route::get('/email/verify', function () { return view('auth.verify-email');})->name('verification.notice');
-    Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
-    
-    // Landing Page
-    Route::controller(LandingPageController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/tentang-kami', 'about')->name('about');
-        Route::get('/course', 'course')->name('course');
-        Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
-        Route::get('/blog', 'blog')->name('blog');
-        Route::get('/kontak', 'contact')->name('contact');
-    });
+// Auth
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
+Route::get('/signup', function () {
+    return view('auth.register');
+})->name('register');
+Route::post('/signup', [RegisteredUserController::class, 'store'])->name('register.post');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('password.request');
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->name('password.reset');
+Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->name('verification.notice');
+Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+// Landing Page
+Route::controller(LandingPageController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/tentang-kami', 'about')->name('about');
+    Route::get('/course', 'course')->name('course');
+    Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
+    Route::get('/event', 'event')->name('event');
+    Route::get('/blog', 'blog')->name('blog');
+    Route::get('/kontak', 'contact')->name('contact');
+});
 
-    Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('admin.coursesCreate');
-    Route::get('/message', [DashboardController::class, 'message'])->name('admin.message');
-    Route::get('/reviews', [DashboardController::class, 'reviews'])->name('admin.reviews');
-    Route::get('/quiz-attempts', [DashboardController::class, 'quizAttempts'])->name('admin.quizAttempts');
-    Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('admin.orderHistory');
-    Route::get('/settings', [DashboardController::class, 'settings'])->name('admin.settings');
-    Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('admin.myProfile');
-    Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('admin.myCourse');
-    Route::get('/cart', [DashboardController::class, 'cart'])->name('admin.cart');
-    Route::get('/assignments', [DashboardController::class, 'assignments'])->name('admin.assignments');
-    Route::get('/announcements', [DashboardController::class, 'announcements'])->name('admin.announcements');
-    Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('admin.enrolledCourses');
-    Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('admin.wishlist');
-    Route::get('/checkout', [DashboardController::class, 'checkout'])->name('admin.checkout');
-    Route::resource('/kategori-kursus', CategoryCourseController::class);
-    Route::resource('/courses', CourseController::class);
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::resource('/courses', CourseController::class);
+Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dashboard.coursesCreate');
+Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
+Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard.reviews');
+Route::get('/quiz-attempts', [DashboardController::class, 'quizAttempts'])->name('dashboard.quizAttempts');
+Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('dashboard.orderHistory');
+Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
+Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
+Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('dashboard.myCourse');
+Route::get('/cart', [DashboardController::class, 'cart'])->name('addashboardmin.cart');
+Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
+Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
+Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
+Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('dashboard.wishlist');
+Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
+Route::resource('/kategori-kursus', CategoryCourseController::class);
+Route::resource('/kursus', CourseController::class);
+Route::resource('/artikel', ArtikelController::class);
+Route::resource('/kategori-artikel', CategoryArtikelController::class);
 
-    Route::post('/courses/preview', [CourseController::class, 'preview'])->name('courses.preview');
+// course-registrations
+Route::get('/course-registrations/create/{courseId}', [CourseRegistrationController::class, 'create'])->name('course-registrations.create');
+Route::post('/course-registrations', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
+Route::get('/course-registrations/{id}', [CourseRegistrationController::class, 'show'])->name('course-registrations.show');
+Route::get('/course-registrations', [CourseRegistrationController::class, 'enrolledCourses'])->name('course-registrations.index');
 
-    
+
 
 

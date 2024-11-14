@@ -2,8 +2,7 @@
 @section('page_title', 'LearnFlow | Cart')
 
 @section('content')
-<section>
-    <div class="container py-50px lg:py-60px 2xl:py-20 3xl:py-100px">
+    <section>
         <!-- cert table -->
         <div class="text-contentColor dark:text-contentColor-dark text-size-10 md:text-base overflow-auto">
             <table
@@ -78,16 +77,15 @@
                                 <svg width="25" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ionicon"
                                     viewBox="0 0 512 512">
                                     <title>Trash</title>
-                                    <path
-                                        d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
-                                        fill="none" stroke="currentColor" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="32"></path>
+                                    <path d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
+                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="32"></path>
                                     <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
                                         stroke-width="32" d="M80 112h352"></path>
                                     <path
                                         d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40M256 176v224M184 176l8 224M328 176l-8 224"
-                                        fill="none" stroke="currentColor" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="32"></path>
+                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="32"></path>
                                 </svg></a>
                         </td>
                     </tr>
@@ -137,10 +135,9 @@
                                 <svg width="25" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ionicon"
                                     viewBox="0 0 512 512">
                                     <title>Trash</title>
-                                    <path
-                                        d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
-                                        fill="none" stroke="currentColor" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="32"></path>
+                                    <path d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
+                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="32"></path>
                                     <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
                                         stroke-width="32" d="M80 112h352"></path>
                                     <path
@@ -247,8 +244,7 @@
                     class="px-30px pt-45px pb-50px leading-1.8 border border-borderColor dark:border-borderColor-dark rounded-5px">
                     <!-- heading -->
                     <div class="flex gap-x-4">
-                        <h3
-                            class="text-lg whitespace-nowrap font-medium text-blackColor dark:text-blackColor-dark mb-9">
+                        <h3 class="text-lg whitespace-nowrap font-medium text-blackColor dark:text-blackColor-dark mb-9">
                             <span class="leading-1.2">Cart Total</span>
                         </h3>
                         <div class="h-1px w-full bg-borderColor2 dark:bg-borderColor2-dark mt-2"></div>
@@ -267,6 +263,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection

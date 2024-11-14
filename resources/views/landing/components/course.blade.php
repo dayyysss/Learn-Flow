@@ -11,13 +11,13 @@
             <span
               class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block"
             >
-              Course List
+              Daftar Kursus
             </span>
             <h3
               class="text-3xl md:text-[35px] lg:text-size-42 leading-[45px] 2xl:leading-[45px] md:leading-[50px] font-bold text-blackColor dark:text-blackColor-dark"
               data-aos="fade-up"
             >
-              Perfect Online Course Your Carrer
+            Kursus Online Sempurna untuk Karir Anda
             </h3>
           </div>
           <!-- courses right -->
@@ -31,7 +31,7 @@
                   data-filter="*"
                   class="is-checked dark:is-checked pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
                 >
-                  See All
+                  Lihat Semua
                 </button>
               </li>
               <li>

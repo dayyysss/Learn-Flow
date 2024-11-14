@@ -52,11 +52,16 @@ class User extends Authenticatable
         ];
     }
 
-
     public function quizResults()
     {
         return $this->hasMany(QuizResult::class);
     }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
