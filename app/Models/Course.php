@@ -7,21 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = [
-        'user_id', 'name','slug','categories_id','deskripsi','intruktur_id','harga','harga_diskon','tanggal_mulai','tags','informasi_lain','thumbnail','video','course_type','status','rating','rating_count'
+        'user_id', 'name','slug','categories_id','deskripsi','intruktur_id','harga','harga_diskon','tanggal_mulai','tags','thumbnail','video','berbayar','rating','rating_count'
     ];
 
     public function users()
     {
-        return $this->belongsTo(User::class, 'user_id', 'instruktur_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function babs()
     {
         return $this->hasMany(Bab::class);
     }
 
-    public function category_courses()
+    public function categories()
     {
-        return $this->belongsTo(CategoryCourse::class);
+        return $this->belongsTo(CategoryCourse::class, 'categories_id');
     }
 
     public static function boot()
@@ -43,6 +43,12 @@ class Course extends Model
     public function courseRegistrations()
     {
         return $this->hasMany(CourseRegistration::class);
+    }
+
+    public function certificate()
+    {
+        return $this->hasMany(Certificate::class);
+
     }
 
 }

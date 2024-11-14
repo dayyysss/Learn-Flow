@@ -87,7 +87,7 @@
         </div>
         <div>
           <a
-            href="{{ route('admin.coursesCreate') }}"
+            href="{{ route('courses.create') }}"
             class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-whiteColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center"
           >
             Create a New Course

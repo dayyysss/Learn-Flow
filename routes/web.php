@@ -34,7 +34,7 @@ use App\Models\Course;
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/courses', [DashboardController::class, 'courses'])->name('admin.courses');
+
     Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('admin.coursesCreate');
     Route::get('/message', [DashboardController::class, 'message'])->name('admin.message');
     Route::get('/reviews', [DashboardController::class, 'reviews'])->name('admin.reviews');
@@ -50,7 +50,10 @@ use App\Models\Course;
     Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('admin.wishlist');
     Route::get('/checkout', [DashboardController::class, 'checkout'])->name('admin.checkout');
     Route::resource('/kategori-kursus', CategoryCourseController::class);
-    Route::resource('/kursus', CourseController::class);
+    Route::resource('/courses', CourseController::class);
+
+    Route::post('/courses/preview', [CourseController::class, 'preview'])->name('courses.preview');
+
     
 
 
