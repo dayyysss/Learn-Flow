@@ -46,9 +46,15 @@
                                                 <input type="text" id="name" name="name" placeholder="Course Title" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="slug" class="mb-3 block font-semibold">Slug</label>
-                                                <input type="text" id="slug" name="slug" placeholder="Course Slug" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-30px">
+                                                <div class="form-group md:col-span-2">
+                                                    <label for="slug" class="mb-3 block font-semibold">Slug</label>
+                                                    <input type="text" id="slug" name="slug" placeholder="Course Slug" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="kode_seri" class="mb-3 block font-semibold">Kode Seri</label>
+                                                    <input type="text" id="kode_seri" name="kode_seri" placeholder="Course Slug" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
+                                                </div>
                                             </div>
 
                                             <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
@@ -68,18 +74,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
-                                                <div class="form-group">
-                                                    <label for="harga" class="mb-3 block font-semibold">Price</label>
-                                                    <input type="text" name="harga" id="harga" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="harga_diskon" class="mb-3 block font-semibold">Discount Price</label>
-                                                    <input type="text" id="harga_diskon" name="harga_diskon" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no">
-                                                </div>
-                                            </div>
-
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-30px">
                                                 <div class="form-group">
                                                     <label for="categories_id" class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Category</label>
@@ -93,11 +87,11 @@
                                                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                                                     </div>
                                                 </div>
-
+                                            
                                                 <div class="form-group">
                                                     <label for="berbayar" class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Paid Course</label>
                                                     <div class="bg-whiteColor relative rounded-md">
-                                                        <select name="berbayar" class="form-control text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md">
+                                                        <select name="berbayar" id="berbayar" class="form-control text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md">
                                                             <option value="false">Free</option>
                                                             <option value="true">Paid</option>
                                                         </select>
@@ -105,7 +99,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+
+                                            <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
+                                                <div class="form-group" id="harga-group">
+                                                    <label for="harga" class="mb-3 block font-semibold">Price</label>
+                                                    <input type="text" name="harga" id="harga" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
+                                                </div>
+                                            
+                                                <div class="form-group" id="harga-diskon-group">
+                                                    <label for="harga_diskon" class="mb-3 block font-semibold">Discount Price</label>
+                                                    <input type="text" id="harga_diskon" name="harga_diskon" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no">
+                                                </div>
+                                            </div>
+                                            
+                                            
 
                                         <div class="form-group mb-15px">
                                             <label for="deskripsi" class="mb-3 block font-semibold">Description</label>
@@ -114,8 +121,22 @@
 
                                         <div class="form-group mb-15px">
                                             <label for="thumbnail" class="mb-3 block font-semibold">Thumbnail</label>
-                                            <input type="file" name="thumbnail" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" accept="image/*" required>
+                                            <input 
+                                                type="file" 
+                                                name="thumbnail" 
+                                                id="thumbnail" 
+                                                class="form-control mb-3 w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" 
+                                                accept="image/*" 
+                                                required
+                                                onchange="previewImage(event)"
+                                            >
+                                        
+                                            <!-- Gambar Pratinjau -->
+                                            <div class="mt-3">
+                                                <img id="thumbnailPreview" width="300" height="300" class="w-52 h-52 rounded-md" style="display:none;" />
+                                            </div>
                                         </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -179,25 +200,56 @@
                                 <div class="content-wrapper py-4 px-5">
                                     <div class="bab-form p-10px md:p-10 lg:p-5 2xl:p-10 bg-darkdeep3 dark:bg-transparent text-sm text-blackColor dark:text-blackColor-dark leading-1.8" data-aos="fade-up" id="video-form">
                                         <div class="bab-section">
-                                            <div class="bab-item">
-                                                <input type="text" name="bab[0][name]" placeholder="Bab Name" class="form-control mt-3" required>
-                                                <div class="modul-section">
-                                                    <div class="modul-item">
-                                                        <input type="text" name="bab[0][moduls][0][name]" placeholder="Modul Name" class="form-control mt-2" required>
-                                                        <input type="file" name="bab[0][moduls][0][video]" accept="video/*" class="form-control mt-2" required>
-                                                        <input type="file" name="bab[0][moduls][0][file]" accept="image/*,application/pdf" class="form-control mt-2" required>
-                                                        <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" class="form-control mt-2" required></textarea>
-                                                    </div>
+                                            <button type="button" class="btn bg-blue px-5 py-1 btn-primary add-bab-btn">Add Bab</button>
+                                            <div class="bab-item rounded bg-whiteColor">
+                                                <div class="bab-header bg-whiteColor rounded flex justify-between items-center cursor-pointer">
+                                                    <h3 class="bab-title">Bab 1</h3>
+                                                    <span class="toggle-icon">▼</span> <!-- Ikon panah -->
                                                 </div>
-                                                <div>
-                                                <button type="button" class="btn bg-blue px-5 py-1 btn-primary add-bab-btn">Add Bab</button>
-                                                <button type="button" class="btn btn-secondary add-modul-btn mt-2">Add Modul</button>
+                                                <div class="bab-content hidden">
+
+                                                    <div class="mb-15px" >
+                                                        <label class="mb-3 block font-semibold">Judul Bab</label>
+                                                        <input type="text" name="bab[0][name]" placeholder="Bab Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                                                    </div>
+
+                                                    <div class="modul-section">
+                                                        <div class="modul-item border p-5 mb-3">
+                                                            <div class="mb-15px">
+                                                                <label class="mb-3 block font-semibold">Judul Modul</label>
+                                                                <input type="text"  name="bab[0][moduls][0][name]" placeholder="Modul Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                                                            </div>
+
+                                                            <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
+                                                                <div>
+                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Video Pembelajaran</label>
+                                                                    <input type="file" name="bab[0][moduls][0][video]" accept="video/*" class="form-control mb-1 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                                                            
+                                                                </div>
+
+                                                                <div>
+                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File foto</label>
+                                                                <input type="file" name="bab[0][moduls][0][file]" accept="image/*,application/pdf" class="form-control mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div>
+                                                                <label class="mb-3 block font-semibold">Materi</label>
+                                                                <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" required></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-secondary add-modul-btn mt-2">Add Modul</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                            
+                            
+                            
                         </div>
                     </li>
 
@@ -243,7 +295,6 @@
                         </button>
                     </div>
                 </div>
-            </ ```blade
             </form>
         </div>
         <!-- create course right -->
@@ -335,5 +386,39 @@
 
 {{-- JavaScript --}}
 @include('dashboard.pages.courses.course-js')
+<style>
+    .bab-header {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+.bab-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.toggle-icon {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+.bab-content.hidden {
+    display: none;
+}
+
+.bab-header.open .toggle-icon {
+    transform: rotate(-180deg);
+}
+
+.bab-content {
+    padding: 20px;
+}
+
+.modul-item {
+
+}
+
+</style>
 
 @endsection

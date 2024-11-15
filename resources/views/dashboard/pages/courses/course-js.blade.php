@@ -1,76 +1,163 @@
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let babIndex = 0;
 
-        // Tambah Bab baru
-        document.querySelector('.add-bab-btn').addEventListener('click', function () {
-            babIndex++;
-            const babSection = document.createElement('div');
-            babSection.classList.add('bab-item');
-            babSection.innerHTML = `
-                <h3>Bab ${babIndex + 1}</h3>
-                <input type="text" name="bab[${babIndex}][name]" placeholder="Bab Name"  class="form-control mt-3">
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    let babIndex = 0;
+
+    // Pasang event listener pada tombol "Add Bab"
+    document.querySelector('.add-bab-btn').addEventListener('click', function () {
+        babIndex++;
+        const babSection = document.createElement('div');
+        babSection.classList.add('bab-item', 'rounded', 'bg-whiteColor');
+        babSection.innerHTML = `
+            <div class="bab-header bg-whiteColor rounded flex justify-between items-center cursor-pointer">
+                <h3 class="bab-title">Bab ${babIndex + 1}</h3>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="bab-content hidden">
+                 <div class="mb-15px" >
+                    <label class="mb-3 block font-semibold">Judul Bab</label>
+                    <input type="text" name="bab[${babIndex}][name]" placeholder="Bab Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                </div>
+
                 <div class="modul-section">
-                    <div class="modul-item">
-                        <input type="text" name="bab[${babIndex}][moduls][0][name]" placeholder="Modul Name"  class="form-control mt-2">
-                        <input type="file" name="bab[${babIndex}][moduls][0][video]" accept="video/*" class="form-control mt-2">
-                        <input type="file" name="bab[${babIndex}][moduls][0][file]" accept="image/*,application/pdf" class="form-control mt-2">
-                        <textarea name="bab[${babIndex}][moduls][0][materi]" placeholder="Materi" class="form-control mt-2"></textarea>
+                    <div class="modul-item border p-5 mb-3">
+                        <div class="mb-15px">
+                            <label class="mb-3 block font-semibold">Judul Modul</label>
+                            <input type="text" name="bab[${babIndex}][moduls][0][name]" placeholder="Modul Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                        </div>
+
+                        <div class='grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px'>
+                            <div>
+                                <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Video Pembelajaran</label>
+                                <input type="file" name="bab[${babIndex}][moduls][0][video]" accept="video/*" class="form-control mb-1 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                            </div>
+
+                            <div>
+                                <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File foto</label>
+                                <input type="file" name="bab[${babIndex}][moduls][0][file]" accept="image/*,application/pdf" class="form-control mb-1 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="mb-3 block font-semibold">Materi</label>
+                            <textarea name="bab[${babIndex}][moduls][0][materi]" placeholder="Materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" required></textarea>
+                        </div>
                     </div>
                 </div>
                 <button type="button" class="btn btn-secondary add-modul-btn mt-2">Add Modul</button>
                 <button type="button" class="btn btn-danger remove-bab-btn mt-2">Remove Bab</button>
-            `;
-            
-            // Tambahkan bab baru ke dalam form
-            document.querySelector('.bab-section').appendChild(babSection);
+            </div>
+        `;
 
-            // Attach event listener untuk tombol "Add Modul"
-            attachModulHandler(babSection, babIndex);
-            
-            // Attach event listener untuk tombol "Remove Bab"
-            attachRemoveBabHandler(babSection);
-        });
+        // Tambahkan bab baru di bagian paling bawah
+        document.querySelector('.bab-section').appendChild(babSection);
 
-        // Fungsi untuk menghandle event tambah modul
-        function attachModulHandler(babElement, babIndex) {
-            let modulIndex = 0;
+        // Attach event listener untuk buka/tutup konten
+        attachToggleContentHandler(babSection);
 
-            babElement.querySelector('.add-modul-btn').addEventListener('click', function () {
-                modulIndex++;
-                const modulSection = babElement.querySelector('.modul-section');
-                const modulItem = document.createElement('div');
-                modulItem.classList.add('modul-item');
-                modulItem.innerHTML = `
-                    <input type="text" name="bab[${babIndex}][moduls][${modulIndex}][name]" placeholder="Modul Name"  class="form-control mt-2">
-                    <input type="file" name="bab[${babIndex}][moduls][${modulIndex}][video]" accept="video/*" class="form-control mt-2">
-                    <input type="file" name="bab[${babIndex}][moduls][${modulIndex}][file]" accept="image/*,application/pdf" class="form-control mt-2">
-                    <textarea name="bab[${babIndex}][moduls][${modulIndex}][materi]" placeholder="Materi" class="form-control mt-2"></textarea>
-                    <button type="button" class="btn btn-danger remove-modul-btn mt-2">Remove Modul</button>
-                `;
-                
-                modulSection.appendChild(modulItem);
+        // Attach event listener untuk tombol "Add Modul" pada bab baru
+        attachModulHandler(babSection, babIndex);
 
-                // Attach event listener untuk tombol "Remove Modul"
-                attachRemoveModulHandler(modulItem);
-            });
-        }
-
-        // Fungsi untuk menghandle event hapus modul
-        function attachRemoveModulHandler(modulElement) {
-            modulElement.querySelector('.remove-modul-btn').addEventListener('click', function () {
-                modulElement.remove();
-            });
-        }
-
-        // Fungsi untuk menghandle event hapus bab
-        function attachRemoveBabHandler(babElement) {
-            babElement.querySelector('.remove-bab-btn').addEventListener('click', function () {
-                babElement.remove();
-            });
-        }
+        // Attach event listener untuk tombol "Remove Bab"
+        attachRemoveBabHandler(babSection);
     });
+
+    // Fungsi untuk menghandle buka/tutup konten bab
+    function attachToggleContentHandler(babElement) {
+        const babHeader = babElement.querySelector('.bab-header');
+        const babContent = babElement.querySelector('.bab-content');
+        const toggleIcon = babElement.querySelector('.toggle-icon');
+
+        babHeader.addEventListener('click', function () {
+            babContent.classList.toggle('hidden');
+            babHeader.classList.toggle('open');
+        });
+    }
+
+    // Fungsi untuk menghandle event tambah modul
+    function attachModulHandler(babElement, babIndex) {
+        let modulIndex = 0;
+
+        babElement.querySelector('.add-modul-btn').addEventListener('click', function () {
+            modulIndex++;
+            const modulSection = babElement.querySelector('.modul-section');
+            const modulItem = document.createElement('div');
+            modulItem.classList.add('modul-item', 'border', 'p-5', 'mb-3');
+            modulItem.innerHTML = `
+                <div class="mb-15px relative">
+    <div>
+        <label class="mb-3 block font-semibold">Judul Modul</label>
+        <input type="text" 
+               name="bab[${babIndex}][moduls][${modulIndex}][name]" 
+               placeholder="Modul Name" 
+               class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" 
+               required>
+    </div>
+    <button type="button" 
+            class="btn btn-danger remove-modul-btn absolute top-0 right-0 mt-2 mr-2">&times;</button>
+</div>
+
+<div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
+    <div>
+        <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Video Pembelajaran</label>
+        <input type="file" 
+               name="bab[${babIndex}][moduls][${modulIndex}][video]" 
+               accept="video/*" 
+               class="form-control mb-1 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" 
+               required>
+    </div>
+
+    <div>
+        <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File foto</label>
+        <input type="file" 
+               name="bab[${babIndex}][moduls][${modulIndex}][file]" 
+               accept="image/*,application/pdf" 
+               class="form-control mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" 
+               required>
+    </div>
+</div>
+
+<div>
+    <label class="mb-3 block font-semibold">Materi</label>
+    <textarea name="bab[${babIndex}][moduls][${modulIndex}][materi]" 
+              placeholder="Materi" 
+              class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" 
+              cols="30" rows="10" 
+              required></textarea>
+</div>
+
+            `;
+
+            modulSection.appendChild(modulItem);
+
+            // Attach event listener untuk tombol "Remove Modul"
+            attachRemoveModulHandler(modulItem);
+        });
+    }
+
+    // Fungsi untuk menghandle event hapus modul
+    function attachRemoveModulHandler(modulElement) {
+        modulElement.querySelector('.remove-modul-btn').addEventListener('click', function () {
+            modulElement.remove();
+        });
+    }
+
+    // Fungsi untuk menghandle event hapus bab
+    function attachRemoveBabHandler(babElement) {
+        babElement.querySelector('.remove-bab-btn').addEventListener('click', function () {
+            babElement.remove();
+        });
+    }
+
+    // Attach event listener untuk modul pada form pertama
+    attachModulHandler(document.querySelector('.bab-item'), 0);
+    attachToggleContentHandler(document.querySelector('.bab-item'));
+});
+
 </script>
+
+
 
 <script>
     document.getElementById('name').addEventListener('input', function() {
@@ -150,4 +237,58 @@
             $(this).closest('.signature-item').remove();
         });
     });
+</script>
+
+<script>
+    // Function to toggle the visibility of the price input fields
+    function toggleHargaInput() {
+        var isPaid = document.getElementById('berbayar').value === 'true';
+        var hargaGroup = document.getElementById('harga-group');
+        var hargaDiskonGroup = document.getElementById('harga-diskon-group');
+
+        if (isPaid) {
+            hargaGroup.style.display = 'block';        // Show the price input when "Paid" is selected
+            hargaDiskonGroup.style.display = 'block'; // Show the discount price input when "Paid" is selected
+        } else {
+            hargaGroup.style.display = 'none';        // Hide the price input when "Free" is selected
+            hargaDiskonGroup.style.display = 'none';  // Hide the discount price input when "Free" is selected
+        }
+    }
+
+    // Initially run the toggle function to set the correct visibility
+    toggleHargaInput();
+
+    // Add event listener to the "Paid Course" dropdown to toggle the price field visibility
+    document.getElementById('berbayar').addEventListener('change', toggleHargaInput);
+</script>
+
+<script>
+    // Function to generate kode seri from course name
+    document.getElementById('name').addEventListener('input', function() {
+        var courseName = this.value;
+        var words = courseName.split(' ');  // Split the course name into words
+        var kodeSeri = words.map(function(word) {
+            return word.charAt(0).toUpperCase();  // Take the first letter of each word
+        }).join('');  // Join the first letters to form the kode seri
+        document.getElementById('kode_seri').value = kodeSeri;  // Set the kode seri input value
+    });
+</script>
+
+ 
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('thumbnailPreview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block'; // Tampilkan gambar setelah di-load
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>

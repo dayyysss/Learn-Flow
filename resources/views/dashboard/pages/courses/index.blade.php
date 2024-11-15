@@ -119,21 +119,27 @@
                           {{$item->name}}
                         </a>
                         <!-- price -->
-                        <div
-                          class="text-lg font-semibold text-primaryColor font-inter mb-4"
-                        >
-                          $32.00
-                          <del
-                            class="text-sm text-lightGrey4 font-semibold"
-                            >/ $67.00</del
-                          >
-                          <span class="ml-6"
-                            ><del
-                              class="text-base font-semibold text-greencolor"
-                              >Free</del
-                            ></span
-                          >
-                        </div>
+                        <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
+                          @if($item->harga_diskon)
+                              <!-- Menampilkan harga setelah diskon -->
+                              Rp {{ number_format($item->harga - $item->harga_diskon, 2, ',', '.') }}
+                              <del class="text-sm text-lightGrey4 font-semibold">
+                                  / Rp {{ number_format($item->harga, 2, ',', '.') }}
+                              </del>
+                          @else
+                              <!-- Menampilkan harga asli jika tidak ada diskon -->
+                              Rp {{ number_format($item->harga, 2, ',', '.') }}
+                          @endif
+                      
+                          <span class="ml-6">
+                              @if($item->harga - $item->harga_diskon > 0) <!-- Jika harga setelah diskon lebih besar dari nol -->
+                                  <del class="text-base font-semibold text-greencolor">Free</del>
+                              @else
+                                  <span class="text-base font-semibold text-greencolor">Free</span>
+                              @endif
+                          </span>
+                      </div>
+                      
                         <!-- author and rating-->
                         <div
                           class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
@@ -143,28 +149,31 @@
                               href="instructor-details.html"
                               class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                               ><img
-                                class="w-[30px] h-[30px] rounded-full mr-15px"
-                                src="../../assets/images/grid/grid_small_2.jpg"
-                                alt=""
-                              >Rinis Jhon
+                              class="w-[30px] h-[30px] rounded-full mr-15px"
+                              src="{{ $item->instrukturs->image ? Storage::url($item->instrukturs->image) : asset('assets/images/grid/grid_small_2.jpg') }}"
+                              alt="{{ $item->instrukturs->name }}"
+                          >
+                          {{$item->instrukturs->name}}
                             </a>
                           </div>
                           <div class="text-start md:text-end">
+                            <div>
                             <i
-                              class="icofont-star text-size-15 text-yellow"
+                              class="icofont-star text-size-10 text-yellow"
                             ></i>
                             <i
-                              class="icofont-star text-size-15 text-yellow"
+                              class="icofont-star text-size-10 text-yellow"
                             ></i>
                             <i
-                              class="icofont-star text-size-15 text-yellow"
+                              class="icofont-star text-size-10 text-yellow"
                             ></i>
                             <i
-                              class="icofont-star text-size-15 text-yellow"
+                              class="icofont-star text-size-10 text-yellow"
                             ></i>
                             <i
-                              class="icofont-star text-size-15 text-yellow"
+                              class="icofont-star text-size-10 text-yellow"
                             ></i>
+                            </div>
                             <span class="text-xs text-lightGrey6"
                               >(44)</span
                             >

@@ -14,7 +14,7 @@
               <!-- course thumbnail -->
               <div class="overflow-hidden relative mb-5">
                 <img
-                  src="assets/images/blog/blog_8.png"
+                  src="{{asset('assets/images/blog/blog_8.png')}}"
                   alt=""
                   class="w-full"
                 >
@@ -1436,7 +1436,7 @@
                             <div class="flex-shrink-0">
                               <div>
                                 <img
-                                  src="assets/images/teacher/teacher__2.png"
+                                  src="{{asset('assets/images/teacher/teacher__2.png')}}"
                                   alt=""
                                   class="w-25 h-25 rounded-full"
                                 >
@@ -1487,7 +1487,7 @@
                             <div class="flex-shrink-0">
                               <div>
                                 <img
-                                  src="assets/images/teacher/teacher__1.png"
+                                  src="{{asset('assets/images/teacher/teacher__1.png')}}"
                                   alt=""
                                   class="w-25 h-25 rounded-full"
                                 >
@@ -1538,7 +1538,7 @@
                             <div class="flex-shrink-0">
                               <div>
                                 <img
-                                  src="assets/images/teacher/teacher__3.png"
+                                  src="v{{asset('assets/images/teacher/teacher__3.png')}}"
                                   alt=""
                                   class="w-25 h-25 rounded-full"
                                 >
@@ -1679,7 +1679,7 @@
                         <!-- athor avatar -->
                         <div class="flex mb-30px mr-5 flex-shrink-0">
                           <img
-                            src="assets/images/blog/blog_10.png"
+                            src="{{asset('assets/images/blog/blog_10.png')}}"
                             alt=""
                             class="w-24 h-24 rounded-full"
                           >

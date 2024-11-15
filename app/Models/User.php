@@ -76,4 +76,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(CourseRegistration::class);
     }
+
+    public function courses_instruktur()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+
 }

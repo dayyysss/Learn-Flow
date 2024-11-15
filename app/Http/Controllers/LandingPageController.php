@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryCourse;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
@@ -18,7 +20,14 @@ class LandingPageController extends Controller
 
     public function course()
     {
-        return view('landing.pages.course.course');
+
+        $categories = CategoryCourse::all();
+        $instrukturs = CategoryCourse::all();
+        
+        // Lakukan eager loading relasi 'category_courses'
+        $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
+        
+        return view('landing.pages.course.course', compact('course', 'categories', 'instrukturs'));
     }
 
     public function zoomWebinar()
