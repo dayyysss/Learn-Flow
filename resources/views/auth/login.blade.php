@@ -185,6 +185,12 @@
                                     </p>
                                 </div>
 
+                                @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+
                                 <form class="pt-25px" action="{{ route('register') }}" method="POST"
                                     data-aos="fade-up">
                                     @csrf <!-- Pastikan untuk menambahkan token CSRF -->

@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('category_artikel', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();  
             $table->string('name');
+            $table->string('slug')->unique();  
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -23,6 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_artikel');
+        Schema::table('category_artikel', function (Blueprint $table) {
+            $table->dropColumn(['user_id', 'name', 'slug', 'status']);
+        });
     }
 };
