@@ -64,7 +64,8 @@
                     </div>
 
                     <!-- Submenu Kategori -->
-                    <ul id="submenu-kategori" class="hidden pl-26px py-2">
+                    <ul id="submenu-kategori"
+                        class="pl-26px py-2 {{ request()->routeIs('dashboard.courses') || request()->routeIs('kategori-kursus.index') || request()->routeIs('courses.index') ? '' : 'hidden' }}">
                         <li>
                             <a href="{{ route('courses.index') }}"
                                 class="sidebar-link {{ request()->routeIs('courses.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
@@ -227,7 +228,8 @@
                         Pengaturan</a>
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                    <a href="{{ route('logout') }}"
+                    <a href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                         class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"
                         id="logout-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -256,14 +258,12 @@
 
     <script>
         function toggleSubmenu(element) {
-            const submenu = element.nextElementSibling; // Mencari elemen submenu yang berada setelah elemen yang diklik
+            const submenu = element.nextElementSibling; // Mendapatkan elemen <ul> submenu yang berada setelah <div>
+            const icon = element.querySelector('.arrow-icon-side'); // Mendapatkan icon panah
+
             if (submenu) {
-                submenu.classList.toggle('hidden'); // Toggle class hidden untuk sembunyikan/tampilkan
-            }
-            // Toggle rotasi ikon panah
-            const arrowIcon = element.querySelector('.arrow-icon-side');
-            if (arrowIcon) {
-                arrowIcon.classList.toggle('rotate-180'); // Ubah rotasi ikon panah
+                submenu.classList.toggle('hidden'); // Menyembunyikan/menampilkan submenu
+                icon.classList.toggle('rotate-180'); // Mengubah rotasi icon untuk animasi
             }
         }
     </script>

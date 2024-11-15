@@ -31,11 +31,11 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_reset_tokens',
-            'expire' => 10, 
-            'throttle' => 60, 
+            'table' => 'password_resets',
+            'expire' => 60,
         ],
     ],
+
 
 
     /*
@@ -154,7 +154,7 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([

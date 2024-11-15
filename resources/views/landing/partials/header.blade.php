@@ -97,7 +97,7 @@
                                             class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('courses.index') }}"
+                                                    <a href="{{ route('course') }}"
                                                         class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
                                                         Kursus
                                                         <span
@@ -264,7 +264,8 @@
                                                     Pengaturan
                                                 </a>
 
-                                                <a href="{{ route('logout') }}"
+                                                <a href="#"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                                     class="flex items-center mt-2 text-darkblack hover:text-secondaryColor dark:text-whiteColor-dark dark:hover:text-secondaryColor">
                                                     <!-- Ikon SVG Keluar -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -278,12 +279,12 @@
                                                     </svg>
                                                     Keluar
                                                 </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+
+                                                <!-- Form Logout Tersembunyi -->
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                </form>
 
 
                                     <li class="hidden lg:block">
