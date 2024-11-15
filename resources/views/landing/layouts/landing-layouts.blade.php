@@ -9,6 +9,7 @@
     <!-- link stylesheet -->
     <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/video-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     @yield('head')

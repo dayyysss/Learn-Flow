@@ -50,39 +50,36 @@ class CategoryCourseController extends Controller
     }
 
 
-  public function edit($id)
-  {
-      // Ambil kategori berdasarkan ID
-      $category = CategoryCourse::findOrFail($id);
+    public function edit($id)
+    {
+        $category = CategoryCourse::findOrFail($id);
+        return response()->json($category);
+    }
 
-      // Tampilkan halaman edit dengan data kategori
-      return view('dashboard.kategori.create', compact('category'));
-  }
-
-  public function update(Request $request, $id)
-  {
-      $validator = Validator::make($request->all(), [
-          'name' => 'required',
-          'status' => 'required',
-      ]);
-
-      if ($validator->fails()) {
-          return redirect()->back()->withErrors($validator)->withInput();
-      }
-
-      $category = CategoryCourse::findOrFail($id);
-
-      $category->name = $request->name;
-      $category->status = $request->status;
-      $category->save();
-
-      return response()->json([
-          'status' => 'success',
-          'message' => 'Kategori Kursus berhasil diperbarui.',
-          'redirect_url' => route('kategori-kursus.index') 
-      ]);
-  }
-
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $category = CategoryCourse::findOrFail($id);
+        
+        $category->update([
+            'name' => $request->name,
+            'status' => $request->status,
+            'slug' => Str::slug($request->name)
+        ]);
+    
+        notify()->success('Kategori Kursus berhasil diperbarui.', 'Berhasil!');
+        
+        return redirect()->route('kategori-kursus.index');
+    }
+  
   public function destroy($id)
   {
       // Temukan kategori berdasarkan ID
@@ -92,11 +89,9 @@ class CategoryCourseController extends Controller
       $category->delete();
 
       // Redirect kembali dengan pesan sukses
-      return response()->json([
-          'status' => 'success',
-          'message' => 'Kategori kursus berhasil dihapus!',
-          'redirect_url' => route('kategori-kursus.index') // URL tujuan
-      ]);
+      notify()->success('Kategori Kursus berhasil dihapus.', 'Berhasil!');
+      
+      return redirect()->route('kategori-kursus.index');
   }
 
   // public function bulkDelete(Request $request)
