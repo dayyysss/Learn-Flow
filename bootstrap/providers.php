@@ -3,6 +3,6 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\FortifyServiceProvider::class,
-    Spatie\Permission\PermissionServiceProvider::class,
     Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
+    Spatie\Permission\PermissionServiceProvider::class,
 ];
