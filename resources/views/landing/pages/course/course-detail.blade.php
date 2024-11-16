@@ -29,23 +29,20 @@
                     <button
                       class="text-sm text-whiteColor bg-primaryColor border border-primaryColor px-26px py-0.5 leading-23px font-semibold hover:text-primaryColor hover:bg-whiteColor rounded inline-block dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor"
                     >
-                      Featured
+                      {{$course->categories->name}}
                     </button>
-                    <button
-                      class="text-sm text-whiteColor bg-secondaryColor border border-secondaryColor px-22px py-0.5 leading-23px font-semibold hover:text-secondaryColor hover:bg-whiteColor rounded inline-block dark:hover:bg-whiteColor-dark dark:hover:text-secondaryColor"
-                    >
-                      Ux Design
-                    </button>
+                  
                   </div>
                   <div>
                     <p
                       class="text-sm text-contentColor dark:text-contentColor-dark font-medium"
                     >
                       Last Update:
-                      <span class="text-blackColor dark:text-blackColor-dark"
-                        >Sep 29, 2024</span
-                      >
+                      <span class="text-blackColor dark:text-blackColor-dark">
+                        {{ $course->updated_at->format('F d, Y') }}
+                      </span>
                     </p>
+
                   </div>
                 </div>
 
@@ -54,7 +51,7 @@
                   class="text-size-32 md:text-4xl font-bold text-blackColor dark:text-blackColor-dark mb-15px leading-43px md:leading-14.5"
                   data-aos="fade-up"
                 >
-                  Making Music with Other People
+                 {{$course->name}}
                 </h4>
                 <!-- price and rating -->
                 <div
@@ -64,10 +61,17 @@
                   <div
                     class="text-size-21 font-medium text-primaryColor font-inter leading-25px"
                   >
-                    $32.00
-                    <del class="text-sm text-lightGrey4 font-semibold"
-                      >/ $67.00</del
-                    >
+                  
+                  @if($course->harga_diskon)
+                  <!-- Menampilkan harga setelah diskon -->
+                  Rp {{ number_format($course->harga - $course->harga_diskon, 2, ',', '.') }}
+                  <del class="text-sm text-lightGrey4 font-semibold">
+                      / Rp {{ number_format($course->harga, 2, ',', '.') }}
+                  </del>
+              @else
+                  <!-- Menampilkan harga asli jika tidak ada diskon -->
+                  Rp {{ number_format($course->harga, 2, ',', '.') }}
+              @endif
                   </div>
                   <div class="flex items-center">
                     <div>
@@ -78,7 +82,10 @@
                     <div>
                       <span
                         class="text-sm text-black dark:text-blackColor-dark"
-                        >23 Lesson</span
+                        >{{ $course->babs->sum(function($bab) {
+                          return $bab->moduls->count();
+                      }) }}
+                          Modul</span
                       >
                     </div>
                   </div>
@@ -95,14 +102,7 @@
                   class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                   data-aos="fade-up"
                 >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Curabitur vulputate vestibulum rhoncus, dolor eget viverra
-                  pretium, dolor tellus aliquet nunc, vitae ultricies erat
-                  elit eu lacus. Vestibulum non justo consectetur, cursus
-                  ante, tincidunt sapien. Nulla quis diam sit amet turpis
-                  interd enim. Vivamus faucibus ex sed nibh egestas elementum.
-                  Mauris et bibendum dui. Aenean consequat pulvinar luctus.
-                  Suspendisse consectetur tristique
+                  {{$course->deskripsi}}
                 </p>
                 <!-- details -->
                 <div>
@@ -128,7 +128,7 @@
                           <span
                             class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
                           >
-                            Mirnsdo.H</span
+                          {{$course->instrukturs->name}}</span
                           >
                         </p>
                       </li>
@@ -144,7 +144,7 @@
                           >
                         </p>
                       </li>
-                      <li>
+                      {{-- <li>
                         <p
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
                         >
@@ -155,7 +155,7 @@
                             20h 41m 32s</span
                           >
                         </p>
-                      </li>
+                      </li> --}}
                       <li>
                         <p
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
@@ -189,14 +189,13 @@
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
                         >
                           Course level :
-                          <span
-                            class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
-                          >
-                            Intermediate</span
-                          >
+                          <span class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100">
+                            {{ $course->tingkatan ? $course->tingkatan : '-' }}
+                        </span>
+                        
                         </p>
                       </li>
-                      <li>
+                      {{-- <li>
                         <p
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
                         >
@@ -207,17 +206,27 @@
                             English spanish</span
                           >
                         </p>
-                      </li>
+                      </li> --}}
                       <li>
                         <p
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
                         >
                           Price Discount :
-                          <span
-                            class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
-                          >
-                            -20%</span
-                          >
+                        @php
+                          $hargaAsli = $course->harga; 
+                          $hargaDiskon = $course->harga_diskon; 
+
+                          if ($hargaAsli > 0 && $hargaDiskon >= 0) {
+                              $persentaseDiskon = (($hargaDiskon / $hargaAsli)) * 100;
+                          } else {
+                              $persentaseDiskon = 0;
+                          }
+                       @endphp
+
+                    <span class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100">
+                        {{ number_format($persentaseDiskon, 0) }}%
+                    </span>
+
                         </p>
                       </li>
                       <li>
@@ -228,7 +237,7 @@
                           <span
                             class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
                           >
-                            $228/Mo</span
+                          Rp {{ number_format($course->harga, 2, ',', '.') }}</span
                           >
                         </p>
                       </li>

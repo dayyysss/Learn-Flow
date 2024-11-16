@@ -66,7 +66,7 @@ Route::get('/assignments', [DashboardController::class, 'assignments'])->name('d
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
 Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
 
-Route::get('/detail-course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 
 Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
