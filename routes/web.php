@@ -65,10 +65,12 @@ Route::get('/cart', [DashboardController::class, 'cart'])->name('addashboardmin.
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
 Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
+
+Route::get('/detail-course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+
 Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
 Route::resource('/kategori-kursus', CategoryCourseController::class);
-Route::resource('/kursus', CourseController::class);
 Route::resource('/artikel', ArtikelController::class);
 Route::resource('/kategori-artikel', CategoryArtikelController::class);
 

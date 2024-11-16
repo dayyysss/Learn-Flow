@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('score_amount')->default(0);
             $table->dateTime('date_quiz');
             $table->timestamp('completed_at')->nullable();
+            $table->enum('status',['tidak lulus', 'lulus'])->default('tidak lulus');
             $table->timestamps();
         });
     }

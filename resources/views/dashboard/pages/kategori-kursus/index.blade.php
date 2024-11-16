@@ -156,6 +156,8 @@
         </div>
     </div>
 
+    @include('dashboard.pages.kategori-kursus.edit')
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('categoryModal');
