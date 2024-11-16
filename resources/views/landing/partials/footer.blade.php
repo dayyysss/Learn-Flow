@@ -246,8 +246,8 @@
           class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-30px pt-10 items-center"
         >
           <div class="lg:col-start-1 lg:col-span-3">
-            <a href="index.html">
-              <img src="assets/images/logo/logo_1.png" alt="" >
+            <a href=" {{ url('/') }} ">
+              <img src="assets/images/logo/logo_1.png" alt="logo LF" style="width: 180px;">
             </a>
           </div>
 

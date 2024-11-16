@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    @vite(['resources/css/app.css'])
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- @vite(['resources/css/app.css']) --}}
     @yield('head')
 </head>
 
