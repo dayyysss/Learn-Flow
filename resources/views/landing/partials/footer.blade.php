@@ -247,7 +247,7 @@
         >
           <div class="lg:col-start-1 lg:col-span-3">
             <a href="index.html">
-              <img src="assets/images/logo/logo_2.png" alt="" >
+              <img src="assets/images/logo/logo_1.png" alt="" >
             </a>
           </div>
 
