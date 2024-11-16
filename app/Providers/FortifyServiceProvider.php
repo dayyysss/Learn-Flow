@@ -29,6 +29,7 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements LoginResponse {
             public function toResponse($request)
             {
+                notify()->success('Login berhasil!', 'Selamat datang!');
                 return redirect()->route('dashboard');
             }
             }
@@ -39,6 +40,7 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements LogoutResponse {
             public function toResponse($request)
             {
+                notify()->success('Logout berhasil!', 'Sampai jumpa!');
                 return redirect()->route('index');
             }
             }
@@ -49,6 +51,7 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements RegisterResponse {
             public function toResponse($request)
             {
+                notify()->success('Registrasi berhasil!', 'Silakan login.');
                 return redirect()->route('login');
             }
             }
