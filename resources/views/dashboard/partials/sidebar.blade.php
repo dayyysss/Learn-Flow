@@ -50,8 +50,8 @@
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <div class="flex items-center justify-between cursor-pointer" onclick="toggleSubmenu(this)">
-                        <a href="{{ route('dashboard.courses') }}"
-                            class="sidebar-link {{ request()->routeIs('dashboard.courses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                        <a
+                            class="sidebar-link text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-bookmark">
@@ -60,13 +60,15 @@
                             Kursus
                         </a>
                         <img src="../../assets/images/icon/down-arrow.svg" alt="Arrow Icon"
-                            class="arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px" />
+                            class="arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px">
                     </div>
+
                     <!-- Submenu Kategori -->
-                    <ul id="submenu-kategori" class="hidden pl-26px py-2">
+                    <ul id="submenu-kategori"
+                        class="pl-26px py-2 {{ request()->routeIs('dashboard.courses') || request()->routeIs('kategori-kursus.index') || request()->routeIs('courses.index') ? '' : 'hidden' }}">
                         <li>
-                            <a href="{{ route('dashboard.courses') }}"
-                                class="sidebar-link {{ request()->routeIs('dashboard.courses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                            <a href="{{ route('courses.index') }}"
+                                class="sidebar-link {{ request()->routeIs('courses.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">
@@ -76,8 +78,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/kategori-kursus') }}"
-                                class="sidebar-link {{ request()->routeIs('dashboard.courses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 mt-2 flex gap-3 text-nowrap">
+                            <a href="{{ route('kategori-kursus.index') }}"
+                                class="sidebar-link {{ request()->routeIs('kategori-kursus.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 mt-2 flex gap-3 text-nowrap">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">
@@ -226,7 +228,8 @@
                         Pengaturan</a>
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                    <a href="{{ route('logout') }}"
+                    <a href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                         class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"
                         id="logout-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -255,12 +258,13 @@
 
     <script>
         function toggleSubmenu(element) {
-            const submenu = element.nextElementSibling;
-            const arrow = element.querySelector('.arrow-icon-side');
+            const submenu = element.nextElementSibling; // Mendapatkan elemen <ul> submenu yang berada setelah <div>
+            const icon = element.querySelector('.arrow-icon-side'); // Mendapatkan icon panah
 
-            submenu.classList.toggle('hidden');
-
-            arrow.classList.toggle('rotate-180');
+            if (submenu) {
+                submenu.classList.toggle('hidden'); // Menyembunyikan/menampilkan submenu
+                icon.classList.toggle('rotate-180'); // Mengubah rotasi icon untuk animasi
+            }
         }
     </script>
 </section>

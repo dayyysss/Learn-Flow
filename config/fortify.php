@@ -28,7 +28,15 @@ return [
     |
     */
 
-    'passwords' => 'users',
+    'passwords' => [
+        'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+    ],
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -146,7 +154,7 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([

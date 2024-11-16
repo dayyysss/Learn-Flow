@@ -24,31 +24,23 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+        $this->app->instance(
+            LoginResponse::class,
+            new class implements LoginResponse {
             public function toResponse($request)
             {
-                if (Auth::check()) {
-                    $user = Auth::user();
-
-                    if ($user->hasRole('superadmin')) {
-                        return redirect()->route('dashboard');
-                    } elseif ($user->hasRole('instructor')) {
-                        return redirect()->route('instructor.dashboard');
-                    } else {
-                        return redirect()->route('student.dashboard');
-                    }
-                }
-
-                return redirect()->route('login')
-                    ->withErrors(['email' => 'The provided credentials do not match our records.']);
+                notify()->success('Login berhasil!', 'Selamat datang!');
+                return redirect()->route('dashboard');
             }
-        });
+            }
+        );
 
         $this->app->instance(
             LogoutResponse::class,
             new class implements LogoutResponse {
             public function toResponse($request)
             {
+                notify()->success('Logout berhasil!', 'Sampai jumpa!');
                 return redirect()->route('index');
             }
             }
@@ -59,6 +51,7 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements RegisterResponse {
             public function toResponse($request)
             {
+                notify()->success('Registrasi berhasil!', 'Silakan login.');
                 return redirect()->route('login');
             }
             }
@@ -88,6 +81,10 @@ class FortifyServiceProvider extends ServiceProvider
         //reset
         Fortify::resetPasswordView(function ($request) {
             return view('auth.reset-password', ['request' => $request]);
+        });
+
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
         });
 
         Fortify::createUsersUsing(CreateNewUser::class);

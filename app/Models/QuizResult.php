@@ -12,6 +12,7 @@ class QuizResult extends Model
         'score_amount',
         'date_quiz',
         'completed_at',
+        'status',
     ];
 
     public function user()

@@ -996,31 +996,41 @@ video {
   margin: auto;
 }
 
+.container-fluid-5{
+  max-width: 100%;
+  padding-right: 15px;
+  margin: auto;
+}
 @media (min-width: 576px){
+  .container-fluid-5,
   .container{
     max-width: 33.75rem;
   }
 }
 
 @media (min-width: 768px){
+  .container-fluid-5,
   .container{
     max-width: 45rem;
   }
 }
 
 @media (min-width: 992px){
+  .container-fluid-5,
   .container{
     max-width: 60rem;
   }
 }
 
 @media (min-width: 1200px){
+  .container-fluid-5,
   .container{
     max-width: 71.25rem;
   }
 }
 
 @media (min-width: 1366px){
+  .container-fluid-5,
   .container{
     max-width: 75rem;
   }
@@ -9134,4 +9144,20 @@ video {
 
 .arrow-icon-side.rotate-180 {
   transform: rotate(180deg); 
+}
+
+@media (max-width: 420px) {
+  .arrow-icon {
+      display: none; 
+  }
+
+  .arrow-icon {
+      margin-left: -10px; 
+      width: 14px; 
+  }
+
+  .dropdown-profile {
+      right: 10px;
+      width: auto; 
+  }
 }

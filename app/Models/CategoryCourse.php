@@ -14,6 +14,10 @@ class CategoryCourse extends Model
     {
         return $this->hasMany(Course::class);
     }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public static function boot()
 {

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\CategoryArtikel;
 use Illuminate\Http\Request;
+use App\Models\CategoryArtikel;
+use App\Http\Controllers\Controller;
 
 class CategoryArtikelController extends Controller
 {
@@ -22,10 +23,14 @@ class CategoryArtikelController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'status' => 'nullable|boolean',
         ]);
 
         CategoryArtikel::create([
+            'user_id' => auth()->user()->id,
             'name' => $request->name,
+            'slug' => \Str::Slug($request->slug),
+            'status' => $request->status ?? true,
         ]);
 
         return redirect()->route('kategori-artikel.index')->with('success', 'Kategori berhasil ditambahkan.');
@@ -45,10 +50,14 @@ class CategoryArtikelController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'status' => 'nullable|boolean',
         ]);
 
         $categoryArtikel->update([
+            'user_id' => auth()->user()->id,
             'name' => $request->name,
+            'slug' => \Str::Slug($request->slug),
+            'status' => $request->status,
         ]);
 
         return redirect()->route('kategori-artikel.index')->with('success', 'Kategori berhasil diperbarui.');

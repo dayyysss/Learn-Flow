@@ -2,9 +2,8 @@
 @section('page_title', 'About Us | Learn Flow')
 @section('content')
 
-@include('landing.components.breadcrumb', ['title' => 'About Us'])
- 
-    <!-- about  section -->
+    @include('landing.components.breadcrumb', ['title' => 'About Us'])
+
     <section>
       <div class="container py-50px md:py-70px lg:py-20 2xl:py-100px">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-30px">
