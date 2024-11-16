@@ -264,7 +264,8 @@
                                                     Pengaturan
                                                 </a>
 
-                                                <a href="{{ route('logout') }}"
+                                                <a href="#"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                                     class="flex items-center mt-2 text-darkblack hover:text-secondaryColor dark:text-whiteColor-dark dark:hover:text-secondaryColor">
                                                     <!-- Ikon SVG Keluar -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -278,12 +279,12 @@
                                                     </svg>
                                                     Keluar
                                                 </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+
+                                                <!-- Form Logout Tersembunyi -->
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                </form>
 
 
                                     <li class="hidden lg:block">

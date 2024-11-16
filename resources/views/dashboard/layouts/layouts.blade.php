@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('page_title', 'Learn Flow | Course and LMS')</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
     <!-- Stylesheets -->
@@ -13,12 +14,17 @@
     <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    @vite(['resources/css/app.css'])
+    {{-- @notifyCss --}}
     @yield('head')
 </head>
 
 <body class="relative font-inter font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
+   
+
     <!-- Preloader -->
-    <div
+    {{-- <div
         class="preloader fixed top-0 left-0 h-screen w-full flex items-center justify-center bg-white z-xxl opacity-100 transition-all duration-700">
         <div
             class="w-90px h-90px border-5px border-t-blue border-r-blue border-b-blue-light border-l-blue-light rounded-full animate-spin-infinit">
@@ -26,7 +32,7 @@
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <img src="{{ asset('assets/images/pre.png') }}" alt="Preloader" class="h-10 w-10 block">
         </div>
-    </div>
+    </div> --}}
 
     <!-- Theme Fixed Shadows -->
     <div>
@@ -78,6 +84,7 @@
             <div class="lg:col-start-4 lg:col-span-9">
                 <main class="bg-transparent">
                     @yield('content')
+                    <x-notify::notify />
                 </main>
             </div>
         </div>
@@ -108,7 +115,7 @@
     <script src="{{ asset('assets/js/vanilla-tilt.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
+    @notifyJs
 </body>
 
 </html>

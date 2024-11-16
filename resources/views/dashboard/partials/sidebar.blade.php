@@ -49,15 +49,46 @@
                         class="text-size-10 font-medium text-whiteColor px-9px bg-primaryColor leading-14px rounded-2xl">12</span>
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                    <a href="{{ route('dashboard.courses') }}"
-                        class="sidebar-link {{ request()->routeIs('dashboard.courses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-bookmark">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        Kursus
-                    </a>
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleSubmenu(this)">
+                        <a
+                            class="sidebar-link text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-bookmark">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            Kursus
+                        </a>
+                        <img src="../../assets/images/icon/down-arrow.svg" alt="Arrow Icon"
+                            class="arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px">
+                    </div>
+
+                    <!-- Submenu Kategori -->
+                    <ul id="submenu-kategori"
+                        class="pl-26px py-2 {{ request()->routeIs('dashboard.courses') || request()->routeIs('kategori-kursus.index') || request()->routeIs('courses.index') ? '' : 'hidden' }}">
+                        <li>
+                            <a href="{{ route('courses.index') }}"
+                                class="sidebar-link {{ request()->routeIs('courses.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Daftar Kursus
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('kategori-kursus.index') }}"
+                                class="sidebar-link {{ request()->routeIs('kategori-kursus.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 mt-2 flex gap-3 text-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Kategori Kursus
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard.wishlist') }}"
@@ -166,17 +197,6 @@
                     </a>
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                    <a href="{{ route('dashboard.quizAttempts') }}"
-                        class="sidebar-link {{ request()->routeIs('dashboard.quizAttempts') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-message-square">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z">
-                            </path>
-                        </svg>
-                        Percobaan Kuis</a>
-                </li>
-                <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard.assignments') }}"
                         class="sidebar-link {{ request()->routeIs('dashboard.assignments') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                             xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -196,7 +216,7 @@
             <ul>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard.settings') }}"
-                    class="sidebar-link {{ request()->routeIs('dashboard.settings') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
+                        class="sidebar-link {{ request()->routeIs('dashboard.settings') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                             xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-settings">
@@ -208,7 +228,8 @@
                         Pengaturan</a>
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                    <a href="{{ route('logout') }}"
+                    <a href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                         class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"
                         id="logout-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -235,4 +256,15 @@
         });
     </script>
 
+    <script>
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling; // Mendapatkan elemen <ul> submenu yang berada setelah <div>
+            const icon = element.querySelector('.arrow-icon-side'); // Mendapatkan icon panah
+
+            if (submenu) {
+                submenu.classList.toggle('hidden'); // Menyembunyikan/menampilkan submenu
+                icon.classList.toggle('rotate-180'); // Mengubah rotasi icon untuk animasi
+            }
+        }
+    </script>
 </section>
