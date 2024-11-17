@@ -64,8 +64,7 @@
                         <!-- navbar left -->
                         <div class="lg:col-start-1 lg:col-span-2">
                             <a href="{{ url('/') }}" class="block">
-                                <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="Logo"
-                                    class="w-full lg:w-auto py-2">
+                                <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="Logo" style="width: 180px;">
                             </a>
                         </div>
 

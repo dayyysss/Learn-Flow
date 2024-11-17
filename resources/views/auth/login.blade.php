@@ -16,7 +16,7 @@
 
 <body class="relative font-inter font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
     <!-- preloader -->
-    <div
+    {{-- <div
         class="preloader flex fixed top-0 left-0 h-screen w-full items-center justify-center z-xxl bg-whiteColor opacity-100 visible transition-all duration-700">
         <!-- spinner -->
         <div
@@ -25,7 +25,7 @@
         <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
             <img src="assets/images/pre.png" alt="Preloader" class="h-10 w-10 block">
         </div>
-    </div>
+    </div> --}}
     <!-- theme fixed shadow -->
     <div>
         <div class="fixed-shadow left-[-250px]"></div>
@@ -77,13 +77,13 @@
                             <span
                                 class="absolute w-full h-1 bg-primaryColor top-0 left-0 group-hover/btn:w-full"></span>
 
-                            Login
+                            Masuk
                         </button>
                         <button
                             class="py-9px lg:py-6 hover:text-primaryColor dark:hover:text-primaryColor dark:text-whiteColor bg-lightGrey7 dark:bg-lightGrey7-dark hover:bg-white dark:hover:bg-whiteColor-dark relative group/btn hover:shadow-bottom dark:shadow-standard-dark disabled:cursor-pointer rounded-standard">
                             <span class="absolute w-0 h-1 bg-primaryColor top-0 left-0 group-hover/btn:w-full"></span>
 
-                            Sign up
+                            Daftar
                         </button>
                     </div>
 
@@ -97,13 +97,13 @@
                                 <div class="text-center">
                                     <h3
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
-                                        Login
+                                        Masuk
                                     </h3>
                                     <p class="text-contentColor dark:text-contentColor-dark mb-15px">
-                                        Don't have an account yet?
+                                        Belum punya akun?
                                         <a href="login.html"
-                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Sign
-                                            up for free
+                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Daftar
+                                            gratis
                                         </a>
                                     </p>
                                 </div>
@@ -113,7 +113,7 @@
                                     <div class="mb-25px">
                                         <label
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Username
-                                            or email</label>
+                                            atau email</label>
                                         <input type="text" id="email" name="email"
                                             placeholder="Your username or email"
                                             class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
@@ -131,12 +131,12 @@
                                         <div class="flex items-center">
                                             <input type="checkbox" id="remember" name="remember"
                                                 class="w-18px h-18px mr-2 block box-content" />
-                                            <label for="remember"> Remember me</label>
+                                            <label for="remember"> Ingatkan saya</label>
                                         </div>
                                         <div>
                                             <a href="{{ route('password.request') }}"
                                                 class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">
-                                                Forgot your password?
+                                                Lupa kata sandi Anda?
                                             </a>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
                                     <div class="my-25px text-center">
                                         <button type="submit"
                                             class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Log in
+                                            Masuk
                                         </button>
                                     </div>
 
@@ -167,7 +167,7 @@
                                         </button>
                                     </div>
                                 </form>
-
+                                <x-notify::notify />
                             </div>
                             <!-- sign up form-->
                             <div class="hidden opacity-0 transition-opacity duration-150 ease-linear">
@@ -175,13 +175,13 @@
                                 <div class="text-center">
                                     <h3
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
-                                        Sing Up
+                                        Daftar akun Learn Flow
                                     </h3>
                                     <p class="text-contentColor dark:text-contentColor-dark mb-15px">
-                                        Already have an account?
+                                        Sudah punya akun?
                                         <a href="login.html"
-                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Log
-                                            In</a>
+                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Masuk
+                                            sekarang</a>
                                     </p>
                                 </div>
 
@@ -198,17 +198,18 @@
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
                                             <label
-                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">First
-                                                Name</label>
-                                            <input type="text" name="first_name" placeholder="First Name"
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Nama
+                                                Depan
+                                            </label>
+                                            <input type="text" name="first_name" placeholder="Nama Depan"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 required />
                                         </div>
                                         <div>
                                             <label
-                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Last
-                                                Name</label>
-                                            <input type="text" name="last_name" placeholder="Last Name"
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Nama
+                                                Belakang</label>
+                                            <input type="text" name="last_name" placeholder="Nama Belakang"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 required />
                                         </div>
@@ -225,7 +226,7 @@
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Email</label>
-                                            <input type="email" name="email" placeholder="Your Email"
+                                            <input type="email" name="email" placeholder="Alamat Email"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 required />
                                         </div>
@@ -235,16 +236,16 @@
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
-                                            <input type="password" name="password" placeholder="Password"
+                                            <input type="password" name="password"
+                                                placeholder="Password minimal 8 karakter"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 required />
                                         </div>
                                         <div>
-                                            <label
-                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Re-Enter
-                                                Password</label>
+                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">
+                                                Konfirmasi Password</label>
                                             <input type="password" name="password_confirmation"
-                                                placeholder="Re-Enter Password"
+                                                placeholder="Masukkan ulang password"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 required />
                                         </div>
@@ -253,7 +254,7 @@
                                     <div class="text-contentColor dark:text-contentColor-dark flex items-center">
                                         <input type="checkbox" id="accept-pp" name="terms"
                                             class="w-18px h-18px mr-2 block box-content" required />
-                                        <label for="accept-pp">Accept the Terms and Privacy Policy</label>
+                                        <label for="accept-pp">Terima Persyaratan dan Kebijakan Privasi</label>
                                     </div>
 
                                     <!-- Input hidden untuk role 'student' -->
@@ -262,7 +263,7 @@
                                     <div class="mt-25px text-center">
                                         <button type="submit"
                                             class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Register
+                                            Daftar
                                         </button>
                                     </div>
                                 </form>
@@ -311,7 +312,8 @@
     <script src="{{ asset('assets/js/vanilla-tilt.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
+    @notifyJs
+    
     <script>
         document.querySelectorAll('.tab-links button').forEach((btn, index) => {
             btn.addEventListener('click', function() {
