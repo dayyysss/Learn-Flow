@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\QuizController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -79,6 +80,9 @@ Route::get('/course-registrations/create/{courseId}', [CourseRegistrationControl
 Route::post('/course-registrations', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
 Route::get('/course-registrations/{id}', [CourseRegistrationController::class, 'show'])->name('course-registrations.show');
 Route::get('/course-registrations', [CourseRegistrationController::class, 'enrolledCourses'])->name('course-registrations.index');
+
+//quiz
+Route::resource('/quiz', [QuizController::class]);
 
 
 

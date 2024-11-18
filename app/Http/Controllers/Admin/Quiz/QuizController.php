@@ -13,19 +13,19 @@ class QuizController extends Controller
     public function index()
     {
         $quizzes = Quiz::with('questions', 'quizResults')->get();
-        return view('quizzes.index', compact('quizzes'));
+        return view('quiz.index', compact('quizzes'));
     }
 
     public function show($id)
     {
         $quiz = Quiz::with(['questions.options', 'quizResults'])->findOrFail($id);
-        return view('quizzes.show', compact('quiz'));
+        return view('quiz.show', compact('quiz'));
     }
 
     public function create(): View
     {
         $babs = Bab::all(); // Mengambil semua bab yang ada
-        return view('quizzes.create', compact('babs'));
+        return view('quiz.create', compact('babs'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -40,14 +40,14 @@ class QuizController extends Controller
 
         $quiz = Quiz::create($request->only(['name', 'slug', 'bab_id', 'start_time', 'end_time']));
 
-        return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully.');
+        return redirect()->route('quiz.index')->with('success', 'Quiz created successfully.');
     }
 
     public function edit(int $id): View
     {
         $quiz = Quiz::findOrFail($id);
         $babs = Bab::all();
-        return view('quizzes.edit', compact('quiz', 'babs'));
+        return view('quiz.edit', compact('quiz', 'babs'));
     }
 
     public function update(Request $request, int $id): RedirectResponse
@@ -64,23 +64,22 @@ class QuizController extends Controller
 
         $quiz->update($request->only(['name', 'slug', 'bab_id', 'start_time', 'end_time']));
 
-        return redirect()->route('quizzes.index')->with('success', 'Quiz updated successfully.');
+        return redirect()->route('quiz.index')->with('success', 'Quiz updated successfully.');
     }
 
     // Hanya superadmin dan instructor yang bisa menghapus quiz
     public function destroy($id)
     {
-        // Verifikasi jika user adalah superadmin
-        if (!auth()->user()->is_superadmin && !auth()->user()->is_instructor) {
-            return redirect()->route('dashboard')->with('error', 'Unauthorized access');
+        if (!auth()->user()->hasRole(['superadmin', 'instructor'])) {
+            abort(403, 'Unauthorized action.');
         }
 
-        // Mencari quiz berdasarkan ID
+        // Temukan Quiz berdasarkan ID
         $quiz = Quiz::findOrFail($id);
-        
-        // Menghapus quiz dan data terkait
+
+        // Hapus Quiz (cascading deletion akan bekerja di sini)
         $quiz->delete();
 
-        return redirect()->route('quizzes.index')->with('success', 'Quiz deleted successfully');
+        return redirect()->route('quiz.index')->with('success', 'Quiz deleted successfully');
     }
 }
