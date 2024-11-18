@@ -82,7 +82,6 @@ Route::get('/course-registrations/{id}', [CourseRegistrationController::class, '
 Route::get('/course-registrations', [CourseRegistrationController::class, 'enrolledCourses'])->name('course-registrations.index');
 
 //quiz
-Route::resource('/quiz', [QuizController::class]);
 
 
 
