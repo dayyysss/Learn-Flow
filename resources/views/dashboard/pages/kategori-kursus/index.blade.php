@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.layouts')
 @section('page_title', 'LearnFlow | Kategori Kursus')
-
 @section('content')
+@vite(['resources/css/app.css'])
     <!-- dashboard content -->
     <div class="lg:col-start-4 lg:col-span-9">
         <div

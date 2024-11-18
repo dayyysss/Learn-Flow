@@ -1,8 +1,6 @@
 @extends('dashboard.layouts.layouts')
 @section('page_title', 'LearnFlow | Dashboard')
-
 @section('content')
-
     <!--dashbord menu section -->
     <section>
         <div class="">
