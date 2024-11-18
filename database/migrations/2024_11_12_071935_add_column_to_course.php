@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('courses', function (Blueprint $table) {
             $table->dropColumn('informasi_lain');
-            $table->boolean('course_type')->change();
+            $table->boolean('course_type')->change()->nullable();
             $table->renameColumn('course_type', 'berbayar');
             $table->dropColumn('status');
 

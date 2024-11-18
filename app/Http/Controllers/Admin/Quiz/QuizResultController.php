@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Quiz;
 
+use App\Http\Controllers\Controller;
 use App\Models\QuizResult;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,13 @@ class QuizResultController extends Controller
     public function index()
     {
         $quizResults = QuizResult::with('user', 'quiz', 'answers')->get();
-        return view('quizResults.index', compact('quizResults'));
+        return view('dashboard.pages.quizresult.index', compact('quizResults'));
     }
 
     public function show($id)
     {
         $quizResult = QuizResult::with(['user', 'quiz.questions', 'answers'])->findOrFail($id);
-        return view('quizResults.show', compact('quizResult'));
+        return view('dashboard.pages.quizresult.show', compact('quizResults'));
     }
 
     // Fungsi untuk memperbarui status kelulusan setelah kuis selesai
@@ -37,6 +38,6 @@ class QuizResultController extends Controller
         // Simpan status yang diperbarui
         $quizResult->save();
 
-        return redirect()->route('quizResults.show', $id)->with('success', 'Status updated successfully');
+        return redirect()->route('quiz.show', $id)->with('success', 'Status updated successfully');
     }
 }
