@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.layouts')
 @section('page_title', 'LearnFlow | Kategori Kursus')
 @section('content')
-    @vite(['resources/css/app.css'])
+ 
     <div class="lg:col-start-4 lg:col-span-9">
         <div
             class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
@@ -9,7 +9,7 @@
                 class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
                 <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Kategori Kursus</h2>
                 <label for="modalToggle"
-                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md cursor-pointer">
+                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md  transition duration-300 ease-in-out cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-plus">
@@ -19,7 +19,6 @@
                     Tambah Kategori
                 </label>
             </div>
-            @include('dashboard.pages.kategori-kursus.create')
             <div class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
                 <div class="xl:col-start-1 xl:col-span-6">
                     <p
@@ -153,66 +152,6 @@
     </div>
 
     @include('dashboard.pages.kategori-kursus.edit')
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const createButton = document.querySelector(
-                'label[for="modalToggle"]');
-            const modalToggle = document.getElementById('modalToggle');
-            const createCategoryForm = document.querySelector(
-                'form[action*="kategori-kursus.store"]');
-            const editCategoryForm = document.getElementById('categoryForm');
-            const createNameInput = document.getElementById('name');
-            const createSlugInput = document.getElementById('slug');
-            const createStatusSelect = document.getElementById('status');
-
-            createButton.addEventListener('click', function() {
-                createNameInput.value = '';
-                createSlugInput.value = '';
-                createStatusSelect.value = 'publik';
-                modalToggle.checked = true;
-            });
-
-            const editButtons = document.querySelectorAll('.edit-category');
-            const modalToggleEdit = document.getElementById('modalToggleEdit');
-            const editCategoryForm = document.getElementById('categoryForm');
-            const nameInput = document.getElementById('name');
-            const slugInput = document.getElementById('slug');
-            const statusSelect = document.getElementById('status');
-            const modalTitle = document.getElementById('modalTitle');
-
-            editButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    const name = this.getAttribute('data-name');
-                    const slug = this.getAttribute('data-slug');
-                    const status = this.getAttribute('data-status');
-
-                    editCategoryForm.action = `/kategori-kursus/${id}`;
-
-                    nameInput.value = name;
-                    slugInput.value = slug;
-                    statusSelect.value = status;
-
-                    modalTitle.textContent = 'Edit Kategori Kursus';
-
-                    modalToggleEdit.checked = true;
-                });
-            });
-
-            nameInput.addEventListener('input', function() {
-                slugInput.value = generateSlug(this.value);
-            });
-
-            function generateSlug(text) {
-                return text
-                    .toLowerCase()
-                    .trim()
-                    .replace(/[^a-z0-9\s-]/g, '')
-                    .replace(/\s+/g, '-')
-                    .replace(/-+/g, '-');
-            }
-        });
-    </script>
+    @include('dashboard.pages.kategori-kursus.create')
 
 @endsection
