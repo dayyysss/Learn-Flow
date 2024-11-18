@@ -18,12 +18,25 @@ class CourseController extends Controller
     {
         // Ambil semua data kategori layanan dan muat relasi user
         $categories = CategoryCourse::all();
+        $instrukturs = CategoryCourse::all();
         
         // Lakukan eager loading relasi 'category_courses'
-        $course = Course::with(['users', 'categories', 'babs.moduls'])->get();
+        $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
         
-        return view('dashboard.pages.courses.index', compact('course', 'categories'));
+        return view('dashboard.pages.courses.index', compact('course', 'categories', 'instrukturs'));
     }
+
+    public function show($slug)
+{
+    // Cari course berdasarkan slug dan lakukan eager loading pada relasi yang diperlukan
+    $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs'])
+                    ->where('slug', $slug)
+                    ->firstOrFail();
+
+    // Kirimkan data course ke tampilan show
+    return view('landing.pages.course.course-detail', compact('course'));
+}
+
     
 
     public function create()
@@ -47,6 +60,7 @@ class CourseController extends Controller
         'harga_diskon' => 'nullable',
         'tanggal_mulai' => 'nullable|date',
         'tags' => 'nullable|string',
+        'kode_seri' => 'nullable',
         'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         'video_file' => 'nullable|file|mimes:mp4,mov,avi|max:50000',
         'video_url' => 'nullable|url',
@@ -57,7 +71,7 @@ class CourseController extends Controller
         'bab.*.name' => 'required|string',
         'bab.*.moduls.*.name' => 'required|string',
         'bab.*.moduls.*.materi' => 'nullable|string',
-        'bab.*.moduls.*.video' => 'nullable|file|mimes:mp4,mov,avi|max:50000',
+        'bab.*.moduls.*.video' => 'nullable',
         'bab.*.moduls.*.file' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
     ]);
 
@@ -89,7 +103,7 @@ class CourseController extends Controller
     $harga_diskon = str_replace(['Rp', '.', ','], '', $request->harga_diskon);
 
     // Pastikan harga adalah angka
-    $harga_diskon = is_numeric($harga_diskon) ? (float) $harga : 0;
+    $harga_diskon = is_numeric($harga_diskon) ? (float) $harga_diskon : 0;
 
 
 
@@ -104,6 +118,7 @@ class CourseController extends Controller
         'harga_diskon' => $harga_diskon,
         'tanggal_mulai' => $request->tanggal_mulai,
         'tags' => $request->tags,
+        'kode_seri' => $request->kode_seri,
         'thumbnail' => $request->file('thumbnail') ? $request->file('thumbnail')->store('courses', 'public') : null,
         'video' => $videoPath,
         'berbayar' => $request->berbayar,
@@ -147,7 +162,7 @@ class CourseController extends Controller
 }
 
 
-    private function createBabAndModules($courseId, $babData)
+private function createBabAndModules($courseId, $babData)
 {
     foreach ($babData as $bab) {
         // Buat bab untuk course
@@ -160,8 +175,20 @@ class CourseController extends Controller
         // Cek apakah ada modul dalam bab
         if (isset($bab['moduls'])) {
             foreach ($bab['moduls'] as $modul) {
-                // Simpan video dan file untuk modul jika ada
-                $videoPath = isset($modul['video']) ? $modul['video']->store('moduls/videos', 'public') : null;
+                $videoPath = null;
+
+                // Cek apakah video berupa URL YouTube atau file
+                if (isset($modul['video'])) {
+                    if (filter_var($modul['video'], FILTER_VALIDATE_URL)) {
+                        // Jika video berupa URL YouTube, simpan URL langsung
+                        $videoPath = $modul['video'];
+                    } elseif (is_object($modul['video'])) {
+                        // Jika video berupa file yang diunggah, simpan file tersebut
+                        $videoPath = $modul['video']->store('moduls/videos', 'public');
+                    }
+                }
+
+                // Simpan file jika ada
                 $filePath = isset($modul['file']) ? $modul['file']->store('moduls/files', 'public') : null;
 
                 // Buat modul untuk bab
@@ -176,6 +203,7 @@ class CourseController extends Controller
         }
     }
 }
+
 
 
 public function preview(Request $request)

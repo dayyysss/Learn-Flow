@@ -14,7 +14,7 @@
               <!-- course thumbnail -->
               <div class="overflow-hidden relative mb-5">
                 <img
-                  src="assets/images/blog/blog_8.png"
+                  src="{{asset('assets/images/blog/blog_8.png')}}"
                   alt=""
                   class="w-full"
                 >
@@ -1436,7 +1436,7 @@
                             <div class="flex-shrink-0">
                               <div>
                                 <img
-                                  src="assets/images/teacher/teacher__2.png"
+                                  src="{{asset('assets/images/teacher/teacher__2.png')}}"
                                   alt=""
                                   class="w-25 h-25 rounded-full"
                                 >
@@ -1487,7 +1487,7 @@
                             <div class="flex-shrink-0">
                               <div>
                                 <img
-                                  src="assets/images/teacher/teacher__1.png"
+                                  src="{{asset('assets/images/teacher/teacher__1.png')}}"
                                   alt=""
                                   class="w-25 h-25 rounded-full"
                                 >
@@ -1538,7 +1538,7 @@
                             <div class="flex-shrink-0">
                               <div>
                                 <img
-                                  src="assets/images/teacher/teacher__3.png"
+                                  src="v{{asset('assets/images/teacher/teacher__3.png')}}"
                                   alt=""
                                   class="w-25 h-25 rounded-full"
                                 >
@@ -1679,7 +1679,7 @@
                         <!-- athor avatar -->
                         <div class="flex mb-30px mr-5 flex-shrink-0">
                           <img
-                            src="assets/images/blog/blog_10.png"
+                            src="{{asset('assets/images/blog/blog_10.png')}}"
                             alt=""
                             class="w-24 h-24 rounded-full"
                           >
@@ -1916,7 +1916,7 @@
                                 <div class="relative mb-4 overflow-hidden">
                                   <a href="course.html" class="w-full">
                                     <img
-                                      src="assets/images/grid/grid_1.png"
+                                      src="{{asset('assets/images/grid/grid_1.png')}}"
                                       alt=""
                                       class="w-full transition-all duration-300 group-hover:scale-110"
                                     >
@@ -2003,7 +2003,7 @@
                                         class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                                         ><img
                                           class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="assets/images/grid/grid_small_1.jpg"
+                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
                                           alt=""
                                         >
                                         <span class="flex">Micle john</span>
@@ -2048,7 +2048,7 @@
                                 <div class="relative mb-4 overflow-hidden">
                                   <a href="course.html" class="w-full">
                                     <img
-                                      src="assets/images/grid/grid_2.png"
+                                      src="{{asset('assets/images/grid/grid_2.png')}}"
                                       alt=""
                                       class="w-full transition-all duration-300 group-hover:scale-110"
                                     >
@@ -2135,7 +2135,7 @@
                                         class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                                         ><img
                                           class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="assets/images/grid/grid_small_1.jpg"
+                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
                                           alt=""
                                         >
                                         <span class="flex">Micle john</span>
@@ -2180,7 +2180,7 @@
                                 <div class="relative mb-4 overflow-hidden">
                                   <a href="course.html" class="w-full">
                                     <img
-                                      src="assets/images/grid/grid_3.png"
+                                      src="{{asset('assets/images/grid/grid_3.png')}}"
                                       alt=""
                                       class="w-full transition-all duration-300 group-hover:scale-110"
                                     >
@@ -2267,7 +2267,7 @@
                                         class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                                         ><img
                                           class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="assets/images/grid/grid_small_1.jpg"
+                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
                                           alt=""
                                         >
                                         <span class="flex">Micle john</span>
@@ -2312,7 +2312,7 @@
                                 <div class="relative mb-4 overflow-hidden">
                                   <a href="course.html" class="w-full">
                                     <img
-                                      src="assets/images/grid/grid_4.png"
+                                      src="{{asset('assets/images/grid/grid_4.png')}}"
                                       alt=""
                                       class="w-full transition-all duration-300 group-hover:scale-110"
                                     >
@@ -2399,7 +2399,7 @@
                                         class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                                         ><img
                                           class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="assets/images/grid/grid_small_1.jpg"
+                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
                                           alt=""
                                         >
                                         <span class="flex">Micle john</span>
@@ -2444,7 +2444,7 @@
                                 <div class="relative mb-4 overflow-hidden">
                                   <a href="course.html" class="w-full">
                                     <img
-                                      src="assets/images/grid/kid_5.jpg"
+                                      src="{{asset('assets/images/grid/kid_5.jpg')}}"
                                       alt=""
                                       class="w-full transition-all duration-300 group-hover:scale-110"
                                     >
@@ -2531,7 +2531,7 @@
                                         class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                                         ><img
                                           class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="assets/images/grid/grid_small_1.jpg"
+                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
                                           alt=""
                                         >
                                         <span class="flex">Micle john</span>
@@ -2576,7 +2576,7 @@
                                 <div class="relative mb-4 overflow-hidden">
                                   <a href="course.html" class="w-full">
                                     <img
-                                      src="assets/images/grid/kid_6.jpg"
+                                      src="{{asset('assets/images/grid/kid_6.jpg')}}"
                                       alt=""
                                       class="w-full transition-all duration-300 group-hover:scale-110"
                                     >
@@ -2663,7 +2663,7 @@
                                         class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                                         ><img
                                           class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="assets/images/grid/grid_small_1.jpg"
+                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
                                           alt=""
                                         >
                                         <span class="flex">Micle john</span>
@@ -2714,7 +2714,7 @@
                       <div class="flex-shrink-0">
                         <div>
                           <img
-                            src="assets/images/blog-details/blog-details__1.png"
+                            src="{{asset('assets/images/blog-details/blog-details__1.png')}}"
                             alt=""
                             class="w-20 h-20 rounded-full"
                           >
@@ -2773,7 +2773,7 @@
                       <div class="flex-shrink-0">
                         <div>
                           <img
-                            src="assets/images/blog-details/blog-details__2.png"
+                            src="{{asset('assets/images/blog-details/blog-details__2.png')}}"
                             alt=""
                             class="w-20 h-20 rounded-full"
                           >
@@ -2829,7 +2829,7 @@
                       <div class="flex-shrink-0">
                         <div>
                           <img
-                            src="assets/images/blog-details/blog-details__3.png"
+                            src="{{asset('assets/images/blog-details/blog-details__3.png')}}"
                             alt=""
                             class="w-20 h-20 rounded-full"
                           >
@@ -2888,7 +2888,7 @@
                       <div class="flex-shrink-0">
                         <div>
                           <img
-                            src="assets/images/blog-details/blog-details__4.png"
+                            src="{{asset('assets/images/blog-details/blog-details__4.png')}}"
                             alt=""
                             class="w-20 h-20 rounded-full"
                           >
@@ -3028,7 +3028,7 @@ Enter your Massage*</textarea
                 <!-- meeting thumbnail -->
                 <div class="overflow-hidden relative mb-5">
                   <img
-                    src="assets/images/blog/blog_7.png"
+                    src="{{asset('assets/images/blog/blog_7.png')}}"
                     alt=""
                     class="w-full"
                   >
@@ -3046,7 +3046,7 @@ Enter your Massage*</textarea
                         ><span
                           class="animate-buble2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full"
                         ></span>
-                        <img src="assets/images/icon/video.png" alt="" >
+                        <img src="{{asset('assets/images/icon/video.png')}}" alt="" >
                       </button>
                     </div>
                   </div>
@@ -3295,7 +3295,7 @@ Enter your Massage*</textarea
                     <div class="w-[91px] h-auto mr-5 flex-shrink-0">
                       <a href="#" class="w-full"
                         ><img
-                          src="assets/images/blog-details/blog-details__6.png"
+                          src="{{asset('assets/images/blog-details/blog-details__6.png')}}"
                           alt=""
                           class="w-full"
                       ></a>
@@ -3317,7 +3317,7 @@ Enter your Massage*</textarea
                     <div class="w-[91px] h-auto mr-5 flex-shrink-0">
                       <a href="#" class="w-full"
                         ><img
-                          src="assets/images/blog-details/blog-details__7.png"
+                          src="{{asset('assets/images/blog-details/blog-details__7.png')}}"
                           alt=""
                           class="w-full"
                       ></a>
@@ -3339,7 +3339,7 @@ Enter your Massage*</textarea
                     <div class="w-[91px] h-auto mr-5 flex-shrink-0">
                       <a href="#" class="w-full"
                         ><img
-                          src="assets/images/blog-details/blog-details__8.png"
+                          src="{{asset('assets/images/blog-details/blog-details__8.png')}}"
                           alt=""
                           class="w-full"
                       ></a>

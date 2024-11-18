@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_id')->constrained('questions')->onDelete('cascade');
-            $table->string('option_a')->nullable();
-            $table->string('option_b')->nullable();
-            $table->string('option_c')->nullable();
-            $table->string('option_d')->nullable();
-            $table->string('option_e')->nullable();
+            $table->string('option_a');
+            $table->string('option_b');
+            $table->string('option_c');
+            $table->string('option_d');
+            $table->string('option_e');
             $table->string('correct_answer');
             $table->integer('score')->default(0);
             $table->timestamps();

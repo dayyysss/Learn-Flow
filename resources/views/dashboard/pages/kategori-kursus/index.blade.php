@@ -1,24 +1,25 @@
 @extends('dashboard.layouts.layouts')
 @section('page_title', 'LearnFlow | Kategori Kursus')
-
 @section('content')
-<!-- dashboard content -->
-<div class="lg:col-start-4 lg:col-span-9">
-    <div class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
-        <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
-            <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Kategori Kursus</h2>
-            <!-- Label untuk membuka modal -->
-            <label for="modalToggle" class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                Tambah Kategori
-            </label>
-        </div>
-        @include('dashboard.pages.kategori-kursus.create')
-
-            <!-- filter content -->
+    @vite(['resources/css/app.css'])
+    <div class="lg:col-start-4 lg:col-span-9">
+        <div
+            class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
+            <div
+                class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Kategori Kursus</h2>
+                <label for="modalToggle"
+                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-plus">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Tambah Kategori
+                </label>
+            </div>
+            @include('dashboard.pages.kategori-kursus.create')
             <div class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
                 <div class="xl:col-start-1 xl:col-span-6">
                     <p
@@ -78,7 +79,6 @@
                 </div>
             </div>
             <hr class="my-4 border-contentColor opacity-35">
-            <!-- main content -->
             <div class="overflow-auto">
                 <table class="w-full text-left text-nowrap">
                     <thead
@@ -87,82 +87,132 @@
                             <th class="px-5px py-10px md:px-5">No</th>
                             <th class="px-5px py-10px md:px-5">Name</th>
                             <th class="px-5px py-10px md:px-5">Status</th>
-                            <th class="px-5px py-10px md:px-5">Aksi</th>
+                            <th class="px-5px py-10px md:px-5 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal">
-                        @foreach($categories as $index => $category)
-                        <tr class="leading-1.8 md:leading-1.8">
-                            <td class="px-5px py-10px md:px-5">{{ $index + 1 }}</td>
-                            <td class="px-5px py-10px md:px-5">{{ $category->name }}</td>
-                            <td class="px-5px py-10px md:px-5">
-                                <p class="text-xs">
-                                    <span class="h-22px inline-block px-7px 
+                        @foreach ($categories as $index => $category)
+                            <tr class="leading-1.8 md:leading-1.8">
+                                <td class="px-5px py-10px md:px-5">{{ $index + 1 }}</td>
+                                <td class="px-5px py-10px md:px-5">{{ $category->name }}</td>
+                                <td class="px-5px py-10px md:px-5">
+                                    <p class="text-xs">
+                                        <span
+                                            class="h-22px inline-block px-7px 
                                                 bg-{{ $category->status == 'publik' ? 'greencolor2' : ($category->status == 'draft' ? 'skycolor' : 'red') }} 
                                                 leading-22px font-bold text-whiteColor rounded-md">
-                                        {{ ucfirst($category->status) }}
-                                    </span>
-                                </p>
-                            </td>
-                                                      
-                            <td class="px-5px py-10px md:px-5">
-                                <div class="dashboard__button__group">
-                                    <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"
-                                        href="{{ route('kategori-kursus.edit', $category->id) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
-                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                        </svg>
-                                        Edit</a>
-                                    <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-secondaryColor bg-secondaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-secondaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"
-                                        href="{{ route('kategori-kursus.destroy', $category->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
-                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                        </svg>
-                                        Delete</a>
-                                        <!-- Form delete -->
-                                        <form id="delete-form-{{ $category->id }}" action="{{ route('kategori-kursus.destroy', $category->id) }}" method="POST" style="display: none;">
+                                            {{ ucfirst($category->status) }}
+                                        </span>
+                                    </p>
+                                </td>
+                                <td class="px-5px py-10px md:px-5">
+                                    <div class="dashboard__button__group">
+                                        <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px edit-category"
+                                            href="javascript:void(0);" data-id="{{ $category->id }}"
+                                            data-name="{{ $category->name }}" data-slug="{{ $category->slug }}"
+                                            data-status="{{ $category->status }}" data-action="edit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg>
+                                            Edit
+                                        </a>
+                                        <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-secondaryColor bg-secondaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-secondaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"
+                                            href="{{ route('kategori-kursus.destroy', $category->id) }}"
+                                            onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-trash-2">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path
+                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                </path>
+                                                <line x1="10" y1="11" x2="10" y2="17">
+                                                </line>
+                                                <line x1="14" y1="11" x2="14" y2="17">
+                                                </line>
+                                            </svg>
+                                            Delete</a>
+                                        <form id="delete-form-{{ $category->id }}"
+                                            action="{{ route('kategori-kursus.destroy', $category->id) }}" method="POST"
+                                            style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form>
-                                </div>
-                            </td>
-                        </tr>
+                                    </div>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
 
+    @include('dashboard.pages.kategori-kursus.edit')
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const modal = document.getElementById('categoryModal'); // Sesuaikan ID modal
-            const openModalButton = document.getElementById('openModalButton');
-            const closeModalButton = document.getElementById('closeModalButton');
-    
-            // Buka modal saat tombol diklik
-            openModalButton.addEventListener('click', function (event) {
-                event.preventDefault(); // Mencegah reload halaman
-                modal.classList.add('active'); // Tambah class "active" untuk menampilkan modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const createButton = document.querySelector(
+                'label[for="modalToggle"]');
+            const modalToggle = document.getElementById('modalToggle');
+            const createCategoryForm = document.querySelector(
+                'form[action*="kategori-kursus.store"]');
+            const editCategoryForm = document.getElementById('categoryForm');
+            const createNameInput = document.getElementById('name');
+            const createSlugInput = document.getElementById('slug');
+            const createStatusSelect = document.getElementById('status');
+
+            createButton.addEventListener('click', function() {
+                createNameInput.value = '';
+                createSlugInput.value = '';
+                createStatusSelect.value = 'publik';
+                modalToggle.checked = true;
             });
-    
-            // Tutup modal saat tombol close diklik
-            closeModalButton.addEventListener('click', function () {
-                modal.classList.remove('active'); // Hapus class "active" untuk menyembunyikan modal
+
+            const editButtons = document.querySelectorAll('.edit-category');
+            const modalToggleEdit = document.getElementById('modalToggleEdit');
+            const editCategoryForm = document.getElementById('categoryForm');
+            const nameInput = document.getElementById('name');
+            const slugInput = document.getElementById('slug');
+            const statusSelect = document.getElementById('status');
+            const modalTitle = document.getElementById('modalTitle');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const slug = this.getAttribute('data-slug');
+                    const status = this.getAttribute('data-status');
+
+                    editCategoryForm.action = `/kategori-kursus/${id}`;
+
+                    nameInput.value = name;
+                    slugInput.value = slug;
+                    statusSelect.value = status;
+
+                    modalTitle.textContent = 'Edit Kategori Kursus';
+
+                    modalToggleEdit.checked = true;
+                });
             });
-    
-            // Tutup modal saat klik di luar konten modal
-            window.addEventListener('click', function (e) {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
+
+            nameInput.addEventListener('input', function() {
+                slugInput.value = generateSlug(this.value);
             });
+
+            function generateSlug(text) {
+                return text
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/-+/g, '-');
+            }
         });
     </script>
-    
+
 @endsection

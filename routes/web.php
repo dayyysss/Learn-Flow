@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\QuizController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -66,10 +67,12 @@ Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.ca
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
 Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
+
+Route::get('/detail-course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+
 Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
 Route::resource('/kategori-kursus', CategoryCourseController::class);
-Route::resource('/kursus', CourseController::class);
 Route::resource('/artikel', ArtikelController::class);
 Route::resource('/kategori-artikel', CategoryArtikelController::class);
 
@@ -86,6 +89,9 @@ Route::post('/cart', [CartController::class, 'updateCart'])->name('cart.update')
 Route::patch('/cart', [CartController::class, 'updateCart']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
+
+
+//quiz
 
 
 

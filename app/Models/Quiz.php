@@ -34,6 +34,18 @@ class Quiz extends Model
     {
         parent::boot();
 
+        static::deleting(function ($quiz) {
+            // Menghapus semua pertanyaan, opsi, dan jawaban yang terkait
+            $quiz->questions()->each(function ($question) {
+                $question->options()->delete();
+                $question->answers()->delete();
+                $question->delete();
+            });
+
+            // Menghapus semua hasil kuis terkait
+            $quiz->quizResults()->delete();
+        });
+
         // Event triggered when a new quiz is being created
         static::creating(function ($quiz) {
             // Generate initial slug from quiz name
@@ -54,5 +66,6 @@ class Quiz extends Model
             // If a similar slug exists, append a number to make it unique
             $quiz->slug = $existingSlugCount > 0 ? "{$baseSlug}-" . ($existingSlugCount + 1) : $baseSlug;
         });
+
     }
 }

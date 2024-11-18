@@ -12,10 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->string('kode_seri')->nullable()->after('slug');
-            $table->string('status')->nullable()->after('deskripsi');
-            $table->decimal('harga_diskon')->nullable()->change();
-            $table->decimal('harga')->nullable()->change();
+            $table->string('berbayar')->nullable()->change();
         });
     }
 

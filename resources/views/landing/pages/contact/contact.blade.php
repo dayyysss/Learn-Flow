@@ -200,7 +200,7 @@
               </div>
             </div>
             <div data-aos="fade-up" class="relative">
-              <input name="subject" type="text" placeholder="Write Service Type" class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded"
+              <input name="subject" type="text" placeholder="Write Topic" class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded"
               >
 
               <div

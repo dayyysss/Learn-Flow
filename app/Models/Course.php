@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = [
-        'user_id', 'name','slug','categories_id','deskripsi','intruktur_id','harga','harga_diskon','tanggal_mulai','tags','thumbnail','video','berbayar','rating','rating_count'
+        'user_id', 'name','slug','categories_id','deskripsi','intruktur_id','harga','harga_diskon','tanggal_mulai','tags','thumbnail','video','berbayar','rating','rating_count','kode_seri'
     ];
 
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function instrukturs()
+    {
+        return $this->belongsTo(User::class, 'intruktur_id');
+    }
+
     public function babs()
     {
         return $this->hasMany(Bab::class);
