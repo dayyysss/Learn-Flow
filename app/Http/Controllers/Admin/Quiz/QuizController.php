@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Quiz;
 
+use App\Http\Controllers\Controller;
 use App\Models\Bab;
 use App\Models\Quiz;
 use Illuminate\View\View;
@@ -13,19 +14,19 @@ class QuizController extends Controller
     public function index()
     {
         $quizzes = Quiz::with('questions', 'quizResults')->get();
-        return view('quiz.index', compact('quizzes'));
+        return view('quizzes.index', compact('quizzes'));
     }
 
     public function show($id)
     {
         $quiz = Quiz::with(['questions.options', 'quizResults'])->findOrFail($id);
-        return view('quiz.show', compact('quiz'));
+        return view('quizzes.show', compact('quiz'));
     }
 
     public function create(): View
     {
         $babs = Bab::all(); // Mengambil semua bab yang ada
-        return view('quiz.create', compact('babs'));
+        return view('quizzes.create', compact('babs'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -40,14 +41,14 @@ class QuizController extends Controller
 
         $quiz = Quiz::create($request->only(['name', 'slug', 'bab_id', 'start_time', 'end_time']));
 
-        return redirect()->route('quiz.index')->with('success', 'Quiz created successfully.');
+        return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully.');
     }
 
     public function edit(int $id): View
     {
         $quiz = Quiz::findOrFail($id);
         $babs = Bab::all();
-        return view('quiz.edit', compact('quiz', 'babs'));
+        return view('quizzes.edit', compact('quiz', 'babs'));
     }
 
     public function update(Request $request, int $id): RedirectResponse
@@ -64,7 +65,7 @@ class QuizController extends Controller
 
         $quiz->update($request->only(['name', 'slug', 'bab_id', 'start_time', 'end_time']));
 
-        return redirect()->route('quiz.index')->with('success', 'Quiz updated successfully.');
+        return redirect()->route('quizzes.index')->with('success', 'Quiz updated successfully.');
     }
 
     // Hanya superadmin dan instructor yang bisa menghapus quiz
@@ -80,6 +81,6 @@ class QuizController extends Controller
         // Hapus Quiz (cascading deletion akan bekerja di sini)
         $quiz->delete();
 
-        return redirect()->route('quiz.index')->with('success', 'Quiz deleted successfully');
+        return redirect()->route('quizzes.index')->with('success', 'Quiz deleted successfully');
     }
 }
