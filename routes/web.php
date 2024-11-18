@@ -90,16 +90,9 @@ Route::patch('/cart', [CartController::class, 'updateCart']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
-
-//quiz
-
-<<<<<<< HEAD
-
 //quiz result
 Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('dashboard.quizResults');
 Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('quizresult.show');
-=======
->>>>>>> ffc048255a5ba40aac266855880d74892d2f8cf1
 
 
 
