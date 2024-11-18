@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->string('method_pembayaran')->nullable();
-            $table->decimal('harga');
+            $table->decimal('harga', 10,2);
             $table->enum('registration_status', ['Menunggu', 'Diproses', 'Berhasil', 'Gagal', 'Dibatalkan', 'Refund'])->default('Menunggu');
-            $table->date('registration_date');
+            $table->timestamp('registration_date')->default(DB::raw('CURRENT_TIMESTAMP'))->change();
             $table->date('order_date')->nullable();
             $table->timestamps();
         });

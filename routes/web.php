@@ -3,6 +3,7 @@
 use App\Models\Course;
 use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\ArtikelController;
@@ -61,7 +62,7 @@ Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name
 Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
 Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('dashboard.myCourse');
-Route::get('/cart', [DashboardController::class, 'cart'])->name('addashboardmin.cart');
+Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.cart');
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
 Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
@@ -73,10 +74,19 @@ Route::resource('/artikel', ArtikelController::class);
 Route::resource('/kategori-artikel', CategoryArtikelController::class);
 
 // course-registrations
-Route::get('/course-registrations/create/{courseId}', [CourseRegistrationController::class, 'create'])->name('course-registrations.create');
-Route::post('/course-registrations', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
-Route::get('/course-registrations/{id}', [CourseRegistrationController::class, 'show'])->name('course-registrations.show');
+Route::get('/course-registrations/create', [CourseRegistrationController::class, 'create'])->name('course-registrations.create');
+Route::post('/course-registrations/store', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
+Route::post('/course-registrations/store-from-cart', [CourseRegistrationController::class, 'storeFromCart'])->name('course-registrations.store-from-cart');
 Route::get('/course-registrations', [CourseRegistrationController::class, 'enrolledCourses'])->name('course-registrations.index');
+
+//cart
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart', [CartController::class, 'updateCart'])->name('cart.update');
+// Route::post('/cart', [CartController::class, 'update'])->name('cart.update');
+Route::patch('/cart', [CartController::class, 'updateCart']);
+Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
+Route::post('/clear-cart', [CartController::class, 'clearCart']);
+
 
 
 
