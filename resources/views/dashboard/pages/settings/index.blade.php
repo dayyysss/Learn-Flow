@@ -36,32 +36,32 @@
                             <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
                                 <div>
                                     <label class="mb-3 block font-semibold">First Name</label>
-                                    <input type="text" placeholder="John"
+                                    <input type="text" name="first_name" id="first_name" value="{{ old('first_name', $user->first_name) }}"
                                         class="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no">
                                 </div>
                                 <div>
                                     <label class="mb-3 block font-semibold">Last Name</label>
-                                    <input type="text" placeholder="Due"
+                                    <input type="text" name="last_name" value="{{ old('last_name', $user->last_name) }}"
                                         class="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no">
                                 </div>
                                 <div>
                                     <label class="mb-3 block font-semibold">User Name</label>
-                                    <input type="text" placeholder="Ntaden Mic"
+                                    <input type="text" name="name" value="{{ old('name', $user->name) }}" placeholder="Ntaden Mic"
                                         class="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no">
                                 </div>
                                 <div>
                                     <label class="mb-3 block font-semibold">Phone Number</label>
-                                    <input type="text" placeholder="+1-202-555-0174"
+                                    <input type="text" name="no_telp" value="{{ old('no_telp', $user->no_telp) }}" placeholder="+62-812-555-0174"
                                         class="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no">
                                 </div>
                                 <div>
                                     <label class="mb-3 block font-semibold">Skill/Occupation</label>
-                                    <input type="text" placeholder="Full Stack Developer"
+                                    <input type="text" name="profesi" value="{{ old('profesi', $user->profesi) }}" placeholder="Full Stack Developer"
                                         class="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no">
                                 </div>
                                 <div>
                                     <label class="mb-3 block font-semibold">Display Name Publicly As</label>
-                                    <input type="text" placeholder="John"
+                                    <input type="text" name="publik_name" value="{{ old('publik_name', $user->publik_name) }}" placeholder="John"
                                         class="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no">
                                 </div>
                             </div>
@@ -70,7 +70,6 @@
                                 <textarea
                                     class="w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md"
                                     cols="30" rows="10">
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     </textarea>
                             </div>
 

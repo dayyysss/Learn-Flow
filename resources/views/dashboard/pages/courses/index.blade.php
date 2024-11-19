@@ -55,7 +55,7 @@
                       <!-- card image -->
                       <div class="relative mb-4">
                         <a
-                          href="../../course-details.html"
+                          href="{{route('course.detail', $item->slug)}}"
                           class="w-full overflow-hidden rounded"
                         >
                           <img
@@ -113,7 +113,7 @@
                           </div>
                         </div>
                         <a
-                          href="../../course-details.html"
+                          href="{{route('course.detail', $item->slug)}}"
                           class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
                         >
                           {{$item->name}}

@@ -224,10 +224,11 @@
     $(document).ready(function() {
         $('#add-signature-btn').click(function() {
             const newSignature = `
-                <div class="signature-item mb-2">
-                    <input type="file" name="certificate_ttd[]" class="form-control" accept="image/*">
-                    <button type="button" class="btn btn-danger btn-sm remove-signature-btn mt-2">Remove</button>
-                </div>
+                <div class="signature-item mb-3 w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md relative">
+                <input type="file" name="certificate_ttd[]" class="form-control " accept="image/*">
+                <button type="button" class="btn right-0 top-0 absolute text-red-500 text-xl remove-signature-btn mt-2">&times;</button>
+            </div>
+
             `;
             $('#signature-section').append(newSignature);
         });
@@ -292,3 +293,20 @@
         }
     }
 </script>
+
+<style>
+    .signature-item .remove-signature-btn {
+    font-size: 20px; /* Ukuran font tombol */
+    padding: 0; /* Hilangkan padding default tombol */
+    width: 30px;
+    height: 30px;
+    border: none; /* Menghilangkan border tombol */
+    background-color: transparent; /* Tombol tanpa latar belakang */
+    cursor: pointer; /* Menambahkan cursor pointer */
+}
+
+.signature-item .remove-signature-btn:hover {
+    color: #e74c3c; /* Warna merah yang lebih terang saat hover */
+}
+
+</style>

@@ -13,6 +13,9 @@ use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SettingsController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -58,7 +61,7 @@ Route::get('/message', [DashboardController::class, 'message'])->name('dashboard
 Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard.reviews');
 Route::get('/quiz-attempts', [DashboardController::class, 'quizAttempts'])->name('dashboard.quizAttempts');
 Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('dashboard.orderHistory');
-Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
+Route::resource('/settings', SettingController::class);
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
 Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('dashboard.myCourse');
 Route::get('/cart', [DashboardController::class, 'cart'])->name('addashboardmin.cart');
