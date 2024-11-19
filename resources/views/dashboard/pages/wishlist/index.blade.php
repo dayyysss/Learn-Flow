@@ -18,96 +18,103 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-30px">
                     <!-- card 1 -->
                     @foreach ($wishlists as $item)
-                    <div class="group">
-                        <div class="tab-content-wrapper" data-aos="fade-up">
-                            <div class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
-                                <!-- Card image -->
-                                <div class="relative mb-4">
-                                    <a href="../../course-details.html" class="w-full overflow-hidden rounded">
-                                        <img src="{{ asset('storage/' . $item->course->thumbnail) }}" alt=""
-                                            class="w-full transition-all duration-300 group-hover:scale-110" style="height: 150px">
-                                    </a>
-                                    <div class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
-                                        <div>
-                                            <p class="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold">
-                                                {{ $item->course->categories->name ?? 'No Category' }}
-                                            </p>
-                                        </div>
-                                        <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor" href="#">
-                                            <i class="icofont-heart-alt text-base py-1 px-2"></i>
+                        <div class="group">
+                            <div class="tab-content-wrapper" data-aos="fade-up">
+                                <div class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
+                                    <!-- Card image -->
+                                    <div class="relative mb-4">
+                                        <a href="../../course-details.html" class="w-full overflow-hidden rounded">
+                                            <img src="{{ asset('storage/' . $item->course->thumbnail) }}" alt=""
+                                                class="w-full transition-all duration-300 group-hover:scale-110"
+                                                style="height: 150px">
                                         </a>
-                                    </div>
-                                </div>
-                                <!-- Card content -->
-                                <div>
-                                    <div class="grid grid-cols-2 mb-15px">
-                                        <div class="flex items-center">
+                                        <div class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
                                             <div>
-                                                <i class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
+                                                <p
+                                                    class="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold">
+                                                    {{ $item->course->categories->name ?? 'No Category' }}
+                                                </p>
                                             </div>
-                                            <div>
-                                                <span class="text-sm text-black dark:text-blackColor-dark">
-                                                    {{ $item->course->babs->sum(function ($bab) { return $bab->moduls->count(); }) }} modul
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-center">
-                                            <div>
-                                                <i class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
-                                            </div>
-                                            <div>
-                                                <span class="text-sm text-black dark:text-blackColor-dark">{{ $item->course->tanggal_mulai }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="../../course-details.html" class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                        {{ $item->course->name }}
-                                    </a>
-                                    <!-- Price -->
-                                    <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
-                                        @if ($item->course->harga_diskon)
-                                            Rp {{ number_format($item->course->harga - $item->course->harga_diskon, 2, ',', '.') }}
-                                            <del class="text-sm text-lightGrey4 font-semibold">/ Rp
-                                                {{ number_format($item->course->harga, 2, ',', '.') }}</del>
-                                        @else
-                                            Rp {{ number_format($item->course->harga, 2, ',', '.') }}
-                                        @endif
-                                        <span class="ml-6">
-                                            @if ($item->course->harga - $item->course->harga_diskon > 0)
-                                                <del class="text-base font-semibold text-greencolor">Free</del>
-                                            @else
-                                                <span class="text-base font-semibold text-greencolor">Free</span>
-                                            @endif
-                                        </span>
-                                    </div>
-                                    <!-- Author and Rating-->
-                                    <div class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
-                                        <div>
-                                            <a href="instructor-details.html"
-                                                class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
-                                                <img class="w-[30px] h-[30px] rounded-full mr-15px"
-                                                    src="{{ $item->course->instrukturs->image ? Storage::url($item->course->instrukturs->image) : asset('assets/images/grid/grid_small_2.jpg') }}"
-                                                    alt="{{ $item->course->instrukturs->name }}">
-                                                {{ $item->course->instrukturs->name ?? 'Instruktur tidak tersedia' }}
+                                            <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor remove-wishlist"
+                                                href="#" data-id="{{ $item->id }}">
+                                                <i class="icofont-heart-alt text-base py-1 px-2"></i>
                                             </a>
                                         </div>
-                                        <div class="text-start md:text-end">
-                                            <div>
-                                                <i class="icofont-star text-size-10 text-yellow"></i>
-                                                <i class="icofont-star text-size-10 text-yellow"></i>
-                                                <i class="icofont-star text-size-10 text-yellow"></i>
-                                                <i class="icofont-star text-size-10 text-yellow"></i>
-                                                <i class="icofont-star text-size-10 text-yellow"></i>
+                                    </div>
+                                    <!-- Card content -->
+                                    <div>
+                                        <div class="grid grid-cols-2 mb-15px">
+                                            <div class="flex items-center">
+                                                <div>
+                                                    <i class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
+                                                </div>
+                                                <div>
+                                                    <span class="text-sm text-black dark:text-blackColor-dark">
+                                                        {{ $item->course->babs->sum(function ($bab) {return $bab->moduls->count();}) }}
+                                                        modul
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <span class="text-xs text-lightGrey6">(44)</span>
+                                            <div class="flex items-center">
+                                                <div>
+                                                    <i class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
+                                                </div>
+                                                <div>
+                                                    <span
+                                                        class="text-sm text-black dark:text-blackColor-dark">{{ $item->course->tanggal_mulai }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="../../course-details.html"
+                                            class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+                                            {{ $item->course->name }}
+                                        </a>
+                                        <!-- Price -->
+                                        <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
+                                            @if ($item->course->harga_diskon)
+                                                Rp
+                                                {{ number_format($item->course->harga - $item->course->harga_diskon, 2, ',', '.') }}
+                                                <del class="text-sm text-lightGrey4 font-semibold">/ Rp
+                                                    {{ number_format($item->course->harga, 2, ',', '.') }}</del>
+                                            @else
+                                                Rp {{ number_format($item->course->harga, 2, ',', '.') }}
+                                            @endif
+                                            <span class="ml-6">
+                                                @if ($item->course->harga - $item->course->harga_diskon > 0)
+                                                    <del class="text-base font-semibold text-greencolor">Free</del>
+                                                @else
+                                                    <span class="text-base font-semibold text-greencolor">Free</span>
+                                                @endif
+                                            </span>
+                                        </div>
+                                        <!-- Author and Rating-->
+                                        <div class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
+                                            <div>
+                                                <a href="instructor-details.html"
+                                                    class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
+                                                    <img class="w-[30px] h-[30px] rounded-full mr-15px"
+                                                        src="{{ $item->course->instrukturs->image ? Storage::url($item->course->instrukturs->image) : asset('assets/images/grid/grid_small_2.jpg') }}"
+                                                        alt="{{ $item->course->instrukturs->name }}">
+                                                    {{ $item->course->instrukturs->name ?? 'Instruktur tidak tersedia' }}
+                                                </a>
+                                            </div>
+                                            <div class="text-start md:text-end">
+                                                <div>
+                                                    <i class="icofont-star text-size-10 text-yellow"></i>
+                                                    <i class="icofont-star text-size-10 text-yellow"></i>
+                                                    <i class="icofont-star text-size-10 text-yellow"></i>
+                                                    <i class="icofont-star text-size-10 text-yellow"></i>
+                                                    <i class="icofont-star text-size-10 text-yellow"></i>
+                                                </div>
+                                                <span class="text-xs text-lightGrey6">(44)</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-                
+                    @endforeach
+
 
 
                     {{-- <!-- card 2 -->
@@ -376,4 +383,36 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.remove-wishlist').on('click', function(e) {
+                e.preventDefault(); 
+
+                var wishlistId = $(this).data('id');
+
+                $.ajax({
+                    url: '/wishlist/' + wishlistId,
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $(this).closest('.wishlist-item')
+                        .remove(); 
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Terjadi kesalahan, coba lagi nanti.');
+                    }
+                });
+            });
+        });
+    </script>
+
+
 @endsection
