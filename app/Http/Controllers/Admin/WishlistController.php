@@ -10,15 +10,18 @@ class WishlistController extends Controller
 {
     public function index()
     {
-        $wishlists = Wishlist::with('course')
-            ->where('user_id', auth()->id())
-            ->get();
+        $wishlists = Wishlist::with([
+            'course', 
+            'course.categories', 
+            'course.instrukturs', 
+            'course.babs.moduls',
+        ])
+            ->where('user_id', auth()->id()) 
+            ->get(); 
 
-        return response()->json([
-            'success' => true,
-            'data' => $wishlists,
-        ]);
+        return view('dashboard.pages.wishlist.index', compact('wishlists'));
     }
+
 
     public function store(Request $request)
     {
