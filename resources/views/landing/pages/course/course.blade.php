@@ -306,9 +306,9 @@
                                                             </p>
                                                         </div>
                                                         <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor add-to-wishlist"
-                                                        href="" data-id="{{ $item->id }}">
-                                                        <i class="icofont-heart-alt text-base py-1 px-2"></i>
-                                                    </a>
+                                                            href="" data-id="{{ $item->id }}">
+                                                            <i class="icofont-heart-alt text-base py-1 px-2"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <!-- card content -->
@@ -448,107 +448,110 @@
 
     <script>
         $(document).ready(function() {
-    // Cek status wishlist untuk semua kursus saat halaman dimuat
-    $('.add-to-wishlist').each(function() {
-        var button = $(this);
-        var courseId = button.data('id');
-        var userId = {{ auth()->id() }}; // Ambil ID user yang sedang login
+            // Cek status wishlist untuk semua kursus saat halaman dimuat
+            $('.add-to-wishlist').each(function() {
+                var button = $(this);
+                var courseId = button.data('id');
+                var userId = {{ auth()->id() }}; // Ambil ID user yang sedang login
 
-        // Kirim permintaan untuk memeriksa apakah kursus ada di wishlist
-        $.ajax({
-            url: '/wishlist/check', // URL untuk mengecek status wishlist
-            method: 'GET',
-            data: {
-                course_id: courseId,
-                user_id: userId
-            },
-            success: function(response) {
-                if (response.exists) {
-                    // Jika kursus ada di wishlist, ubah tampilan tombol
-                    button.removeClass('bg-black bg-opacity-15');
-                    button.addClass('bg-primaryColor hover:bg-primaryColor');
-                    button.find('i').addClass('text-white');
-                } else {
-                    // Jika kursus tidak ada di wishlist, pastikan tampilannya default
-                    button.removeClass('bg-primaryColor hover:bg-primaryColor');
-                    button.addClass('bg-black bg-opacity-15');
-                    button.find('i').removeClass('text-white');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error memeriksa status wishlist:', error);
-            }
-        });
-    });
-
-    // Logika klik tombol wishlist
-    $('.add-to-wishlist').on('click', function(event) {
-        event.preventDefault(); // Mencegah perilaku default link
-
-        var button = $(this);
-        var courseId = button.data('id'); // Ambil ID kursus
-        var userId = {{ auth()->id() }}; // Ambil ID user yang sedang login
-
-        // Cek apakah kursus sudah ada di wishlist
-        $.ajax({
-            url: '/wishlist/check', // URL untuk mengecek apakah kursus sudah ada di wishlist
-            method: 'GET',
-            data: {
-                course_id: courseId,
-                user_id: userId
-            },
-            success: function(response) {
-                if (response.exists) {
-                    // Jika kursus sudah ada di wishlist, hapus dari wishlist
-                    $.ajax({
-                        url: '/wishlist/' + response.wishlist_id, // URL untuk menghapus wishlist berdasarkan ID
-                        method: 'DELETE',
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function() {
-                            // Ubah tampilan tombol setelah kursus dihapus dari wishlist
-                            button.removeClass('bg-primaryColor hover:bg-primaryColor');
-                            button.addClass('bg-black bg-opacity-15'); // Kembalikan warna default
-                            button.find('i').removeClass('text-white'); // Kembalikan warna ikon
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error menghapus dari wishlist:', error);
-                        }
-                    });
-                } else {
-                    // Jika kursus belum ada di wishlist, tambahkan ke wishlist
-                    $.ajax({
-                        url: '/wishlist', // URL untuk menambahkan kursus ke wishlist
-                        method: 'POST',
-                        data: {
-                            course_id: courseId,
-                            user_id: userId,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function() {
-                            // Ubah tampilan tombol setelah kursus ditambahkan ke wishlist
+                // Kirim permintaan untuk memeriksa apakah kursus ada di wishlist
+                $.ajax({
+                    url: '/wishlist/check', // URL untuk mengecek status wishlist
+                    method: 'GET',
+                    data: {
+                        course_id: courseId,
+                        user_id: userId
+                    },
+                    success: function(response) {
+                        if (response.exists) {
+                            // Jika kursus ada di wishlist, ubah tampilan tombol
                             button.removeClass('bg-black bg-opacity-15');
                             button.addClass('bg-primaryColor hover:bg-primaryColor');
-                            button.find('i').addClass('text-white'); // Ubah warna ikon
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error menambahkan ke wishlist:', error);
+                            button.find('i').addClass('text-white');
+                        } else {
+                            // Jika kursus tidak ada di wishlist, pastikan tampilannya default
+                            button.removeClass('bg-primaryColor hover:bg-primaryColor');
+                            button.addClass('bg-black bg-opacity-15');
+                            button.find('i').removeClass('text-white');
                         }
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error memeriksa wishlist:', error);
-            }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error memeriksa status wishlist:', error);
+                    }
+                });
+            });
+
+            // Logika klik tombol wishlist
+            $('.add-to-wishlist').on('click', function(event) {
+                event.preventDefault(); // Mencegah perilaku default link
+
+                var button = $(this);
+                var courseId = button.data('id'); // Ambil ID kursus
+                var userId = {{ auth()->id() }}; // Ambil ID user yang sedang login
+
+                // Cek apakah kursus sudah ada di wishlist
+                $.ajax({
+                    url: '/wishlist/check', // URL untuk mengecek apakah kursus sudah ada di wishlist
+                    method: 'GET',
+                    data: {
+                        course_id: courseId,
+                        user_id: userId
+                    },
+                    success: function(response) {
+                        if (response.exists) {
+                            // Jika kursus sudah ada di wishlist, hapus dari wishlist
+                            $.ajax({
+                                url: '/wishlist/' + response
+                                .wishlist_id, // URL untuk menghapus wishlist berdasarkan ID
+                                method: 'DELETE',
+                                data: {
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function() {
+                                    // Ubah tampilan tombol setelah kursus dihapus dari wishlist
+                                    button.removeClass(
+                                        'bg-primaryColor hover:bg-primaryColor');
+                                    button.addClass(
+                                    'bg-black bg-opacity-15'); // Kembalikan warna default
+                                    button.find('i').removeClass(
+                                    'text-white'); // Kembalikan warna ikon
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Error menghapus dari wishlist:',
+                                        error);
+                                }
+                            });
+                        } else {
+                            // Jika kursus belum ada di wishlist, tambahkan ke wishlist
+                            $.ajax({
+                                url: '/wishlist', // URL untuk menambahkan kursus ke wishlist
+                                method: 'POST',
+                                data: {
+                                    course_id: courseId,
+                                    user_id: userId,
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function() {
+                                    // Ubah tampilan tombol setelah kursus ditambahkan ke wishlist
+                                    button.removeClass('bg-black bg-opacity-15');
+                                    button.addClass(
+                                        'bg-primaryColor hover:bg-primaryColor');
+                                    button.find('i').addClass(
+                                    'text-white'); // Ubah warna ikon
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Error menambahkan ke wishlist:',
+                                        error);
+                                }
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error memeriksa wishlist:', error);
+                    }
+                });
+            });
         });
-    });
-});
-
-
     </script>
-    
-
-
 
 @endsection
