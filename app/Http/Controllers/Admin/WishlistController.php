@@ -11,13 +11,13 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlists = Wishlist::with([
-            'course', 
-            'course.categories', 
-            'course.instrukturs', 
+            'course',
+            'course.categories',
+            'course.instrukturs',
             'course.babs.moduls',
         ])
-            ->where('user_id', auth()->id()) 
-            ->get(); 
+            ->where('user_id', auth()->id())
+            ->get();
 
         return view('dashboard.pages.wishlist.index', compact('wishlists'));
     }
@@ -34,7 +34,7 @@ class WishlistController extends Controller
             'course_id' => $request->course_id,
         ]);
 
-        return response()->json(['message' => 'Wishlist berhasil ditambahkan.']);
+        return response()->json(['message' => 'kursus berhasil tersimpan di wishlist.']);
     }
 
     public function destroy($id)
@@ -47,7 +47,8 @@ class WishlistController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Course removed from wishlist.',
+            'message' => 'Kursus dihapus dari wishlist.',
         ]);
     }
+
 }
