@@ -12,11 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->dropColumn('informasi_lain');
-            $table->boolean('course_type')->change()->nullable();
-            $table->renameColumn('course_type', 'berbayar');
-            $table->dropColumn('status');
-
+            $table->string('berbayar')->nullable()->change();
         });
     }
 

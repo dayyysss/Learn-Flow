@@ -31,140 +31,79 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-b border-borderColor dark:border-borderColor-dark">
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
-                            <a href="#">
-                                <img loading="lazy" src="../../assets/images/products/2.jpg" alt="product-1"
-                                    class="max-w-20 w-full">
-                            </a>
-                        </td>
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark w-300px">
-                            <a class="hover:text-primaryColor" href="product-details.html">Product title acc 10 - s /
-                                red</a>
-                        </td>
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
-                            <span class="amount">$110.00</span>
-                        </td>
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark w-300px">
-                            <div
-                                class="count-container max-w-150px h-55px leading-55px border-2 border-borderColor2 dark:border-borderColor2-dark relative overflow-hidden inline-block">
-                                <input type="number" value="1"
-                                    class="w-full rounded-full focus:outline-none bg-transparent text-center">
-                                <div>
-                                    <button
-                                        class="mincount absolute left-[10px] top-1/2 -translate-y-1/2 text-blackColor dark:text-blackColor-dark p-x-10px leading-1.8 w-5 inline-block opacity-50">
-                                        -</button><button
-                                        class="maxcount absolute top-1/2 -translate-y-1/2 right-[10px] text-blackColor dark:text-blackColor-dark p-x-10px leading-1.8 w-5 inline-block">
-                                        +
-                                    </button>
+                    @foreach ($cartItems as $cart)
+                        <tr class="border-b border-borderColor dark:border-borderColor-dark"
+                            id="cart-item-{{ $cart->id }}">
+                            <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
+                                <a href="#">
+                                    <img loading="lazy" src="{{ asset('storage/' . $cart->course->thumbnail) }}"
+                                        alt="product-1" class="max-w-20 w-full">
+                                </a>
+                            </td>
+                            <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
+                                <a class="hover:text-primaryColor" href="product-details.html"
+                                    id="course-name-{{ $cart->id }}">{{ $cart->course->name }}</a>
+                            </td>
+                            <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
+                                <span class="amount" id="price-{{ $cart->id }}">
+                                    {{ number_format($cart->course->harga, 2, ',', '.') }}
+                                </span>
+                            </td>
+                            <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
+                                <div
+                                    class="count-container max-w-150px h-55px leading-55px border-2 border-borderColor2 dark:border-borderColor2-dark relative overflow-hidden inline-block">
+                                    <input type="number" id="quantity-{{ $cart->id }}"
+                                        value="{{ $cart->quantity ?: 1 }}"
+                                        class="w-full rounded-full focus:outline-none bg-transparent text-center"
+                                        oninput="updateTotal({{ $cart->id }})" min="1" />
                                 </div>
-                            </div>
-                        </td>
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
-                            $110.00
-                        </td>
-                        <td class="py-15px md:py-5">
-                            <a href="#">
-                                <svg width="25" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ionicon"
-                                    viewBox="0 0 512 512">
-                                    <title>Pencil</title>
-                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="32"
-                                        d="M364.13 125.25L87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zM420.69 68.69l-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 000-22.62h0a16 16 0 00-22.62 0z">
-                                    </path>
-                                </svg></a>
-                            <a href="#">
-                                <svg width="25" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ionicon"
-                                    viewBox="0 0 512 512">
-                                    <title>Trash</title>
-                                    <path d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
-                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="32"></path>
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
-                                        stroke-width="32" d="M80 112h352"></path>
-                                    <path
-                                        d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40M256 176v224M184 176l8 224M328 176l-8 224"
-                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="32"></path>
-                                </svg></a>
-                        </td>
-                    </tr>
-                    <tr class="border-b border-borderColor dark:border-borderColor-dark">
-                        <td class="py-15px md:py-5 border-r border-b border-borderColor dark:border-borderColor-dark">
-                            <a href="#">
-                                <img loading="lazy" src="../../assets/images/products/1.jpg" alt="product-1"
-                                    class="max-w-20 w-full">
-                            </a>
-                        </td>
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark w-300px">
-                            <a class="hover:text-primaryColor" href="product-details.html">Product title acc 10 - s /
-                                red</a>
-                        </td>
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
-                            <span class="amount">$110.00</span>
-                        </td>
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark w-300px">
-                            <div
-                                class="count-container max-w-150px h-55px leading-55px border-2 border-borderColor2 dark:border-borderColor2-dark relative overflow-hidden inline-block">
-                                <input type="number" value="1"
-                                    class="w-full rounded-full focus:outline-none bg-transparent text-center">
-                                <div>
-                                    <button
-                                        class="mincount absolute left-[10px] top-1/2 -translate-y-1/2 text-blackColor dark:text-blackColor-dark p-x-10px leading-1.8 w-5 inline-block opacity-50">
-                                        -</button><button
-                                        class="maxcount absolute top-1/2 -translate-y-1/2 right-[10px] text-blackColor dark:text-blackColor-dark p-x-10px leading-1.8 w-5 inline-block">
-                                        +
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
-                            $110.00
-                        </td>
-                        <td class="py-15px md:py-5">
-                            <a href="#">
-                                <svg width="25" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ionicon"
-                                    viewBox="0 0 512 512">
-                                    <title>Pencil</title>
-                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="32"
-                                        d="M364.13 125.25L87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zM420.69 68.69l-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 000-22.62h0a16 16 0 00-22.62 0z">
-                                    </path>
-                                </svg></a>
-                            <a href="#">
-                                <svg width="25" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ionicon"
-                                    viewBox="0 0 512 512">
-                                    <title>Trash</title>
-                                    <path d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
-                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="32"></path>
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
-                                        stroke-width="32" d="M80 112h352"></path>
-                                    <path
-                                        d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40M256 176v224M184 176l8 224M328 176l-8 224"
-                                        fill="none" stroke="currentColor" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="32"></path>
-                                </svg></a>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
+                                <span id="total-{{ $cart->id }}">Rp
+                                    {{ number_format($cart->price, 2, ',', '.') }}</span>
+                            </td>
+                            <td class="py-15px md:py-5">
+                                <a href="javascript:void(0)" class="delete-cart-item" data-cart-id="{{ $cart->id }}">
+                                    <svg width="25" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ionicon"
+                                        viewBox="0 0 512 512">
+                                        <title>Trash</title>
+                                        <path
+                                            d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
+                                            fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="32"></path>
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                            stroke-width="32" d="M80 112h352"></path>
+                                        <path
+                                            d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40M256 176v224M184 176l8 224M328 176l-8 224"
+                                            fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="32"></path>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+
                 </tbody>
+
             </table>
         </div>
         <!-- cart action buttons -->
         <div
             class="flex flex-wrap sm:flex-nowrap justify-between items-center gap-x-5 gap-y-10px pt-22px pb-9 md:pt-30px md:pb-55px">
             <div>
-                <button
-                    class="text-size-13 text-whiteColor dark:text-whiteColor-dark dark:hover:text-whiteColor leading-1 px-5 py-18px md:px-10 bg-blackColor dark:bg-blackColor-dark hover:bg-primaryColor dark:hover:bg-primaryColor">
-                    CONTINUE SHOPPING
-                </button>
+                <a href="/course">
+                    <button
+                        class="text-size-13 text-whiteColor dark:text-whiteColor-dark dark:hover:text-whiteColor leading-1 px-5 py-18px md:px-10 bg-blackColor dark:bg-blackColor-dark hover:bg-primaryColor dark:hover:bg-primaryColor">
+                        CONTINUE SHOPPING
+                    </button>
+                </a>
             </div>
             <div class="flex flex-wrap sm:flex-nowrap justify-between items-center gap-x-5 gap-y-10px">
-                <button
+                {{-- <button
                     class="text-size-13 text-whiteColor dark:text-whiteColor-dark dark:hover:text-whiteColor leading-1 px-5 py-18px md:px-10 bg-blackColor dark:bg-blackColor-dark hover:bg-primaryColor dark:hover:bg-primaryColor">
                     UPDATE CART
-                </button>
-                <button
+                </button> --}}
+                <button onclick="clearCart()"
                     class="text-size-13 text-whiteColor dark:text-whiteColor-dark dark:hover:text-whiteColor leading-1 px-5 py-18px md:px-10 bg-blackColor dark:bg-blackColor-dark hover:bg-primaryColor dark:hover:bg-primaryColor">
                     CLEAR CART
                 </button>
@@ -178,8 +117,7 @@
                     class="px-30px pt-45px pb-50px leading-1.8 border border-borderColor dark:border-borderColor-dark rounded-5px">
                     <!-- heading -->
                     <div class="flex gap-x-4">
-                        <h3
-                            class="text-lg whitespace-nowrap font-medium text-blackColor dark:text-blackColor-dark mb-22px">
+                        <h3 class="text-lg whitespace-nowrap font-medium text-blackColor dark:text-blackColor-dark mb-22px">
                             <span class="leading-1.2">Estimate Shipping And Tax</span>
                         </h3>
                         <div class="h-1px w-full bg-borderColor2 dark:bg-borderColor2-dark mt-2"></div>
@@ -220,8 +158,7 @@
                     class="px-30px pt-45px pb-50px leading-1.8 border border-borderColor dark:border-borderColor-dark rounded-5px">
                     <!-- heading -->
                     <div class="flex gap-x-4">
-                        <h3
-                            class="text-lg whitespace-nowrap font-medium text-blackColor dark:text-blackColor-dark mb-22px">
+                        <h3 class="text-lg whitespace-nowrap font-medium text-blackColor dark:text-blackColor-dark mb-22px">
                             <span class="leading-1.2">Cart Note</span>
                         </h3>
                         <div class="h-1px w-full bg-borderColor2 dark:bg-borderColor2-dark mt-2"></div>
@@ -252,10 +189,10 @@
                     <h4
                         class="text-sm font-bold text-blackColor dark:text-blackColor-dark mb-5 flex justify-between items-center">
                         <span class="leading-1.2">Cart Totals</span>
-                        <span class="leading-1.2 text-lg font-medium">$189.00</span>
+                        <span class="leading-1.2 text-lg font-medium cart-total-amount">0</span>
                     </h4>
                     <div>
-                        <button
+                        <button onclick="proceedToCheckout()"
                             class="text-size-13 text-whiteColor dark:text-whiteColor-dark dark:hover:text-whiteColor leading-1 w-full px-10px py-18px bg-blackColor dark:bg-blackColor-dark hover:bg-primaryColor dark:hover:bg-primaryColor">
                             PROCEED TO CHECKOUT
                         </button>
@@ -264,4 +201,219 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function updateTotal(cartId) {
+            // Ambil harga per unit dari elemen
+            let priceText = document.getElementById(`price-${cartId}`).textContent.replace('Rp ', '').replace(/\./g, '')
+                .replace(',', '.');
+            let price = parseFloat(priceText); // Mengonversi harga menjadi angka
+
+            // Ambil kuantitas dari input
+            let quantity = document.getElementById(`quantity-${cartId}`).value;
+
+            // Hitung total
+            let total = price * quantity;
+
+            // Update total ke tampilan
+            document.getElementById(`total-${cartId}`).textContent = `${total.toFixed(2).replace('.', ',')}`;
+
+            // Ambil nama kursus
+            let courseNameElement = document.getElementById(`course-name-${cartId}`);
+            if (!courseNameElement) {
+                console.error(`Nama kursus untuk cartId ${cartId} tidak ditemukan.`);
+                return;
+            }
+            let courseName = courseNameElement.textContent;
+
+            // Kirim data baru ke server (optional - jika Anda ingin memperbarui cart di database)
+            updateCartInDatabase(cartId, quantity, total, courseName);
+        }
+
+
+
+
+        function updateCartInDatabase(cartId, quantity, total, courseName) {
+            // Membuat objek data JSON
+            const data = {
+                cartId: cartId,
+                quantity: quantity,
+                total: total,
+                courseName: courseName 
+            };
+
+            // Mengirimkan data ke server menggunakan fetch
+            fetch('/cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data berhasil diperbarui:', data);
+                    // Anda bisa melakukan sesuatu setelah berhasil memperbarui data, misalnya memperbarui total keseluruhan keranjang
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+
+
+        function increaseQuantity(cartId) {
+            let quantityInput = document.getElementById(`quantity-${cartId}`);
+            let quantity = parseInt(quantityInput.value);
+
+            // Tambahkan 1 ke quantity
+            quantity += 1;
+
+            // Update input quantity
+            quantityInput.value = quantity;
+
+            // Perbarui total harga setelah quantity bertambah
+            updateTotal(cartId);
+        }
+
+
+        function decreaseQuantity(cartId) {
+            let quantityInput = document.getElementById(`quantity-${cartId}`);
+            let quantity = parseInt(quantityInput.value);
+            if (quantity > 1) { // Jangan biarkan quantity kurang dari 1
+                quantity -= 1; // Kurangi 1 dari quantity
+                quantityInput.value = quantity; // Update input quantity
+                updateTotal(cartId); // Perbarui total harga
+            }
+        }
+
+        function updateCartTotal() {
+            let totalCart = 0;
+
+            // Loop untuk semua item di cart
+            let cartItems = document.querySelectorAll('tr[id^="cart-item-"]');
+            cartItems.forEach(item => {
+                let cartId = item.id.split('-')[2]; // Mendapatkan ID dari cart item
+                let itemTotalText = document.getElementById(`total-${cartId}`).textContent.replace('Rp ', '')
+                    .replace(/\./g, '').replace(',', '.');
+                let itemTotal = parseFloat(itemTotalText); // Menghitung total item
+
+                totalCart += itemTotal; // Menambahkan total item ke total cart
+            });
+
+            // Menampilkan total cart di elemen dengan class cart-total-amount
+            document.querySelector('.cart-total-amount').textContent = "Rp " + totalCart.toLocaleString('id-ID');
+        }
+
+        // Fungsi untuk inisialisasi total saat halaman dimuat
+        window.onload = function() {
+            @foreach ($cartItems as $cart)
+                updateTotal({{ $cart->id }});
+            @endforeach
+        }
+
+        $(document).on('click', '.delete-cart-item', function() {
+            const cartId = $(this).data('cart-id'); // pastikan kamu memberikan ID cart ke elemen tombol
+            const url = `/cart/${cartId}`;
+
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                data: {
+                    "_token": "{{ csrf_token() }}", // jangan lupa sertakan token CSRF
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert(response.message);
+                        window.location.href = response.redirect_url; // Redirect ke halaman cart
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while deleting the cart item.');
+                }
+            });
+        });
+
+        function clearCart() {
+            if (confirm('Are you sure you want to clear the cart?')) {
+                fetch('/clear-cart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        },
+                        body: JSON.stringify({
+                            action: 'clear',
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const cartItems = document.querySelectorAll('.delete-cart-item');
+                            cartItems.forEach(item => {
+                                const cartItemRow = item.closest('tr');
+                                cartItemRow.remove();
+                            });
+                            alert('Your cart has been cleared.');
+                        } else {
+                            alert('There was an error clearing the cart. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred. Please try again.');
+                    });
+            }
+        }
+
+        function proceedToCheckout() {
+            // Ambil semua kursus di cart untuk user saat ini (misalnya, dari server atau dari data yang ada di halaman)
+            let coursesInCart = [];
+
+            // Misalnya, jika kursus disimpan dalam elemen yang ada di halaman (Anda bisa menyesuaikan ini dengan cara Anda menampilkan kursus)
+            @foreach ($cartItems as $cart)
+                coursesInCart.push({
+                    id: {{ $cart->course->id }},
+                    name: "{{ $cart->course->name }}",
+                    harga: "{{ number_format($cart->course->harga, 0, ',', '.') }}",
+                    gambar: "{{ $cart->course->gambar }}"
+                });
+            @endforeach
+
+            // Simpan data cart di LocalStorage
+            localStorage.setItem('cartItems', JSON.stringify(coursesInCart));
+
+            // Arahkan pengguna ke halaman checkout
+            window.location.href = "/course-registrations/create";
+        }
+
+
+
+        // // Ambil data cart yang disimpan di LocalStorage
+        // let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+        // // Kirim data cart ke server menggunakan AJAX atau tampilkan di halaman
+        // if (cartItems) {
+        //     // Misalnya, kirim data menggunakan AJAX
+        //     $.ajax({
+        //         url: '/course-registrations/store-from-cart',
+        //         method: 'POST',
+        //         data: {
+        //             _token: '{{ csrf_token() }}',
+        //             courses: cartItems
+        //         },
+        //         success: function(response) {
+        //             // Tanggapan sukses dari server
+        //             alert('Kursus berhasil didaftarkan!');
+        //         },
+        //         error: function(response) {
+        //             alert('Terjadi kesalahan!');
+        //         }
+        //     });
+        // }
+    </script>
 @endsection

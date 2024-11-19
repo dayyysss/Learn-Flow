@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Quiz;
 
+use App\Http\Controllers\Controller;
 use App\Models\Bab;
 use App\Models\Quiz;
 use Illuminate\View\View;
@@ -70,15 +71,14 @@ class QuizController extends Controller
     // Hanya superadmin dan instructor yang bisa menghapus quiz
     public function destroy($id)
     {
-        // Verifikasi jika user adalah superadmin
-        if (!auth()->user()->is_superadmin && !auth()->user()->is_instructor) {
-            return redirect()->route('dashboard')->with('error', 'Unauthorized access');
+        if (!auth()->user()->hasRole(['superadmin', 'instructor'])) {
+            abort(403, 'Unauthorized action.');
         }
 
-        // Mencari quiz berdasarkan ID
+        // Temukan Quiz berdasarkan ID
         $quiz = Quiz::findOrFail($id);
-        
-        // Menghapus quiz dan data terkait
+
+        // Hapus Quiz (cascading deletion akan bekerja di sini)
         $quiz->delete();
 
         return redirect()->route('quizzes.index')->with('success', 'Quiz deleted successfully');

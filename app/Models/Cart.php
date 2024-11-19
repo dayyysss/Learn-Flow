@@ -14,6 +14,12 @@ class Cart extends Model
     protected $fillable = [
         'user_id',
         'course_id',
+        'cart_items',
+
+    ];
+
+    protected $casts = [
+        'cart_items' => 'array',  // Mengubah kolom cart_data menjadi array
     ];
 
     public function user()
@@ -23,6 +29,6 @@ class Cart extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class, 'course_id');
     }
 }

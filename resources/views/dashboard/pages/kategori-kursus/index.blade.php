@@ -1,17 +1,15 @@
 @extends('dashboard.layouts.layouts')
 @section('page_title', 'LearnFlow | Kategori Kursus')
 @section('content')
-@vite(['resources/css/app.css'])
-    <!-- dashboard content -->
+ 
     <div class="lg:col-start-4 lg:col-span-9">
         <div
             class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
             <div
                 class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
                 <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Kategori Kursus</h2>
-                <!-- Label untuk membuka modal -->
                 <label for="modalToggle"
-                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md cursor-pointer">
+                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md  transition duration-300 ease-in-out cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-plus">
@@ -21,9 +19,6 @@
                     Tambah Kategori
                 </label>
             </div>
-            @include('dashboard.pages.kategori-kursus.create')
-
-            <!-- filter content -->
             <div class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
                 <div class="xl:col-start-1 xl:col-span-6">
                     <p
@@ -83,7 +78,6 @@
                 </div>
             </div>
             <hr class="my-4 border-contentColor opacity-35">
-            <!-- main content -->
             <div class="overflow-auto">
                 <table class="w-full text-left text-nowrap">
                     <thead
@@ -110,18 +104,20 @@
                                         </span>
                                     </p>
                                 </td>
-
                                 <td class="px-5px py-10px md:px-5">
                                     <div class="dashboard__button__group">
                                         <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px edit-category"
-                                        href="javascript:void(0);" 
-                                        data-id="{{ $category->id }}" 
-                                        data-name="{{ $category->name }}" 
-                                        data-slug="{{ $category->slug }}" 
-                                        data-status="{{ $category->status }}" 
-                                        data-action="edit">
-                                        Edit
-                                     </a>
+                                            href="javascript:void(0);" data-id="{{ $category->id }}"
+                                            data-name="{{ $category->name }}" data-slug="{{ $category->slug }}"
+                                            data-status="{{ $category->status }}" data-action="edit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg>
+                                            Edit
+                                        </a>
                                         <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-secondaryColor bg-secondaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-secondaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"
                                             href="{{ route('kategori-kursus.destroy', $category->id) }}"
                                             onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
@@ -139,7 +135,6 @@
                                                 </line>
                                             </svg>
                                             Delete</a>
-                                        <!-- Form delete -->
                                         <form id="delete-form-{{ $category->id }}"
                                             action="{{ route('kategori-kursus.destroy', $category->id) }}" method="POST"
                                             style="display: none;">
@@ -157,28 +152,6 @@
     </div>
 
     @include('dashboard.pages.kategori-kursus.edit')
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('categoryModal');
-            const openModalButton = document.getElementById('openModalButton');
-            const closeModalButton = document.getElementById('closeModalButton');
-
-            openModalButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                modal.classList.add('active');
-            });
-
-            closeModalButton.addEventListener('click', function() {
-                modal.classList.remove('active');
-            });
-
-            window.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        });
-    </script>
+    @include('dashboard.pages.kategori-kursus.create')
 
 @endsection

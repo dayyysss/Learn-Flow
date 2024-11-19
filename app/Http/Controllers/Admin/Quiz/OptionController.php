@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Quiz;
 
+use App\Http\Controllers\Controller;
 use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Http\RedirectResponse;

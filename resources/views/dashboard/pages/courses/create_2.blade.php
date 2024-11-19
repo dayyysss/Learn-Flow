@@ -6,7 +6,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-x-30px gap-y-5">
                 <!-- create course left -->
                 <div data-aos="fade-up" class="lg:col-start-1 lg:col-span-8">
-                      <form id="courseForm" method="POST" action="{{ route('courses.store') }}" enctype="multipart/form-data">
+                    <form id="courseForm" method="POST" action="{{ route('courses.store') }}" enctype="multipart/form-data">
                         @csrf
                         <ul class="accordion-container curriculum create-course">
                             <!-- Course Info Accordion -->
