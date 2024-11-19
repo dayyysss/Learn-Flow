@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -60,7 +63,7 @@ Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dash
 Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
 Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard.reviews');
 Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('dashboard.orderHistory');
-Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
+Route::resource('/settings', SettingController::class);
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
 Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('dashboard.myCourse');
 Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.cart');
@@ -68,7 +71,7 @@ Route::get('/assignments', [DashboardController::class, 'assignments'])->name('d
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
 Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
 
-Route::get('/detail-course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');

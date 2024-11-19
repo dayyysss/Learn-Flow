@@ -17,6 +17,11 @@ class Bab extends Model
         return $this->belongsTo(Course::class, 'course_id');
         
     }
+    public function quiz()
+    {
+        return $this->hasMany(Quiz::class);
+        
+    }
 
     public function moduls()
     {
