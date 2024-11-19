@@ -1,47 +1,39 @@
 <!-- Checkbox kontrol untuk modal -->
 <input type="checkbox" id="modalToggle" class="modal-checkbox hidden" />
-<div
-    class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 visibility-hidden transition-opacity duration-300 z-[-1]">
-    <div
-        class="modal-content bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5 p-6 relative w-full max-w-lg transform -translate-y-12 transition-transform duration-300">
-        <h2 class="text-xl font-semibold text-blackColor dark:text-blackColor-dark mb-4">Tambah Kategori Kursus</h2>
+<div class="modal">
+    <div class="modal-content bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark">
+        <h2 class="modal-title text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">Tambah Kategori Kursus</h2>
 
-        <label for="modalToggle"
-            class="absolute top-4 right-4 text-blackColor dark:text-whiteColor cursor-pointer text-2xl">X</label>
+        <label for="modalToggle" class="modal-close cursor-pointer absolute top-4 right-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-primaryColor dark:text-whiteColor" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </label>
 
         <form action="{{ route('kategori-kursus.store') }}" method="POST">
             @csrf
-            <div class="mb-4">
-                <label for="name" class="block text-sm font-medium text-blackColor dark:text-whiteColor">Nama
-                    Kategori</label>
-                <input type="text" id="name" name="name"
-                    class="mt-1 p-2 border border-borderColor dark:border-borderColor-dark rounded w-full focus:outline-none focus:ring-primaryColor focus:border-primaryColor transition duration-300"
-                    value="" required>
+            <div class="form-group">
+                <label for="name" class="text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">Nama Kategori</label>
+                <input type="text" id="name" name="name" required>
             </div>
-            <div class="mb-4">
-                <label for="slug"
-                    class="block text-sm font-medium text-blackColor dark:text-whiteColor">Slug</label>
-                <input type="text" id="slug" name="slug"
-                    class="mt-1 p-2 border border-borderColor dark:border-borderColor-dark rounded w-full focus:outline-none focus:ring-primaryColor focus:border-primaryColor transition duration-300"
-                    readonly>
+            <div class="form-group">
+                <label for="slug" class="text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">Slug</label>
+                <input type="text" id="slug" name="slug" readonly>
             </div>
-            <div class="mb-4">
-                <label for="status"
-                    class="block text-sm font-medium text-blackColor dark:text-whiteColor">Status</label>
-                <select id="status" name="status"
-                    class="mt-1 p-2 border border-borderColor dark:border-borderColor-dark rounded w-full focus:outline-none focus:ring-primaryColor focus:border-primaryColor transition duration-300">
+            <div class="form-group">
+                <label for="status" class="text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">Status</label>
+                <select id="status" name="status">
                     <option value="publik">Publik</option>
                     <option value="draft">Draft</option>
                 </select>
             </div>
-            <button type="submit"
-                class="bg-primaryColor text-whiteColor hover:bg-whiteColor hover:text-primaryColor dark:hover:bg-whiteColor-dark border border-primaryColor p-2 rounded-md transition duration-300 w-full">Tambah</button>
+            <button type="submit" class="w-full text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">Tambah</button>
         </form>
     </div>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+   document.addEventListener('DOMContentLoaded', function() {
         const namaKategoriInput = document.getElementById('name');
         const slugInput = document.getElementById('slug');
 
@@ -59,15 +51,3 @@
         });
     });
 </script>
-
-<style>
-    .modal-checkbox:checked+.modal {
-        opacity: 1;
-        visibility: visible;
-        z-index: 999;
-    }
-
-    .modal-checkbox:checked+.modal .modal-content {
-        transform: translateY(0);
-    }
-</style>

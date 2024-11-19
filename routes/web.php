@@ -3,7 +3,6 @@
 use App\Models\Course;
 use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuizController;
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Admin\CourseController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -59,7 +59,6 @@ Route::resource('/courses', CourseController::class);
 Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dashboard.coursesCreate');
 Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
 Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard.reviews');
-Route::get('/quiz-attempts', [DashboardController::class, 'quizAttempts'])->name('dashboard.quizAttempts');
 Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('dashboard.orderHistory');
 Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
@@ -98,6 +97,10 @@ Route::delete('/wishlists/{id}', [WishlistController::class, 'destroy'])->name('
 
 
 //quiz
+
+//quiz result
+Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('dashboard.quizResults');
+Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('quizresult.show');
 
 
 

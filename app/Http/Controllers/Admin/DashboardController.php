@@ -32,11 +32,6 @@ class DashboardController extends Controller
         return view('dashboard.pages.reviews.index');
     }
 
-    public function quizAttempts()
-    {
-        return view('dashboard.pages.quiz.index');
-    }
-
     public function settings()
     {
         return view('dashboard.pages.settings.index');
