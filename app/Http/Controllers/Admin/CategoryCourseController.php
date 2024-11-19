@@ -41,7 +41,7 @@ class CategoryCourseController extends Controller
             }
         }
 
-        $categories = $query->paginate(10)->withQueryString();
+        $categories = $query->paginate(10);
 
         $categoryNames = CategoryCourse::pluck('name')->unique();
 
