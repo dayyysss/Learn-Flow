@@ -59,10 +59,10 @@
                             </svg>
                             Kursus
                         </a>
-                        <img src="../../assets/images/icon/down-arrow.svg" alt="Arrow Icon"
-                            class="arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px">
+                        <i
+                        class="icofont-simple-down arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
+                      ></i>
                     </div>
-
                     <!-- Submenu Kategori -->
                     <ul id="submenu-kategori"
                         class="pl-26px py-2 {{ request()->routeIs('dashboard.courses') || request()->routeIs('kategori-kursus.index') || request()->routeIs('courses.index') ? '' : 'hidden' }}">
