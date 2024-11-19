@@ -62,4 +62,9 @@ class Course extends Model
         return $this->hasMany(Cart::class);
     }
 
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
 }

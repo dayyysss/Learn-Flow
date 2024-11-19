@@ -70,7 +70,7 @@ Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])
 
 Route::get('/detail-course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 
-Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('dashboard.wishlist');
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
 Route::resource('/kategori-kursus', CategoryCourseController::class);
 Route::resource('/artikel', ArtikelController::class);
@@ -91,7 +91,6 @@ Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.re
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
 //wishlist
-Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
 Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
 Route::delete('/wishlists/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
 
