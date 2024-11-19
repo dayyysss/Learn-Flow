@@ -16,64 +16,53 @@
                     Tambah Kategori
                 </label>
             </div>
-            <div class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
+            <form action="{{ route('kategori-kursus.index') }}" method="GET" class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
                 <div class="xl:col-start-1 xl:col-span-6">
-                    <p
-                        class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
+                    <p class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
                         KATEGORI
                     </p>
                     <div class="bg-whiteColor rounded-md relative">
-                        <select
-                            class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
-                            <option selected="" value="All">All</option>
-                            <option value="Web Design">Web Design</option>
-                            <option value="Graphic">Graphic</option>
-                            <option value="English">English</option>
-                            <option value="Spoken English">Spoken English</option>
-                            <option value="Art Painting">Art Painting</option>
-                            <option value="App Development">App Development</option>
-                            <option value="Spoken English">Web Application</option>
-                            <option value="Spoken English">Php Development</option>
+                        <select name="category" onchange="this.form.submit()" class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
+                            <option value="All" {{ request('category') == 'All' ? 'selected' : '' }}>All</option>
+                            @foreach($categoryNames as $name)
+                                <option value="{{ $name }}" {{ request('category') == $name ? 'selected' : '' }}>
+                                    {{ $name }}
+                                </option>
+                            @endforeach
                         </select>
                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                     </div>
                 </div>
+    
                 <div class="xl:col-start-7 xl:col-span-3">
-                    <p
-                        class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
-                        SHORT BY
+                    <p class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
+                        URUTKAN BERDASARKAN
                     </p>
                     <div class="bg-whiteColor rounded-md relative">
-                        <select
-                            class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
-                            <option selected="" value="Default">Default</option>
-                            <option value="Trending">Trending</option>
-                            <option value="Price: low to high">
-                                Price: low to high
-                            </option>
-                            <option value="Price: low to low">
-                                Price: low to low
-                            </option>
+                        <select name="sort" onchange="this.form.submit()" class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
+                            <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
+                            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nama (A-Z)</option>
+                            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nama (Z-A)</option>
                         </select>
                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                     </div>
                 </div>
+    
                 <div class="xl:col-start-10 xl:col-span-3">
-                    <p
-                        class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
-                        SHORT BY OFFER
+                    <p class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
+                        STATUS
                     </p>
                     <div class="bg-whiteColor rounded-md relative">
-                        <select
-                            class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
-                            <option selected="" value="Free">Free</option>
-                            <option value="paid">paid</option>
-                            <option value="premimum">premimum</option>
+                        <select name="status" onchange="this.form.submit()" class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
+                            <option value="All" {{ request('status') == 'All' ? 'selected' : '' }}>Semua</option>
+                            <option value="publik" {{ request('status') == 'publik' ? 'selected' : '' }}>Publik</option>
+                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
                         </select>
                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                     </div>
                 </div>
-            </div>
+            </form>
             <hr class="my-4 border-contentColor opacity-35">
             <div class="overflow-auto">
                 <table class="w-full text-left text-nowrap">
@@ -83,6 +72,7 @@
                             <th class="px-5px py-10px md:px-5">No</th>
                             <th class="px-5px py-10px md:px-5">Name</th>
                             <th class="px-5px py-10px md:px-5">Status</th>
+                            <th class="px-5px py-10px md:px-5">Tanggal Dibuat</th>
                             <th class="px-5px py-10px md:px-5 text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -101,6 +91,7 @@
                                         </span>
                                     </p>
                                 </td>
+                                <td>{{ $category->created_at->format('d M Y H:i') }}</td>
                                 <td class="px-5px py-10px md:px-5">
                                     <div class="dashboard__button__group">
                                         <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px edit-category"
@@ -144,6 +135,9 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="mt-4">
+                @include('dashboard.components.pagination.pagination', ['paginator' => $categories])
             </div>
         </div>
     </div>
