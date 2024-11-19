@@ -91,7 +91,7 @@
                     <tbody class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal">
                         @foreach ($categories as $index => $category)
                             <tr class="leading-1.8 md:leading-1.8">
-                                <td class="px-5px py-10px md:px-5">{{ $index + 1 }}</td>
+                                <td class="px-5px py-10px md:px-5">  {{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->index + 1 }}</td>
                                 <td class="px-5px py-10px md:px-5">{{ $category->name }}</td>
                                 <td class="px-5px py-10px md:px-5">
                                     <p class="text-xs">
