@@ -62,10 +62,9 @@ class WishlistController extends Controller
 
     public function check(Request $request)
     {
-        // Cari apakah kursus sudah ada di wishlist
         $wishlist = Wishlist::where('user_id', auth()->id())
             ->where('course_id', $request->course_id)
-            ->first(); // Menggunakan first() untuk tidak melemparkan pengecualian
+            ->first(); 
 
         if ($wishlist) {
             return response()->json(['exists' => true, 'wishlist_id' => $wishlist->id]);
