@@ -3,10 +3,12 @@
 use App\Models\Course;
 use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\ArtikelController;
+use App\Http\Controllers\Admin\WishlistController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Admin\CategoryCourseController;
@@ -14,7 +16,6 @@ use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\QuizController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -89,6 +90,11 @@ Route::post('/cart', [CartController::class, 'updateCart'])->name('cart.update')
 Route::patch('/cart', [CartController::class, 'updateCart']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
+
+//wishlist
+Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
+Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
+Route::delete('/wishlists/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
 
 
 //quiz

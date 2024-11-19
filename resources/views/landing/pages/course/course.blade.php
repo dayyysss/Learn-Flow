@@ -2,7 +2,7 @@
 @section('page_title', 'Courses | Learn Flow')
 @section('content')
 
-@include('landing.components.breadcrumb', ['title' => 'Courses'])
+    @include('landing.components.breadcrumb', ['title' => 'Courses'])
 
 
     <!-- courses section -->
@@ -168,110 +168,115 @@
                 <div class="md:col-start-5 md:col-span-8 lg:col-start-4 lg:col-span-9 space-y-[30px]">
                     <div class="tab-contents">
                         <!-- grid ordered cards -->
-                        <div
-                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-30px">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-30px">
                             <!-- card 1 -->
 
-                            @foreach($course as $item)
+                            @foreach ($course as $item)
                                 <div class="group">
-                                <div class="tab-content-wrapper" data-aos="fade-up">
-                                    <div
-                                        class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
-                                        <!-- card image -->
-                                        <div class="relative mb-4">
-                                            <a href="course-details.html" class="w-full overflow-hidden rounded">
-                                                <img src="assets/images/grid/grid_1.png" alt=""
-                                                    class="w-full transition-all duration-300 group-hover:scale-110">
-                                            </a>
-                                            <div
-                                                class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
-                                                <div>
-                                                    <p
-                                                        class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold">
-                                                        {{ $item->categories->name ?? 'No Category' }}
-                                                    </p>
-                                                </div>
-                                                <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                                    href="#"><i
-                                                        class="icofont-heart-alt text-base py-1 px-2"></i></a>
-                                            </div>
-                                        </div>
-                                        <!-- card content -->
-                                        <div>
-                                            <div class="grid grid-cols-2 mb-15px">
-                                                <div class="flex items-center">
+                                    <div class="tab-content-wrapper" data-aos="fade-up">
+                                        <div
+                                            class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
+                                            <!-- card image -->
+                                            <div class="relative mb-4">
+                                                <a href="course-details.html" class="w-full overflow-hidden rounded">
+                                                    <img src="assets/images/grid/grid_1.png" alt=""
+                                                        class="w-full transition-all duration-300 group-hover:scale-110">
+                                                </a>
+                                                <div
+                                                    class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
                                                     <div>
-                                                        <i
-                                                            class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
+                                                        <p
+                                                            class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold">
+                                                            {{ $item->categories->name ?? 'No Category' }}
+                                                        </p>
                                                     </div>
-                                                    <div>
-                                                        <span class="text-sm text-black dark:text-blackColor-dark">{{ $item->babs->sum(function($bab) {
-                                                            return $bab->moduls->count();
-                                                        }) }}
-                                                            Modul</span>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-center">
-                                                    <div>
-                                                        <i
-                                                            class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
-                                                    </div>
-                                                    <div>
-                                                        <span class="text-sm text-black dark:text-blackColor-dark">{{$item->tanggal_mulai}}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="course-details.html"
-                                                class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                {{$item->name}}
-                                            </a>
-                                            <!-- price -->
-                                            <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
-                                                @if($item->harga_diskon)
-                                                    <!-- Menampilkan harga setelah diskon -->
-                                                    Rp {{ number_format($item->harga - $item->harga_diskon, 2, ',', '.') }}
-                                                    <del class="text-sm text-lightGrey4 font-semibold">
-                                                        / Rp {{ number_format($item->harga, 2, ',', '.') }}
-                                                    </del>
-                                                @else
-                                                    <!-- Menampilkan harga asli jika tidak ada diskon -->
-                                                    Rp {{ number_format($item->harga, 2, ',', '.') }}
-                                                @endif
-                                            
-                                                <span class="ml-6">
-                                                    @if($item->harga - $item->harga_diskon > 0) <!-- Jika harga setelah diskon lebih besar dari nol -->
-                                                        <del class="text-base font-semibold text-deepred">Free</del>
-                                                    @else
-                                                        <span class="text-base font-semibold text-greencolor">Free</span>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <!-- author and rating-->
-                                            <div
-                                                class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
-                                                <div>
-                                                    <a href="instructor-details.html"
-                                                        class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"><img
-                                                        class="w-[30px] h-[30px] rounded-full mr-15px"
-                                                        src="{{ $item->instrukturs->image ? Storage::url($item->instrukturs->image) : asset('assets/images/grid/grid_small_1.jpg') }}"
-                                                        alt="{{ $item->instrukturs->name }}">
-                                                        <span class="flex">{{$item->instrukturs->name}}</span>
+                                                    <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor add-to-wishlist"
+                                                        href="#" data-id="{{ $item->id }}">
+                                                        <i class="icofont-heart-alt text-base py-1 px-2"></i>
                                                     </a>
                                                 </div>
-                                                <div class="text-start md:text-end">
-                                                    <div>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
+                                            </div>
+                                            <!-- card content -->
+                                            <div>
+                                                <div class="grid grid-cols-2 mb-15px">
+                                                    <div class="flex items-center">
+                                                        <div>
+                                                            <i
+                                                                class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
+                                                        </div>
+                                                        <div>
+                                                            <span
+                                                                class="text-sm text-black dark:text-blackColor-dark">{{ $item->babs->sum(function ($bab) {
+                                                                    return $bab->moduls->count();
+                                                                }) }}
+                                                                Modul</span>
+                                                        </div>
                                                     </div>
-                                                    <span class="text-xs text-lightGrey6">(44)</span>
+                                                    <div class="flex items-center">
+                                                        <div>
+                                                            <i
+                                                                class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
+                                                        </div>
+                                                        <div>
+                                                            <span
+                                                                class="text-sm text-black dark:text-blackColor-dark">{{ $item->tanggal_mulai }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="course-details.html"
+                                                    class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+                                                    {{ $item->name }}
+                                                </a>
+                                                <!-- price -->
+                                                <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
+                                                    @if ($item->harga_diskon)
+                                                        <!-- Menampilkan harga setelah diskon -->
+                                                        Rp
+                                                        {{ number_format($item->harga - $item->harga_diskon, 2, ',', '.') }}
+                                                        <del class="text-sm text-lightGrey4 font-semibold">
+                                                            / Rp {{ number_format($item->harga, 2, ',', '.') }}
+                                                        </del>
+                                                    @else
+                                                        <!-- Menampilkan harga asli jika tidak ada diskon -->
+                                                        Rp {{ number_format($item->harga, 2, ',', '.') }}
+                                                    @endif
+
+                                                    <span class="ml-6">
+                                                        @if ($item->harga - $item->harga_diskon > 0)
+                                                            <!-- Jika harga setelah diskon lebih besar dari nol -->
+                                                            <del class="text-base font-semibold text-deepred">Free</del>
+                                                        @else
+                                                            <span
+                                                                class="text-base font-semibold text-greencolor">Free</span>
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                <!-- author and rating-->
+                                                <div
+                                                    class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
+                                                    <div>
+                                                        <a href="instructor-details.html"
+                                                            class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"><img
+                                                                class="w-[30px] h-[30px] rounded-full mr-15px"
+                                                                src="{{ $item->instrukturs->image ? Storage::url($item->instrukturs->image) : asset('assets/images/grid/grid_small_1.jpg') }}"
+                                                                alt="{{ $item->instrukturs->name }}">
+                                                            <span class="flex">{{ $item->instrukturs->name }}</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="text-start md:text-end">
+                                                        <div>
+                                                            <i class="icofont-star text-size-10 text-yellow"></i>
+                                                            <i class="icofont-star text-size-10 text-yellow"></i>
+                                                            <i class="icofont-star text-size-10 text-yellow"></i>
+                                                            <i class="icofont-star text-size-10 text-yellow"></i>
+                                                            <i class="icofont-star text-size-10 text-yellow"></i>
+                                                        </div>
+                                                        <span class="text-xs text-lightGrey6">(44)</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             @endforeach
 
@@ -280,7 +285,7 @@
                         <div class="hidden opacity-0 transition-all duration-300">
                             <div class="flex flex-col gap-30px">
                                 <!-- card 1 -->
-                                @foreach($course as $item)
+                                @foreach ($course as $item)
                                     <div class="w-full group grid-item rounded">
                                         <div class="tab-content-wrapper" data-aos="fade-up">
                                             <div
@@ -297,7 +302,7 @@
                                                         <div>
                                                             <p
                                                                 class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold capitalize">
-                                                                {{$item->categories->name}}
+                                                                {{ $item->categories->name }}
                                                             </p>
                                                         </div>
                                                         <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
@@ -316,7 +321,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <span
-                                                                        class="text-sm text-black dark:text-blackColor-dark">{{ $item->babs->sum(function($bab) {
+                                                                        class="text-sm text-black dark:text-blackColor-dark">{{ $item->babs->sum(function ($bab) {
                                                                             return $bab->moduls->count();
                                                                         }) }}
                                                                         Modul</span>
@@ -329,38 +334,40 @@
                                                                 </div>
                                                                 <div>
                                                                     <span
-                                                                        class="text-sm text-black dark:text-blackColor-dark">{{$item->tanggal_mulai}}</span>
+                                                                        class="text-sm text-black dark:text-blackColor-dark">{{ $item->tanggal_mulai }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <a href="course-details.html"
                                                             class="text-size-26 leading-30px font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                            {{$item->name}}
+                                                            {{ $item->name }}
                                                         </a>
 
-                                        
-                      
+
+
                                                         <!-- price -->
                                                         <div
                                                             class="text-lg font-semibold text-black-brerry-light font-inter mb-4">
-                                                            @if($item->harga_diskon)
-                                                            <!-- Menampilkan harga setelah diskon -->
-                                                            Rp {{ number_format($item->harga - $item->harga_diskon, 2, ',', '.') }}
-                                                            <del class="text-sm text-lightGrey4 font-semibold">/
-                                                                / Rp {{ number_format($item->harga, 2, ',', '.') }}</del>
-                                                                @else
+                                                            @if ($item->harga_diskon)
+                                                                <!-- Menampilkan harga setelah diskon -->
+                                                                Rp
+                                                                {{ number_format($item->harga - $item->harga_diskon, 2, ',', '.') }}
+                                                                <del class="text-sm text-lightGrey4 font-semibold">/
+                                                                    / Rp
+                                                                    {{ number_format($item->harga, 2, ',', '.') }}</del>
+                                                            @else
                                                                 <!-- Menampilkan harga asli jika tidak ada diskon -->
                                                                 Rp {{ number_format($item->harga, 2, ',', '.') }}
                                                             @endif
 
-                                                                @if($item->harga - $item->harga_diskon > 0) <!-- Jika harga setelah diskon lebih besar dari nol -->
+                                                            @if ($item->harga - $item->harga_diskon > 0)
+                                                                <!-- Jika harga setelah diskon lebih besar dari nol -->
                                                                 <del
                                                                     class="ml-6 text-base font-semibold text-deepred">Free.</del>
-                                                                @else
+                                                            @else
                                                                 <span
                                                                     class="ml-6 text-base font-semibold text-greencolor2">Free.</span>
-
-                                                                @endif
+                                                            @endif
                                                         </div>
                                                         <!-- bottom -->
                                                         <div
@@ -373,7 +380,8 @@
                                                                             class="w-[30px] h-[30px] rounded-full mr-15px"
                                                                             src="assets/images/grid/grid_small_1.jpg"
                                                                             alt="">
-                                                                        <span class="flex">{{$item->instrukturs->name}}</span>
+                                                                        <span
+                                                                            class="flex">{{ $item->instrukturs->name }}</span>
                                                                     </a>
                                                                 </div>
                                                                 <div class="text-start md:text-end ml-35px">
@@ -388,7 +396,8 @@
 
                                                             <div>
                                                                 <a class="text-sm lg:text-base text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                                                    href="{{route('course.detail', $item->slug)}}">Know Details
+                                                                    href="{{ route('course.detail', $item->slug) }}">Know
+                                                                    Details
                                                                     <i class="icofont-arrow-right"></i></a>
                                                             </div>
                                                         </div>
@@ -398,7 +407,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-                               
+
                             </div>
                         </div>
                     </div>
@@ -433,5 +442,34 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.add-to-wishlist').on('click', function(event) {
+                event.preventDefault();
+
+                var courseId = $(this).data('id');
+
+                $.ajax({
+                    url: '/wishlist',
+                    method: 'POST',
+                    data: {
+                        course_id: courseId,
+                        user_id: {{ auth()->id() }}, 
+                        _token: '{{ csrf_token() }}' 
+                    },
+                    success: function(response) {
+                        console.log('Berhasil menambahkan ke wishlist:', response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error menambahkan ke wishlist:', error);
+                    }
+                });
+            });
+        });
+    </script>
+
 
 @endsection
