@@ -29,13 +29,22 @@ class WishlistController extends Controller
             'course_id' => 'required|exists:courses,id',
         ]);
 
+        $existingWishlist = Wishlist::where('user_id', auth()->id())
+            ->where('course_id', $request->course_id)
+            ->first();
+
+        if ($existingWishlist) {
+            return response()->json(['message' => 'Kursus ini sudah ada di wishlist Anda.']);
+        }
+
         Wishlist::create([
-            'user_id' => Auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'course_id' => $request->course_id,
         ]);
 
-        return response()->json(['message' => 'kursus berhasil tersimpan di wishlist.']);
+        return response()->json(['message' => 'Kursus berhasil tersimpan di wishlist.']);
     }
+
 
     public function destroy($id)
     {
@@ -50,5 +59,21 @@ class WishlistController extends Controller
             'message' => 'Kursus dihapus dari wishlist.',
         ]);
     }
+
+    public function check(Request $request)
+    {
+        // Cari apakah kursus sudah ada di wishlist
+        $wishlist = Wishlist::where('user_id', auth()->id())
+            ->where('course_id', $request->course_id)
+            ->first(); // Menggunakan first() untuk tidak melemparkan pengecualian
+
+        if ($wishlist) {
+            return response()->json(['exists' => true, 'wishlist_id' => $wishlist->id]);
+        }
+
+        return response()->json(['exists' => false]);
+    }
+
+
 
 }

@@ -96,6 +96,7 @@ Route::post('/clear-cart', [CartController::class, 'clearCart']);
 //wishlist
 Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
+Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');;
 
 
 //quiz
