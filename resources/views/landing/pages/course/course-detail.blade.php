@@ -12,13 +12,14 @@
             <!-- course 1 -->
             <div data-aos="fade-up">
               <!-- course thumbnail -->
-              <div class="overflow-hidden relative mb-5">
+              <div class="overflow-hidden relative mb-5" style="position: relative; width: 100%; padding-bottom: 70%;">
                 <img
-                  src="{{asset('assets/images/blog/blog_8.png')}}"
-                  alt=""
-                  class="w-full"
+                    src="{{ asset('storage/' . $course->thumbnail) }}"
+                    alt=""
+                    class="absolute top-0 left-0 w-full h-full object-cover"
                 >
-              </div>
+            </div>
+            
               <!-- course content -->
               <div>
                 <div
@@ -29,23 +30,20 @@
                     <button
                       class="text-sm text-whiteColor bg-primaryColor border border-primaryColor px-26px py-0.5 leading-23px font-semibold hover:text-primaryColor hover:bg-whiteColor rounded inline-block dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor"
                     >
-                      Featured
+                      {{$course->categories->name}}
                     </button>
-                    <button
-                      class="text-sm text-whiteColor bg-secondaryColor border border-secondaryColor px-22px py-0.5 leading-23px font-semibold hover:text-secondaryColor hover:bg-whiteColor rounded inline-block dark:hover:bg-whiteColor-dark dark:hover:text-secondaryColor"
-                    >
-                      Ux Design
-                    </button>
+                  
                   </div>
                   <div>
                     <p
                       class="text-sm text-contentColor dark:text-contentColor-dark font-medium"
                     >
                       Last Update:
-                      <span class="text-blackColor dark:text-blackColor-dark"
-                        >Sep 29, 2024</span
-                      >
+                      <span class="text-blackColor dark:text-blackColor-dark">
+                        {{ $course->updated_at->format('F d, Y') }}
+                      </span>
                     </p>
+
                   </div>
                 </div>
 
@@ -54,7 +52,7 @@
                   class="text-size-32 md:text-4xl font-bold text-blackColor dark:text-blackColor-dark mb-15px leading-43px md:leading-14.5"
                   data-aos="fade-up"
                 >
-                  Making Music with Other People
+                 {{$course->name}}
                 </h4>
                 <!-- price and rating -->
                 <div
@@ -64,10 +62,17 @@
                   <div
                     class="text-size-21 font-medium text-primaryColor font-inter leading-25px"
                   >
-                    $32.00
-                    <del class="text-sm text-lightGrey4 font-semibold"
-                      >/ $67.00</del
-                    >
+                  
+                  @if($course->harga_diskon)
+                  <!-- Menampilkan harga setelah diskon -->
+                  Rp {{ number_format($course->harga - $course->harga_diskon, 2, ',', '.') }}
+                  <del class="text-sm text-lightGrey4 font-semibold">
+                      / Rp {{ number_format($course->harga, 2, ',', '.') }}
+                  </del>
+              @else
+                  <!-- Menampilkan harga asli jika tidak ada diskon -->
+                  Rp {{ number_format($course->harga, 2, ',', '.') }}
+              @endif
                   </div>
                   <div class="flex items-center">
                     <div>
@@ -78,7 +83,10 @@
                     <div>
                       <span
                         class="text-sm text-black dark:text-blackColor-dark"
-                        >23 Lesson</span
+                        >{{ $course->babs->sum(function($bab) {
+                          return $bab->moduls->count();
+                      }) }}
+                          Modul</span
                       >
                     </div>
                   </div>
@@ -95,14 +103,7 @@
                   class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                   data-aos="fade-up"
                 >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Curabitur vulputate vestibulum rhoncus, dolor eget viverra
-                  pretium, dolor tellus aliquet nunc, vitae ultricies erat
-                  elit eu lacus. Vestibulum non justo consectetur, cursus
-                  ante, tincidunt sapien. Nulla quis diam sit amet turpis
-                  interd enim. Vivamus faucibus ex sed nibh egestas elementum.
-                  Mauris et bibendum dui. Aenean consequat pulvinar luctus.
-                  Suspendisse consectetur tristique
+                  {{$course->deskripsi}}
                 </p>
                 <!-- details -->
                 <div>
@@ -128,7 +129,7 @@
                           <span
                             class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
                           >
-                            Mirnsdo.H</span
+                          {{$course->instrukturs->name}}</span
                           >
                         </p>
                       </li>
@@ -144,7 +145,7 @@
                           >
                         </p>
                       </li>
-                      <li>
+                      {{-- <li>
                         <p
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
                         >
@@ -155,7 +156,7 @@
                             20h 41m 32s</span
                           >
                         </p>
-                      </li>
+                      </li> --}}
                       <li>
                         <p
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
@@ -176,7 +177,7 @@
                           <span
                             class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
                           >
-                            222 students</span
+                            {{$course->courseRegistrations->count()}} students</span
                           >
                         </p>
                       </li>
@@ -189,14 +190,13 @@
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
                         >
                           Course level :
-                          <span
-                            class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
-                          >
-                            Intermediate</span
-                          >
+                          <span class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100">
+                            {{ $course->tingkatan ? $course->tingkatan : '-' }}
+                        </span>
+                        
                         </p>
                       </li>
-                      <li>
+                      {{-- <li>
                         <p
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
                         >
@@ -207,17 +207,16 @@
                             English spanish</span
                           >
                         </p>
-                      </li>
+                      </li> --}}
                       <li>
                         <p
                           class="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center"
                         >
                           Price Discount :
-                          <span
-                            class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
-                          >
-                            -20%</span
-                          >
+                    <span class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100">
+                        {{ number_format($persentaseDiskon, 0) }}%
+                    </span>
+
                         </p>
                       </li>
                       <li>
@@ -228,7 +227,7 @@
                           <span
                             class="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100"
                           >
-                            $228/Mo</span
+                          Rp {{ number_format($course->harga, 2, ',', '.') }}</span
                           >
                         </p>
                       </li>
@@ -1231,49 +1230,14 @@
                     </div>
                     <!-- description -->
                     <div class="hidden">
-                      <h4
-                        class="text-size-26 font-bold text-blackColor dark:text-blackColor-dark mb-15px !leading-14"
-                        data-aos="fade-up"
-                      >
-                        Experience is over the world visit
-                      </h4>
+                      
                       <p
                         class="text-lg text-darkdeep4 mb-5 !leading-30px"
                         data-aos="fade-up"
                       >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Curabitur vulputate vestibulum Phasellus
-                        rhoncus, dolor eget viverra pretium, dolor tellus
-                        aliquet nunc, vitae ultricies erat elit eu lacus.
-                        Vestibulum non justo consectetur, cursus ante,
-                        tincidunt sapien. Nulla quis diam sit amet turpis
-                        interdum accumsan quis nec enim. Vivamus faucibus ex
-                        sed nibh egestas elementum. Mauris et bibendum dui.
-                        Aenean consequat pulvinar luctus
+                        {{$course->deskripsi}}
                       </p>
-                      <p
-                        class="text-lg text-darkdeep4 mb-5 !leading-30px"
-                        data-aos="fade-up"
-                      >
-                        We have covered many special events such as fireworks,
-                        fairs, parades, races, walks, awards ceremonies,
-                        fashion shows, sporting events, and even a memorial
-                        service.
-                      </p>
-                      <p
-                        class="text-lg text-darkdeep4 mb-5 !leading-30px"
-                        data-aos="fade-up"
-                      >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Curabitur vulputate vestibulum Phasellus
-                        rhoncus, dolor eget viverra pretium, dolor tellus
-                        aliquet nunc, vitae ultricies erat elit eu lacus.
-                        Vestibulum non justo consectetur, cursus ante,
-                        tincidunt sapien. Nulla quis diam sit amet turpis
-                        interdum accumsan quis nec enim. Vivamus faucibus ex
-                        sed nibh egestas elementum. Mauris et bibendum dui.
-                        Aenean consequat pulvinar luctus.
-                      </p>
+                     
                     </div>
                     <!-- reviews  -->
                     <div class="hidden">
@@ -1816,35 +1780,16 @@
                           Tag
                         </p>
                       </li>
+                      @foreach (explode(',', $course->tags) as $tag)
                       <li>
-                        <a
-                          href="blog-details.html"
-                          class="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
-                          >Business</a
-                        >
+                          <a
+                              href="blog-details.html"
+                              class="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
+                          >{{ trim($tag) }}</a>
                       </li>
-                      <li>
-                        <a
-                          href="blog-details.html"
-                          class="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
-                          >DESIGN
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="blog-details.html"
-                          class="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
-                          >APPS
-                        </a>
-                      </li>
+                  @endforeach
+                  
 
-                      <li>
-                        <a
-                          href="blog-details.html"
-                          class="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
-                          >DATA
-                        </a>
-                      </li>
                     </ul>
                   </div>
                   <div>
@@ -1891,7 +1836,7 @@
                     <h4
                       class="text-3xl font-bold text-blackColor dark:text-blackColor-dark leading-1.2"
                     >
-                      Author More Courses
+                      instructor More Courses
                     </h4>
                     <a
                       href="course.html"
@@ -1903,800 +1848,109 @@
                     <!-- Swiper -->
                     <div class="swiper other-courses">
                       <div class="swiper-wrapper">
-                        <!-- card 1 -->
-                        <div class="swiper-slide">
-                          <div class="w-full group grid-item filter1 filter3">
-                            <div
-                              class="tab-content-wrapper sm:px-15px mb-30px"
-                            >
-                              <div
-                                class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark"
-                              >
-                                <!-- card image -->
-                                <div class="relative mb-4 overflow-hidden">
-                                  <a href="course.html" class="w-full">
-                                    <img
-                                      src="{{asset('assets/images/grid/grid_1.png')}}"
-                                      alt=""
-                                      class="w-full transition-all duration-300 group-hover:scale-110"
-                                    >
-                                  </a>
-                                  <div
-                                    class="absolute left-0 top-1 flex justify-between w-full items-center px-2"
-                                  >
-                                    <div>
-                                      <p
-                                        class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold"
-                                      >
-                                        Data & Tech
-                                      </p>
-                                    </div>
-                                    <a
-                                      class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                      href="#"
-                                      ><i
-                                        class="icofont-heart-alt text-base py-1 px-2"
-                                      ></i
-                                    ></a>
-                                  </div>
-                                </div>
-                                <!-- card content -->
-                                <div>
-                                  <div class="grid grid-cols-2 mb-15px">
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-book-alt pr-5px text-primaryColor text-lg"
-                                        ></i>
+                          @foreach($relatedCourses as $relatedCourse)
+                          <div class="swiper-slide">
+                              <div class="w-full group grid-item filter1 filter3">
+                                  <div class="tab-content-wrapper sm:px-15px mb-30px">
+                                      <div class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
+                                          <!-- card image -->
+                                          <div class="relative mb-4 overflow-hidden">
+                                              <a href="" class="w-full">
+                                                  <img src="{{ asset('storage/' . $relatedCourse->thumbnail) }}" alt=""
+                                                       class="w-full transition-all duration-300 group-hover:scale-110" style="height: 200px">
+                                              </a>
+                                              <div class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
+                                                  <div>
+                                                      <p class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold">
+                                                          {{$relatedCourse->categories->name}}
+                                                      </p>
+                                                  </div>
+                                                  <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
+                                                     href="#"><i class="icofont-heart-alt text-base py-1 px-2"></i></a>
+                                              </div>
+                                          </div>
+                                          <!-- card content -->
+                                          <div>
+                                              <div class="grid grid-cols-2 mb-15px">
+                                                  <div class="flex items-center">
+                                                      <div>
+                                                          <i class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
+                                                      </div>
+                                                      <div>
+                                                          <span class="text-sm text-black dark:text-blackColor-dark">
+                                                            
+                                                              {{ $relatedCourse->babs->sum(function($bab)
+                                                              {
+                                                                return $bab->moduls->count();
+                                                              }) }} Modul
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                                  <div class="flex items-center">
+                                                      <div>
+                                                          <i class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
+                                                      </div>
+                                                      <div>
+                                                        <span class="text-sm text-black dark:text-blackColor-dark">
+                                                          {{ \Carbon\Carbon::parse($relatedCourse->tanggal_mulai)->format('d M Y') }}
+                                                      </span>
+                                                      
+                                                      
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <a href=""
+                                                 class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+                                                  {{ $relatedCourse->name }}
+                                              </a>
+                                              <!-- price -->
+                                              <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
+                                                @if($relatedCourse->harga_diskon)
+                                                <!-- Menampilkan harga setelah diskon -->
+                                                Rp {{ number_format($relatedCourse->harga - $relatedCourse->harga_diskon, 2, ',', '.') }}
+                                                <del class="text-sm text-lightGrey4 font-semibold">
+                                                    / Rp {{ number_format($relatedCourse->harga, 2, ',', '.') }}
+                                                </del>
+                                            @else
+                                                <!-- Menampilkan harga asli jika tidak ada diskon -->
+                                                Rp {{ number_format($item->harga, 2, ',', '.') }}
+                                            @endif
+                                        
+                                            <span class="ml-6">
+                                                @if($relatedCourse->harga - $relatedCourse->harga_diskon > 0) <!-- Jika harga setelah diskon lebih besar dari nol -->
+                                                    <del class="text-base font-semibold text-deepred">Free</del>
+                                                @else
+                                                    <span class="text-base font-semibold text-greencolor">Free</span>
+                                                @endif</span>
+                                              </div>
+                                              <!-- author and rating-->
+                                              <div class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
+                                                  <div>
+                                                      <a href=""
+                                                         class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
+                                                          <img class="w-[30px] h-[30px] rounded-full mr-15px"
+                                                               src="{{ asset('assets/images/grid/grid_small_1.jpg') }}" alt="">
+                                                          <span class="flex">{{ $relatedCourse->instrukturs->name }}</span>
+                                                      </a>
+                                                  </div>
+                                                  <div class="text-start md:text-end">
+                                                      <i class="icofont-star text-size-15 text-yellow"></i>
+                                                      <i class="icofont-star text-size-15 text-yellow"></i>
+                                                      <i class="icofont-star text-size-15 text-yellow"></i>
+                                                      <i class="icofont-star text-size-15 text-yellow"></i>
+                                                      <i class="icofont-star text-size-15 text-yellow"></i>
+                                                      <span class="text-xs text-lightGrey6">(44)</span>
+                                                  </div>
+                                              </div>
+                                          </div>
                                       </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >23 Lesson</span
-                                        >
-                                      </div>
-                                    </div>
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-clock-time pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >1 hr 30 min</span
-                                        >
-                                      </div>
-                                    </div>
                                   </div>
-                                  <a
-                                    href="course-details.html"
-                                    class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                  >
-                                    Foundation course to under stand about
-                                    softwere
-                                  </a>
-                                  <!-- price -->
-                                  <div
-                                    class="text-lg font-semibold text-primaryColor font-inter mb-4"
-                                  >
-                                    $32.00
-                                    <del
-                                      class="text-sm text-lightGrey4 font-semibold"
-                                      >/ $67.00</del
-                                    >
-                                    <span class="ml-6"
-                                      ><del
-                                        class="text-base font-semibold text-secondaryColor3"
-                                        >Free</del
-                                      ></span
-                                    >
-                                  </div>
-                                  <!-- author and rating-->
-                                  <div
-                                    class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
-                                  >
-                                    <div>
-                                      <a
-                                        href="instructor-details.html"
-                                        class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                        ><img
-                                          class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
-                                          alt=""
-                                        >
-                                        <span class="flex">Micle john</span>
-                                      </a>
-                                    </div>
-                                    <div class="text-start md:text-end">
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <span class="text-xs text-lightGrey6"
-                                        >(44)</span
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
                               </div>
-                            </div>
                           </div>
-                        </div>
-                        <!-- card 2 -->
-                        <div class="swiper-slide">
-                          <div class="w-full group grid-item filter1 filter3">
-                            <div
-                              class="tab-content-wrapper sm:px-15px mb-30px"
-                            >
-                              <div
-                                class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark"
-                              >
-                                <!-- card image -->
-                                <div class="relative mb-4 overflow-hidden">
-                                  <a href="course.html" class="w-full">
-                                    <img
-                                      src="{{asset('assets/images/grid/grid_2.png')}}"
-                                      alt=""
-                                      class="w-full transition-all duration-300 group-hover:scale-110"
-                                    >
-                                  </a>
-                                  <div
-                                    class="absolute left-0 top-1 flex justify-between w-full items-center px-2"
-                                  >
-                                    <div>
-                                      <p
-                                        class="text-xs text-whiteColor px-4 py-[3px] bg-yellow rounded font-semibold"
-                                      >
-                                        Data & Tech
-                                      </p>
-                                    </div>
-                                    <a
-                                      class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                      href="#"
-                                      ><i
-                                        class="icofont-heart-alt text-base py-1 px-2"
-                                      ></i
-                                    ></a>
-                                  </div>
-                                </div>
-                                <!-- card content -->
-                                <div>
-                                  <div class="grid grid-cols-2 mb-15px">
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-book-alt pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >23 Lesson</span
-                                        >
-                                      </div>
-                                    </div>
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-clock-time pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >1 hr 30 min</span
-                                        >
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <a
-                                    href="course-details.html"
-                                    class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                  >
-                                    Foundation course to under stand about
-                                    softwere
-                                  </a>
-                                  <!-- price -->
-                                  <div
-                                    class="text-lg font-semibold text-primaryColor font-inter mb-4"
-                                  >
-                                    $32.00
-                                    <del
-                                      class="text-sm text-lightGrey4 font-semibold"
-                                      >/ $67.00</del
-                                    >
-                                    <span class="ml-6"
-                                      ><del
-                                        class="text-base font-semibold text-secondaryColor3"
-                                        >Free</del
-                                      ></span
-                                    >
-                                  </div>
-                                  <!-- author and rating-->
-                                  <div
-                                    class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
-                                  >
-                                    <div>
-                                      <a
-                                        href="instructor-details.html"
-                                        class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                        ><img
-                                          class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
-                                          alt=""
-                                        >
-                                        <span class="flex">Micle john</span>
-                                      </a>
-                                    </div>
-                                    <div class="text-start md:text-end">
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <span class="text-xs text-lightGrey6"
-                                        >(44)</span
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- card 3 -->
-                        <div class="swiper-slide">
-                          <div class="w-full group grid-item filter1 filter3">
-                            <div
-                              class="tab-content-wrapper sm:px-15px mb-30px"
-                            >
-                              <div
-                                class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark"
-                              >
-                                <!-- card image -->
-                                <div class="relative mb-4 overflow-hidden">
-                                  <a href="course.html" class="w-full">
-                                    <img
-                                      src="{{asset('assets/images/grid/grid_3.png')}}"
-                                      alt=""
-                                      class="w-full transition-all duration-300 group-hover:scale-110"
-                                    >
-                                  </a>
-                                  <div
-                                    class="absolute left-0 top-1 flex justify-between w-full items-center px-2"
-                                  >
-                                    <div>
-                                      <p
-                                        class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold"
-                                      >
-                                        Data & Tech
-                                      </p>
-                                    </div>
-                                    <a
-                                      class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                      href="#"
-                                      ><i
-                                        class="icofont-heart-alt text-base py-1 px-2"
-                                      ></i
-                                    ></a>
-                                  </div>
-                                </div>
-                                <!-- card content -->
-                                <div>
-                                  <div class="grid grid-cols-2 mb-15px">
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-book-alt pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >23 Lesson</span
-                                        >
-                                      </div>
-                                    </div>
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-clock-time pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >1 hr 30 min</span
-                                        >
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <a
-                                    href="course-details.html"
-                                    class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                  >
-                                    Foundation course to under stand about
-                                    softwere
-                                  </a>
-                                  <!-- price -->
-                                  <div
-                                    class="text-lg font-semibold text-primaryColor font-inter mb-4"
-                                  >
-                                    $32.00
-                                    <del
-                                      class="text-sm text-lightGrey4 font-semibold"
-                                      >/ $67.00</del
-                                    >
-                                    <span class="ml-6"
-                                      ><del
-                                        class="text-base font-semibold text-secondaryColor3"
-                                        >Free</del
-                                      ></span
-                                    >
-                                  </div>
-                                  <!-- author and rating-->
-                                  <div
-                                    class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
-                                  >
-                                    <div>
-                                      <a
-                                        href="instructor-details.html"
-                                        class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                        ><img
-                                          class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
-                                          alt=""
-                                        >
-                                        <span class="flex">Micle john</span>
-                                      </a>
-                                    </div>
-                                    <div class="text-start md:text-end">
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <span class="text-xs text-lightGrey6"
-                                        >(44)</span
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- card 4 -->
-                        <div class="swiper-slide">
-                          <div class="w-full group grid-item filter1 filter3">
-                            <div
-                              class="tab-content-wrapper sm:px-15px mb-30px"
-                            >
-                              <div
-                                class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark"
-                              >
-                                <!-- card image -->
-                                <div class="relative mb-4 overflow-hidden">
-                                  <a href="course.html" class="w-full">
-                                    <img
-                                      src="{{asset('assets/images/grid/grid_4.png')}}"
-                                      alt=""
-                                      class="w-full transition-all duration-300 group-hover:scale-110"
-                                    >
-                                  </a>
-                                  <div
-                                    class="absolute left-0 top-1 flex justify-between w-full items-center px-2"
-                                  >
-                                    <div>
-                                      <p
-                                        class="text-xs text-whiteColor px-4 py-[3px] bg-greencolor2 rounded font-semibold"
-                                      >
-                                        Data & Tech
-                                      </p>
-                                    </div>
-                                    <a
-                                      class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                      href="#"
-                                      ><i
-                                        class="icofont-heart-alt text-base py-1 px-2"
-                                      ></i
-                                    ></a>
-                                  </div>
-                                </div>
-                                <!-- card content -->
-                                <div>
-                                  <div class="grid grid-cols-2 mb-15px">
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-book-alt pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >23 Lesson</span
-                                        >
-                                      </div>
-                                    </div>
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-clock-time pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >1 hr 30 min</span
-                                        >
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <a
-                                    href="course-details.html"
-                                    class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                  >
-                                    Foundation course to under stand about
-                                    softwere
-                                  </a>
-                                  <!-- price -->
-                                  <div
-                                    class="text-lg font-semibold text-primaryColor font-inter mb-4"
-                                  >
-                                    $32.00
-                                    <del
-                                      class="text-sm text-lightGrey4 font-semibold"
-                                      >/ $67.00</del
-                                    >
-                                    <span class="ml-6"
-                                      ><del
-                                        class="text-base font-semibold text-secondaryColor3"
-                                        >Free</del
-                                      ></span
-                                    >
-                                  </div>
-                                  <!-- author and rating-->
-                                  <div
-                                    class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
-                                  >
-                                    <div>
-                                      <a
-                                        href="instructor-details.html"
-                                        class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                        ><img
-                                          class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
-                                          alt=""
-                                        >
-                                        <span class="flex">Micle john</span>
-                                      </a>
-                                    </div>
-                                    <div class="text-start md:text-end">
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <span class="text-xs text-lightGrey6"
-                                        >(44)</span
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- card 5 -->
-                        <div class="swiper-slide">
-                          <div class="w-full group grid-item filter1 filter3">
-                            <div
-                              class="tab-content-wrapper sm:px-15px mb-30px"
-                            >
-                              <div
-                                class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark"
-                              >
-                                <!-- card image -->
-                                <div class="relative mb-4 overflow-hidden">
-                                  <a href="course.html" class="w-full">
-                                    <img
-                                      src="{{asset('assets/images/grid/kid_5.jpg')}}"
-                                      alt=""
-                                      class="w-full transition-all duration-300 group-hover:scale-110"
-                                    >
-                                  </a>
-                                  <div
-                                    class="absolute left-0 top-1 flex justify-between w-full items-center px-2"
-                                  >
-                                    <div>
-                                      <p
-                                        class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor2 rounded font-semibold"
-                                      >
-                                        Data & Tech
-                                      </p>
-                                    </div>
-                                    <a
-                                      class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                      href="#"
-                                      ><i
-                                        class="icofont-heart-alt text-base py-1 px-2"
-                                      ></i
-                                    ></a>
-                                  </div>
-                                </div>
-                                <!-- card content -->
-                                <div>
-                                  <div class="grid grid-cols-2 mb-15px">
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-book-alt pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >23 Lesson</span
-                                        >
-                                      </div>
-                                    </div>
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-clock-time pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >1 hr 30 min</span
-                                        >
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <a
-                                    href="course-details.html"
-                                    class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                  >
-                                    Foundation course to under stand about
-                                    softwere
-                                  </a>
-                                  <!-- price -->
-                                  <div
-                                    class="text-lg font-semibold text-primaryColor font-inter mb-4"
-                                  >
-                                    $32.00
-                                    <del
-                                      class="text-sm text-lightGrey4 font-semibold"
-                                      >/ $67.00</del
-                                    >
-                                    <span class="ml-6"
-                                      ><del
-                                        class="text-base font-semibold text-secondaryColor3"
-                                        >Free</del
-                                      ></span
-                                    >
-                                  </div>
-                                  <!-- author and rating-->
-                                  <div
-                                    class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
-                                  >
-                                    <div>
-                                      <a
-                                        href="instructor-details.html"
-                                        class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                        ><img
-                                          class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
-                                          alt=""
-                                        >
-                                        <span class="flex">Micle john</span>
-                                      </a>
-                                    </div>
-                                    <div class="text-start md:text-end">
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <span class="text-xs text-lightGrey6"
-                                        >(44)</span
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- card 6 -->
-                        <div class="swiper-slide">
-                          <div class="w-full group grid-item filter1 filter3">
-                            <div
-                              class="tab-content-wrapper sm:px-15px mb-30px"
-                            >
-                              <div
-                                class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark"
-                              >
-                                <!-- card image -->
-                                <div class="relative mb-4 overflow-hidden">
-                                  <a href="course.html" class="w-full">
-                                    <img
-                                      src="{{asset('assets/images/grid/kid_6.jpg')}}"
-                                      alt=""
-                                      class="w-full transition-all duration-300 group-hover:scale-110"
-                                    >
-                                  </a>
-                                  <div
-                                    class="absolute left-0 top-1 flex justify-between w-full items-center px-2"
-                                  >
-                                    <div>
-                                      <p
-                                        class="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold"
-                                      >
-                                        Mnided
-                                      </p>
-                                    </div>
-                                    <a
-                                      class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                      href="#"
-                                      ><i
-                                        class="icofont-heart-alt text-base py-1 px-2"
-                                      ></i
-                                    ></a>
-                                  </div>
-                                </div>
-                                <!-- card content -->
-                                <div>
-                                  <div class="grid grid-cols-2 mb-15px">
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-book-alt pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >23 Lesson</span
-                                        >
-                                      </div>
-                                    </div>
-                                    <div class="flex items-center">
-                                      <div>
-                                        <i
-                                          class="icofont-clock-time pr-5px text-primaryColor text-lg"
-                                        ></i>
-                                      </div>
-                                      <div>
-                                        <span
-                                          class="text-sm text-black dark:text-blackColor-dark"
-                                          >1 hr 30 min</span
-                                        >
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <a
-                                    href="course-details.html"
-                                    class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                  >
-                                    Foundation course to under stand about
-                                    softwere
-                                  </a>
-                                  <!-- price -->
-                                  <div
-                                    class="text-lg font-semibold text-primaryColor font-inter mb-4"
-                                  >
-                                    $32.00
-                                    <del
-                                      class="text-sm text-lightGrey4 font-semibold"
-                                      >/ $67.00</del
-                                    >
-                                    <span class="ml-6"
-                                      ><del
-                                        class="text-base font-semibold text-secondaryColor3"
-                                        >Free</del
-                                      ></span
-                                    >
-                                  </div>
-                                  <!-- author and rating-->
-                                  <div
-                                    class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
-                                  >
-                                    <div>
-                                      <a
-                                        href="instructor-details.html"
-                                        class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                        ><img
-                                          class="w-[30px] h-[30px] rounded-full mr-15px"
-                                          src="{{asset('assets/images/grid/grid_small_1.jpg')}}"
-                                          alt=""
-                                        >
-                                        <span class="flex">Micle john</span>
-                                      </a>
-                                    </div>
-                                    <div class="text-start md:text-end">
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <i
-                                        class="icofont-star text-size-15 text-yellow"
-                                      ></i>
-                                      <span class="text-xs text-lightGrey6"
-                                        >(44)</span
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                          @endforeach
                       </div>
-                    </div>
+                  </div>
+                  
                   </div>
                 </div>
                 <!-- previous comment area -->
@@ -3026,45 +2280,90 @@ Enter your Massage*</textarea
                 data-aos="fade-up"
               >
                 <!-- meeting thumbnail -->
+                
+
                 <div class="overflow-hidden relative mb-5">
-                  <img
-                    src="{{asset('assets/images/blog/blog_7.png')}}"
-                    alt=""
-                    class="w-full"
-                  >
-                  <div
-                    class="absolute top-0 right-0 left-0 bottom-0 flex items-center justify-center z-10"
-                  >
-                    <div>
-                      <button
-                        data-url="https://www.youtube.com/watch?v=vHdclsdkp28"
-                        class="lvideo relative w-15 h-15 md:h-20 md:w-20 lg:w-15 lg:h-15 2xl:h-70px 2xl:w-70px 3xl:h-20 3xl:w-20 bg-secondaryColor rounded-full flex items-center justify-center"
-                      >
-                        <span
-                          class="animate-buble absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full"
-                        ></span
-                        ><span
-                          class="animate-buble2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full"
-                        ></span>
-                        <img src="{{asset('assets/images/icon/video.png')}}" alt="" >
-                      </button>
-                    </div>
+                  @if (strpos($course->video, 'youtube.com') !== false || strpos($course->video, 'youtu.be') !== false)
+        <!-- Jika video adalah URL YouTube, tampilkan thumbnail -->
+        <img
+            src="{{ $thumbnailUrl }}" 
+            alt="Video Thumbnail"
+            class="w-full"
+        >
+    @elseif(Storage::disk('public')->exists($course->video))
+        <!-- Jika video adalah file yang di-upload, tampilkan iframe -->
+        <iframe 
+            src="{{ asset('storage/' . $course->video) }}" 
+            class="w-full h-[500px] md:h-[400px] lg:h-[500px]" 
+            frameborder="0" 
+            allowfullscreen
+        ></iframe>
+    @else
+        <!-- Jika tidak ada URL atau video yang valid, tampilkan gambar fallback -->
+        <img
+            src="{{ asset('assets/images/default-thumbnail.jpg') }}" 
+            alt="Default Video Thumbnail"
+            class="w-full"
+        >
+    @endif
+                  <div class="absolute top-0 right-0 left-0 bottom-0 flex items-center justify-center z-10">
+                      <div>
+                          @if (strpos($course->video, 'youtube.com') !== false || strpos($course->video, 'youtu.be') !== false)
+                              <!-- Jika video adalah URL YouTube -->
+                              <button
+                                  data-url="{{ $course->video }}"
+                                  class="lvideo relative w-15 h-15 md:h-20 md:w-20 lg:w-15 lg:h-15 2xl:h-70px 2xl:w-70px 3xl:h-20 3xl:w-20 bg-secondaryColor rounded-full flex items-center justify-center"
+                              >
+                                  <span
+                                      class="animate-buble absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full"
+                                  ></span>
+                                  <span
+                                      class="animate-buble2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full"
+                                  ></span>
+                                  <img src="{{ asset('assets/images/icon/video.png') }}" alt="">
+                              </button>
+                          @elseif(Storage::disk('public')->exists($course->video))
+                              <!-- Jika video adalah file yang di-upload -->
+                              <button
+                                  data-url="{{ asset('storage/' . $course->video) }}"
+                                  class="lvideo relative w-15 h-15 md:h-20 md:w-20 lg:w-15 lg:h-15 2xl:h-70px 2xl:w-70px 3xl:h-20 3xl:w-20 bg-secondaryColor rounded-full flex items-center justify-center"
+                              >
+                                  <span
+                                      class="animate-buble absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full"
+                                  ></span>
+                                  <span
+                                      class="animate-buble2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full"
+                                  ></span>
+                                  <img src="{{ asset('assets/images/icon/video.png') }}" alt="">
+                              </button>
+                          @endif
+                      </div>
                   </div>
-                </div>
+              </div>
+              
+              
+              
+
                 <div class="flex justify-between mb-5">
                   <div
                     class="text-size-21 font-bold text-primaryColor font-inter leading-25px"
                   >
-                    $32.00
-                    <del class="text-sm text-lightGrey4 font-semibold"
-                      >/ $67.00</del
-                    >
+                      @if($course->harga_diskon)
+                      <!-- Menampilkan harga setelah diskon -->
+                      Rp {{ number_format($course->harga - $course->harga_diskon, 2, ',', '.') }}
+                      <del class="text-sm text-lightGrey4 font-semibold">
+                          / Rp {{ number_format($course->harga, 2, ',', '.') }}
+                      </del>
+                  @else
+                      <!-- Menampilkan harga asli jika tidak ada diskon -->
+                      Rp {{ number_format($course->harga, 2, ',', '.') }}
+                  @endif
                   </div>
                   <div>
                     <a
                       href="#"
                       class="uppercase text-sm font-semibold text-secondaryColor2 leading-27px px-2 bg-whitegrey1 dark:bg-whitegrey1-dark"
-                      >68% OFF</a
+                      >{{ number_format($persentaseDiskon, 0) }}% OFF</a
                     >
                   </div>
                 </div>
@@ -3075,12 +2374,12 @@ Enter your Massage*</textarea
                   >
                     Add To Cart
                   </button>
-                  <button
-                    type="submit"
-                    class="w-full text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark"
+                  <a
+                    type="submit" href='{{route('course-registrations.create', $course->id)}}'
+                    class="w-full text-center text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark"
                   >
                   Buy Now
-                  </button>
+                </a>
 
                   <span
                     class="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8"
@@ -3100,7 +2399,7 @@ Enter your Massage*</textarea
                     <p
                       class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px"
                     >
-                      D. Willaim
+                      {{$course->instrukturs->name}}
                     </p>
                   </li>
                   <li
@@ -3114,21 +2413,7 @@ Enter your Massage*</textarea
                     <p
                       class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px"
                     >
-                      05 Dec 2024
-                    </p>
-                  </li>
-                  <li
-                    class="flex items-center justify-between py-10px border-b border-borderColor dark:border-borderColor-dark"
-                  >
-                    <p
-                      class="text-sm font-medium text-contentColor dark:text-contentColor-dark leading-1.8"
-                    >
-                      Total Duration
-                    </p>
-                    <p
-                      class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px"
-                    >
-                      08Hrs 32Min
+                      {{$course->tanggal_mulai}}
                     </p>
                   </li>
                   <li
@@ -3170,23 +2455,11 @@ Enter your Massage*</textarea
                     <p
                       class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px"
                     >
-                      Basic
+                    {{ $course->tingkatan ? $course->tingkatan : '-' }}
+                  </span>
                     </p>
                   </li>
-                  <li
-                    class="flex items-center justify-between py-10px border-b border-borderColor dark:border-borderColor-dark"
-                  >
-                    <p
-                      class="text-sm font-medium text-contentColor dark:text-contentColor-dark leading-1.8"
-                    >
-                      Language
-                    </p>
-                    <p
-                      class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px"
-                    >
-                      Spanish
-                    </p>
-                  </li>
+                  
                   <li
                     class="flex items-center justify-between py-10px border-b border-borderColor dark:border-borderColor-dark"
                   >
@@ -3198,7 +2471,11 @@ Enter your Massage*</textarea
                     <p
                       class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px"
                     >
-                      Yes
+                    @if($course->babs->contains('quiz', true))
+            Yes
+        @else
+            No
+        @endif
                     </p>
                   </li>
                   <li
@@ -3212,7 +2489,7 @@ Enter your Massage*</textarea
                     <p
                       class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px"
                     >
-                      Yes
+                    {{ $course->certificate ? 'Yes' : 'No' }}
                     </p>
                   </li>
                 </ul>
@@ -3291,72 +2568,23 @@ Enter your Massage*</textarea
                   Populer Course
                 </h4>
                 <ul class="flex flex-col gap-y-25px">
-                  <li class="flex items-center">
-                    <div class="w-[91px] h-auto mr-5 flex-shrink-0">
-                      <a href="#" class="w-full"
-                        ><img
-                          src="{{asset('assets/images/blog-details/blog-details__6.png')}}"
-                          alt=""
-                          class="w-full"
-                      ></a>
-                    </div>
-                    <div class="flex-grow">
-                      <h3
-                        class="text-sm text-primaryColor font-medium leading-[17px]"
-                      >
-                        $32,000
-                      </h3>
-                      <a
-                        href="#"
-                        class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor font-semibold leading-22px"
-                        >Making Music with Other People</a
-                      >
-                    </div>
-                  </li>
-                  <li class="flex items-center">
-                    <div class="w-[91px] h-auto mr-5 flex-shrink-0">
-                      <a href="#" class="w-full"
-                        ><img
-                          src="{{asset('assets/images/blog-details/blog-details__7.png')}}"
-                          alt=""
-                          class="w-full"
-                      ></a>
-                    </div>
-                    <div class="flex-grow">
-                      <h3
-                        class="text-sm text-primaryColor font-medium leading-[17px]"
-                      >
-                        $32,000
-                      </h3>
-                      <a
-                        href="#"
-                        class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor font-semibold leading-22px"
-                        >Making Music with Other People</a
-                      >
-                    </div>
-                  </li>
-                  <li class="flex items-center">
-                    <div class="w-[91px] h-auto mr-5 flex-shrink-0">
-                      <a href="#" class="w-full"
-                        ><img
-                          src="{{asset('assets/images/blog-details/blog-details__8.png')}}"
-                          alt=""
-                          class="w-full"
-                      ></a>
-                    </div>
-                    <div class="flex-grow">
-                      <h3
-                        class="text-sm text-primaryColor font-medium leading-[17px]"
-                      >
-                        $32,000
-                      </h3>
-                      <a
-                        href="#"
-                        class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor font-semibold leading-22px"
-                        >Making Music with Other People</a
-                      >
-                    </div>
-                  </li>
+                  @foreach ($recentPostsCourse as $course)
+      <li class="flex items-center">
+        <div class="mr-5 flex-shrink-0" style="position: relative; width: 25%; height:10%">
+          <a href="{{ route('course.detail', $course->slug) }}" class="" >
+            <img src="{{ asset('storage/'.$course->thumbnail) }}" alt="{{ $course->name }}" class="">
+          </a>
+        </div>
+        <div class="flex-grow">
+          <h3 class="text-sm text-primaryColor font-medium leading-[17px]">
+            Rp {{ number_format($course->harga - $course->harga_diskon, 2, ',', '.') }}
+          </h3>
+          <a href="{{ route('course.detail', $course->slug) }}" class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor font-semibold leading-22px">
+            {{ $course->name }}
+          </a>
+        </div>
+      </li>
+    @endforeach
                 </ul>
               </div>
 
@@ -3397,88 +2625,29 @@ Enter your Massage*</textarea
 
               <!-- tags
                -->
-              <div
-                class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
-                data-aos="fade-up"
-              >
-                <h4
-                  class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px"
-                >
-                  Popular tag
-                </h4>
-                <ul class="flex flex-wrap gap-x-5px">
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >Business</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >DESIGN
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >APPS
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >LANDING PAGE
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >DATA
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >BOOK
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >DESIGN
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >BOOK
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >LANDING PAGE
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="blog-details.html"
-                      class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
-                      >DATA</a
-                    >
-                  </li>
-                </ul>
-              </div>
+               <div
+               class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
+               data-aos="fade-up"
+           >
+               <h4
+                   class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px"
+               >
+                   Popular tag
+               </h4>
+               <ul class="flex flex-wrap gap-x-5px">
+                   @foreach($popularTags as $tag => $count)
+                       <li>
+                           <a
+                               href="" 
+                               class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor"
+                           >
+                               {{ $tag }}
+                           </a>
+                       </li>
+                   @endforeach
+               </ul>
+           </div>
+           
             </div>
           </div>
         </div>

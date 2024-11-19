@@ -248,7 +248,7 @@
                                                     Profil Saya
                                                 </a>
 
-                                                <a href="{{ route('dashboard.settings') }}"
+                                                <a href="{{ route('settings.index') }}"
                                                     class="flex items-center mt-2 text-darkblack hover:text-secondaryColor dark:text-whiteColor-dark dark:hover:text-secondaryColor">
                                                     <!-- Ikon SVG Pengaturan -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
