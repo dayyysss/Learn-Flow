@@ -1,4 +1,3 @@
-<!-- Checkbox kontrol untuk modal -->
 <input type="checkbox" id="modalToggle" class="modal-checkbox hidden" />
 <div class="modal">
     <div class="modal-content bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark">
@@ -20,12 +19,16 @@
                 <label for="slug" class="text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">Slug</label>
                 <input type="text" id="slug" name="slug" readonly>
             </div>
+
             <div class="form-group">
                 <label for="status" class="text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">Status</label>
-                <select id="status" name="status">
-                    <option value="publik">Publik</option>
-                    <option value="draft">Draft</option>
-                </select>
+                <div class="relative w-full">
+                    <select id="status" name="status" class="w-full p-13px focus:outline-none block appearance-none leading-1.5 rounded-md">
+                        <option value="publik">Publik</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                    <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
+                </div>
             </div>
             <button type="submit" class="w-full text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">Tambah</button>
         </form>
@@ -33,21 +36,26 @@
 </div>
 
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
-        const namaKategoriInput = document.getElementById('name');
-        const slugInput = document.getElementById('slug');
+ document.addEventListener('DOMContentLoaded', function() {
+    const namaInput = document.querySelector('input[name="name"]');
+    const slugInput = document.querySelector('input[name="slug"]');
 
-        function generateSlug(text) {
-            return text
-                .toLowerCase()
-                .trim()
-                .replace(/[^a-z0-9\s-]/g, '')
-                .replace(/\s+/g, '-')
-                .replace(/-+/g, '-');
-        }
+    function createSlug(str) {
+        str = str.toLowerCase();
+        str = str.replace(/[^\w\s-]/g, '');
+        str = str.replace(/\s+/g, '-');
+        str = str.replace(/-+/g, '-');
+        str = str.trim().replace(/^-+|-+$/g, '');
+        return str;
+    }
 
-        namaKategoriInput.addEventListener('input', function() {
-            slugInput.value = generateSlug(namaKategoriInput.value);
+    if(namaInput && slugInput) {
+        namaInput.addEventListener('keyup', function() {
+            slugInput.value = createSlug(this.value);
         });
-    });
+        namaInput.addEventListener('change', function() {
+            slugInput.value = createSlug(this.value);
+        });
+    }
+});
 </script>
