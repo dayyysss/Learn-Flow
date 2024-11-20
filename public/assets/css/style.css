@@ -9171,21 +9171,6 @@ video {
   }
 }
 
-@media (max-width: 1200px) {
-  .arrow-icon {
-    display: none;
-  }
-
-  .arrow-icon {
-    width: 14px;
-  }
-
-  .dropdown-profile {
-    right: 10px;
-    width: auto;
-  }
-}
-
  /* Modal Styling */
  .modal {
   position: fixed;

@@ -226,7 +226,6 @@
                                             <!-- Gambar Profil -->
                                             <img src="../../assets/images/dashbord/dashbord__2.jpg" alt="Profil"
                                                 class="w-8 h-8 rounded-full p-1 border-2 border-darkdeep7 box-content">
-
                                             <!-- Tambahkan panah sebagai ikon -->
                                                 <i
                                                 class="arrow-icon ml-2 transition-transform duration-300 icofont-simple-down arrow-icon-side transform rotate-0 leading-14px text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
