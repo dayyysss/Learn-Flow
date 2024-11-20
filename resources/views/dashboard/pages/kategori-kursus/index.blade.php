@@ -1,15 +1,15 @@
 @extends('dashboard.layouts.layouts')
 @section('page_title', 'LearnFlow | Kategori Kursus')
 @section('content')
- 
+
     <div class="lg:col-start-4 lg:col-span-9">
         <div
             class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
             <div
                 class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
                 <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Kategori Kursus</h2>
-                <label for="modalToggle"
-                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md  transition duration-300 ease-in-out cursor-pointer">
+                <label for="modalCreateToggle"
+                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-3 leading-8 justify-center rounded-md transition duration-300 ease-in-out cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-plus">
@@ -19,64 +19,62 @@
                     Tambah Kategori
                 </label>
             </div>
-            <div class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
+            <form action="{{ route('kategori-kursus.index') }}" method="GET"
+                class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
                 <div class="xl:col-start-1 xl:col-span-6">
                     <p
                         class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
                         KATEGORI
                     </p>
                     <div class="bg-whiteColor rounded-md relative">
-                        <select
+                        <select name="category" onchange="this.form.submit()"
                             class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
-                            <option selected="" value="All">All</option>
-                            <option value="Web Design">Web Design</option>
-                            <option value="Graphic">Graphic</option>
-                            <option value="English">English</option>
-                            <option value="Spoken English">Spoken English</option>
-                            <option value="Art Painting">Art Painting</option>
-                            <option value="App Development">App Development</option>
-                            <option value="Spoken English">Web Application</option>
-                            <option value="Spoken English">Php Development</option>
+                            <option value="All" {{ request('category') == 'All' ? 'selected' : '' }}>All</option>
+                            @foreach ($categoryNames as $name)
+                                <option value="{{ $name }}" {{ request('category') == $name ? 'selected' : '' }}>
+                                    {{ $name }}
+                                </option>
+                            @endforeach
                         </select>
                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                     </div>
                 </div>
+
                 <div class="xl:col-start-7 xl:col-span-3">
                     <p
                         class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
-                        SHORT BY
+                        URUTKAN BERDASARKAN
                     </p>
                     <div class="bg-whiteColor rounded-md relative">
-                        <select
+                        <select name="sort" onchange="this.form.submit()"
                             class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
-                            <option selected="" value="Default">Default</option>
-                            <option value="Trending">Trending</option>
-                            <option value="Price: low to high">
-                                Price: low to high
+                            <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
+                            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nama (A-Z)
                             </option>
-                            <option value="Price: low to low">
-                                Price: low to low
+                            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nama (Z-A)
                             </option>
                         </select>
                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                     </div>
                 </div>
+
                 <div class="xl:col-start-10 xl:col-span-3">
                     <p
                         class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
-                        SHORT BY OFFER
+                        STATUS
                     </p>
                     <div class="bg-whiteColor rounded-md relative">
-                        <select
+                        <select name="status" onchange="this.form.submit()"
                             class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
-                            <option selected="" value="Free">Free</option>
-                            <option value="paid">paid</option>
-                            <option value="premimum">premimum</option>
+                            <option value="All" {{ request('status') == 'All' ? 'selected' : '' }}>Semua</option>
+                            <option value="publik" {{ request('status') == 'publik' ? 'selected' : '' }}>Publik</option>
+                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
                         </select>
                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                     </div>
                 </div>
-            </div>
+            </form>
             <hr class="my-4 border-contentColor opacity-35">
             <div class="overflow-auto">
                 <table class="w-full text-left text-nowrap">
@@ -86,13 +84,14 @@
                             <th class="px-5px py-10px md:px-5">No</th>
                             <th class="px-5px py-10px md:px-5">Name</th>
                             <th class="px-5px py-10px md:px-5">Status</th>
+                            <th class="px-5px py-10px md:px-5">Tanggal Dibuat</th>
                             <th class="px-5px py-10px md:px-5 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal">
                         @foreach ($categories as $index => $category)
                             <tr class="leading-1.8 md:leading-1.8">
-                                <td class="px-5px py-10px md:px-5">{{ $index + 1 }}</td>
+                                <td class="px-5px py-10px md:px-5">  {{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->index + 1 }}</td>
                                 <td class="px-5px py-10px md:px-5">{{ $category->name }}</td>
                                 <td class="px-5px py-10px md:px-5">
                                     <p class="text-xs">
@@ -104,6 +103,7 @@
                                         </span>
                                     </p>
                                 </td>
+                                <td>{{ $category->created_at->format('d M Y H:i') }}</td>
                                 <td class="px-5px py-10px md:px-5">
                                     <div class="dashboard__button__group">
                                         <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px edit-category"
@@ -149,6 +149,7 @@
                 </table>
             </div>
         </div>
+        {{ $categories->links('dashboard.components.pagination.custom') }}
     </div>
 
     @include('dashboard.pages.kategori-kursus.edit')

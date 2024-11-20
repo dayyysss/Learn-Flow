@@ -10,10 +10,42 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryCourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = CategoryCourse::with('users')->get();
-        return view('dashboard.pages.kategori-kursus.index', compact('categories'));
+        $query = CategoryCourse::query();
+
+        if ($request->has('category') && $request->category != 'All') {
+            $query->where('name', $request->category);
+        }
+
+        if ($request->has('status') && $request->status != 'All') {
+            $query->where('status', strtolower($request->status));
+        }
+
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'newest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'oldest':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'name_asc':
+                    $query->orderBy('name', 'asc');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('name', 'desc');
+                    break;
+                default:
+                    $query->orderBy('created_at', 'desc');
+            }
+        }
+
+        $categories = $query->paginate(10);
+
+        $categoryNames = CategoryCourse::pluck('name')->unique();
+
+        return view('dashboard.pages.kategori-kursus.index', compact('categories', 'categoryNames'));
     }
 
     public function create()

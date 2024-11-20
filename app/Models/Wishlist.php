@@ -20,4 +20,9 @@ class Wishlist extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function instrukturs()
+    {
+        return $this->hasOneThrough(User::class, Course::class);
+    }
 }
