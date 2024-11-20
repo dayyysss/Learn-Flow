@@ -58,6 +58,7 @@ Route::controller(LandingPageController::class)->group(function () {
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index.user');
 Route::resource('/courses', CourseController::class);
 Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dashboard.coursesCreate');
 Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
@@ -70,6 +71,10 @@ Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.ca
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
 Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
+
+Route::put('/setting/updateProfile', [SettingController::class, 'updateProfil'])->name('updateProfile');
+Route::post('/settings/update-password', [SettingController::class, 'updatePassword'])->name('settings.update-password');
+Route::post('/settings/update-sosial', [SettingController::class, 'updateSocialMedia'])->name('user.update.social_media');
 
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');

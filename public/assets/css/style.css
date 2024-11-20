@@ -32,6 +32,10 @@ a {
   display: inline-block;
 }
 
+.italic {
+  font-style: italic;
+}
+
 a,
 button,
 span {

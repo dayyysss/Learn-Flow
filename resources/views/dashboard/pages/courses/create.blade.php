@@ -1,9 +1,11 @@
-@extends('dashboard.layouts.layouts')
+@extends('landing.layouts.landing-layouts')
 @section('page_title', 'LearnFlow | Courses')
 
 @section('content')
 
-<div class="container-fluid-5" data-aos="fade-up">
+@include('landing.components.breadcrumb', ['title' => 'Create Courses'])
+
+<div class="container pt-100px pb-100px aos-init aos-animate" data-aos="fade-up">
     {{-- Display Validation Errors --}}
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -53,7 +55,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="kode_seri" class="mb-3 block font-semibold">Kode Seri</label>
-                                                    <input type="text" id="kode_seri" name="kode_seri" placeholder="Course Slug" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
+                                                    <input type="text" id="kode_seri" name="kode_seri" placeholder="-" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
                                                 </div>
                                             </div>
 
@@ -146,7 +148,7 @@
 
                                         <div class="form-group mb-15px">
                                             <label for="deskripsi" class="mb-3 block font-semibold">Description</label>
-                                            <textarea name="deskripsi" class="form-control w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" ></textarea>
+                                            <textarea name="deskripsi" id="deskripsi" class="form-control w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="50" rows="10" ></textarea>
                                         </div>
 
                                         <div class="form-group mb-15px">
@@ -206,6 +208,8 @@
                                                     <a class="hover:text-primaryColor" href="https://www.youtube.com/watch?v=yourvideoid">https://www.youtube.com/watch?v=yourvideoid</a>
                                                 </div>
                                             </div>
+
+                                            <p class="italic">*isi salah satunya</p>
                                         </div>
                                     </div>
                                 </div>
@@ -258,14 +262,14 @@
                                                                 </div>
 
                                                                 <div>
-                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File foto</label>
+                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File Materi Pembelajaran</label>
                                                                 <input type="file" name="bab[0][moduls][0][file]" accept="image/*,application/pdf" class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
                                                                 </div>
                                                             </div>
 
                                                             <div>
                                                                 <label class="mb-3 block font-semibold">Materi</label>
-                                                                <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" ></textarea>
+                                                                <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" id="materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" ></textarea>
                                                             </div>
                                                         </div>
                                                     </div>

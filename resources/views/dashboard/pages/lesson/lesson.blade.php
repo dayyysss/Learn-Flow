@@ -95,7 +95,17 @@
         const firstModulSlug = modulLinks[0].getAttribute('data-slug');
         loadModul(firstModulSlug);
     }
+
+    // Menangani klik pada tombol Previous dan Next
+    document.querySelectorAll('.modul-nav').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const slug = this.getAttribute('data-slug');
+            loadModul(slug);
+        });
+    });
 });
+
 
     </script>
 @endsection

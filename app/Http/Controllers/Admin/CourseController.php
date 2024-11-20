@@ -24,9 +24,11 @@ public function index()
     $instrukturs = CategoryCourse::all();
     
     // Lakukan eager loading relasi 'category_courses'
-    $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
+    $course = Course::where('status', 'publik')->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
+    $course_draft = Course::where('status', 'draft')->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
+    $course_terjadwal= Course::where('status', 'terjadwal')->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
     
-    return view('dashboard.pages.courses.index', compact('course', 'categories', 'instrukturs'));
+    return view('dashboard.pages.courses.index', compact('course', 'course_draft', 'course_terjadwal', 'categories', 'instrukturs'));
 }
 
 
@@ -249,9 +251,12 @@ return $thumbnailUrl;
 public function show($slug)
 {
 // Cari course berdasarkan slug dan lakukan eager loading pada relasi yang diperlukan
-$course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
+$course = Course::where('status', 'draft')
+                ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
                 ->where('slug', $slug)
                 ->firstOrFail();
+
+
 $thumbnailUrl = $this->getVideoThumbnail($course->video);
 
 // Perhitungan diskon
@@ -304,11 +309,24 @@ return compact('categories', 'popularTags', 'recentPostsCourse');
 
 public function showModul($slug)
 {
-    $modul = Modul::with('bab.course') 
-    ->where('slug', $slug)->firstOrFail();
-    return view('dashboard.pages.lesson._modul_content', compact('modul'));
+    $modul = Modul::with('bab.course')->where('slug', $slug)->firstOrFail();
 
+    // Cari modul sebelumnya
+    $previousModul = Modul::where('bab_id', $modul->bab_id)
+                          ->where('id', '<', $modul->id)
+                          ->orderBy('id', 'desc')
+                          ->first();
+
+    // Cari modul berikutnya
+    $nextModul = Modul::where('bab_id', $modul->bab_id)
+                     ->where('id', '>', $modul->id)
+                     ->orderBy('id', 'asc')
+                     ->first();
+
+    return view('dashboard.pages.lesson._modul_content', compact('modul', 'previousModul', 'nextModul'));
 }
+
+
 public function showBab($slug)
 {
     // Mencari Course berdasarkan slug
