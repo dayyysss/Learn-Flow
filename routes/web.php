@@ -72,6 +72,8 @@ Route::get('/announcements', [DashboardController::class, 'announcements'])->nam
 Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
 
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 
 Route::get('/wishlist', [DashboardController::class, 'wishlist'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');

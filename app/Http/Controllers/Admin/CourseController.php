@@ -8,6 +8,7 @@ use App\Models\Bab;
 use App\Models\CategoryCourse;
 use App\Models\Certificate;
 use App\Models\Course;
+use App\Models\Modul;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -300,5 +301,25 @@ $recentPostsCourse = Course::orderBy('created_at', 'desc')->take(3)->get();
 
 return compact('categories', 'popularTags', 'recentPostsCourse');
 }
+
+public function showModul($slug)
+{
+    $modul = Modul::with('bab.course') 
+    ->where('slug', $slug)->firstOrFail();
+    return view('dashboard.pages.lesson._modul_content', compact('modul'));
+
+}
+public function showBab($slug)
+{
+    // Mencari Course berdasarkan slug
+    $course = Course::where('slug', $slug)->firstOrFail();
+
+    // Mengambil semua Bab yang terkait dengan Course ini beserta Modulnya
+    $bab = $course->babs()->with('moduls')->get();
+    
+    // Mengirim data course dan bab ke view
+    return view('dashboard.pages.lesson.lesson', compact('course', 'bab'));
+}
+
 
 }
