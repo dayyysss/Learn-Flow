@@ -23,16 +23,16 @@
                     </a>
                 </div>
                 <div class="col-span-full md:col-span-5 flex-col items-center justify-center 2xl:block hidden md:flex">
-                    <img src="assets/images/loti/loti-admin-dashboard.svg" alt="online-workshop" class="group-[.dark]:hidden">
-                    <img src="assets/images/loti/loti-admin-dashboard-dark.svg" alt="online-workshop" class="group-[.light]:hidden">
+                    <img src="{{ asset("assets/lfcms/images/loti/loti-admin-dashboard.svg") }}" alt="online-workshop" class="group-[.dark]:hidden">
+                    <img src=" {{ asset("assets/lfcms/images/loti/loti-admin-dashboard-dark.svg") }}" alt="online-workshop" class="group-[.light]:hidden">
                 </div>
                 <!-- Graphicla Elements -->
                 <ul>
                     <li class="absolute -top-[30px] left-1/2 animate-spin-slow">
-                        <img src="assets/images/element/graphical-element-1.svg" alt="element">
+                        <img src=" {{ asset("assets/lfcms/images/element/graphical-element-1.svg") }}" alt="element">
                     </li>
                     <li class="absolute -bottom-[24px] left-1/4 animate-spin-slow">
-                        <img src="assets/images/element/graphical-element-2.svg" alt="element">
+                        <img src=" {{ asset("assets/lfcms/images/element/graphical-element-2.svg") }}" alt="element">
                     </li>
                 </ul>
             </div>
