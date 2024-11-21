@@ -45,6 +45,7 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/event', 'event')->name('event');
     Route::get('/blog', 'blog')->name('blog');
     Route::get('/kontak', 'contact')->name('contact');
+    Route::get('/instruktur', 'instructor')->name('instructor');
 });
 
 // Dashboard CMS

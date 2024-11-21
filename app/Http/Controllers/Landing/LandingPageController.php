@@ -52,4 +52,9 @@ class LandingPageController extends Controller
     {
         return view('landing.pages.contact.contact');
     }
+
+    public function instructor()
+    {
+        return view('landing.pages.instructor.instructor');
+    }
 }

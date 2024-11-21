@@ -101,7 +101,7 @@
                                     </h3>
                                     <p class="text-contentColor dark:text-contentColor-dark mb-15px">
                                         Belum punya akun?
-                                        <a href="login.html"
+                                        <a href="{{ url('/login') }}"
                                             class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Daftar
                                             gratis
                                         </a>
@@ -179,7 +179,7 @@
                                     </h3>
                                     <p class="text-contentColor dark:text-contentColor-dark mb-15px">
                                         Sudah punya akun?
-                                        <a href="login.html"
+                                        <a href="{{ url('/login') }}"
                                             class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Masuk
                                             sekarang</a>
                                     </p>
