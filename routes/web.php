@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
+use App\Http\Controllers\Admin\UserController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -57,6 +58,7 @@ Route::prefix('lfcms')->group(function () {
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index.user');
 Route::resource('/courses', CourseController::class);
 Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dashboard.coursesCreate');
 Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
@@ -64,13 +66,20 @@ Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard
 Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('dashboard.orderHistory');
 Route::resource('/settings', SettingController::class);
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
-Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('dashboard.myCourse');
 Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.cart');
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
 Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
 
+Route::put('/setting/updateProfile', [SettingController::class, 'updateProfil'])->name('updateProfile');
+Route::post('/settings/update-password', [SettingController::class, 'updatePassword'])->name('settings.update-password');
+Route::post('/settings/update-sosial', [SettingController::class, 'updateSocialMedia'])->name('user.update.social_media');
+
+Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
+Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');

@@ -11,6 +11,11 @@ class DashboardController extends Controller
     {
         return view('dashboard.pages.dashboard.index');
     }
+    public function indexUser()
+    {
+        
+        return view('dashboard.layouts.layouts', compact('user'));
+    }
 
     public function myProfile()
     {
@@ -40,11 +45,6 @@ class DashboardController extends Controller
     public function orderHistory()
     {
         return view('dashboard.pages.order-history.index');
-    }
-
-    public function myCourse()
-    {
-        return view('dashboard.pages.my-course.index');
     }
 
     public function assignments()

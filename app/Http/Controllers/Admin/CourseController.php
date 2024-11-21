@@ -8,7 +8,10 @@ use App\Models\Bab;
 use App\Models\CategoryCourse;
 use App\Models\Certificate;
 use App\Models\Course;
+use App\Models\Modul;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -23,9 +26,17 @@ public function index()
     $instrukturs = CategoryCourse::all();
     
     // Lakukan eager loading relasi 'category_courses'
-    $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
+    $course = Course::where('publish_date', '<=', Carbon::now())
+    ->with(['users', 'categories', 'babs.moduls', 'instrukturs'])
+    ->get();
+    $course_draft = Course::where('status', 'draft')->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
+
+// Mengambil kursus dengan status 'terjadwal' dan publish_date yang belum sama atau lebih dari waktu sekarang
+    $course_terjadwal = Course::where('publish_date', '>', Carbon::now()) 
+    ->with(['users', 'categories', 'babs.moduls', 'instrukturs'])
+    ->get();
     
-    return view('dashboard.pages.courses.index', compact('course', 'categories', 'instrukturs'));
+    return view('dashboard.pages.courses.index', compact('course', 'course_draft', 'course_terjadwal', 'categories', 'instrukturs'));
 }
 
 
@@ -40,96 +51,101 @@ public function create()
 
 public function store(Request $request)
 {
-// Validasi data yang diperlukan
-$validator = Validator::make($request->all(), [
-    'name' => 'required|string|max:255',
-    'categories_id' => 'required|exists:category_courses,id',
-    'deskripsi' => 'nullable|string',
-    'intruktur_id' => 'nullable|exists:users,id',
-    'harga' => 'nullable',
-    'harga_diskon' => 'nullable',
-    'tanggal_mulai' => 'nullable|date',
-    'tags' => 'nullable|string',
-    'status' => 'nullable|in:draft,publik,terjadwal',
-    'tingkatan' => 'nullable',
-    'kode_seri' => 'nullable',
-    'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-    'video_file' => 'nullable|file|mimes:mp4,mov,avi|max:50000',
-    'video_url' => 'nullable|url',
-    'berbayar' => 'nullable|in:true,false',
-    // Validasi untuk banyak file TTD
-    'certificate_ttd.*' => 'nullable|file|mimes:jpg,png|max:1024',
-    // Validasi untuk Bab dan Modul
-    'bab.*.name' => 'required|string',
-    'bab.*.moduls.*.name' => 'required|string',
-    'bab.*.moduls.*.materi' => 'nullable|string',
-    'bab.*.moduls.*.video' => 'nullable',
-    'bab.*.moduls.*.file' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
-]);
+    // Validasi data yang diperlukan
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'categories_id' => 'required|exists:category_courses,id',
+        'deskripsi' => 'nullable|string',
+        'instruktur_id' => 'nullable|exists:users,id',
+        'harga' => 'nullable',
+        'harga_diskon' => 'nullable',
+        'tanggal_mulai' => 'nullable|date',
+        'tags' => 'nullable|string',
+        'status' => 'nullable|in:draft,publik,terjadwal',
+        'tingkatan' => 'nullable',
+        'kode_seri' => 'nullable',
+        'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'video_file' => 'nullable|file|mimes:mp4,mov,avi|max:50000',
+        'video_url' => 'nullable|url',
+        'berbayar' => 'nullable|in:true,false',
+        'publish_date'  => 'nullable',
+        // Validasi untuk banyak file TTD
+        'certificate_ttd.*' => 'nullable|file|mimes:jpg,png|max:1024',
+        // Validasi untuk Bab dan Modul
+        'bab.*.name' => 'required|string',
+        'bab.*.moduls.*.name' => 'required|string',
+        'bab.*.moduls.*.materi' => 'nullable|string',
+        'bab.*.moduls.*.video' => 'nullable',
+        'bab.*.moduls.*.file' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
+    ]);
 
-if ($validator->fails()) {
-    return redirect()->back()->withErrors($validator)->withInput();
-}
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
 
     // Generate slug
     $slug = Str::slug($request->name);
     $count = Course::where('slug', 'like', $slug . '%')->count();
     $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
 
-// Video file or URL validation
-$videoPath = $request->hasFile('video_file')
-    ? $request->file('video_file')->store('courses/videos', 'public')
-    : $request->video_url;
+    // Video file or URL validation
+    $videoPath = $request->hasFile('video_file')
+        ? $request->file('video_file')->store('courses/videos', 'public')
+        : $request->video_url;
 
-if (!$videoPath) {
-    return redirect()->back()->withErrors(['video' => 'Please upload a video file or provide a video URL.'])->withInput();
-}
+    if (!$videoPath) {
+        return redirect()->back()->withErrors(['video' => 'Please upload a video file or provide a video URL.'])->withInput();
+    }
 
-// Menghapus simbol 'Rp' dan format lainnya, hanya menyisakan angka
-$harga = str_replace(['Rp', '.', ','], '', $request->harga);
+    // Menghapus simbol 'Rp' dan format lainnya, hanya menyisakan angka
+    $harga = str_replace(['Rp', '.', ','], '', $request->harga);
 
-// Pastikan harga adalah angka
-$harga = is_numeric($harga) ? (float) $harga : 0;
+    // Pastikan harga adalah angka
+    $harga = is_numeric($harga) ? (float) $harga : 0;
 
-// Menghapus simbol 'Rp' dan format lainnya, hanya menyisakan angka
-$harga_diskon = str_replace(['Rp', '.', ','], '', $request->harga_diskon);
+    // Menghapus simbol 'Rp' dan format lainnya, hanya menyisakan angka
+    $harga_diskon = str_replace(['Rp', '.', ','], '', $request->harga_diskon);
 
-// Pastikan harga adalah angka
-$harga_diskon = is_numeric($harga_diskon) ? (float) $harga_diskon : 0;
+    // Pastikan harga adalah angka
+    $harga_diskon = is_numeric($harga_diskon) ? (float) $harga_diskon : 0;
 
+    // Set publish_date otomatis jika status "publik"
+    if ($request->status === 'publik' && empty($request->publish_date)) {
+        $request->merge(['publish_date' => now()]);
+    }
 
+    // Create course
+    $course = Course::create([
+        'user_id' => auth()->user()->id,
+        'name' => $request->name,
+        'categories_id' => $request->categories_id,
+        'deskripsi' => $request->deskripsi,
+        'instruktur_id' => $request->instruktur_id,
+        'harga' => $harga,
+        'harga_diskon' => $harga_diskon,
+        'tanggal_mulai' => $request->tanggal_mulai,
+        'tags' => $request->tags,
+        'kode_seri' => $request->kode_seri,
+        'thumbnail' => $request->file('thumbnail') ? $request->file('thumbnail')->store('courses', 'public') : null,
+        'video' => $videoPath,
+        'status' => $request->status,
+        'tingkatan' => $request->tingkatan,
+        'berbayar' => $request->berbayar,
+        'publish_date' => $request->publish_date,
+        'slug' => Str::slug($request->name),
+    ]);
 
-// Create course
-$course = Course::create([
-    'user_id' => auth()->user()->id,
-    'name' => $request->name,
-    'categories_id' => $request->categories_id,
-    'deskripsi' => $request->deskripsi,
-    'intruktur_id' => $request->intruktur_id,
-    'harga' => $harga,
-    'harga_diskon' => $harga_diskon,
-    'tanggal_mulai' => $request->tanggal_mulai,
-    'tags' => $request->tags,
-    'kode_seri' => $request->kode_seri,
-    'thumbnail' => $request->file('thumbnail') ? $request->file('thumbnail')->store('courses', 'public') : null,
-    'video' => $videoPath,
-    'status' => $request->status,
-    'tingkatan' => $request->tingkatan,
-    'berbayar' => $request->berbayar,
-    'slug' => Str::slug($request->name),
-]);
+    // Create certificate
+    $this->createCertificate($course->id, $request);
 
-// Create certificate
-$this->createCertificate($course->id, $request);
+    // Create Bab and Moduls
+    $this->createBabAndModules($course->id, $request->bab);
 
-// Create Bab and Moduls
-$this->createBabAndModules($course->id, $request->bab);
-
-return response()->json([
-    'status' => 'success',
-    'message' => 'Course, certificate, and related bab and moduls successfully created.',
-    'redirect_url' => route('courses.index')
-]);
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Course, certificate, and related bab and moduls successfully created.',
+        'redirect_url' => route('courses.index')
+    ]);
 }
 
 
@@ -251,6 +267,8 @@ public function show($slug)
 $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
                 ->where('slug', $slug)
                 ->firstOrFail();
+
+
 $thumbnailUrl = $this->getVideoThumbnail($course->video);
 
 // Perhitungan diskon
@@ -264,7 +282,7 @@ if ($hargaAsli > 0 && $hargaDiskon >= 0) {
     $persentaseDiskon = 0;
 }
 
-$relatedCourses = Course::where('intruktur_id', $course->intruktur_id)
+$relatedCourses = Course::where('instruktur_id', $course->instruktur_id)
                             ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
                             ->where('id', '!=', $course->id) // Pastikan tidak termasuk course yang sedang dilihat
                             ->orderBy('created_at', 'desc')
@@ -300,5 +318,61 @@ $recentPostsCourse = Course::orderBy('created_at', 'desc')->take(3)->get();
 
 return compact('categories', 'popularTags', 'recentPostsCourse');
 }
+
+public function showModul($slug)
+{
+    $modul = Modul::with('bab.course')->where('slug', $slug)->firstOrFail();
+
+    // Cari modul sebelumnya
+    $previousModul = Modul::where('bab_id', $modul->bab_id)
+                          ->where('id', '<', $modul->id)
+                          ->orderBy('id', 'desc')
+                          ->first();
+
+    // Cari modul berikutnya
+    $nextModul = Modul::where('bab_id', $modul->bab_id)
+                     ->where('id', '>', $modul->id)
+                     ->orderBy('id', 'asc')
+                     ->first();
+
+    return view('dashboard.pages.lesson._modul_content', compact('modul', 'previousModul', 'nextModul'));
+}
+
+
+public function showBab($slug)
+{
+    // Mencari Course berdasarkan slug
+    $course = Course::where('slug', $slug)->firstOrFail();
+
+    // Mengambil semua Bab yang terkait dengan Course ini beserta Modulnya
+    $bab = $course->babs()->with('moduls')->get();
+    
+    // Mengirim data course dan bab ke view
+    return view('dashboard.pages.lesson.lesson', compact('course', 'bab'));
+}
+
+public function myCourses()
+{
+    // Ambil instruktur yang sedang login
+    $instrukturId = auth()->user()->id;
+
+    // Ambil course yang instruktur_id-nya sama dengan ID instruktur yang sedang login
+    $courses_publik = Course::where('instruktur_id', $instrukturId)
+                    ->where('publish_date', '<=', Carbon::now())
+                    ->with(['users', 'categories', 'babs.moduls', 'instrukturs']) // Eager loading relasi yang diperlukan
+                    ->get();
+    $courses_draft = Course::where('instruktur_id', $instrukturId)
+                    ->where('status', 'draft')
+                    ->with(['users', 'categories', 'babs.moduls', 'instrukturs']) // Eager loading relasi yang diperlukan
+                    ->get();
+    $courses_terjadwal = Course::where('instruktur_id', $instrukturId)
+                    ->where('publish_date', '>', Carbon::now())
+                    ->with(['users', 'categories', 'babs.moduls', 'instrukturs']) // Eager loading relasi yang diperlukan
+                    ->get();
+
+    // Kembalikan ke tampilan atau API response
+    return view('dashboard.pages.my-course.index', compact('courses_publik', 'courses_draft', 'courses_terjadwal'));
+}
+
 
 }
