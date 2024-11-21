@@ -1,6 +1,6 @@
 <div id="app-menu-drawer" class="app-menu flex flex-col gap-y-2.5 bg-white dark:bg-dark-card w-app-menu fixed top-0 left-0 bottom-0 -translate-x-full group-data-[sidebar-size=sm]:min-h-screen group-data-[sidebar-size=sm]:h-max xl:translate-x-0 rounded-r-10 xl:rounded-15 xl:group-data-[sidebar-size=lg]:w-app-menu xl:group-data-[sidebar-size=sm]:w-app-menu-sm xl:group-data-[sidebar-size=sm]:absolute xl:group-data-[sidebar-size=lg]:fixed xl:top-4 xl:left-4 xl:bottom-4 z-backdrop xl:group-data-[theme-width=box]:left-auto dk-theme-card-square ac-transition" tabindex="-1">
     <div class="px-4 h-header flex items-center shrink-0 group-data-[sidebar-size=sm]:px-2 group-data-[sidebar-size=sm]:justify-center">
-        <a href="index.html" class="group-data-[sidebar-size=lg]:block hidden">
+        <a href=" {{ url('/dashboard') }}" class="group-data-[sidebar-size=lg]:block hidden" style="width: 200px;">
             <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo" class="group-[.dark]:hidden">
             <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo" class="group-[.light]:hidden">
         </a>

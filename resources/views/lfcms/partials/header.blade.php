@@ -39,8 +39,8 @@
                     </div>
                     <div class="divide-y divide-gray-100 dark:divide-dark-border-four">
                         <a href="notification.html" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-dark-icon">
-                            <div class="flex-shrink-0">
-                                <img class="size-10 rounded-50" src="assets/images/user/user-1.png" alt="user">
+                            <div class="flex-shrink-0">       
+                                <img class="size-10 rounded-50" src= "{{ asset('assets/lfcms/images/user/user-1.png') }}" alt="user">
                             </div>
                             <div class="w-full ps-3">
                                 <div class="text-gray-500 dark:text-gray-400 text-sm mb-1.5">New message from <span class="font-semibold text-gray-900 dark:text-white">Jese Leos</span>: "Hey, what's up? All set for the presentation?"</div>
@@ -49,7 +49,7 @@
                         </a>
                         <a href="notification.html" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-dark-icon">
                             <div class="flex-shrink-0">
-                                <img class="size-10 rounded-50" src="assets/images/user/user-2.png" alt="user">
+                                <img class="size-10 rounded-50" src="{{ asset('assets/lfcms/images/user/user-2.png') }}" alt="user">
                             </div>
                             <div class="w-full ps-3">
                                 <div class="text-gray-500 dark:text-gray-400 text-sm mb-1.5">New message from <span class="font-semibold text-gray-900 dark:text-white">Jese Leos</span>: "Hey, what's up? All set for the presentation?"</div>
@@ -65,28 +65,28 @@
             <!-- Language Select Button -->
             <div class="relative">
                 <button type="button" data-popover-target="dropdownLanguage" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-8 flex-center hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
-                    <img id="header-lang-img" src="assets/images/flag/us.svg" alt="flag" class="size-5 rounded-sm" title="English">
+                    <img id="header-lang-img" src=" {{ asset('assets/lfcms/images/flag/us.svg') }}" alt="flag" class="size-5 rounded-sm" title="English">
                 </button>
                 <!-- Dropdown -->
                 <div id="dropdownLanguage" class="absolute invisible z-backdrop py-2 bg-white rounded-md shadow-md min-w-[10rem] flex flex-col dark:bg-dark-card-shade">
                     <a href="#" class="flex items-center gap-3 hover:bg-gray-200 px-4 py-2 dark:hover:bg-dark-icon relative after:absolute after:inset-0 after:size-full" data-lang="en" title="English">
-                        <img src="assets/images/flag/us.svg" alt="flag" class="object-cover size-4 rounded-50">
+                        <img src="{{ asset('assets/lfcms/images/flag/us.svg') }}" alt="flag" class="object-cover size-4 rounded-50">
                         <h6 class="font-medium text-gray-500 dark:text-white">English</h6>
                     </a>
                     <a href="#" class="flex items-center gap-3 hover:bg-gray-200 px-4 py-2 dark:hover:bg-dark-icon relative after:absolute after:inset-0 after:size-full" data-lang="sp" title="Spanish">
-                        <img src="assets/images/flag/es.svg" alt="flag" class="object-cover size-4 rounded-50">
+                        <img src="{{ asset('assets/lfcms/images/flag/es.svg') }}" alt="flag" class="object-cover size-4 rounded-50">
                         <h6 class="font-medium text-gray-500 dark:text-white">Spanish</h6>
                     </a>
                     <a href="#" class="flex items-center gap-3 hover:bg-gray-200 px-4 py-2 dark:hover:bg-dark-icon relative after:absolute after:inset-0 after:size-full" data-lang="fr" title="French">
-                        <img src="assets/images/flag/fr.svg" alt="flag" class="object-cover size-4 rounded-50">
+                        <img src="{{ asset('assets/lfcms/images/flag/fr.svg') }}" alt="flag" class="object-cover size-4 rounded-50">
                         <h6 class="font-medium text-gray-500 dark:text-white">French</h6>
                     </a>
                     <a href="#" class="flex items-center gap-3 hover:bg-gray-200 px-4 py-2 dark:hover:bg-dark-icon relative after:absolute after:inset-0 after:size-full" data-lang="it" title="Italian">
-                        <img src="assets/images/flag/it.svg" alt="flag" class="object-cover size-4 rounded-50">
+                        <img src="{{ asset('assets/lfcms/images/flag/it.svg') }}" alt="flag" class="object-cover size-4 rounded-50">
                         <h6 class="font-medium text-gray-500 dark:text-white">Italian</h6>
                     </a>
                     <a href="#" class="flex items-center gap-3 hover:bg-gray-200 px-4 py-2 dark:hover:bg-dark-icon relative after:absolute after:inset-0 after:size-full" data-lang="ar" title="Arabic">
-                        <img src="assets/images/flag/ar.svg" alt="flag" class="object-cover size-4 rounded-50">
+                        <img src="{{ asset('assets/lfcms/images/flag/ar.svg') }}" alt="flag" class="object-cover size-4 rounded-50">
                         <h6 class="font-medium text-gray-500 dark:text-white">Arabic</h6>
                     </a>
                 </div>
@@ -96,14 +96,13 @@
             <!-- User Profile Button -->
             <div class="relative">
                 <button type="button" data-popover-target="dropdownProfile" data-popover-trigger="click" data-popover-placement="bottom-end" class="text-gray-500 dark:text-dark-text flex items-center gap-2 sm:pr-4 relative after:absolute after:right-0 after:font-remix after:content-['\ea4e'] after:text-[18px] after:hidden sm:after:block">
-                    <img src="assets/images/user/profile-img.png" alt="user-img" class="size-7 sm:size-9 rounded-50 dk-theme-card-square">
+                    <img src="{{ asset('assets/lfcms/images/user/profile-img.png') }}" alt="user-img" class="size-7 sm:size-9 rounded-50 dk-theme-card-square">
                     <span class="font-semibold leading-none text-lg capitalize hidden sm:block">alex..</span>
                 </button>
                 <!-- Dropdown menu -->
                 <div id="dropdownProfile" class="invisible z-backdrop bg-white text-left divide-y divide-gray-100 rounded-lg shadow w-48 dark:bg-dark-card-shade dark:divide-dark-border-four">
                     <div class="px-4 py-3 text-sm text-gray-500 dark:text-white">
                         <div class="font-medium ">Alex Janson</div>
-                        <div class="truncate"><a href="https://template.codexshaper.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afcec3cad79d9b9d9aefc8c2cec6c381ccc0c2">[email&#160;protected]</a></div>
                     </div>
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
                         <li>
