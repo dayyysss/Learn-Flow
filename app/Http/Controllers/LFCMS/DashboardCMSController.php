@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class DashboardCMSController extends Controller
 {
-    public function index()
+    public function indexCMS()
     {
         return view('lfcms.pages.dashboard.index');
     }

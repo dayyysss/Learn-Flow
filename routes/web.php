@@ -52,7 +52,7 @@ Route::controller(LandingPageController::class)->group(function () {
 // Dashboard CMS
 Route::prefix('lfcms')->group(function () {
     Route::controller(DashboardCMSController::class)->group(function () {
-        Route::get('/dashboard', 'index')->name('index');
+        Route::get('/dashboard', 'indexCMS')->name('indexCMS');
     });
 });
 
