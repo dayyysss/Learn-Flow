@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
+use App\Http\Controllers\Admin\UserController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -74,6 +75,7 @@ Route::put('/setting/updateProfile', [SettingController::class, 'updateProfil'])
 Route::post('/settings/update-password', [SettingController::class, 'updatePassword'])->name('settings.update-password');
 Route::post('/settings/update-sosial', [SettingController::class, 'updateSocialMedia'])->name('user.update.social_media');
 
+Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');

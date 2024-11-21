@@ -23,16 +23,16 @@
                     </a>
                 </div>
                 <div class="col-span-full md:col-span-5 flex-col items-center justify-center 2xl:block hidden md:flex">
-                    <img src="{{asset('assets/images/loti/loti-admin-dashboard.svg" alt="online-workshop')}}" class="group-[.dark]:hidden">
-                    <img src="{{asset('assets/images/loti/loti-admin-dashboard-dark.svg" alt="online-workshop')}}" class="group-[.light]:hidden">
+                    <img src="assets/images/loti/loti-admin-dashboard.svg" alt="online-workshop" class="group-[.dark]:hidden">
+                    <img src="assets/images/loti/loti-admin-dashboard-dark.svg" alt="online-workshop" class="group-[.light]:hidden">
                 </div>
                 <!-- Graphicla Elements -->
                 <ul>
                     <li class="absolute -top-[30px] left-1/2 animate-spin-slow">
-                        <img src="{{asset('assets/images/element/graphical-element-1.svg')}}" alt="element">
+                        <img src="assets/images/element/graphical-element-1.svg" alt="element">
                     </li>
                     <li class="absolute -bottom-[24px] left-1/4 animate-spin-slow">
-                        <img src="{{asset('assets/images/element/graphical-element-2.svg')}}" alt="element">
+                        <img src="assets/images/element/graphical-element-2.svg" alt="element">
                     </li>
                 </ul>
             </div>
@@ -185,7 +185,7 @@
                         <tr>
                             <td class="flex items-center gap-2 px-3.5 py-4">
                                 <a href="#" class="size-10 rounded-50 overflow-hidden dk-theme-card-square">
-                                    <img src="{{asset('assets/images/admin/top-course/top-course-1.png')}}" alt="thumb">
+                                    <img src="assets/images/admin/top-course/top-course-1.png" alt="thumb">
                                 </a>
                                 <div>
                                     <h6 class="text-heading font-semibold mb-1.5 line-clamp-1">
@@ -201,7 +201,7 @@
                         <tr>
                             <td class="flex items-center gap-2 px-3.5 py-4">
                                 <a href="#" class="size-10 rounded-50 overflow-hidden dk-theme-card-square">
-                                    <img src="{{asset('assets/images/admin/top-course/top-course-2.png" alt="thumb">
+                                    <img src="assets/images/admin/top-course/top-course-2.png" alt="thumb">
                                 </a>
                                 <div>
                                     <h6 class="text-heading font-semibold mb-1.5 line-clamp-1">
@@ -217,7 +217,7 @@
                         <tr>
                             <td class="flex items-center gap-2 px-3.5 py-4">
                                 <a href="#" class="size-10 rounded-50 overflow-hidden dk-theme-card-square">
-                                    <img src="{{asset('assets/images/admin/top-course/top-course-3.png" alt="thumb">
+                                    <img src="assets/images/admin/top-course/top-course-3.png" alt="thumb">
                                 </a>
                                 <div>
                                     <h6 class="text-heading font-semibold mb-1.5 line-clamp-1">
@@ -233,7 +233,7 @@
                         <tr>
                             <td class="flex items-center gap-2 px-3.5 py-4">
                                 <a href="#" class="size-10 rounded-50 overflow-hidden dk-theme-card-square">
-                                    <img src="{{asset('assets/images/admin/top-course/top-course-4.png" alt="thumb">
+                                    <img src="assets/images/admin/top-course/top-course-4.png" alt="thumb">
                                 </a>
                                 <div>
                                     <h6 class="text-heading font-semibold mb-1.5 line-clamp-1">
@@ -262,7 +262,7 @@
                     <li class="flex-center-between first:pt-0">
                         <div class="flex items-center gap-2.5">
                             <div class="size-12 rounded-50 bg-primary-200 dark:bg-dark-icon flex-center flex-shrink-0 dk-theme-card-square">
-                                <img src="{{asset('assets/images/icons/category/graphic-design.svg" alt="icon">
+                                <img src="assets/images/icons/category/graphic-design.svg" alt="icon">
                             </div>
                             <div>
                                 <h6 class="leading-none text-heading font-semibold mb-2 line-clamp-1">
@@ -281,7 +281,7 @@
                     <li class="flex-center-between first:pt-0">
                         <div class="flex items-center gap-2.5">
                             <div class="size-12 rounded-50 bg-primary-200 dark:bg-dark-icon flex-center flex-shrink-0 dk-theme-card-square">
-                                <img src="{{asset('assets/images/icons/category/ui-ux.svg" alt="icon">
+                                <img src="assets/images/icons/category/ui-ux.svg" alt="icon">
                             </div>
                             <div>
                                 <h6 class="leading-none text-heading font-semibold mb-2 line-clamp-1">
@@ -300,7 +300,7 @@
                     <li class="flex-center-between first:pt-0">
                         <div class="flex items-center gap-2.5">
                             <div class="size-12 rounded-50 bg-primary-200 dark:bg-dark-icon flex-center flex-shrink-0 dk-theme-card-square">
-                                <img src="{{asset('assets/images/icons/category/web-dev.svg" alt="icon">
+                                <img src="assets/images/icons/category/web-dev.svg" alt="icon">
                             </div>
                             <div>
                                 <h6 class="leading-none text-heading font-semibold mb-2 line-clamp-1">
@@ -319,7 +319,7 @@
                     <li class="flex-center-between first:pt-0">
                         <div class="flex items-center gap-2.5">
                             <div class="size-12 rounded-50 bg-primary-200 dark:bg-dark-icon flex-center flex-shrink-0 dk-theme-card-square">
-                                <img src="{{asset('assets/images/icons/category/digital-mar.svg" alt="icon">
+                                <img src="assets/images/icons/category/digital-mar.svg" alt="icon">
                             </div>
                             <div>
                                 <h6 class="leading-none text-heading font-semibold mb-2 line-clamp-1">
@@ -338,7 +338,7 @@
                     <li class="flex-center-between first:pt-0">
                         <div class="flex items-center gap-2.5">
                             <div class="size-12 rounded-50 bg-primary-200 dark:bg-dark-icon flex-center flex-shrink-0 dk-theme-card-square">
-                                <img src="{{asset('assets/images/icons/category/bus-dev.svg" alt="icon">
+                                <img src="assets/images/icons/category/bus-dev.svg" alt="icon">
                             </div>
                             <div>
                                 <h6 class="leading-none text-heading font-semibold mb-2 line-clamp-1">
@@ -377,7 +377,7 @@
                 <ul class="divide-y divide-gray-200 dark:divide-dark-border-three space-y-5 *:pt-5 overflow-hidden px-6">
                     <li class="flex items-center gap-2.5 first:pt-0">
                         <a href="#" class="size-12 rounded-50 flex-shrink-0 overflow-hidden dk-theme-card-square">
-                            <img src="{{asset('assets/images/user/user-1.png" alt="user">
+                            <img src="assets/images/user/user-1.png" alt="user">
                         </a>
                         <div>
                             <div class="leading-none text-xs text-gray-500 dark:text-dark-text-two mb-1">10 : 00 pm</div>
@@ -389,7 +389,7 @@
                     </li>
                     <li class="flex items-center gap-2.5 first:pt-0">
                         <a href="#" class="size-12 rounded-50 flex-shrink-0 overflow-hidden dk-theme-card-square">
-                            <img src="{{asset('assets/images/user/user-2.png" alt="user">
+                            <img src="assets/images/user/user-2.png" alt="user">
                         </a>
                         <div>
                             <div class="leading-none text-xs text-gray-500 dark:text-dark-text-two mb-1">10 : 00 pm</div>
@@ -401,7 +401,7 @@
                     </li>
                     <li class="flex items-center gap-2.5 first:pt-0">
                         <a href="#" class="size-12 rounded-50 flex-shrink-0 overflow-hidden dk-theme-card-square">
-                            <img src="{{asset('assets/images/user/user-3.png" alt="user">
+                            <img src="assets/images/user/user-3.png" alt="user">
                         </a>
                         <div>
                             <div class="leading-none text-xs text-gray-500 dark:text-dark-text-two mb-1">10 : 00 pm</div>
@@ -413,7 +413,7 @@
                     </li>
                     <li class="flex items-center gap-2.5 first:pt-0">
                         <a href="#" class="size-12 rounded-50 flex-shrink-0 overflow-hidden dk-theme-card-square">
-                            <img src="{{asset('assets/images/user/user-4.png" alt="user">
+                            <img src="assets/images/user/user-4.png" alt="user">
                         </a>
                         <div>
                             <div class="leading-none text-xs text-gray-500 dark:text-dark-text-two mb-1">10 : 00 pm</div>
@@ -425,7 +425,7 @@
                     </li>
                     <li class="flex items-center gap-2.5 first:pt-0">
                         <a href="#" class="size-12 rounded-50 flex-shrink-0 overflow-hidden dk-theme-card-square">
-                            <img src="{{asset('assets/images/user/user-5.png" alt="user">
+                            <img src="assets/images/user/user-5.png" alt="user">
                         </a>
                         <div>
                             <div class="leading-none text-xs text-gray-500 dark:text-dark-text-two mb-1">10 : 00 pm</div>
@@ -437,7 +437,7 @@
                     </li>
                     <li class="flex items-center gap-2.5 first:pt-0">
                         <a href="#" class="size-12 rounded-50 flex-shrink-0 overflow-hidden dk-theme-card-square">
-                            <img src="{{asset('assets/images/user/user-6.png" alt="user">
+                            <img src="assets/images/user/user-6.png" alt="user">
                         </a>
                         <div>
                             <div class="leading-none text-xs text-gray-500 dark:text-dark-text-two mb-1">10 : 00 pm</div>
