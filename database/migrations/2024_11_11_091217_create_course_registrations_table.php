@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('course_registrations', function (Blueprint $table) {
             $table->id();
+            $table->string('order_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->string('method_pembayaran')->nullable();
-            $table->decimal('harga', 10,2);
-            $table->enum('registration_status', ['Menunggu', 'Diproses', 'Berhasil', 'Gagal', 'Dibatalkan', 'Refund'])->default('Menunggu');
-            $table->timestamp('registration_date')->default(DB::raw('CURRENT_TIMESTAMP'))->change();
+            $table->decimal('harga', 10, 2);
+            $table->string('registration_status');
+            $table->timestamp('registration_date')->useCurrent();
             $table->date('order_date')->nullable();
+            $table->string('snap_token')->nullable(); 
             $table->timestamps();
         });
     }
