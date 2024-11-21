@@ -1,0 +1,100 @@
+@extends('dashboard.layouts.layouts')
+@section('page_title', 'LearnFlow | My Quiz Attempts')
+
+@section('content')
+    <!-- dashboard content -->
+    <div class="lg:col-start-4 lg:col-span-9">
+        <!-- quize attempts area -->
+        <div
+            class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
+            <!-- heading -->
+            <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark">
+                <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
+                    Semua Quiz Terkirim
+                </h2>
+            </div>
+            <!-- filter content -->
+            <div class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">
+                <div class="xl:col-start-1 xl:col-span-6">
+                    <p
+                        class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
+                        Kategori Kursus
+                    </p>
+                    <div class="bg-whiteColor rounded-md relative">
+                        <select
+                            class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
+                            <option selected="" value="All">All</option>
+                            <option value="Web Design">Web Design</option>
+                            <option value="Graphic">Graphic</option>
+                            <option value="English">English</option>
+                            <option value="Spoken English">Spoken English</option>
+                            <option value="Art Painting">Art Painting</option>
+                            <option value="App Development">App Development</option>
+                            <option value="Spoken English">Web Application</option>
+                            <option value="Spoken English">Php Development</option>
+                        </select>
+                        <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
+                    </div>
+                </div>
+                <div class="xl:col-start-10 xl:col-span-6">
+                    <p
+                        class="text-xs leading-1.8 tracking-[.5px] uppercase text-bodyColor dark:text-bodyColor-dark mb-6px font-semibold opacity-50">
+                        Status Kursus
+                    </p>
+                    <div class="bg-whiteColor rounded-md relative">
+                        <select
+                            class="bg-transparent text-darkBlue w-full p-13px focus:outline-none block appearance-none leading-1.5 relative z-20 focus:shadow-select rounded-md">
+                            <option selected="" value="semua">Semua</option>
+                            <option value="gratis">Gratis</option>
+                            <option value="berbayar">Berbayar</option>
+                        </select>
+                        <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 border-contentColor opacity-35">
+            <!-- main content -->
+            <tbody class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal">
+                @foreach ($quizResults as $result)
+                    <tr class="leading-1.8 md:leading-1.8">
+                        <td class="px-5px py-10px md:px-5 font-normal text-left">
+                            <p class="text-blackColor dark:text-blackColor-dark font-bold break-words whitespace-normal">
+                                {{ $result->quiz->title }}
+                            </p>
+                        </td>
+                        <td class="px-5px py-10px md:px-5">
+                            <p>{{ $result->user->name }}</p>
+                        </td>
+                        <td class="px-5px py-10px md:px-5">
+                            <p>{{ $result->created_at->format('D M Y') }}</p>
+                        </td>
+                        <td class="px-5px py-10px md:px-5">
+                            <p>{{ $result->quiz->duration }}</p>
+                        </td>
+                        <td class="px-5px py-10px md:px-5">
+                            <p>{{ $result->correct_answers }}</p>
+                        </td>
+                        <td class="px-5px py-10px md:px-5">
+                            <p>{{ $result->wrong_answers }}</p>
+                        </td>
+                        <td class="px-5px py-10px md:px-5">
+                            <p>{{ $result->total_score }}</p>
+                        </td>
+                        <td class="px-5px py-10px md:px-5">
+                            <p class="text-xs">
+                                <span class="h-22px inline-block px-7px leading-22px font-bold text-whiteColor rounded-md {{ $result->status == 'lulus' ? 'bg-greencolor2' : 'bg-redcolor2' }}">
+                                    {{ ucfirst($result->status) }}
+                                </span>
+                            </p>
+                        </td>
+                        <td class="px-5px py-10px md:px-5">
+                            <a href="{{ route('quizresult.show', $result->id) }}" class="flex items-center gap-1 text-sm font-bold text-whiteColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>                       
+        </div>
+    </div>
+@endsection
