@@ -4,7 +4,8 @@ use App\Models\Course;
 use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CartController;
-use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Landing\LandingPageController;
+use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\WishlistController;
@@ -23,26 +24,16 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 // Auth
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+Route::get('/login', function () { return view('auth.login');})->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
-Route::get('/signup', function () {
-    return view('auth.register');
-})->name('register');
+Route::get('/signup', function () { return view('auth.register');})->name('register');
 Route::post('/signup', [RegisteredUserController::class, 'store'])->name('register.post');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
-})->name('password.request');
+Route::get('/forgot-password', function () { return view('auth.forgot-password');})->name('password.request');
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-Route::get('/reset-password/{token}', function ($token) {
-    return view('auth.reset-password', ['token' => $token]);
-})->name('password.reset');
+Route::get('/reset-password/{token}', function ($token) { return view('auth.reset-password', ['token' => $token]);})->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->name('verification.notice');
+Route::get('/email/verify', function () { return view('auth.verify-email');})->name('verification.notice');
 Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 
 // Landing Page
@@ -56,6 +47,13 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/kontak', 'contact')->name('contact');
 });
 
+// Dashboard CMS
+Route::prefix('lfcms')->group(function () {
+    Route::controller(DashboardCMSController::class)->group(function () {
+        Route::get('/dashboard', 'index')->name('index');
+    });
+});
+
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index.user');
@@ -66,7 +64,6 @@ Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard
 Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('dashboard.orderHistory');
 Route::resource('/settings', SettingController::class);
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
-Route::get('/my-course', [DashboardController::class, 'myCourse'])->name('dashboard.myCourse');
 Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.cart');
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
@@ -76,6 +73,7 @@ Route::put('/setting/updateProfile', [SettingController::class, 'updateProfil'])
 Route::post('/settings/update-password', [SettingController::class, 'updatePassword'])->name('settings.update-password');
 Route::post('/settings/update-sosial', [SettingController::class, 'updateSocialMedia'])->name('user.update.social_media');
 
+Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');

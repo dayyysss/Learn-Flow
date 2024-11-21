@@ -47,11 +47,6 @@ class DashboardController extends Controller
         return view('dashboard.pages.order-history.index');
     }
 
-    public function myCourse()
-    {
-        return view('dashboard.pages.my-course.index');
-    }
-
     public function assignments()
     {
         return view('dashboard.pages.assignments.index');

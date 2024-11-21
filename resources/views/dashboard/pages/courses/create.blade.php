@@ -63,13 +63,22 @@
                                                 <div class="form-group">
                                                     <label for="status" class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Status</label>
                                                     <div class="bg-whiteColor relative rounded-md">
-                                                        <select name="status" class="text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md form-control" required>
+                                                        <select id="status" name="status" class="text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md form-control" required>
                                                             <option value="publik">Publik</option>
                                                             <option value="draft">Draft</option>
                                                             <option value="terjadwal">Terjadwal</option>
                                                         </select>
                                                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                                                     </div>
+                                                    
+                                                    <!-- Input untuk publish_date, disembunyikan secara default -->
+                                                    <div id="publish_date_container" class="hidden">
+                                                        <label for="publish_date" class="text-blackColor2">Tanggal Publish</label>
+                                                        <input type="date" id="publish_date" name="publish_date" class="text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md form-control">
+                                                    </div>
+                                                    
+
+                                                    
                                                 </div>
                                             
                                                 <div class="form-group">
@@ -96,8 +105,8 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="intruktur_id" class="mb-3 block font-semibold">Instructor</label>
-                                                    <select name="intruktur_id" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
+                                                    <label for="instruktur_id" class="mb-3 block font-semibold">Instructor</label>
+                                                    <select name="instruktur_id" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
                                                         <option value="">Select Instructor</option>
                                                         @foreach ($instruktur as $ins)
                                                             <option value="{{ $ins->id }}">{{ $ins->name }}</option>
@@ -459,5 +468,22 @@
 }
 
 </style>
+
+<script>
+    // Ambil elemen status select dan container publish_date
+    const statusSelect = document.getElementById('status');
+    const publishDateContainer = document.getElementById('publish_date_container');
+
+    // Event listener untuk mendeteksi perubahan pada select
+    statusSelect.addEventListener('change', function() {
+        if (this.value === 'terjadwal') {
+            // Tampilkan input publish_date ketika "Terjadwal" dipilih
+            publishDateContainer.classList.remove('hidden');
+        } else {
+            // Sembunyikan input publish_date untuk pilihan lain
+            publishDateContainer.classList.add('hidden');
+        }
+    });
+</script>
 
 @endsection
