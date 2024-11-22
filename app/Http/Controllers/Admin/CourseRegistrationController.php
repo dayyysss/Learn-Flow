@@ -32,7 +32,7 @@ class CourseRegistrationController extends Controller
     {
         // Ambil semua item cart untuk user yang sedang login
         $cartItems = Cart::where('user_id', auth()->id())
-            ->with('course')  // Pastikan relasi 'course' sudah didefinisikan di model Cart
+            ->with('course')
             ->get();
 
         // Kirim data cartItems ke tampilan
@@ -52,13 +52,26 @@ class CourseRegistrationController extends Controller
             return redirect('/course');
         }
 
-        // Jika belum berhasil
-        return view('dashboard.pages.enrolled-courses.payment', ['snapToken' => $snapToken]);
+        // Ambil data kursus
+        $course = $transaction->course;
+
+        return view('dashboard.pages.enrolled-courses.payment', [
+            'snapToken' => $snapToken,
+            'course' => $course,
+        ]);
     }
+
 
 
     public function store(Request $request)
     {
+        // Cek apakah pengguna sudah login
+        if (!auth()->check()) {
+            // Redirect ke halaman login dengan pesan notifikasi
+            return redirect()->route('login')->with('error', 'Silakan login atau daftar terlebih dahulu untuk melanjutkan.');
+        }
+
+        // Ambil data kursus
         $course = Course::findOrFail($request->course_id);
 
         // Set konfigurasi Midtrans
@@ -100,6 +113,7 @@ class CourseRegistrationController extends Controller
     }
 
 
+
     public function updateMethod(Request $request)
     {
         $request->validate([
@@ -107,6 +121,7 @@ class CourseRegistrationController extends Controller
             'order_id' => 'required|string',
         ]);
 
+        // Konfigurasi Midtrans
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         Config::$clientKey = env('MIDTRANS_CLIENT_KEY');
         Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
@@ -114,25 +129,33 @@ class CourseRegistrationController extends Controller
         $registration = CourseRegistration::where('order_id', $request->order_id)->first();
 
         if ($registration) {
-            // transaction status dari Midtrans
             try {
-                $status = Transaction::status($request->order_id); // Fetch transaction status by order_id
+                // Ambil status transaksi dari Midtrans
+                $status = Transaction::status($request->order_id);
 
-                if (is_array($status)) {
-                    $transactionStatus = $status['transaction_status'] ?? 'unknown'; // Get status from array
-                } else {
-                    $transactionStatus = $status->transaction_status ?? 'unknown'; // Get status from object
-                }
+                // Ambil status transaksi dari response
+                $transactionStatus = is_array($status)
+                    ? ($status['transaction_status'] ?? 'unknown')
+                    : ($status->transaction_status ?? 'unknown');
 
-                // Map Midtrans status to registration status
+                // Konversi status Midtrans ke status registrasi
                 $registration_status = $this->mapMidtransStatusToRegistrationStatus($transactionStatus);
 
-                // Update payment method dan registration status
+                // Update data pendaftaran
                 $registration->update([
                     'method_pembayaran' => ucfirst($request->method_pembayaran),
-                    'registration_status' => $registration_status, // Update registration status
+                    'registration_status' => $registration_status,
                 ]);
 
+                // Jika sudah confirmed, redirect langsung ke halaman kursus
+                if ($registration_status === 'confirmed') {
+                    return response()->json([
+                        'status' => 'redirect',
+                        'url' => route('course'),
+                    ]);
+                }
+
+                // Berikan respons sukses jika status belum confirmed
                 return response()->json([
                     'status' => 'success',
                     'method_pembayaran' => ucfirst($request->method_pembayaran),
@@ -148,6 +171,7 @@ class CourseRegistrationController extends Controller
 
         return response()->json(['status' => 'error', 'message' => 'Order tidak ditemukan']);
     }
+
 
     private function mapMidtransStatusToRegistrationStatus($midtransStatus)
     {
