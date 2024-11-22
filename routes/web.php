@@ -65,6 +65,7 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/artikel', 'artikelCMS')->name('artikelCMS');
+        Route::get('/kategori-artikel', 'kategoriartikelCMS')->name('kategoriartikelCMS');
         Route::get('/pembayaran', 'pembayaranCMS')->name('pembayaranCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });

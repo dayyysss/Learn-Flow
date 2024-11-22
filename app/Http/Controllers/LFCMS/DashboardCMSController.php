@@ -42,9 +42,13 @@ class DashboardCMSController extends Controller
         return view('lfcms.pages.pembayaran.pembayaran');
     }
 
-    
     public function pengaturanCMS()
     {
         return view('lfcms.pages.pengaturan.pengaturan  ');
+    }
+
+    public function kategoriartikelCMS()
+    {
+        return view('lfcms.pages.artikel.kategori.kategori');
     }
 }
