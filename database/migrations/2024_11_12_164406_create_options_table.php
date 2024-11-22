@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('option_b');
             $table->string('option_c');
             $table->string('option_d');
-            $table->string('option_e');
-            $table->string('correct_answer');
-            $table->integer('score')->default(0);
+            $table->string('option_e'); // Jika ada 5 pilihan
+            $table->string('correct_answer'); // Jawaban yang benar
             $table->timestamps();
         });
     }

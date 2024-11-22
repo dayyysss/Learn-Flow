@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('question_id')->constrained('questions')->onDelete('cascade');
             $table->foreignId('option_id')->constrained('options')->onDelete('cascade');
             $table->foreignId('quiz_result_id')->constrained('quiz_results')->onDelete('cascade');
-            $table->string('correct_answer');
-            $table->integer('score')->default(0);
+            $table->boolean('is_correct')->change(); // Menandai apakah jawaban benar (true/false)
+            $table->integer('score')->default(0); // Skor jawaban
             $table->timestamps();
         });
     }

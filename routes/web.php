@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\Quiz\QuizController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -36,10 +37,10 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->
 Route::get('/reset-password/{token}', function ($token) { return view('auth.reset-password', ['token' => $token]);})->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
 Route::get('/email/verify', function () { return view('auth.verify-email');})->name('verification.notice');
-Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->name('verification.notice');
+// Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
+// Route::get('/email/verify', function () {
+//     return view('auth.verify-email');
+// })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 
 // Landing Page
@@ -120,6 +121,20 @@ Route::patch('/cart', [CartController::class, 'updateCart']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
+
+//quiz
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
+Route::get('/quiz/{id}', [QuizController::class, 'show'])->name('quiz.show');
+Route::get('/quiz/{id}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
+Route::patch('/quiz/{id}/update', [QuizController::class, 'update'])->name('quiz.update');
+Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.destroy');
+
+//quiz result
+Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');
+Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('quizresults.show');
+
 //wishlist
 Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
@@ -127,14 +142,4 @@ Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishl
 
 //feedback
 Route::resource('/feedback', FeedbackController::class);
-
-//quiz
-
-//quiz result
-Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('dashboard.quizResults');
-Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('quizresult.show');
-
-
-
-
 
