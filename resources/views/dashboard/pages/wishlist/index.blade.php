@@ -36,7 +36,7 @@
                                                 </p>
                                             </div>
                                             <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor add-to-wishlist"
-                                                href="#" data-id="{{ $item->course_id }}">
+                                                href="" data-id="{{ $item->course_id }}">
                                                 <i class="icofont-heart-alt text-base py-1 px-2"></i>
                                             </a>
                                         </div>
