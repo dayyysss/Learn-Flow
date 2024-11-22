@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\QuizController;
+use App\Http\Controllers\Admin\Quiz\QuizController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -40,7 +40,7 @@ Route::post('/reset-password', [PasswordResetController::class, 'update'])->name
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->name('verification.notice');
-Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
+// Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 
 // Landing Page
 Route::controller(LandingPageController::class)->group(function () {
@@ -90,17 +90,16 @@ Route::patch('/cart', [CartController::class, 'updateCart']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
-
 //quiz
-
-<<<<<<< HEAD
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
+Route::get('/quiz/{id}', [QuizController::class, 'show'])->name('quiz.show');
+Route::get('/quiz/{id}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
+Route::patch('/quiz/{id}/update', [QuizController::class, 'update'])->name('quiz.update');
+Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.destroy');
 
 //quiz result
-Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('dashboard.quizResults');
-Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('quizresult.show');
-=======
->>>>>>> ffc048255a5ba40aac266855880d74892d2f8cf1
-
-
-
+Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');
+Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('quizresults.show');
 
