@@ -10,14 +10,14 @@
   <meta name="description" content="web development agency">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
   <!-- Style CSS -->
   <link rel="stylesheet" href="{{ asset('assets/lfcms/css/output.css') }}">
 </head>
 <body class="bg-body-light dark:bg-dark-body group-data-[theme-width=box]:container group-data-[theme-width=box]:max-w-screen-3xl xl:group-data-[theme-width=box]:px-3">
-    <div id="loader" class="w-screen h-screen flex-center bg-white dark:bg-dark-card fixed inset-0 z-[9999]">
+    {{-- <div id="loader" class="w-screen h-screen flex-center bg-white dark:bg-dark-card fixed inset-0 z-[9999]">
         <img src="{{ asset('assets/lfcms/pre-loader/bar-loader.gif') }}" alt="loader">
-    </div>
+    </div> --}}
 
     @include('lfcms.partials.header')
     @include('lfcms.partials.sidebar')

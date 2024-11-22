@@ -4,23 +4,24 @@ use App\Models\Course;
 use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CartController;
-use App\Http\Controllers\Landing\LandingPageController;
-use App\Http\Controllers\LFCMS\DashboardCMSController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\ArtikelController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\LFCMS\DashboardCMSController;
+use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\CategoryArtikelController;
+use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\Admin\Quiz\QuizResultController;
-use App\Http\Controllers\Admin\UserController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -36,6 +37,10 @@ Route::get('/reset-password/{token}', function ($token) { return view('auth.rese
 Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
 Route::get('/email/verify', function () { return view('auth.verify-email');})->name('verification.notice');
 Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->name('verification.notice');
+// Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 
 // Landing Page
 Route::controller(LandingPageController::class)->group(function () {
@@ -52,7 +57,7 @@ Route::controller(LandingPageController::class)->group(function () {
 // Dashboard CMS
 Route::prefix('lfcms')->group(function () {
     Route::controller(DashboardCMSController::class)->group(function () {
-        Route::get('/dashboard', 'index')->name('index');
+        Route::get('/dashboard', 'indexCMS')->name('indexCMS');
     });
 });
 
@@ -90,8 +95,14 @@ Route::resource('/kategori-artikel', CategoryArtikelController::class);
 // course-registrations
 Route::get('/course-registrations/create', [CourseRegistrationController::class, 'create'])->name('course-registrations.create');
 Route::post('/course-registrations/store', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
-Route::post('/course-registrations/store-from-cart', [CourseRegistrationController::class, 'storeFromCart'])->name('course-registrations.store-from-cart');
+// Route::post('/course-registrations/store-from-cart', [CourseRegistrationController::class, 'storeFromCart'])->name('course-registrations.store-from-cart');
 Route::get('/course-registrations', [CourseRegistrationController::class, 'enrolledCourses'])->name('course-registrations.index');
+Route::post('/payment/update', [CourseRegistrationController::class, 'update']);
+Route::post('/payment/update-method', [CourseRegistrationController::class, 'updateMethod']);
+Route::post('/payment/notification', [CourseRegistrationController::class, 'paymentNotification']);
+Route::post('/payment/store', [CourseRegistrationController::class, 'store'])->name('payment.store');
+Route::get('/payment/{snapToken}', [CourseRegistrationController::class, 'showPaymentPage'])->name('payment.page');
+
 
 //cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -106,6 +117,8 @@ Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
 Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');;
 
+//feedback
+Route::resource('/feedback', FeedbackController::class);
 
 //quiz
 
