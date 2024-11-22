@@ -58,6 +58,14 @@ Route::controller(LandingPageController::class)->group(function () {
 Route::prefix('lfcms')->group(function () {
     Route::controller(DashboardCMSController::class)->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
+        Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
+        Route::get('/klien', 'klienCMS')->name('klienCMS');
+        Route::get('/halaman', 'halamanCMS')->name('halamanCMS');
+        Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
+        Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
+        Route::get('/artikel', 'artikelCMS')->name('artikelCMS');
+        Route::get('/pembayaran', 'pembayaranCMS')->name('pembayaranCMS');
+        Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
 });
 

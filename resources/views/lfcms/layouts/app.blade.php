@@ -13,6 +13,8 @@
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
   <!-- Style CSS -->
   <link rel="stylesheet" href="{{ asset('assets/lfcms/css/output.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/lfcms/css/vendor/select/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/lfcms/css/vendor/summernote.min.css') }}">
 </head>
 <body class="bg-body-light dark:bg-dark-body group-data-[theme-width=box]:container group-data-[theme-width=box]:max-w-screen-3xl xl:group-data-[theme-width=box]:px-3">
     {{-- <div id="loader" class="w-screen h-screen flex-center bg-white dark:bg-dark-card fixed inset-0 z-[9999]">
@@ -109,6 +111,8 @@
 
     <script src="{{ asset('assets/lfcms/js/vendor/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/vendor/flowbite.min.js') }}"></script>
+    <script src="{{ asset('assets/lfcms/js/vendor/summernote.min.js') }}"></script>
+    <script src="{{ asset('assets/lfcms/js/vendor/select/select2.min.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/vendor/smooth-scrollbar/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/pages/dashboard-lms.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/component/app-menu-bar.js') }}"></script>
