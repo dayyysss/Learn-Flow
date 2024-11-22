@@ -42,6 +42,11 @@ class DashboardCMSController extends Controller
         return view('lfcms.pages.pembayaran.pembayaran');
     }
 
+    public function historypembayaranCMS()
+    {
+        return view('lfcms.pages.pembayaran.pembayaran-history');
+    }
+
     public function pengaturanCMS()
     {
         return view('lfcms.pages.pengaturan.pengaturan  ');

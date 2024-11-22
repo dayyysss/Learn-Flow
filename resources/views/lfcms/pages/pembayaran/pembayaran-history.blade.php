@@ -1,11 +1,11 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'LearnFlow CMS | Pembayaran')
+@section('page_title', 'LearnFlow CMS | Histori Pembayaran')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="card p-0 overflow-hidden">
         <div class="flex flex-col gap-2 sm:flex-center-between sm:flex-row px-4 py-5 sm:p-7 bg-gray-200/30 dark:bg-dark-card-two">
             <div>
-                <h6 class="card-title">Payment History (32)</h6>
+                <h6 class="card-title">Riwayat Pembayaran (32)</h6>
                 <p class="card-description">
                     See history of your payment plan invoice
                 </p>
