@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Quiz;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
+use App\Models\Quiz;
 use App\Models\QuizResult;
 use Illuminate\Http\Request;
 
@@ -17,27 +19,43 @@ class QuizResultController extends Controller
     public function show($id)
     {
         $quizResult = QuizResult::with(['user', 'quiz.questions', 'answers'])->findOrFail($id);
-        return view('dashboard.pages.quizresult.show', compact('quizResults'));
+        return view('dashboard.pages.quizresult.show', compact('quizResult'));
     }
 
-    // Fungsi untuk memperbarui status kelulusan setelah kuis selesai
-    public function updateStatus($id)
+    public function submitQuiz(Request $request, $quizId)
     {
-        $quizResult = QuizResult::findOrFail($id);
+        $userId = auth()->id();
 
-        // Ambil skor minimal untuk lulus, misalnya 75
-        $passingScore = 75;
+        // Ambil quiz terkait
+        $quiz = Quiz::findOrFail($quizId);
 
-        // Periksa apakah skor pengguna memenuhi syarat kelulusan
-        if ($quizResult->score_amount >= $passingScore) {
-            $quizResult->status = 'lulus';
-        } else {
-            $quizResult->status = 'tidak lulus';
-        }
+        // Ambil semua jawaban user untuk quiz tertentu
+        $answers = Answer::where('quiz_id', $quizId)->where('user_id', $userId)->get();
 
-        // Simpan status yang diperbarui
-        $quizResult->save();
+        // Hitung total skor berdasarkan jawaban benar
+        $totalScore = $answers->sum(function ($answer) {
+            return $answer->is_correct ? $answer->question->score : 0;
+        });
 
-        return redirect()->route('quiz.show', $id)->with('success', 'Status updated successfully');
+        // Ambil waktu saat ini sebagai waktu selesai kuis
+        $endTime = now();
+
+        // Ambil waktu mulai kuis (dari tabel `quizzes`)
+        $startTime = $quiz->start_time ? now()->setTimeFromTimeString($quiz->start_time) : now();
+
+        // Hitung lama pengerjaan dalam menit
+        $durationInMinutes = $startTime->diffInMinutes($endTime);
+
+        // Simpan hasil kuis ke tabel QuizResult
+        $quizResult = QuizResult::create([
+            'user_id' => $userId,
+            'quiz_id' => $quizId,
+            'score_amount' => $totalScore,
+            'date_quiz' => now()->format('d-m-Y'), // Tanggal dan waktu saat kuis dilakukan
+            'completed_at' => $durationInMinutes, // Lama pengerjaan dalam menit
+            'status' => $totalScore >= 75 ? 'lulus' : 'tidak lulus', // Lulus jika >= 75
+        ]);
+
+        return redirect()->route('quizResults.index', $quizResult->id)->with('success', 'Quiz submitted successfully!');
     }
 }

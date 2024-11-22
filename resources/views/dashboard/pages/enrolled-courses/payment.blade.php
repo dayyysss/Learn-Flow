@@ -13,17 +13,16 @@
     <div class="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg max-w-lg">
         <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Pembayaran untuk Pembelian Kursus</h1>
 
-        <form method="POST" action="" accept-charset="UTF-8"
-            role="form" id="form-purchase">
-            <input name="_token" type="hidden" value="VwdBf5xhPTS27BDKFWww0m5ZvTQgtslTAW5NKpvA">
-            <input name="subscription_id" type="hidden" value="27">
+        <form method="POST" action="" accept-charset="UTF-8" role="form" id="form-purchase">
+            @csrf <!-- Token CSRF untuk keamanan -->
 
             <!-- Subscription Price -->
             <div class="bg-gray-100 rounded-lg p-4 mb-4">
                 <div class="font-semibold text-lg">Harga Kursus</div>
                 <div class="flex justify-between py-3 border-t border-gray-300">
-                    <div>Laravel</div>
-                    <div class="text-lg text-gray-600">Rp 1,500,000</div>
+                    <div>{{ $course->name }}</div> <!-- Nama kursus -->
+                    <div class="text-lg text-gray-600">Rp {{ number_format($course->harga, 0, ',', '.') }}</div>
+                    <!-- Harga kursus -->
                 </div>
             </div>
 
@@ -70,7 +69,8 @@
             <div class="bg-white rounded-lg p-4 mb-6 border border-gray-300">
                 <div class="font-semibold text-lg flex justify-between mb-3">
                     <div>Jumlah Tagihan</div>
-                    <div id="price-to-charge" class="text-lg text-gray-600">Rp 1,500,000</div>
+                    <div id="price-to-charge" class="text-lg text-gray-600">Rp
+                        {{ number_format($course->harga, 0, ',', '.') }}</div>
                 </div>
                 <button type="button" id="pay-button"
                     class="w-full bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-200">
@@ -107,8 +107,11 @@
                         })
                         .then(response => response.json())
                         .then(data => {
-                            if (data.status === 'success') {
-                                // Update UI tanpa refresh halaman
+                            if (data.status === 'redirect') {
+                                // Redirect ke halaman kursus
+                                window.location.href = data.url;
+                            } else if (data.status === 'success') {
+                                // Update UI dengan status pembayaran
                                 document.getElementById('method-pembayaran').innerText = data
                                     .method_pembayaran;
                                 document.getElementById('registration-status').innerText = data
