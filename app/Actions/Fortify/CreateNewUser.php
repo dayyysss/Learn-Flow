@@ -38,6 +38,9 @@ class CreateNewUser implements CreatesNewUsers
 
     $defaultImagePath = 'profile_images/default.png';
 
+    // Menggabungkan first_name dan last_name untuk public_name
+    $publicName = $input['first_name'] . ' ' . $input['last_name'];
+
     // Membuat user baru
     $user = User::create([
         'first_name' => $input['first_name'],
@@ -46,6 +49,7 @@ class CreateNewUser implements CreatesNewUsers
         'email' => $input['email'],
         'password' => Hash::make($input['password']),
         'image' => $defaultImagePath, // Set gambar default
+        'publik_name' => $publicName, // Set public_name
     ]);
 
     // Assign role setelah user berhasil dibuat
@@ -53,5 +57,6 @@ class CreateNewUser implements CreatesNewUsers
 
     return $user; // Mengembalikan user yang sudah dibuat
 }
+
 
 }

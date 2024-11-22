@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Landing;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\CategoryCourse;
 use App\Models\Course;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class LandingPageController extends Controller
 {
@@ -25,7 +27,8 @@ class LandingPageController extends Controller
         $instrukturs = CategoryCourse::all();
         
         // Lakukan eager loading relasi 'category_courses'
-        $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
+        $course = Course::where('publish_date', '<=', Carbon::now())
+        ->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
         
         return view('landing.pages.course.course', compact('course', 'categories', 'instrukturs'));
     }
@@ -48,5 +51,10 @@ class LandingPageController extends Controller
     public function contact()
     {
         return view('landing.pages.contact.contact');
+    }
+
+    public function instructor()
+    {
+        return view('landing.pages.instructor.instructor');
     }
 }

@@ -1,9 +1,11 @@
-@extends('dashboard.layouts.layouts')
+@extends('landing.layouts.landing-layouts')
 @section('page_title', 'LearnFlow | Courses')
 
 @section('content')
 
-<div class="container-fluid-5" data-aos="fade-up">
+@include('landing.components.breadcrumb', ['title' => 'Create Courses'])
+
+<div class="container pt-100px pb-100px aos-init aos-animate" data-aos="fade-up">
     {{-- Display Validation Errors --}}
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -53,19 +55,58 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="kode_seri" class="mb-3 block font-semibold">Kode Seri</label>
-                                                    <input type="text" id="kode_seri" name="kode_seri" placeholder="Course Slug" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
+                                                    <input type="text" id="kode_seri" name="kode_seri" placeholder="-" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
                                                 </div>
                                             </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-30px mb-15px">
+                                                <div class="form-group">
+                                                    <label for="status" class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Status</label>
+                                                    <div class="bg-whiteColor relative rounded-md">
+                                                        <select id="status" name="status" class="text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md form-control" required>
+                                                            <option value="publik">Publik</option>
+                                                            <option value="draft">Draft</option>
+                                                            <option value="terjadwal">Terjadwal</option>
+                                                        </select>
+                                                        <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
+                                                    </div>
+                                                    
+                                                    <!-- Input untuk publish_date, disembunyikan secara default -->
+                                                    <div id="publish_date_container" class="hidden">
+                                                        <label for="publish_date" class="text-blackColor2">Tanggal Publish</label>
+                                                        <input type="date" id="publish_date" name="publish_date" class="text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md form-control">
+                                                    </div>
+                                                    
+
+                                                    
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="tingkatan" class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Tingkatan</label>
+                                                    <div class="bg-whiteColor relative rounded-md">
+                                                        <select name="tingkatan" id="tingkatan" class="form-control text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md">
+                                                            <option value="false">Beginner</option>
+                                                            <option value="true">Intermediate</option>
+                                                            <option value="true">Advanced</option>
+                                                            <option value="true">Specialist</option>
+                                                            <option value="true">Expert</option>
+                                                            <option value="true">Professional </option>
+                                                        </select>
+                                                        <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
 
                                             <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
                                                 <div class="form-group">
                                                     <label for="tanggal_mulai" class="mb-3 block font-semibold">Waktu Mulai</label>
-                                                    <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
+                                                    <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" >
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="intruktur_id" class="mb-3 block font-semibold">Instructor</label>
-                                                    <select name="intruktur_id" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
+                                                    <label for="instruktur_id" class="mb-3 block font-semibold">Instructor</label>
+                                                    <select name="instruktur_id" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
                                                         <option value="">Select Instructor</option>
                                                         @foreach ($instruktur as $ins)
                                                             <option value="{{ $ins->id }}">{{ $ins->name }}</option>
@@ -103,7 +144,7 @@
                                             <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
                                                 <div class="form-group" id="harga-group">
                                                     <label for="harga" class="mb-3 block font-semibold">Price</label>
-                                                    <input type="text" name="harga" id="harga" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
+                                                    <input type="text" name="harga" id="harga" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" >
                                                 </div>
                                             
                                                 <div class="form-group" id="harga-diskon-group">
@@ -116,7 +157,7 @@
 
                                         <div class="form-group mb-15px">
                                             <label for="deskripsi" class="mb-3 block font-semibold">Description</label>
-                                            <textarea name="deskripsi" class="form-control w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" required></textarea>
+                                            <textarea name="deskripsi" id="deskripsi" class="form-control w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="50" rows="10" ></textarea>
                                         </div>
 
                                         <div class="form-group mb-15px">
@@ -176,6 +217,8 @@
                                                     <a class="hover:text-primaryColor" href="https://www.youtube.com/watch?v=yourvideoid">https://www.youtube.com/watch?v=yourvideoid</a>
                                                 </div>
                                             </div>
+
+                                            <p class="italic">*isi salah satunya</p>
                                         </div>
                                     </div>
                                 </div>
@@ -210,32 +253,32 @@
 
                                                     <div class="mb-15px" >
                                                         <label class="mb-3 block font-semibold">Judul Bab</label>
-                                                        <input type="text" name="bab[0][name]" placeholder="Bab Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                                                        <input type="text" name="bab[0][name]" placeholder="Bab Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
                                                     </div>
 
                                                     <div class="modul-section">
                                                         <div class="modul-item border p-5 mb-3">
                                                             <div class="mb-15px">
                                                                 <label class="mb-3 block font-semibold">Judul Modul</label>
-                                                                <input type="text"  name="bab[0][moduls][0][name]" placeholder="Modul Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                                                                <input type="text"  name="bab[0][moduls][0][name]" placeholder="Modul Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
                                                             </div>
 
                                                             <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
                                                                 <div>
                                                                     <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Video Pembelajaran</label>
-                                                                    <input type="file" name="bab[0][moduls][0][video]" accept="video/*" class="form-control mb-1 mt-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                                                                    <input type="file" name="bab[0][moduls][0][video]" accept="video/*" class="form-control mb-1 mt-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
                                                             
                                                                 </div>
 
                                                                 <div>
-                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File foto</label>
-                                                                <input type="file" name="bab[0][moduls][0][file]" accept="image/*,application/pdf" class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File Materi Pembelajaran</label>
+                                                                <input type="file" name="bab[0][moduls][0][file]" accept="image/*,application/pdf" class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
                                                                 </div>
                                                             </div>
 
                                                             <div>
                                                                 <label class="mb-3 block font-semibold">Materi</label>
-                                                                <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" required></textarea>
+                                                                <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" id="materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" ></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -268,18 +311,23 @@
                             </div>
                             <div class="accordion-content transition-all duration-500 overflow-hidden h-0">
                                 <div class="content-wrapper py-4 px-5">
+                                    <div class="p-10px md:p-10 lg:p-5 2xl:p-10 bg-darkdeep3 dark:bg-transparent text-sm text-blackColor dark:text-blackColor-dark leading-1.8" data-aos="fade-up">
                                     <div class="form-group">
-                                        <label for="certificate_file">Certificate Template</label>
-                                        <input type="file" name="certificate_file" class="form-control" accept="image/*,application/pdf" required>
+                                        <label class="mb-3 block font-semibold" for="certificate_file">Certificate Template</label>
+                                        <input type="file" name="certificate_file" class="form-control mb-3 w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" accept="image/*,application/pdf">
                                     </div>
+
                                     <div class="form-group">
-                                        <label for="certificate_ttd">Certificate Signatures</label>
+                                        <label class="mb-3 block font-semibold" for="certificate_ttd">Certificate Signatures</label>
                                         <div id="signature-section">
                                             <div class="signature-item mb-2">
-                                                <input type="file" name="certificate_ttd[]" class="form-control" accept="image/*" required>
+                                                <input type="file" name="certificate_ttd[]" class="form-control mb-3 w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" accept="image/*">
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-secondary mt-2" id="add-signature-btn">Add Signature</button>
+                                        <button type="button" class="btn bg-white text-sm text-zinc-400 border rounded-full flex items-center justify-center ml-auto  px-2 py-1 btn-secondary mt-2" id="add-signature-btn">
+                                            Add Signature &nbsp;<span class="font-bold text-zinc-400 border border-black px-2 rounded-full">+</span>
+                                        </button>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -420,5 +468,22 @@
 }
 
 </style>
+
+<script>
+    // Ambil elemen status select dan container publish_date
+    const statusSelect = document.getElementById('status');
+    const publishDateContainer = document.getElementById('publish_date_container');
+
+    // Event listener untuk mendeteksi perubahan pada select
+    statusSelect.addEventListener('change', function() {
+        if (this.value === 'terjadwal') {
+            // Tampilkan input publish_date ketika "Terjadwal" dipilih
+            publishDateContainer.classList.remove('hidden');
+        } else {
+            // Sembunyikan input publish_date untuk pilihan lain
+            publishDateContainer.classList.add('hidden');
+        }
+    });
+</script>
 
 @endsection
