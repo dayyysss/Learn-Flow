@@ -41,18 +41,9 @@ class CourseRegistrationController extends Controller
 
     public function showPaymentPage($snapToken)
     {
+        // Retrieve the course registration using the snap token
         $transaction = CourseRegistration::where('snap_token', $snapToken)->first();
 
-        if (!$transaction) {
-            abort(404);
-        }
-
-        if ($transaction->registration_status === 'confirmed') {
-            // Jika pembayaran sudah berhasil
-            return redirect('/course');
-        }
-
-        // Ambil data kursus
         $course = $transaction->course;
 
         return view('dashboard.pages.enrolled-courses.payment', [
@@ -60,7 +51,6 @@ class CourseRegistrationController extends Controller
             'course' => $course,
         ]);
     }
-
 
 
     public function store(Request $request)
@@ -73,6 +63,17 @@ class CourseRegistrationController extends Controller
 
         // Ambil data kursus
         $course = Course::findOrFail($request->course_id);
+
+        // Cek apakah pengguna sudah pernah membeli kursus ini dengan status confirmed
+        $existingRegistration = CourseRegistration::where('user_id', auth()->user()->id)
+            ->where('course_id', $course->id)
+            ->where('registration_status', 'confirmed')
+            ->first();
+
+        if ($existingRegistration) {
+            // Jika sudah terdaftar dengan status "confirmed", arahkan ke halaman course
+            return redirect()->route('course')->with('info', 'Anda sudah membeli kursus ini.');
+        }
 
         // Set konfigurasi Midtrans
         Config::$serverKey = config('services.midtrans.server_key');
