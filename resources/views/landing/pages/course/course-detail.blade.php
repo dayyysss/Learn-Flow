@@ -103,7 +103,7 @@
                   class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                   data-aos="fade-up"
                 >
-                  {{$course->deskripsi}}
+                  {!! $course->deskripsi !!}
                 </p>
                 <!-- details -->
                 <div>
