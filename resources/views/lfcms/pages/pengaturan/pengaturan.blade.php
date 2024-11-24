@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'LearnFlow CMS | Pembayaran')
+@section('page_title', 'LearnFlow CMS | Pengaturan')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="grid grid-cols-12 gap-x-4">
@@ -7,7 +7,7 @@
         <div class="col-span-full sm:col-span-6 xl:col-span-8">
             <div class="card p-0 overflow-hidden">
                 <div class="px-4 py-5 sm:p-7 bg-gray-200/30 dark:bg-dark-card-two">
-                    <h6 class="card-title">Account Settings</h6>
+                    <h6 class="card-title">Pengaturan Akun</h6>
                 </div>
                 <div class="p-3 sm:p-7">
                     <form action="#" method="post">

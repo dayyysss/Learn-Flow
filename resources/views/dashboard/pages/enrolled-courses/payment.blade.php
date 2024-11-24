@@ -20,9 +20,17 @@
             <div class="bg-gray-100 rounded-lg p-4 mb-4">
                 <div class="font-semibold text-lg">Harga Kursus</div>
                 <div class="flex justify-between py-3 border-t border-gray-300">
-                    <div>{{ $course->name }}</div> <!-- Nama kursus -->
-                    <div class="text-lg text-gray-600">Rp {{ number_format($course->harga, 0, ',', '.') }}</div>
-                    <!-- Harga kursus -->
+                    <div>{{ $course->name }}</div>
+                    <div class="text-lg text-gray-600">
+                        @if (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
+                            <span class="line-through text-red-500">Rp
+                                {{ number_format($course->harga, 0, ',', '.') }}</span>
+                            <span class="text-green-500">Rp
+                                {{ number_format($course->harga - $course->harga_diskon, 0, ',', '.') }}</span>
+                        @else
+                            Rp {{ number_format($course->harga, 0, ',', '.') }}
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -70,7 +78,7 @@
                 <div class="font-semibold text-lg flex justify-between mb-3">
                     <div>Jumlah Tagihan</div>
                     <div id="price-to-charge" class="text-lg text-gray-600">Rp
-                        {{ number_format($course->harga, 0, ',', '.') }}</div>
+                        {{ number_format($hargaAkhir, 0, ',', '.') }}</div>
                 </div>
                 <button type="button" id="pay-button"
                     class="w-full bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-200">

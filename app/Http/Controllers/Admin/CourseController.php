@@ -44,7 +44,7 @@ public function index()
 
 public function create()
 {
-    $instruktur = User::where('role_id', 3)->get();
+    $instruktur = User::where('role_id', 1)->get();
     $categories = CategoryCourse::all();
     // Ambil semua data kategori layanan dan muat relasi user
     $course = Course::with('users', 'categories')->get();
