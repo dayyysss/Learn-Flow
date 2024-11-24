@@ -18,6 +18,7 @@ use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\CategoryArtikelController;
+use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
@@ -97,6 +98,7 @@ Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.i
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
+Route::resource('/certificate', CertificateController::class);
 
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');

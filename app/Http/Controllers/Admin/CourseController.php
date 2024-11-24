@@ -74,8 +74,8 @@ public function store(Request $request)
         // Validasi untuk banyak file TTD
         'certificate_ttd.*' => 'nullable|file|mimes:jpg,png|max:1024',
         // Validasi untuk Bab dan Modul
-        'bab.*.name' => 'required|string',
-        'bab.*.moduls.*.name' => 'required|string',
+        'bab.*.name' => 'nullable|string',
+        'bab.*.moduls.*.name' => 'nullable|string',
         'bab.*.moduls.*.materi' => 'nullable|string',
         'bab.*.moduls.*.video' => 'nullable',
         'bab.*.moduls.*.file' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',

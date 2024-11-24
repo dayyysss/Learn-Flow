@@ -82,10 +82,10 @@
                             </div>
                             <p class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                                 data-aos="fade-up">
-                                {{ $course->deskripsi }}
+                                {!! $course->deskripsi !!}}
                             </p>
                             <!-- details -->
-                            <div>
+                            <div class="mt-5">
                                 <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px"
                                     data-aos="fade-up">
                                     Course Details
@@ -221,10 +221,6 @@
                                         class="is-checked relative p-10px md:px-25px md:py-15px lg:py-3 2xl:py-15px 2xl:px-45px text-blackColor bg-whiteColor hover:bg-primaryColor hover:text-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor flex items-center">
                                         <i class="icofont-teacher mr-2"></i> Instructor
                                     </button>
-                                    <button
-                                        class="is-checked relative p-10px md:px-25px md:py-15px lg:py-3 2xl:py-15px 2xl:px-45px text-blackColor bg-whiteColor hover:bg-primaryColor hover:text-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor flex items-center">
-                                        <i class="icofont-teacher mr-2"></i> Participant
-                                    </button>
                                 </div>
 
                                 <div class="tab-contents">
@@ -332,10 +328,10 @@
 
                                     </div>
                                     <!-- description -->
-                                    <div class="hidden">
+                                    <div class="hidden mb-5">
 
                                         <p class="text-lg text-darkdeep4 mb-5 !leading-30px" data-aos="fade-up">
-                                            {{ $course->deskripsi }}
+                                            {!! $course->deskripsi !!}
                                         </p>
 
                                     </div>
@@ -675,100 +671,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- description -->
-                                    <div class="hidden">
-
-                                        <div class="overflow-auto">
-                                            <table class="w-full text-left text-nowrap">
-                                                <thead class="text-sm md:text-base text-blackColor dark:text-blackColor-dark bg-lightGrey5 dark:bg-whiteColor-dark leading-1.8 md:leading-1.8">
-                                                    <tr>
-                                                        <th class="px-5px py-10px md:px-5">No</th>
-                                                        <th class="px-5px py-10px md:px-5">User Name</th>
-                                                        <th class="px-5px py-10px md:px-5">Registration Date</th>
-                                                        <th class="px-5px py-10px md:px-5">Status</th>
-                                                        <th class="px-5px py-10px md:px-5">Cetak Sertifikat</th>
-                                                        <th class="px-5px py-10px md:px-5 text-center">Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal">
-                                                    @foreach ($course->courseRegistrations as $index => $registration)
-                                                        <tr class="leading-1.8 md:leading-1.8">
-                                                            <td class="px-5px py-10px md:px-5">{{ $loop->iteration }}</td>
-                                                            <td class="px-5px py-10px md:px-5">{{ $registration->user->name ?? 'Unknown' }}</td>
-                                                            <td class="px-5px py-10px md:px-5">{{ $registration->created_at->format('d M Y H:i') }}</td>
-                                                            <td class="px-5px py-10px md:px-5">
-                                                                <p class="text-xs">
-                                                                   {{$registration->registration_status}}
-                                                                </p>
-                                                            </td>
-
-                                                            <td class="px-5px py-10px md:px-5">
-                                                                   @if($registration->registration_status == 'Berhasil') <!-- Contoh status: hanya tampilkan jika kursus selesai -->
-                                                                    <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-successColor bg-successColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-successColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"
-                                                                       href="{{ route('certificate.print', $registration->id) }}" target="_blank">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
-                                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                                             stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
-                                                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                                                            <polyline points="14 2 14 8 20 8"></polyline>
-                                                                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                                                                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                                                                            <polyline points="10 9 9 9 8 9"></polyline>
-                                                                        </svg>
-                                                                        Cetak
-                                                                    </a>
-                                                                @else
-                                                                    <p class="text-xs text-gray-500">Belum Tersedia</p>
-                                                                @endif
-                                                            </td>
-                                                            
-                                                            <td class="px-5px py-10px md:px-5">
-                                                                <div class="dashboard__button__group">
-                                                                    <!-- Edit and Delete buttons for course registrations -->
-                                                                    <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px edit-registration"
-                                                                        href="javascript:void(0);" data-id="{{ $registration->id }}"
-                                                                        data-status="{{ $registration->status }}" data-action="edit">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
-                                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
-                                                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                                                        </svg>
-                                                                        Edit
-                                                                    </a>
-                                                                    <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-secondaryColor bg-secondaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-secondaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"
-                                                                        href="">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
-                                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                                            class="feather feather-trash-2">
-                                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                                            <path
-                                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                                            </path>
-                                                                            <line x1="10" y1="11" x2="10" y2="17">
-                                                                            </line>
-                                                                            <line x1="14" y1="11" x2="14" y2="17">
-                                                                            </line>
-                                                                        </svg>
-                                                                        Delete
-                                                                    </a>
-                                                                    <form id="delete-registration-{{ $registration->id }}"
-                                                                        action="" method="POST"
-                                                                        style="display: none;">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                    </form>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        
-
-                                    </div>
+                                   
                                 </div>
                             </div>
                             <div class="md:col-start-5 md:col-span-8">
@@ -1398,7 +1301,7 @@
                                     </p>
                                     <p
                                         class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px">
-                                        @if ($course->babs->contains('quiz', true))
+                                        @if ($course->babs->isNotEmpty() && $course->babs->some(fn($bab) => $bab->quiz->isNotEmpty()))
                                             Yes
                                         @else
                                             No
