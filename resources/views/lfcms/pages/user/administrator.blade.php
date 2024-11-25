@@ -1,12 +1,12 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Learn Flow CMS | Kategori Artikel')
+@section('page_title', 'LearnFlow CMS | Data Pengguna')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="grid grid-cols-12">
         <div class="col-span-full">
             <div class="card p-0">
                 <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
-                    <h3 class="text-lg card-title leading-none">Data Kategori Artikel</h3>
+                    <h3 class="text-lg card-title leading-none">Data Administrator</h3>
                     <ul class="flex items-center flex-wrap gap-1.5 *:flex-center *:gap-1.5 leading-none text-gray-900 dark:text-dark-text">
                         <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
                             <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
@@ -59,19 +59,29 @@
                                 <tr class="text-primary-500">
                                     <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">No</th>
                                     <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Nama</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Pembuat</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Status</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Email</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Email diverifikasi pada</th>
                                     <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
                                 <tr> 
                                     <td class="p-6 py-4">1</td>
-                                    <td class="p-6 py-4">Artikel</td>
-                                    <td class="p-6 py-4">Ibule ardanmas</td>
                                     <td class="p-6 py-4">
-                                        <span class="badge badge-success-light rounded-full">Success</span>
+                                        <div class="flex items-center gap-3.5">
+                                            <a href="#" class="size-12 rounded-50 overflow-hidden">
+                                                <img src="assets/images/student/student-1.png" alt="student">
+                                            </a>
+                                            <div>
+                                                <h6 class="leading-none text-heading font-semibold">
+                                                    <a href="#">Eleanor Pena</a>
+                                                </h6>
+                                                <p class="font-spline_sans text-sm font-light mt-1">UX/UI Design</p>
+                                            </div>
+                                        </div>
                                     </td>
+                                    <td class="p-6 py-4">Elaonor@gmail.com</td>
+                                    <td class="p-6 py-4">2023-10-22</td>
                                     <td class="p-6 py-4">
                                         <div class="flex items-center gap-2">
                                             <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
@@ -135,6 +145,15 @@
                         </nav>
                     </div>
                 </div>
+                <!-- Prism Code -->
+                <div class="p-6 hidden">
+                    <pre>
+                        <code class="language-markup">
+                            &lt;p>Sorry we can't show the huge data table&lt;/p>
+                        </code>
+                    </pre>
+                </div>
+                <!-- Prism Code -->
             </div>
         </div>
     </div>
