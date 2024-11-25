@@ -16,7 +16,7 @@ class Quiz extends Model
 
     public function bab()
     {
-        return $this->belongsTo(Bab::class);
+        return $this->belongsTo(Bab::class, 'bab_id');
     }
 
     public function quizResults()

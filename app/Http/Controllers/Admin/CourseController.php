@@ -8,8 +8,10 @@ use App\Models\Bab;
 use App\Models\CategoryCourse;
 use App\Models\Certificate;
 use App\Models\Course;
+use App\Models\CourseRegistration;
 use App\Models\Modul;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
@@ -72,8 +74,8 @@ public function store(Request $request)
         // Validasi untuk banyak file TTD
         'certificate_ttd.*' => 'nullable|file|mimes:jpg,png|max:1024',
         // Validasi untuk Bab dan Modul
-        'bab.*.name' => 'required|string',
-        'bab.*.moduls.*.name' => 'required|string',
+        'bab.*.name' => 'nullable|string',
+        'bab.*.moduls.*.name' => 'nullable|string',
         'bab.*.moduls.*.materi' => 'nullable|string',
         'bab.*.moduls.*.video' => 'nullable',
         'bab.*.moduls.*.file' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
@@ -293,8 +295,8 @@ $commonData = $this->loadCommonData();
 
 // Kirimkan data course ke tampilan show bersama dengan data umum
 return view('landing.pages.course.course-detail', array_merge(
-    ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses],
-    $commonData
+    ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,],
+    $commonData, 
 ));
 }
 
@@ -318,6 +320,7 @@ $recentPostsCourse = Course::orderBy('created_at', 'desc')->take(3)->get();
 
 return compact('categories', 'popularTags', 'recentPostsCourse');
 }
+
 
 public function showModul($slug)
 {
@@ -374,5 +377,46 @@ public function myCourses()
     return view('dashboard.pages.my-course.index', compact('courses_publik', 'courses_draft', 'courses_terjadwal'));
 }
 
+public function printCertificate($registrationId)
+{
+    // Mengambil informasi pendaftaran kursus
+    $courseRegistration = CourseRegistration::with(['user', 'course'])
+        ->where('id', $registrationId)
+        ->first();
+
+    if (!$courseRegistration) {
+        return redirect()->back()->with('error', 'Pendaftaran tidak ditemukan.');
+    }
+
+    // Mengambil sertifikat yang sesuai dengan kursus
+    $certificate = Certificate::where('course_id', $courseRegistration->course_id)->first();
+
+    if (!$certificate) {
+        return redirect()->back()->with('error', 'Sertifikat tidak ditemukan.');
+    }
+
+    // Parsing tanda tangan, pastikan ini menjadi array
+    $ttd = json_decode($certificate->ttd, true);
+
+    if (!is_array($ttd)) {
+        $ttd = [];
+    }
+
+    // Data untuk view
+    $data = [
+        'nama_pendaftar'  => $courseRegistration->user->name,
+        'nama_kursus'     => $courseRegistration->course->name,
+        'kode_seri_kursus'=> $courseRegistration->course->kode_seri,
+        'file_sertifikat' => $certificate->file,
+        'ttd'             => $ttd,
+        'backgroundImage' => $certificate->background_image // Pastikan ini sudah ada dalam tabel Certificate
+    ];
+
+    // Menggunakan DomPDF untuk generate PDF
+    $pdf = PDF::loadView('certificate.template', $data);
+
+    // Menyimpan PDF
+    return $pdf->download('sertifikat.pdf');
+}
 
 }

@@ -44,11 +44,21 @@ class CourseRegistrationController extends Controller
         // Retrieve the course registration using the snap token
         $transaction = CourseRegistration::where('snap_token', $snapToken)->first();
 
+        if (!$transaction) {
+            abort(404, 'Transaksi tidak ditemukan.');
+        }
+
         $course = $transaction->course;
+
+        // Tentukan harga akhir setelah diskon (harga asli - harga diskon)
+        $hargaAkhir = (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
+            ? $course->harga - $course->harga_diskon
+            : $course->harga;
 
         return view('dashboard.pages.enrolled-courses.payment', [
             'snapToken' => $snapToken,
             'course' => $course,
+            'hargaAkhir' => $hargaAkhir,
         ]);
     }
 
@@ -57,7 +67,6 @@ class CourseRegistrationController extends Controller
     {
         // Cek apakah pengguna sudah login
         if (!auth()->check()) {
-            // Redirect ke halaman login dengan pesan notifikasi
             return redirect()->route('login')->with('error', 'Silakan login atau daftar terlebih dahulu untuk melanjutkan.');
         }
 
@@ -71,9 +80,13 @@ class CourseRegistrationController extends Controller
             ->first();
 
         if ($existingRegistration) {
-            // Jika sudah terdaftar dengan status "confirmed", arahkan ke halaman course
             return redirect()->route('course')->with('info', 'Anda sudah membeli kursus ini.');
         }
+
+        // Tentukan harga akhir berdasarkan diskon
+        $hargaAkhir = (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
+            ? $course->harga - $course->harga_diskon
+            : $course->harga;
 
         // Set konfigurasi Midtrans
         Config::$serverKey = config('services.midtrans.server_key');
@@ -84,7 +97,7 @@ class CourseRegistrationController extends Controller
         $transaction = [
             'transaction_details' => [
                 'order_id' => 'ORDER-' . Str::uuid()->toString(),
-                'gross_amount' => $course->harga,
+                'gross_amount' => $hargaAkhir,
             ],
             'customer_details' => [
                 'first_name' => auth()->user()->first_name,
@@ -103,7 +116,7 @@ class CourseRegistrationController extends Controller
             'registration_date' => now(),
             'order_date' => now(),
             'method_pembayaran' => 'Midtrans',
-            'harga' => $course->harga,
+            'harga' => $hargaAkhir,
             'registration_status' => 'Menunggu',
             'snap_token' => $snapToken,
             'order_id' => $transaction['transaction_details']['order_id'],
