@@ -16,6 +16,11 @@ class DashboardCMSController extends Controller
     {
         return view('lfcms.pages.user.user');
     }
+    
+    public function administratorCMS()
+    {
+        return view('lfcms.pages.user.administrator');
+    }
 
     public function klienCMS()
     {
@@ -36,6 +41,11 @@ class DashboardCMSController extends Controller
     {
         return view('lfcms.pages.artikel.artikel');
     }
+    
+    public function kategoriartikelCMS()
+    {
+        return view('lfcms.pages.artikel.kategori.kategori');
+    }
 
     public function pembayaranCMS()
     {
@@ -52,8 +62,8 @@ class DashboardCMSController extends Controller
         return view('lfcms.pages.pengaturan.pengaturan  ');
     }
 
-    public function kategoriartikelCMS()
+    public function testimonialCMS()
     {
-        return view('lfcms.pages.artikel.kategori.kategori');
+        return view('lfcms.pages.testimonial.testimonial');
     }
 }

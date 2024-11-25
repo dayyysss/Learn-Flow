@@ -57,43 +57,22 @@
                         <table class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
                             <thead>
                                 <tr class="text-primary-500">
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Name</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">No</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Judul</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Kategori</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Pembuat</th>
                                     <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Status</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Last Activities</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Course Name</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Purchase</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Progress</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right w-10">Action</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
                                 <tr> 
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-3.5">
-                                            <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                <img src="assets/images/student/student-1.png" alt="student">
-                                            </a>
-                                            <div>
-                                                <h6 class="leading-none text-heading font-semibold">
-                                                    <a href="#">Eleanor Pena</a>
-                                                </h6>
-                                                <p class="font-spline_sans text-sm font-light mt-1">UX/UI Design</p>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td class="p-6 py-4">1</td>
+                                    <td class="p-6 py-4">Mencari Kursus Terdekat? Temukan di Bogor!</td>
+                                    <td class="p-6 py-4">Artikel</td>
+                                    <td class="p-6 py-4">Ibule</td>
                                     <td class="p-6 py-4">
                                         <span class="badge badge-success-light rounded-full">Success</span>
-                                    </td>
-                                    <td class="p-6 py-4">2023-10-22</td>
-                                    <td class="p-6 py-4">Web Design</td>
-                                    <td class="p-6 py-4">5 - Course</td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex flex-col gap-2">
-                                            <div class="relative max-w-[106px] h-2 rounded-full bg-progress-bar-bg dark:bg-progress-bar-bg-dark overflow-hidden">
-                                                <div class="absolute top-0 left-0 bottom-0 bg-progress-bar rounded-full w-[55%]"></div>
-                                            </div>
-                                            <div class="text-xs leading-none text-gray-500 dark:text-dark-text">55% Growing</div>
-                                        </div>
                                     </td>
                                     <td class="p-6 py-4">
                                         <div class="flex items-center gap-2">
@@ -108,202 +87,6 @@
                                                     <i class="ri-more-2-fill text-inherit"></i>
                                                 </button>
                                                 <ul id="td-3-0" class="hidden popover-target invisible [&.visible]:!block" data-popover>
-                                                    <li>
-                                                        <a class="popover-item" href="#">More</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr> 
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-3.5">
-                                            <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                <img src="assets/images/student/student-2.png" alt="student">
-                                            </a>
-                                            <div>
-                                                <h6 class="leading-none text-heading font-semibold">
-                                                    <a href="#">Esther Howard</a>
-                                                </h6>
-                                                <p class="font-spline_sans text-sm font-light mt-1">Web & Mobile Application</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <span class="badge badge-warning-light rounded-full">Warning</span>
-                                    </td>
-                                    <td class="p-6 py-4">2024-10-22</td>
-                                    <td class="p-6 py-4">Management</td>
-                                    <td class="p-6 py-4">4 - Course</td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex flex-col gap-2">
-                                            <div class="relative max-w-[106px] h-2 rounded-full bg-progress-bar-bg dark:bg-progress-bar-bg-dark overflow-hidden">
-                                                <div class="absolute top-0 left-0 bottom-0 bg-progress-bar rounded-full w-[20%]"></div>
-                                            </div>
-                                            <div class="text-xs leading-none text-gray-500 dark:text-dark-text">20% Growing</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
-                                                <i class="ri-message-2-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <a href="#" class="btn-icon btn-danger-icon-light size-7">
-                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <div class="relative ml-5">
-                                                <button data-popover-target="td-3-1" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                    <i class="ri-more-2-fill text-inherit"></i>
-                                                </button>
-                                                <ul id="td-3-1" class="hidden popover-target invisible [&.visible]:!block" data-popover>
-                                                    <li>
-                                                        <a class="popover-item" href="#">More</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr> 
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-3.5">
-                                            <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                <img src="assets/images/student/student-3.png" alt="student">
-                                            </a>
-                                            <div>
-                                                <h6 class="leading-none text-heading font-semibold">
-                                                    <a href="#">Albert Flores</a>
-                                                </h6>
-                                                <p class="font-spline_sans text-sm font-light mt-1">Business Strategy</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <span class="badge badge-info-light rounded-full">Info</span>
-                                    </td>
-                                    <td class="p-6 py-4">2024-10-22</td>
-                                    <td class="p-6 py-4">Developmnet</td>
-                                    <td class="p-6 py-4">1 - Course</td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex flex-col gap-2">
-                                            <div class="relative max-w-[106px] h-2 rounded-full bg-progress-bar-bg dark:bg-progress-bar-bg-dark overflow-hidden">
-                                                <div class="absolute top-0 left-0 bottom-0 bg-progress-bar rounded-full w-[30%]"></div>
-                                            </div>
-                                            <div class="text-xs leading-none text-gray-500 dark:text-dark-text">30% Growing</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
-                                                <i class="ri-message-2-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <a href="#" class="btn-icon btn-danger-icon-light size-7">
-                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <div class="relative ml-5">
-                                                <button data-popover-target="td-3-2" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                    <i class="ri-more-2-fill text-inherit"></i>
-                                                </button>
-                                                <ul id="td-3-2" class="hidden popover-target invisible [&.visible]:!block" data-popover>
-                                                    <li>
-                                                        <a class="popover-item" href="#">More</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr> 
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-3.5">
-                                            <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                <img src="assets/images/student/student-4.png" alt="student">
-                                            </a>
-                                            <div>
-                                                <h6 class="leading-none text-heading font-semibold">
-                                                    <a href="#">Darlene Robertson</a>
-                                                </h6>
-                                                <p class="font-spline_sans text-sm font-light mt-1">Frontend Developer</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <span class="badge badge-danger-light rounded-full">Danger</span>
-                                    </td>
-                                    <td class="p-6 py-4">2021-11-02</td>
-                                    <td class="p-6 py-4">Marketing</td>
-                                    <td class="p-6 py-4">1 - Course</td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex flex-col gap-2">
-                                            <div class="relative max-w-[106px] h-2 rounded-full bg-progress-bar-bg dark:bg-progress-bar-bg-dark overflow-hidden">
-                                                <div class="absolute top-0 left-0 bottom-0 bg-progress-bar rounded-full w-[70%]"></div>
-                                            </div>
-                                            <div class="text-xs leading-none text-gray-500 dark:text-dark-text">70% Growing</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
-                                                <i class="ri-message-2-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <a href="#" class="btn-icon btn-danger-icon-light size-7">
-                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <div class="relative ml-5">
-                                                <button data-popover-target="td-3-3" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                    <i class="ri-more-2-fill text-inherit"></i>
-                                                </button>
-                                                <ul id="td-3-3" class="hidden popover-target invisible [&.visible]:!block" data-popover>
-                                                    <li>
-                                                        <a class="popover-item" href="#">More</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr> 
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-3.5">
-                                            <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                <img src="assets/images/student/student-5.png" alt="student">
-                                            </a>
-                                            <div>
-                                                <h6 class="leading-none text-heading font-semibold">
-                                                    <a href="#">Devon Lane</a>
-                                                </h6>
-                                                <p class="font-spline_sans text-sm font-light mt-1">Visual Designer</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <span class="badge badge-success-light rounded-full">Success</span>
-                                    </td>
-                                    <td class="p-6 py-4">2021-11-02</td>
-                                    <td class="p-6 py-4">Business Strategy</td>
-                                    <td class="p-6 py-4">10 - Course</td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex flex-col gap-2">
-                                            <div class="relative max-w-[106px] h-2 rounded-full bg-progress-bar-bg dark:bg-progress-bar-bg-dark overflow-hidden">
-                                                <div class="absolute top-0 left-0 bottom-0 bg-progress-bar rounded-full w-[15%]"></div>
-                                            </div>
-                                            <div class="text-xs leading-none text-gray-500 dark:text-dark-text">15% Growing</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
-                                                <i class="ri-message-2-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <a href="#" class="btn-icon btn-danger-icon-light size-7">
-                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <div class="relative ml-5">
-                                                <button data-popover-target="td-3-4" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                    <i class="ri-more-2-fill text-inherit"></i>
-                                                </button>
-                                                <ul id="td-3-4" class="hidden popover-target invisible [&.visible]:!block" data-popover>
                                                     <li>
                                                         <a class="popover-item" href="#">More</a>
                                                     </li>
