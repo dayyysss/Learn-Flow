@@ -7,32 +7,7 @@
             <div class="card p-0">
                 <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
                     <h3 class="text-lg card-title leading-none">Data Kategori Artikel</h3>
-                    <ul class="flex items-center flex-wrap gap-1.5 *:flex-center *:gap-1.5 leading-none text-gray-900 dark:text-dark-text">
-                        <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                            <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                <i class="ri-home-6-line text-[16px] text-inherit"></i>
-                                Home
-                            </a>
-                        </li>
-                        <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                            <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                <i class="ri-article-line text-[16px] text-inherit"></i>
-                                Course
-                            </a>
-                        </li>
-                        <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                            <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                <i class="ri-bank-card-line text-[16px] text-inherit"></i>
-                                Wallet
-                            </a>
-                        </li>
-                        <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two current-page">
-                            <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                <i class="ri-heart-2-line text-[16px] text-inherit"></i>
-                                Like Wishlist
-                            </a>
-                        </li>
-                    </ul>
+                    @include('lfcms.components.breadcrumb.custom')
                 </div>
                 <div class="p-6">
                     <div class="flex-center-between">

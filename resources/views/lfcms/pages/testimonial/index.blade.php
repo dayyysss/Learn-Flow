@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Learn Flow CMS | Klien')
+@section('page_title', 'Learn Flow CMS | Testimonial')
 @section('content')
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
@@ -7,38 +7,8 @@
             <div class="col-span-full">
                 <div class="card p-0">
                     <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
-                        <h3 class="text-lg card-title leading-none">Data Klien</h3>
-                        <ul
-                            class="flex items-center flex-wrap gap-1.5 *:flex-center *:gap-1.5 leading-none text-gray-900 dark:text-dark-text">
-                            <li
-                                class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                                <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                    <i class="ri-home-6-line text-[16px] text-inherit"></i>
-                                    Home
-                                </a>
-                            </li>
-                            <li
-                                class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                                <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                    <i class="ri-article-line text-[16px] text-inherit"></i>
-                                    Course
-                                </a>
-                            </li>
-                            <li
-                                class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                                <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                    <i class="ri-bank-card-line text-[16px] text-inherit"></i>
-                                    Wallet
-                                </a>
-                            </li>
-                            <li
-                                class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two current-page">
-                                <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                    <i class="ri-heart-2-line text-[16px] text-inherit"></i>
-                                    Like Wishlist
-                                </a>
-                            </li>
-                        </ul>
+                        <h3 class="text-lg card-title leading-none">Data Testimonial</h3>
+                        @include('lfcms.components.breadcrumb.custom', ['title' => 'Testimonial'])
                     </div>
                     <div class="p-6">
                         <div class="flex-center-between">
@@ -76,9 +46,6 @@
                                             Status</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
-                                            Gambar</th>
-                                        <th
-                                            class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                             Aksi</th>
                                     </tr>
                                 </thead>
@@ -92,19 +59,12 @@
                                                     <h6 class="leading-none text-heading font-semibold">
                                                         <a href="#">Eleanor Pena</a>
                                                     </h6>
-                                                    <p class="font-spline_sans text-sm font-light mt-1">UX/UI Design</p>
+                                                    <p class="font-spline_sans text-sm font-light mt-1">CEO Tokped</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="p-6 py-4">
-                                            <span class="badge badge-success-light rounded-full">Success</span>
-                                        </td>
-                                        <td class="p-6 py-4">
-                                            <div class="flex flex-col gap-2">
-                                                <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                    <img src="assets/images/student/student-1.png" alt="student">
-                                                </a>
-                                            </div>
+                                            <span class="badge badge-success-light rounded-full">Publik</span>
                                         </td>
                                         <td class="p-6 py-4">
                                             <div class="flex items-center gap-2">

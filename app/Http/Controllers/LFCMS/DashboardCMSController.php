@@ -24,27 +24,27 @@ class DashboardCMSController extends Controller
 
     public function klienCMS()
     {
-        return view('lfcms.pages.klien.klien');
+        return view('lfcms.pages.klien.index');
     }
 
     public function halamanCMS()
     {
-        return view('lfcms.pages.halaman.halaman');
+        return view('lfcms.pages.halaman.index');
     }
 
     public function kontakCMS()
     {
-        return view('lfcms.pages.kontak.kontak');
+        return view('lfcms.pages.kontak.index');
     }
 
     public function artikelCMS()
     {
-        return view('lfcms.pages.artikel.artikel');
+        return view('lfcms.pages.artikel.index');
     }
     
     public function kategoriartikelCMS()
     {
-        return view('lfcms.pages.artikel.kategori.kategori');
+        return view('lfcms.pages.artikel.kategori.index');
     }
 
     public function pembayaranCMS()
@@ -59,11 +59,11 @@ class DashboardCMSController extends Controller
 
     public function pengaturanCMS()
     {
-        return view('lfcms.pages.pengaturan.pengaturan  ');
+        return view('lfcms.pages.pengaturan.index  ');
     }
 
     public function testimonialCMS()
     {
-        return view('lfcms.pages.testimonial.testimonial');
+        return view('lfcms.pages.testimonial.index');
     }
 }
