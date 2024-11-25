@@ -59,10 +59,10 @@
                             </svg>
                             Kursus
                         </a>
-                        <img src="../../assets/images/icon/down-arrow.svg" alt="Arrow Icon"
-                            class="arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px">
+                        <i
+                        class="icofont-simple-down arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
+                      ></i>
                     </div>
-
                     <!-- Submenu Kategori -->
                     <ul id="submenu-kategori"
                         class="pl-26px py-2 {{ request()->routeIs('dashboard.courses') || request()->routeIs('kategori-kursus.index') || request()->routeIs('courses.index') ? '' : 'hidden' }}">
@@ -115,8 +115,8 @@
                     </a>
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                    <a href="{{ route('dashboard.quizResults') }}"
-                        class="sidebar-link {{ request()->routeIs('dashboard.quizResults') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                    <a href="{{ route('quizResults.index') }}"
+                        class="sidebar-link {{ request()->routeIs('quizResults.index', 'quiz.index', 'quiz.create', 'quiz.edit', 'quiz.show') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-help-circle">
@@ -172,8 +172,8 @@
             </h5>
             <ul>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                    <a href="{{ route('dashboard.myCourse') }}"
-                        class="sidebar-link {{ request()->routeIs('dashboard.myCourse') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                    <a href="{{ route('course.instruktur') }}"
+                        class="sidebar-link {{ request()->routeIs('course.instruktur') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-monitor">

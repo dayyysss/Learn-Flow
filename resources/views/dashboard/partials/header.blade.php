@@ -9,7 +9,8 @@
                 </div>
                 <div class="text-whiteColor font-bold text-center sm:text-start">
                     <h5 class="text-xl leading-1.2 mb-5px">Hello</h5>
-                    <h2 class="text-2xl leading-1.24">Michle Obema</h2>
+                    <h2 class="text-2xl leading-1.24">{{ $user->publik_name ?? $user->name }}
+                    </h2>
                     <ul class="flex items-center gap-15px">
                         <li class="text-sm font-normal flex items-center gap-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24"

@@ -21,6 +21,8 @@
 </head>
 
 <body class="relative font-inter font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
+
+    @include('landing.components.tinymce.tinymce')
     <!-- Preloader -->
     {{-- <div
         class="preloader fixed top-0 left-0 h-screen w-full flex items-center justify-center bg-white z-xxl opacity-100 transition-all duration-700">

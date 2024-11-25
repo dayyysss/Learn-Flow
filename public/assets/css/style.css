@@ -32,6 +32,10 @@ a {
   display: inline-block;
 }
 
+.italic {
+  font-style: italic;
+}
+
 a,
 button,
 span {
@@ -9162,21 +9166,6 @@ video {
 
   .arrow-icon {
     margin-left: -10px;
-    width: 14px;
-  }
-
-  .dropdown-profile {
-    right: 10px;
-    width: auto;
-  }
-}
-
-@media (max-width: 1200px) {
-  .arrow-icon {
-    display: none;
-  }
-
-  .arrow-icon {
     width: 14px;
   }
 

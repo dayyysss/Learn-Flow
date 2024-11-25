@@ -1,4 +1,5 @@
-
+@include('landing.components.tinymce.tinymce')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
    document.addEventListener('DOMContentLoaded', function () {
@@ -34,14 +35,14 @@
                             </div>
 
                             <div>
-                                <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File foto</label>
+                                <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File Materi Pembelajaran</label>
                                 <input type="file" name="bab[${babIndex}][moduls][0][file]" accept="image/*,application/pdf" class="form-control mb-1 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
                             </div>
                         </div>
 
                         <div>
                             <label class="mb-3 block font-semibold">Materi</label>
-                            <textarea name="bab[${babIndex}][moduls][0][materi]" placeholder="Materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" required></textarea>
+                            <textarea id="materi" name="bab[${babIndex}][moduls][0][materi]" placeholder="Materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -109,7 +110,7 @@
     </div>
 
     <div>
-        <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File foto</label>
+        <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File Materi Pembelajaran</label>
         <input type="file" 
                name="bab[${babIndex}][moduls][${modulIndex}][file]" 
                accept="image/*,application/pdf" 
@@ -121,7 +122,7 @@
 <div>
     <label class="mb-3 block font-semibold">Materi</label>
     <textarea name="bab[${babIndex}][moduls][${modulIndex}][materi]" 
-              placeholder="Materi" 
+              placeholder="Materi" id="materi"
               class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" 
               cols="30" rows="10" 
               required></textarea>
@@ -226,7 +227,7 @@
             const newSignature = `
                 <div class="signature-item mb-3 w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md relative">
                 <input type="file" name="certificate_ttd[]" class="form-control " accept="image/*">
-                <button type="button" class="btn right-0 top-0 absolute text-red-500 text-xl remove-signature-btn mt-2">&times;</button>
+                <button type="button" class="btn ml-3 right-0 top-0 absolute text-red-500 text-xl remove-signature-btn mt-2">&times;</button>
             </div>
 
             `;
@@ -297,12 +298,13 @@
 <style>
     .signature-item .remove-signature-btn {
     font-size: 20px; /* Ukuran font tombol */
-    padding: 0; /* Hilangkan padding default tombol */
+    padding: 10px; /* Hilangkan padding default tombol */
     width: 30px;
     height: 30px;
     border: none; /* Menghilangkan border tombol */
     background-color: transparent; /* Tombol tanpa latar belakang */
     cursor: pointer; /* Menambahkan cursor pointer */
+    margin-left: 20px;
 }
 
 .signature-item .remove-signature-btn:hover {

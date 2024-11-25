@@ -1,9 +1,11 @@
-@extends('dashboard.layouts.layouts')
+@extends('landing.layouts.landing-layouts')
 @section('page_title', 'LearnFlow | Courses')
 
 @section('content')
 
-<div class="container-fluid-5" data-aos="fade-up">
+@include('landing.components.breadcrumb', ['title' => 'Create Courses'])
+
+<div class="container pt-100px pb-100px aos-init aos-animate" data-aos="fade-up">
     {{-- Display Validation Errors --}}
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -53,7 +55,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="kode_seri" class="mb-3 block font-semibold">Kode Seri</label>
-                                                    <input type="text" id="kode_seri" name="kode_seri" placeholder="Course Slug" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
+                                                    <input type="text" id="kode_seri" name="kode_seri" placeholder="-" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" readonly>
                                                 </div>
                                             </div>
 
@@ -61,25 +63,34 @@
                                                 <div class="form-group">
                                                     <label for="status" class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Status</label>
                                                     <div class="bg-whiteColor relative rounded-md">
-                                                        <select name="status" class="text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md form-control" required>
+                                                        <select id="status" name="status" class="text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md form-control" required>
                                                             <option value="publik">Publik</option>
                                                             <option value="draft">Draft</option>
                                                             <option value="terjadwal">Terjadwal</option>
                                                         </select>
                                                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                                                     </div>
+                                                    
+                                                    <!-- Input untuk publish_date, disembunyikan secara default -->
+                                                    <div id="publish_date_container" class="hidden">
+                                                        <label for="publish_date" class="text-blackColor2">Tanggal Publish</label>
+                                                        <input type="date" id="publish_date" name="publish_date" class="text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md form-control">
+                                                    </div>
+                                                    
+
+                                                    
                                                 </div>
                                             
                                                 <div class="form-group">
                                                     <label for="tingkatan" class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Tingkatan</label>
                                                     <div class="bg-whiteColor relative rounded-md">
                                                         <select name="tingkatan" id="tingkatan" class="form-control text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md">
-                                                            <option value="false">Beginner</option>
-                                                            <option value="true">Intermediate</option>
-                                                            <option value="true">Advanced</option>
-                                                            <option value="true">Specialist</option>
-                                                            <option value="true">Expert</option>
-                                                            <option value="true">Professional </option>
+                                                            <option value="Beginner">Beginner</option>
+                                                            <option value="Intermediate">Intermediate</option>
+                                                            <option value="Advanced">Advanced</option>
+                                                            <option value="Specialist">Specialist</option>
+                                                            <option value="Expert">Expert</option>
+                                                            <option value="Professional">Professional </option>
                                                         </select>
                                                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                                                     </div>
@@ -94,8 +105,8 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="intruktur_id" class="mb-3 block font-semibold">Instructor</label>
-                                                    <select name="intruktur_id" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
+                                                    <label for="instruktur_id" class="mb-3 block font-semibold">Instructor</label>
+                                                    <select name="instruktur_id" class="form-control w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no" required>
                                                         <option value="">Select Instructor</option>
                                                         @foreach ($instruktur as $ins)
                                                             <option value="{{ $ins->id }}">{{ $ins->name }}</option>
@@ -146,7 +157,7 @@
 
                                         <div class="form-group mb-15px">
                                             <label for="deskripsi" class="mb-3 block font-semibold">Description</label>
-                                            <textarea name="deskripsi" class="form-control w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" ></textarea>
+                                            <textarea name="deskripsi" id="deskripsi" class="form-control w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="50" rows="10" ></textarea>
                                         </div>
 
                                         <div class="form-group mb-15px">
@@ -206,6 +217,8 @@
                                                     <a class="hover:text-primaryColor" href="https://www.youtube.com/watch?v=yourvideoid">https://www.youtube.com/watch?v=yourvideoid</a>
                                                 </div>
                                             </div>
+
+                                            <p class="italic">*isi salah satunya</p>
                                         </div>
                                     </div>
                                 </div>
@@ -258,14 +271,14 @@
                                                                 </div>
 
                                                                 <div>
-                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File foto</label>
+                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File Materi Pembelajaran</label>
                                                                 <input type="file" name="bab[0][moduls][0][file]" accept="image/*,application/pdf" class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
                                                                 </div>
                                                             </div>
 
                                                             <div>
                                                                 <label class="mb-3 block font-semibold">Materi</label>
-                                                                <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" ></textarea>
+                                                                <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" id="materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" ></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -455,5 +468,22 @@
 }
 
 </style>
+
+<script>
+    // Ambil elemen status select dan container publish_date
+    const statusSelect = document.getElementById('status');
+    const publishDateContainer = document.getElementById('publish_date_container');
+
+    // Event listener untuk mendeteksi perubahan pada select
+    statusSelect.addEventListener('change', function() {
+        if (this.value === 'terjadwal') {
+            // Tampilkan input publish_date ketika "Terjadwal" dipilih
+            publishDateContainer.classList.remove('hidden');
+        } else {
+            // Sembunyikan input publish_date untuk pilihan lain
+            publishDateContainer.classList.add('hidden');
+        }
+    });
+</script>
 
 @endsection

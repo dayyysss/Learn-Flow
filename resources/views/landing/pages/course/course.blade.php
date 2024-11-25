@@ -178,7 +178,7 @@
                                             class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                                             <!-- card image -->
                                             <div class="relative mb-4">
-                                                <a href="course-details.html" class="w-full overflow-hidden rounded">
+                                                <a href="{{route('course.detail', $item->slug)}}" class="w-full overflow-hidden rounded">
                                                     <img src="assets/images/grid/grid_1.png" alt=""
                                                         class="w-full transition-all duration-300 group-hover:scale-110">
                                                 </a>
@@ -223,7 +223,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="course-details.html"
+                                                <a href="{{route('course.detail', $item->slug)}}"
                                                     class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                     {{ $item->name }}
                                                 </a>
@@ -292,7 +292,7 @@
                                                 class="p-15px lg:pr-30px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark flex flex-wrap md:flex-nowrap rounded">
                                                 <!-- card image -->
                                                 <div class="relative overflow-hidden w-full md:w-2/5">
-                                                    <a href="course-details.html" class="w-full overflow-hidden rounded">
+                                                    <a href="{{route('course.detail', $item->slug)}}" class="w-full overflow-hidden rounded">
                                                         <img src="assets/images/grid/grid_1.png" alt=""
                                                             class="w-full transition-all duration-300 group-hover:scale-110 block">
                                                     </a>
@@ -339,7 +339,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a href="course-details.html"
+                                                        <a href="{{route('course.detail', $item->slug)}}"
                                                             class="text-size-26 leading-30px font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                             {{ $item->name }}
                                                         </a>

@@ -17,6 +17,8 @@ class CourseRegistration extends Model
         'method_pembayaran',
         'harga',
         'registration_status',
+        'order_id',
+        'snap_token',
     ];
 
     public function user()

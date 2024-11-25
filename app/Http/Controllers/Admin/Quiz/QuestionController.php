@@ -39,7 +39,7 @@ class QuestionController extends Controller
         $quiz = Quiz::findOrFail($quizId);
         $quiz->questions()->create($request->only(['question', 'score']));
 
-        return redirect()->route('quizzes.show', $quizId)->with('success', 'Question added successfully.');
+        return redirect()->route('quiz.show', $quizId)->with('success', 'Question added successfully.');
     }
 
     public function edit(int $id): View
@@ -59,7 +59,7 @@ class QuestionController extends Controller
 
         $question->update($request->only(['question', 'score']));
 
-        return redirect()->route('quizzes.show', $question->quiz_id)->with('success', 'Question updated successfully.');
+        return redirect()->route('quiz.show', $question->quiz_id)->with('success', 'Question updated successfully.');
     }
 
     public function destroy($id)
