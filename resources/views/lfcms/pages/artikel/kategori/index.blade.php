@@ -25,7 +25,7 @@
                         </div>
                         <button class="btn b-light btn-primary-light dk-theme-card-square">
                             <i class="ri-add-fill text-inherit"></i>
-                            <span>Add Data</span>
+                            <span>Tambah Kategori</span>
                         </button>
                     </div>
                     <div class="overflow-x-auto mt-5">
@@ -49,7 +49,7 @@
                                     </td>
                                     <td class="p-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
+                                            <a href="#" class="btn-icon btn-primary-icon-light size-7">
                                                 <i class="ri-message-2-line text-inherit text-[13px]"></i>
                                             </a>
                                             <a href="#" class="btn-icon btn-danger-icon-light size-7">
@@ -77,7 +77,7 @@
                                     </td>
                                     <td class="p-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
+                                            <a href="#" class="btn-icon btn-primary-icon-light size-7">
                                                 <i class="ri-message-2-line text-inherit text-[13px]"></i>
                                             </a>
                                             <a href="#" class="btn-icon btn-danger-icon-light size-7">
