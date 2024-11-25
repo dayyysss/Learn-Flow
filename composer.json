@@ -11,6 +11,8 @@
         "laravel/tinker": "^2.9",
         "mckenziearts/laravel-notify": "^2.5",
         "midtrans/midtrans-php": "^2.6",
+        "setasign/fpdf": "^1.8",
+        "setasign/fpdi": "^2.6",
         "spatie/laravel-flash": "^1.10",
         "spatie/laravel-permission": "^6.10"
     },

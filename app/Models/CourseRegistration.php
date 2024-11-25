@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CourseRegistration extends Model
 {
@@ -30,4 +31,11 @@ class CourseRegistration extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function modul_progres()
+    {
+        return $this->hasMany(ModulProgress::class);
+    }
+
+
 }

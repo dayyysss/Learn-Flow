@@ -141,8 +141,8 @@
                     </a>
                 </li>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                    <a href="{{ route('dashboard.enrolledCourses') }}"
-                        class="sidebar-link {{ request()->routeIs('dashboard.enrolledCourses') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                    <a href="{{ route('course.enrolled') }}"
+                        class="sidebar-link {{ request()->routeIs('course.enrolled') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-bookmark">
