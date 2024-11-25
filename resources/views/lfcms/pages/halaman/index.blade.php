@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Learn Flow CMS | Halaman')
+@section('page_title', 'Halaman | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="grid grid-cols-12">
@@ -46,6 +46,34 @@
                                     <td class="p-6 py-4">Administrator</td>
                                     <td class="p-6 py-4">
                                         <span class="badge badge-success-light rounded-full">Publik</span>
+                                    </td>
+                                    <td class="p-6 py-4">
+                                        <div class="flex items-center gap-2">
+                                            <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
+                                                <i class="ri-message-2-line text-inherit text-[13px]"></i>
+                                            </a>
+                                            <a href="#" class="btn-icon btn-danger-icon-light size-7">
+                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                            </a>
+                                            <div class="relative ml-5">
+                                                <button data-popover-target="td-3-0" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
+                                                    <i class="ri-more-2-fill text-inherit"></i>
+                                                </button>
+                                                <ul id="td-3-0" class="hidden popover-target invisible [&.visible]:!block" data-popover>
+                                                    <li>
+                                                        <a class="popover-item" href="#">More</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td class="p-6 py-4">2</td>
+                                    <td class="p-6 py-4">Tentang Kami</td>
+                                    <td class="p-6 py-4">Administrator</td>
+                                    <td class="p-6 py-4">
+                                        <span class="badge badge-warning-light rounded-full">Draft</span>
                                     </td>
                                     <td class="p-6 py-4">
                                         <div class="flex items-center gap-2">
