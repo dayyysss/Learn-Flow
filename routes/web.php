@@ -80,7 +80,7 @@ Route::resource('/courses', CourseController::class);
 Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dashboard.coursesCreate');
 Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
 Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard.reviews');
-Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('dashboard.orderHistory');
+Route::get('/order-history', [CourseRegistrationController::class, 'orderHistory'])->name('dashboard.orderHistory');
 Route::resource('/settings', SettingController::class);
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
 Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.cart');
