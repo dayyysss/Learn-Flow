@@ -57,10 +57,6 @@ class DashboardController extends Controller
         return view('dashboard.pages.announcements.index');
     }
 
-    public function enrolledCourses()
-    {
-        return view('dashboard.pages.enrolled-courses.index');
-    }
 
     public function wishlist()
     {

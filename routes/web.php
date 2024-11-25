@@ -86,7 +86,6 @@ Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dash
 Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.cart');
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
-Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
 
 Route::put('/setting/updateProfile', [SettingController::class, 'updateProfil'])->name('updateProfile');
 Route::post('/settings/update-password', [SettingController::class, 'updatePassword'])->name('settings.update-password');
@@ -94,7 +93,7 @@ Route::post('/settings/update-sosial', [SettingController::class, 'updateSocialM
 
 Route::get('/certificate/print/{registrationId}', [CourseController::class, 'printCertificate'])->name('certificate.print');
 
-
+Route::get('/enrolled-courses', [CourseController::class, 'myEnrolledCourses'])->name('course.enrolled');
 Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
@@ -149,4 +148,11 @@ Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishl
 
 //feedback
 Route::resource('/feedback', FeedbackController::class);
+
+Route::controller(CertificateController::class)->group(function(){
+    Route::get('/certificate/{courseId}', 'show')->name('certificate.index');
+    Route::get('/view-certificate/{courseId}', 'viewCertificate')->name('viewCertificate');
+    Route::get('/download-certificate/{courseId}', 'downloadCertificate')->name('downloadCertificate');
+});
+
 

@@ -36,6 +36,10 @@ class Modul extends Model
     {
         return $this->belongsTo(Bab::class, 'bab_id');
     }
+    public function modul_progress()
+    {
+        return $this->hasMany(Modul::class);
+    }
 
 
 }
