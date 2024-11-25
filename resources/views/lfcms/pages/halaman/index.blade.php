@@ -25,7 +25,7 @@
                         </div>
                         <button class="btn b-light btn-primary-light dk-theme-card-square">
                             <i class="ri-add-fill text-inherit"></i>
-                            <span>Add Data</span>
+                            <span>Tambah Halaman</span>
                         </button>
                     </div>
                     <div class="overflow-x-auto mt-5">
