@@ -1,13 +1,13 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Data Pengguna | Learn Flow CMS')
+@section('page_title', 'Administrator | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="grid grid-cols-12">
         <div class="col-span-full">
             <div class="card p-0">
                 <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
-                    <h3 class="text-lg card-title leading-none">Data Pengguna</h3>
-                    @include('lfcms.components.breadcrumb.custom', ['title' => 'User'])
+                    <h3 class="text-lg card-title leading-none">Data Administrator</h3>
+                    @include('lfcms.components.breadcrumb.custom', ['title' => 'Administrator'])
                 </div>
                 <div class="p-6">
                     <div class="flex-center-between">
