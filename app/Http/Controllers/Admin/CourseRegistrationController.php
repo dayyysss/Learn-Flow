@@ -23,14 +23,6 @@ class CourseRegistrationController extends Controller
         return view('dashboard.pages.order-history.index', compact('registrations'));
     }
 
-
-
-    public function enrolledCourses()
-    {
-        $registrations = CourseRegistration::with(['user', 'course'])->get();
-        return view('dashboard.pages.enrolled-courses.index', compact('registrations'));
-    }
-
     public function create()
     {
         // Ambil semua item cart untuk user yang sedang login
