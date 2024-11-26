@@ -152,3 +152,10 @@ Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishl
 //feedback
 Route::resource('/feedback', FeedbackController::class);
 
+Route::controller(CertificateController::class)->group(function(){
+    Route::get('/certificate/{courseId}', 'show')->name('certificate.index');
+    Route::get('/view-certificate/{courseId}', 'viewCertificate')->name('viewCertificate');
+    Route::get('/download-certificate/{courseId}', 'downloadCertificate')->name('downloadCertificate');
+});
+
+

@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Learn Flow CMS | Halaman')
+@section('page_title', 'Halaman | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="grid grid-cols-12">
@@ -7,32 +7,7 @@
             <div class="card p-0">
                 <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
                     <h3 class="text-lg card-title leading-none">Data Halaman</h3>
-                    <ul class="flex items-center flex-wrap gap-1.5 *:flex-center *:gap-1.5 leading-none text-gray-900 dark:text-dark-text">
-                        <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                            <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                <i class="ri-home-6-line text-[16px] text-inherit"></i>
-                                Home
-                            </a>
-                        </li>
-                        <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                            <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                <i class="ri-article-line text-[16px] text-inherit"></i>
-                                Course
-                            </a>
-                        </li>
-                        <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two">
-                            <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                <i class="ri-bank-card-line text-[16px] text-inherit"></i>
-                                Wallet
-                            </a>
-                        </li>
-                        <li class="text-primary-500 after:font-remix after:flex-center after:font-extrabold after:text-gray-900 after:size-5 after:content-['/'] after:translate-y-[1.4px] last:after:hidden [&.current-page]:text-gray-500 dark:[&.current-page]:text-dark-text-two current-page">
-                            <a href="#" class="flex-center shrink-0 gap-2 text-inherit">
-                                <i class="ri-heart-2-line text-[16px] text-inherit"></i>
-                                Like Wishlist
-                            </a>
-                        </li>
-                    </ul>
+                    @include('lfcms.components.breadcrumb.custom', ['title' => 'Halaman'])
                 </div>
                 <div class="p-6">
                     <div class="flex-center-between">
@@ -50,7 +25,7 @@
                         </div>
                         <button class="btn b-light btn-primary-light dk-theme-card-square">
                             <i class="ri-add-fill text-inherit"></i>
-                            <span>Add Data</span>
+                            <span>Tambah Halaman</span>
                         </button>
                     </div>
                     <div class="overflow-x-auto mt-5">
@@ -74,7 +49,35 @@
                                     </td>
                                     <td class="p-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <a href="chatbox.html" class="btn-icon btn-primary-icon-light size-7">
+                                            <a href="#" class="btn-icon btn-primary-icon-light size-7">
+                                                <i class="ri-edit-2-line text-inherit text-[13px]"></i>
+                                            </a>
+                                            <a href="#" class="btn-icon btn-danger-icon-light size-7">
+                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                            </a>
+                                            <div class="relative ml-5">
+                                                <button data-popover-target="td-3-0" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
+                                                    <i class="ri-more-2-fill text-inherit"></i>
+                                                </button>
+                                                <ul id="td-3-0" class="hidden popover-target invisible [&.visible]:!block" data-popover>
+                                                    <li>
+                                                        <a class="popover-item" href="#">More</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td class="p-6 py-4">2</td>
+                                    <td class="p-6 py-4">Tentang Kami</td>
+                                    <td class="p-6 py-4">Administrator</td>
+                                    <td class="p-6 py-4">
+                                        <span class="badge badge-warning-light rounded-full">Draft</span>
+                                    </td>
+                                    <td class="p-6 py-4">
+                                        <div class="flex items-center gap-2">
+                                            <a href="#" class="btn-icon btn-primary-icon-light size-7">
                                                 <i class="ri-message-2-line text-inherit text-[13px]"></i>
                                             </a>
                                             <a href="#" class="btn-icon btn-danger-icon-light size-7">
