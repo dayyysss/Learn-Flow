@@ -11,16 +11,16 @@ class EnrolledCourseController extends Controller
 {
     public function enrolledCourses()
     {
-        $registrations = CourseRegistration::with(['user', 'course'])
+        $enrolledcourses = CourseRegistration::with(['user', 'course'])
             ->where('user_id', auth()->user()->id)
             ->where('registration_status', 'confirmed')
             ->get();
 
-        foreach ($registrations as $registration) {
+        foreach ($enrolledcourses as $registration) {
             $registration->updateProgress();
         }
 
-        return view('dashboard.pages.enrolled-courses.index', compact('registrations'));
+        return view('dashboard.pages.enrolled-courses.index', compact('enrolledcourses'));
     }
 
     public function completeModule($registrationId, $moduleId)

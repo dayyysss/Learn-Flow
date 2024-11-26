@@ -37,7 +37,7 @@
                     <div class="transition-all duration-300">
                         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-30px">
                             <!-- card 1 -->
-                            @foreach ($registrations as $item)
+                            @foreach ($enrolledcourses as $item)
                                 <div class="group course-item"
                                     data-status="{{ $item->status == 'confirm' ? 'enrolled' : ($item->progress >= 0 && $item->progress < 100 ? 'active' : ($item->progress == 100 ? 'completed' : '')) }}"
                                     data-progress="{{ $item->progress }}">
