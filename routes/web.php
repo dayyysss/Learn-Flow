@@ -14,17 +14,18 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Quiz\QuizController;
+use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
+use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\CategoryArtikelController;
-use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\Admin\Quiz\QuizController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -82,13 +83,13 @@ Route::resource('/courses', CourseController::class);
 Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dashboard.coursesCreate');
 Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
 Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard.reviews');
-Route::get('/order-history', [DashboardController::class, 'orderHistory'])->name('dashboard.orderHistory');
+Route::get('/order-history', [CourseRegistrationController::class, 'orderHistory'])->name('dashboard.orderHistory');
 Route::resource('/settings', SettingController::class);
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
 Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.cart');
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
-Route::get('/enrolled-courses', [DashboardController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
+Route::get('/enrolled-courses', [EnrolledCourseController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
 
 Route::put('/setting/updateProfile', [SettingController::class, 'updateProfil'])->name('updateProfile');
 Route::post('/settings/update-password', [SettingController::class, 'updatePassword'])->name('settings.update-password');
@@ -151,4 +152,11 @@ Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishl
 
 //feedback
 Route::resource('/feedback', FeedbackController::class);
+
+Route::controller(CertificateController::class)->group(function(){
+    Route::get('/certificate/{courseId}', 'show')->name('certificate.index');
+    Route::get('/view-certificate/{courseId}', 'viewCertificate')->name('viewCertificate');
+    Route::get('/download-certificate/{courseId}', 'downloadCertificate')->name('downloadCertificate');
+});
+
 

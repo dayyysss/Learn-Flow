@@ -18,14 +18,9 @@ class CourseRegistrationController extends Controller
 {
     public function orderHistory()
     {
-        $registrations = CourseRegistration::with(['user', 'course'])->get();
-        return view('dashboard.pages.order-history.index', compact('registrations'));
-    }
+        $registrations = CourseRegistration::with(['user', 'course'])->paginate(10);
 
-    public function enrolledCourses()
-    {
-        $registrations = CourseRegistration::with(['user', 'course'])->get();
-        return view('dashboard.pages.enrolled-courses.index', compact('registrations'));
+        return view('dashboard.pages.order-history.index', compact('registrations'));
     }
 
     public function create()

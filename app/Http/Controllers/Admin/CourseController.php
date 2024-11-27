@@ -377,46 +377,61 @@ public function myCourses()
     return view('dashboard.pages.my-course.index', compact('courses_publik', 'courses_draft', 'courses_terjadwal'));
 }
 
-public function printCertificate($registrationId)
+// public function printCertificate($registrationId)
+// {
+//     // Mengambil informasi pendaftaran kursus
+//     $courseRegistration = CourseRegistration::with(['user', 'course'])
+//         ->where('id', $registrationId)
+//         ->first();
+
+//     if (!$courseRegistration) {
+//         return redirect()->back()->with('error', 'Pendaftaran tidak ditemukan.');
+//     }
+
+//     // Mengambil sertifikat yang sesuai dengan kursus
+//     $certificate = Certificate::where('course_id', $courseRegistration->course_id)->first();
+
+//     if (!$certificate) {
+//         return redirect()->back()->with('error', 'Sertifikat tidak ditemukan.');
+//     }
+
+//     // Parsing tanda tangan, pastikan ini menjadi array
+//     $ttd = json_decode($certificate->ttd, true);
+
+//     if (!is_array($ttd)) {
+//         $ttd = [];
+//     }
+
+//     // Data untuk view
+//     $data = [
+//         'nama_pendaftar'  => $courseRegistration->user->name,
+//         'nama_kursus'     => $courseRegistration->course->name,
+//         'kode_seri_kursus'=> $courseRegistration->course->kode_seri,
+//         'file_sertifikat' => $certificate->file,
+//         'ttd'             => $ttd,
+//         'backgroundImage' => $certificate->background_image // Pastikan ini sudah ada dalam tabel Certificate
+//     ];
+
+//     // Menggunakan DomPDF untuk generate PDF
+//     $pdf = PDF::loadView('certificate.template', $data);
+
+//     // Menyimpan PDF
+//     return $pdf->download('sertifikat.pdf');
+// }
+
+public function myEnrolledCourses()
 {
-    // Mengambil informasi pendaftaran kursus
-    $courseRegistration = CourseRegistration::with(['user', 'course'])
-        ->where('id', $registrationId)
-        ->first();
+    // Ambil ID siswa yang sedang login
+    $studentId = auth()->user()->id;
 
-    if (!$courseRegistration) {
-        return redirect()->back()->with('error', 'Pendaftaran tidak ditemukan.');
-    }
+    // Cari kursus yang sudah didaftarkan oleh siswa yang sedang login
+    $enrolledCourses = CourseRegistration::where('user_id', $studentId)
+                        ->with(['course.users', 'course.categories', 'course.babs.moduls', 'course.instrukturs']) // Eager loading relasi yang diperlukan
+                        ->get()
+                        ->pluck('course');
 
-    // Mengambil sertifikat yang sesuai dengan kursus
-    $certificate = Certificate::where('course_id', $courseRegistration->course_id)->first();
-
-    if (!$certificate) {
-        return redirect()->back()->with('error', 'Sertifikat tidak ditemukan.');
-    }
-
-    // Parsing tanda tangan, pastikan ini menjadi array
-    $ttd = json_decode($certificate->ttd, true);
-
-    if (!is_array($ttd)) {
-        $ttd = [];
-    }
-
-    // Data untuk view
-    $data = [
-        'nama_pendaftar'  => $courseRegistration->user->name,
-        'nama_kursus'     => $courseRegistration->course->name,
-        'kode_seri_kursus'=> $courseRegistration->course->kode_seri,
-        'file_sertifikat' => $certificate->file,
-        'ttd'             => $ttd,
-        'backgroundImage' => $certificate->background_image // Pastikan ini sudah ada dalam tabel Certificate
-    ];
-
-    // Menggunakan DomPDF untuk generate PDF
-    $pdf = PDF::loadView('certificate.template', $data);
-
-    // Menyimpan PDF
-    return $pdf->download('sertifikat.pdf');
+    // Kembalikan ke tampilan atau API response
+    return view('dashboard.pages.enrolled-courses.index', compact('enrolledCourses'));
 }
 
 }

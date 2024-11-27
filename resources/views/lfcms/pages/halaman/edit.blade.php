@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Tambah Halaman | Learn Flow CMS')
+@section('page_title', 'Edit Halaman | Learn Flow CMS')
 @section('content')
 <div class="col-span-full">
     <div class="card p-0">

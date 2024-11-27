@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'LearnFlow CMS | Histori Pembayaran')
+@section('page_title', 'Histori | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="card p-0 overflow-hidden">
