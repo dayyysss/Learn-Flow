@@ -20,6 +20,7 @@ class CourseRegistration extends Model
         'registration_status',
         'order_id',
         'snap_token',
+        'progress',
     ];
 
     public function user()
@@ -32,10 +33,20 @@ class CourseRegistration extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function modul_progres()
+    public function modulProgress()
     {
-        return $this->hasMany(ModulProgress::class);
+        return $this->hasMany(ModulProgress::class, 'course_registrations_id');
     }
 
+    public function updateProgress()
+    {
+        $totalModuls = $this->course->moduls()->count(); // Total modul dalam kursus
+        $completedModuls = $this->modulProgress()->where('status', 'selesai')->count(); // Modul selesai
+
+        $progress = $totalModuls > 0 ? round(($completedModuls / $totalModuls) * 100) : 0;
+
+        // Simpan progres ke database
+        $this->update(['progress' => $progress]);
+    }
 
 }

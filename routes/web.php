@@ -13,17 +13,18 @@ use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Quiz\QuizController;
+use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
+use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\CategoryArtikelController;
-use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\Admin\Quiz\QuizController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -87,6 +88,7 @@ Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dash
 Route::get('/cart', [DashboardController::class, 'cart'])->name('dashboardmin.cart');
 Route::get('/assignments', [DashboardController::class, 'assignments'])->name('dashboard.assignments');
 Route::get('/announcements', [DashboardController::class, 'announcements'])->name('dashboard.announcements');
+Route::get('/enrolled-courses', [EnrolledCourseController::class, 'enrolledCourses'])->name('dashboard.enrolledCourses');
 
 Route::put('/setting/updateProfile', [SettingController::class, 'updateProfil'])->name('updateProfile');
 Route::post('/settings/update-password', [SettingController::class, 'updatePassword'])->name('settings.update-password');
@@ -94,7 +96,7 @@ Route::post('/settings/update-sosial', [SettingController::class, 'updateSocialM
 
 Route::get('/certificate/print/{registrationId}', [CourseController::class, 'printCertificate'])->name('certificate.print');
 
-Route::get('/enrolled-courses', [CourseController::class, 'myEnrolledCourses'])->name('course.enrolled');
+
 Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
