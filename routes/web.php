@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Quiz\QuizController;
 use App\Http\Controllers\Admin\CertificateController;
@@ -64,7 +65,7 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
         Route::get('/klien', 'klienCMS')->name('klienCMS');
-        Route::get('/halaman', 'halamanCMS')->name('halamanCMS');
+        Route::resource('/halaman', PageController::class);
         Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/artikel', 'artikelCMS')->name('artikelCMS');

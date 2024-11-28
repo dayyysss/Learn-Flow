@@ -1,4 +1,5 @@
 @extends('lfcms.layouts.app')
+@section('page_title', 'Learn Flow CMS | Halaman')
 @section('page_title', 'Halaman | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
@@ -12,6 +13,24 @@
                 <div class="p-6">
                     <div class="flex-center-between">
                         <div class="flex items-center gap-5">
+                            <!-- Form Pencarian -->
+                            <form class="max-w-80 relative" method="GET" action="{{ route('halaman.index') }}">
+                                <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
+                                    <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
+                                </span>
+                                <input 
+                                    type="text" 
+                                    name="search" 
+                                    value="{{ request('search') }}" 
+                                    placeholder="Search for..." 
+                                    class="form-input pl-[30px]">
+                            </form>
+
+                            <!-- Tombol Refresh -->
+                            <button 
+                                type="button" 
+                                class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
+                                onclick="window.location='{{ route('halaman.index') }}'">
                             <form class="max-w-80 relative">
                                 <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                     <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
@@ -23,6 +42,68 @@
                                 <span>Refresh</span>
                             </button>
                         </div>
+
+                        <!-- Tombol Add Data -->
+                        <a href="{{ route('halaman.create') }}" class="btn b-light btn-primary-light dk-theme-card-square">
+                            <i class="ri-add-fill text-inherit"></i>
+                            <span>Add Data</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="overflow-x-auto mt-5">
+                    <table class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
+                        <thead>
+                            <tr class="text-primary-500">
+                                <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">No</th>
+                                <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Judul</th>
+                                <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Pembuat</th>
+                                <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Status</th>
+                                <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($pages as $page)
+                                <tr>
+                                    <td class="p-6 py-4">{{ $loop->iteration + ($pages->currentPage() - 1) * $pages->perPage() }}</td>
+                                    <td class="p-6 py-4">{{ $page->judul }}</td>
+                                    <td class="p-6 py-4">{{ $page->users->name ?? 'Tidak Diketahui' }}</td>
+                                    <td class="p-6 py-4">
+                                        <span class="badge {{ $page->status == 'Publik' ? 'badge-success-light' : 'badge-danger-light' }}">
+                                            {{ $page->status }}
+                                        </span>
+                                    </td>
+                                    <td class="p-6 py-4">
+                                        <div class="flex items-center gap-2">
+                                            <a href="{{ route('halaman.create', $page->id) }}" class="btn-icon btn-primary-icon-light size-7">
+                                                <i class="ri-edit-line"></i>
+                                            </a>
+                                            <form action="{{ route('halaman.destroy', $page->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-icon btn-danger-icon-light size-7">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div class="alert alert-danger">
+                                            Belum ada data yang masuk!
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-5">
+                    {{ $pages->links() }}
+                </div>
                         <button class="btn b-light btn-primary-light dk-theme-card-square">
                             <i class="ri-add-fill text-inherit"></i>
                             <span>Tambah Halaman</span>
@@ -151,4 +232,3 @@
         </div>
     </div>
 </div>
-@endsection
