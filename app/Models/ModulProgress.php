@@ -13,6 +13,7 @@ class ModulProgress extends Model
         'course_registrations_id',
         'modul_id',
         'status',
+        'progress'
     ];
 
     public function courseRegistration()

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hak_akses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('modul_progress', function (Blueprint $table) {
+            $table->unsignedTinyInteger('progress')->default(0)->nullable()->after('modul_id'); // Progress dalam persen (0-100)
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hak_akses');
+        Schema::table('modul_progress', function (Blueprint $table) {
+            //
+        });
     }
 };

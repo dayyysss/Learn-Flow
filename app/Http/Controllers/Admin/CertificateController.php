@@ -64,7 +64,7 @@ class CertificateController extends Controller
 
     // Buat instance PDF
     $pdf = new Fpdi();
-    $pathToTemplate = public_path('storage/certificates/template-certificate.png');
+    $pathToTemplate = public_path('storage/certificates/template.jpeg');
     list($width, $height) = getimagesize($pathToTemplate);
     $widthInMM = $width * 0.264583;
     $heightInMM = $height * 0.264583;
@@ -75,45 +75,37 @@ class CertificateController extends Controller
 
     // Set text for user name
     $pdf->SetFont('Helvetica', 'B');
-    $pdf->SetFontSize(70);
-    $pdf->SetTextColor(0, 102, 204);
-    $pdf->SetXY(40, 185);
+    $pdf->SetFontSize(60);
+    $pdf->SetTextColor(34, 53, 134);
+    $pdf->SetXY(110, 120);
     $pdf->Cell(0, 10, $fullName, 0, 1, 'L');
 
     // Set text for course name
-    $pdf->SetFont('Helvetica', 'B');
-    $pdf->SetFontSize(40);
+    $pdf->SetFont('Helvetica');
+    $pdf->SetFontSize(20);
     $pdf->SetTextColor(0, 102, 204);
-    $pdf->SetXY(37, 240);
+    $pdf->SetXY(105, 155);
     $pdf->Cell(0, 10, $courseName, 0, 1, 'L');
 
     // Set text for completion date
     $pdf->SetFont('Helvetica', 'I');
     $pdf->SetFontSize(20);
     $pdf->SetTextColor(128, 128, 128);
-    $pdf->SetXY(37, 280);
+    $pdf->SetXY(37, 200);
     $pdf->Cell(0, 10, $completionDate, 0, 1, 'L');
 
     // If signature exists, add it to the certificate
     if ($signaturePath) {
         // Adjust the position and size of the signature image
-        $signatureX = 40; // Horizontal position (from the left)
-        $signatureY = 300; // Vertical position (from the top)
-        $signatureWidth = 50; // Width of the signature image
-        $signatureHeight = 30; // Height of the signature image
+        $signatureX = 195; // Horizontal position (from the left)
+        $signatureY = 185; // Vertical position (from the top)
+        $signatureWidth = 45; // Width of the signature image
+        $signatureHeight = 25; // Height of the signature image
     
         // Place the signature image on the certificate
         $pdf->Image($signaturePath, $signatureX, $signatureY, $signatureWidth, $signatureHeight);
         
-        // Draw a line below the signature
-        $lineStartX = $signatureX; // Start of the line, aligned with the signature
-        $lineStartY = $signatureY + $signatureHeight + 2; // Position 2mm below the signature
-        $lineEndX = $signatureX + $signatureWidth; // End of the line, aligned with the signature width
-        $lineEndY = $lineStartY; // The line's Y position is the same as the start Y position
-        
-        // Draw the line
-        $pdf->SetLineWidth(0.3); // Set line thickness
-        $pdf->Line($lineStartX, $lineStartY, $lineEndX, $lineEndY); // Draw line from start to end
+       
     }
     
 

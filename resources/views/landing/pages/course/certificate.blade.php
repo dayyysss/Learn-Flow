@@ -23,17 +23,24 @@
                         <div class="w-full max-w-lg">
                             <div class="p-6 text-center mb-10">
                                 <!-- Displaying PDF Certificate -->
-                                <iframe src="{{ route('viewCertificate', $course->id) }}#toolbar=0&navpanes=0"
+                                <iframe id="openModal" src="{{ route('viewCertificate', $course->id) }}#toolbar=0&navpanes=0"
                                     class="flex ml-auto mr-auto mt-10 justify-center" width="605px" height="425">
                                 </iframe>
                                 <br>
                                 <!-- Download button (commented out) -->
-                                {{-- 
+                                {{-- <button
+                                    id="openModal"
+                                    class="inline-block px-6 py-2 font-semibold rounded text-whiteColor bg-primaryColor border-primaryColor border hover:text-primaryColor hover:bg-white rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor"
+                                >
+                                    Lihat Sertifikat
+                                </button> --}}
+
+                                
                                 <a href="{{ route('downloadCertificate', $course->id) }}"
                                     class="inline-block px-6 py-2 font-semibold rounded text-whiteColor bg-primaryColor border-primaryColor border hover:text-primaryColor hover:bg-white rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
                                     Download PDF
                                 </a> 
-                                --}}
+                               
                             </div>
                         </div>
                     </div>
@@ -180,6 +187,43 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+<div id="certificateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white dark:bg-gray-800 w-11/12 max-w-4xl p-6 rounded shadow-lg relative">
+        <!-- Close Button -->
+        <button
+            id="closeModal"
+            class="absolute top-3 right-3 text-black dark:text-white hover:text-red-500"
+        >
+            <i class="icofont-close-line text-xl"></i>
+        </button>
+        <!-- Iframe -->
+        <iframe
+            src="{{ route('viewCertificate', $course->id) }}#toolbar=0&navpanes=0"
+            class="w-full h-[70vh] rounded"
+        ></iframe>
+    </div>
 </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    document.getElementById('openModal').addEventListener('click', function () {
+        document.getElementById('certificateModal').classList.remove('hidden');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('certificateModal').classList.add('hidden');
+    });
+
+    // Tutup modal saat klik di luar konten modal
+    document.getElementById('certificateModal').addEventListener('click', function (event) {
+        if (event.target === this) {
+            this.classList.add('hidden');
+        }
+    });
+</script>
+
 
 @endsection

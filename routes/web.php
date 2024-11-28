@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\ModulProgressController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -158,4 +159,8 @@ Route::controller(CertificateController::class)->group(function(){
     Route::get('/download-certificate/{courseId}', 'downloadCertificate')->name('downloadCertificate');
 });
 
+// Rute untuk memperbarui progres modul
+Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'updateModulProgress'])->name('modul.updateProgress');
 
+// Rute untuk update progres berbasis scroll
+Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
