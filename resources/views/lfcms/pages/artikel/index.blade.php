@@ -6,7 +6,7 @@
         <div class="col-span-full">
             <div class="card p-0">
                 <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
-                    <h3 class="text-lg card-title leading-none">Data Artikel</h3>
+                    <h3 class="text-lg card-title leading-none">Daftar Artikel</h3>
                     @include('lfcms.components.breadcrumb.custom', ['title' => 'Artikel'])
                 </div>
                 <div class="p-6">
