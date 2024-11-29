@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inisialisasi kembali TinyMCE setelah menambahkan bab atau modul baru
     function reinitializeTinyMCE() {
         tinymce.init({
-            selector: 'textarea#materi, textarea#deskripsi',  // selector untuk textarea baru
+            selector: 'textarea#materi, textarea#deskripsi, textarea#deskripsiBio',  // selector untuk textarea baru
             height: 500,
             menubar: true,
             plugins: [
