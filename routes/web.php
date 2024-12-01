@@ -48,6 +48,9 @@ Route::get('/email/verify', function () { return view('auth.verify-email');})->n
 // })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 
+//apexchart
+Route::get('/visitor-count', [DashboardController::class, 'visitor']);
+
 // Landing Page
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'index')->name('index');
