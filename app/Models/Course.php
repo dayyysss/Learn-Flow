@@ -72,4 +72,9 @@ class Course extends Model
         return $this->hasMany(Wishlist::class);
     }
 
+    public function moduls()
+    {
+        return $this->hasManyThrough(Modul::class, Bab::class, 'course_id', 'bab_id');
+    }
+
 }

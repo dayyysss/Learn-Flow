@@ -18,14 +18,9 @@ class CourseRegistrationController extends Controller
 {
     public function orderHistory()
     {
-        $registrations = CourseRegistration::with(['user', 'course'])->get();
-        return view('dashboard.pages.order-history.index', compact('registrations'));
-    }
+        $registrations = CourseRegistration::with(['user', 'course'])->paginate(10);
 
-    public function enrolledCourses()
-    {
-        $registrations = CourseRegistration::with(['user', 'course'])->get();
-        return view('dashboard.pages.enrolled-courses.index', compact('registrations'));
+        return view('dashboard.pages.order-history.index', compact('registrations'));
     }
 
     public function create()
@@ -41,38 +36,52 @@ class CourseRegistrationController extends Controller
 
     public function showPaymentPage($snapToken)
     {
+        // Retrieve the course registration using the snap token
         $transaction = CourseRegistration::where('snap_token', $snapToken)->first();
 
         if (!$transaction) {
-            abort(404);
+            abort(404, 'Transaksi tidak ditemukan.');
         }
 
-        if ($transaction->registration_status === 'confirmed') {
-            // Jika pembayaran sudah berhasil
-            return redirect('/course');
-        }
-
-        // Ambil data kursus
         $course = $transaction->course;
+
+        // Tentukan harga akhir setelah diskon (harga asli - harga diskon)
+        $hargaAkhir = (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
+            ? $course->harga - $course->harga_diskon
+            : $course->harga;
 
         return view('dashboard.pages.enrolled-courses.payment', [
             'snapToken' => $snapToken,
             'course' => $course,
+            'hargaAkhir' => $hargaAkhir,
         ]);
     }
-
 
 
     public function store(Request $request)
     {
         // Cek apakah pengguna sudah login
         if (!auth()->check()) {
-            // Redirect ke halaman login dengan pesan notifikasi
             return redirect()->route('login')->with('error', 'Silakan login atau daftar terlebih dahulu untuk melanjutkan.');
         }
 
         // Ambil data kursus
         $course = Course::findOrFail($request->course_id);
+
+        // Cek apakah pengguna sudah pernah membeli kursus ini dengan status confirmed
+        $existingRegistration = CourseRegistration::where('user_id', auth()->user()->id)
+            ->where('course_id', $course->id)
+            ->where('registration_status', 'confirmed')
+            ->first();
+
+        if ($existingRegistration) {
+            return redirect()->route('course')->with('info', 'Anda sudah membeli kursus ini.');
+        }
+
+        // Tentukan harga akhir berdasarkan diskon
+        $hargaAkhir = (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
+            ? $course->harga - $course->harga_diskon
+            : $course->harga;
 
         // Set konfigurasi Midtrans
         Config::$serverKey = config('services.midtrans.server_key');
@@ -83,7 +92,7 @@ class CourseRegistrationController extends Controller
         $transaction = [
             'transaction_details' => [
                 'order_id' => 'ORDER-' . Str::uuid()->toString(),
-                'gross_amount' => $course->harga,
+                'gross_amount' => $hargaAkhir,
             ],
             'customer_details' => [
                 'first_name' => auth()->user()->first_name,
@@ -102,7 +111,7 @@ class CourseRegistrationController extends Controller
             'registration_date' => now(),
             'order_date' => now(),
             'method_pembayaran' => 'Midtrans',
-            'harga' => $course->harga,
+            'harga' => $hargaAkhir,
             'registration_status' => 'Menunggu',
             'snap_token' => $snapToken,
             'order_id' => $transaction['transaction_details']['order_id'],

@@ -85,12 +85,12 @@
                                                     <label for="tingkatan" class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Tingkatan</label>
                                                     <div class="bg-whiteColor relative rounded-md">
                                                         <select name="tingkatan" id="tingkatan" class="form-control text-base bg-transparent text-blackColor2 w-full p-13px pr-30px focus:outline-none block appearance-none relative z-20 focus:shadow-select rounded-md">
-                                                            <option value="false">Beginner</option>
-                                                            <option value="true">Intermediate</option>
-                                                            <option value="true">Advanced</option>
-                                                            <option value="true">Specialist</option>
-                                                            <option value="true">Expert</option>
-                                                            <option value="true">Professional </option>
+                                                            <option value="Beginner">Beginner</option>
+                                                            <option value="Intermediate">Intermediate</option>
+                                                            <option value="Advanced">Advanced</option>
+                                                            <option value="Specialist">Specialist</option>
+                                                            <option value="Expert">Expert</option>
+                                                            <option value="Professional">Professional </option>
                                                         </select>
                                                         <i class="icofont-simple-down absolute top-1/2 right-3 -translate-y-1/2 block text-lg z-10"></i>
                                                     </div>

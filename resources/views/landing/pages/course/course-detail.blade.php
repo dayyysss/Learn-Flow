@@ -82,10 +82,10 @@
                             </div>
                             <p class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                                 data-aos="fade-up">
-                                {{ $course->deskripsi }}
+                                {!! $course->deskripsi !!}}
                             </p>
                             <!-- details -->
-                            <div>
+                            <div class="mt-5">
                                 <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px"
                                     data-aos="fade-up">
                                     Course Details
@@ -221,10 +221,6 @@
                                         class="is-checked relative p-10px md:px-25px md:py-15px lg:py-3 2xl:py-15px 2xl:px-45px text-blackColor bg-whiteColor hover:bg-primaryColor hover:text-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor flex items-center">
                                         <i class="icofont-teacher mr-2"></i> Instructor
                                     </button>
-                                    <button
-                                        class="is-checked relative p-10px md:px-25px md:py-15px lg:py-3 2xl:py-15px 2xl:px-45px text-blackColor bg-whiteColor hover:bg-primaryColor hover:text-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor flex items-center">
-                                        <i class="icofont-teacher mr-2"></i> Participant
-                                    </button>
                                 </div>
 
                                 <div class="tab-contents">
@@ -332,10 +328,10 @@
 
                                     </div>
                                     <!-- description -->
-                                    <div class="hidden">
+                                    <div class="hidden mb-5">
 
                                         <p class="text-lg text-darkdeep4 mb-5 !leading-30px" data-aos="fade-up">
-                                            {{ $course->deskripsi }}
+                                            {!! $course->deskripsi !!}
                                         </p>
 
                                     </div>
@@ -675,14 +671,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- description -->
-                                    <div class="hidden">
-
-                                        <p class="text-lg text-darkdeep4 mb-5 !leading-30px" data-aos="fade-up">
-                                            {{ $course->name }}
-                                        </p>
-
-                                    </div>
+                                   
                                 </div>
                             </div>
                             <div class="md:col-start-5 md:col-span-8">
@@ -1312,7 +1301,7 @@
                                     </p>
                                     <p
                                         class="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px">
-                                        @if ($course->babs->contains('quiz', true))
+                                        @if ($course->babs->isNotEmpty() && $course->babs->some(fn($bab) => $bab->quiz->isNotEmpty()))
                                             Yes
                                         @else
                                             No
