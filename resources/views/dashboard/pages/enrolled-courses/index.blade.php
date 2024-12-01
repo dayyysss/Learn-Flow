@@ -46,7 +46,7 @@
                                             class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                                             <!-- card image -->
                                             <div class="relative mb-4">
-                                                <a href="" class="w-full overflow-hidden rounded">
+                                                <a href="{{route('course.detail', $item->course->slug)}}" class="w-full overflow-hidden rounded">
                                                     <img src="{{ asset('storage/' . $item->course->thumbnail) }}"
                                                         alt=""
                                                         class="w-full transition-all duration-300 group-hover:scale-110"
