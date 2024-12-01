@@ -9175,8 +9175,8 @@ video {
   }
 }
 
- /* Modal Styling */
- .modal {
+/* Modal Styling */
+.modal {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -9189,7 +9189,7 @@ video {
   z-index: -1;
 }
 
-.modal-checkbox:checked + .modal {
+.modal-checkbox:checked+.modal {
   opacity: 1;
   visibility: visible;
   z-index: 999;
@@ -9205,7 +9205,7 @@ video {
   transition: transform 0.3s ease;
 }
 
-.modal-checkbox:checked + .modal .modal-content {
+.modal-checkbox:checked+.modal .modal-content {
   transform: translateY(0);
 }
 
@@ -9250,4 +9250,9 @@ video {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+#lineChart {
+  height: 300px;
+  /* Atur tinggi grafik sesuai kebutuhan */
 }

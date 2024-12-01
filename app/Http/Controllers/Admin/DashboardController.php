@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\visitor_count;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -13,7 +16,7 @@ class DashboardController extends Controller
     }
     public function indexUser()
     {
-        
+
         return view('dashboard.layouts.layouts', compact('user'));
     }
 
@@ -75,5 +78,62 @@ class DashboardController extends Controller
     public function checkout()
     {
         return view('dashboard.pages.checkout.index');
+    }
+
+    public function visitor(Request $request)
+    {
+        $tipeFilter = empty($request->tipe_filter) ? 'bulan tahun' : 'range tanggal';
+        $tahun = $request->tahun ?? date('Y');
+        $bulan = $request->bulan ?? date('m');
+        $rangeTanggal = explode(' - ', $request->range_tanggal);
+
+        $tanggal_awal = $rangeTanggal[0];
+        $tanggal_akhir = isset($rangeTanggal[1]) ? $rangeTanggal[1] : $rangeTanggal[0];
+
+        $tanggalList = $this->loopTanggal($tipeFilter, $bulan, $tahun, $tanggal_awal, $tanggal_akhir);
+        $data = [];
+
+        foreach ($tanggalList as $item) {
+            if ($bulan == date('m')) {
+                if (Carbon::today()->gte(Carbon::parse($item->tanggal))) {
+                    $ipByTanggal = DB::table('visitor_counts')->whereDate('created_at', $item->tanggal)->count();
+                    $data[] = (object) [
+                        'x' => date('d M', strtotime($item->tanggal)),
+                        'y' => $ipByTanggal,
+                    ];
+                }
+            } else {
+                $ipByTanggal = DB::table('visitor_counts')->whereDate('created_at', $item->tanggal)->count();
+                $data[] = (object) [
+                    'x' => date('d M', strtotime($item->tanggal)),
+                    'y' => $ipByTanggal,
+                ];
+            }
+        }
+        return response()->json([
+            'status' => 'success',
+            'data' => $data, // Data dalam format {x, y}
+        ]);
+    }
+
+    public function loopTanggal($tipeFilter = 'bulan tahun', $bulan = null, $tahun = null, $tanggal_awal = null, $tanggal_akhir = null)
+    {
+        $tahun = $tahun ?? Carbon::now()->year;
+        $bulan = $bulan ?? Carbon::now()->month;
+
+        if ($tipeFilter == 'bulan tahun') {
+            $tanggal_awal = Carbon::createFromDate($tahun, $bulan, 1)->toDateString();
+            $tanggal_akhir = Carbon::createFromDate($tahun, $bulan, Carbon::createFromDate($tahun, $bulan, 1)->daysInMonth)->toDateString();
+        }
+
+        $startDate = Carbon::parse($tanggal_awal);
+        $endDate = Carbon::parse($tanggal_akhir);
+
+        $data = [];
+        for ($date = $startDate; $date <= $endDate; $date->addDay()) {
+            $data[] = (object) ['tanggal' => $date->toDateString()];
+        }
+
+        return $data;
     }
 }
