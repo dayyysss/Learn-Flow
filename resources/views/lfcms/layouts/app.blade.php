@@ -12,7 +12,7 @@
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
   <!-- Style CSS -->
-  <link rel="stylesheet" href="{{ asset('assets/lfcms/css/output.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/lfcms/css/output.css')}}">
   <link rel="stylesheet" href="{{ asset('assets/lfcms/css/vendor/select/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/lfcms/css/vendor/summernote.min.css') }}">
 </head>
@@ -120,5 +120,4 @@
     <script src="{{ asset('assets/lfcms/js/switcher.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/layout.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/main.js') }}"></script>
-</body>
 </html>

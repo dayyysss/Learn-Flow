@@ -75,6 +75,11 @@ class Course extends Model
 
     }
 
+    public function quiz()
+    {
+        return $this->hasMany(Quiz::class);
+    }
+
     public function carts()
     {
         return $this->hasMany(Cart::class);
