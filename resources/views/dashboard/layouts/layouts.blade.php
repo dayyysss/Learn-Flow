@@ -8,6 +8,7 @@
 
     <title>@yield('page_title', 'Learn Flow | Course and LMS')</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icofont/css@1.0.0/icofont.min.css">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('assets/css/popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
