@@ -7,7 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = [
-        'user_id', 'name','slug','categories_id','deskripsi','instruktur_id','harga','harga_diskon','tanggal_mulai','tags','thumbnail','video','berbayar','rating','rating_count','kode_seri', 'status', 'tingkatan', 'publish_date'
+        'user_id',
+        'name',
+        'slug',
+        'categories_id',
+        'deskripsi',
+        'instruktur_id',
+        'harga',
+        'harga_diskon',
+        'tanggal_mulai',
+        'tags',
+        'thumbnail',
+        'video',
+        'berbayar',
+        'rating',
+        'rating_count',
+        'kode_seri',
+        'status',
+        'tingkatan',
+        'publish_date'
     ];
 
     public function users()
@@ -70,6 +88,11 @@ class Course extends Model
     public function moduls()
     {
         return $this->hasManyThrough(Modul::class, Bab::class, 'course_id', 'bab_id');
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
     }
 
 }

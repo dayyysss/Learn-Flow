@@ -29,16 +29,21 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 // Auth
-Route::get('/login', function () { return view('auth.login');})->name('login');
+Route::get('/login', function () {
+    return view('auth.login'); })->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
-Route::get('/signup', function () { return view('auth.register');})->name('register');
+Route::get('/signup', function () {
+    return view('auth.register'); })->name('register');
 Route::post('/signup', [RegisteredUserController::class, 'store'])->name('register.post');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-Route::get('/forgot-password', function () { return view('auth.forgot-password');})->name('password.request');
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password'); })->name('password.request');
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-Route::get('/reset-password/{token}', function ($token) { return view('auth.reset-password', ['token' => $token]);})->name('password.reset');
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]); })->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
-Route::get('/email/verify', function () { return view('auth.verify-email');})->name('verification.notice');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email'); })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 // Route::get('/email/verify', function () {
 //     return view('auth.verify-email');
@@ -81,7 +86,7 @@ Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index
 Route::resource('/courses', CourseController::class);
 Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dashboard.coursesCreate');
 Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
-Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard.reviews');
+Route::get('/reviews', [FeedbackController::class, 'reviews'])->name('dashboard.reviews');
 Route::get('/order-history', [CourseRegistrationController::class, 'orderHistory'])->name('dashboard.orderHistory');
 Route::resource('/settings', SettingController::class);
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
@@ -147,12 +152,13 @@ Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('q
 //wishlist
 Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
-Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');;
+Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');
+;
 
 //feedback
-Route::resource('/feedback', FeedbackController::class);
+Route::resource('/reviews', FeedbackController::class)->except(['show', 'index']);
 
-Route::controller(CertificateController::class)->group(function(){
+Route::controller(CertificateController::class)->group(function () {
     Route::get('/certificate/{courseId}', 'show')->name('certificate.index');
     Route::get('/view-certificate/{courseId}', 'viewCertificate')->name('viewCertificate');
     Route::get('/download-certificate/{courseId}', 'downloadCertificate')->name('downloadCertificate');
