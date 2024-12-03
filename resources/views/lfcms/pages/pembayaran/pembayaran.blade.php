@@ -22,7 +22,7 @@
                         <div class="shrink-0">
                             <h6 class="card-title">Total Transactions</h6>
                             <div class="card-title text-[42px] mt-5">
-                                {{-- $<span class="counter-value" data-value="{{ number_format($totalTransactions, 2) }}">0</span> --}}
+                                <span class="counter-value" data-value="{{ number_format($totalConfirmedUsers) }}">0</span>
                             </div>
                             <ul
                                 class="list-inside list-disc leading-[1.3] *:marker:text-primary-500 text-xs text-gray-500 dark:text-dark-text mt-4">
@@ -40,7 +40,7 @@
                         <div class="shrink-0">
                             <h6 class="card-title">Total Balance</h6>
                             <div class="card-title text-[42px] mt-5">
-                                {{-- $<span class="counter-value" data-value="{{ number_format($totalBalance, 2) }}">0</span> --}}
+                                <span class="counter-value" data-value="{{ number_format($totalTransactions, 2) }}">0</span>
                             </div>
                             <ul
                                 class="list-inside list-disc leading-[1.3] *:marker:text-primary-500 text-xs text-gray-500 dark:text-dark-text mt-4">

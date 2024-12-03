@@ -17,11 +17,19 @@ class PembayaranController extends Controller
             return $this->generateInvoice($orderId);
         }
 
-        // Jika tidak ada parameter invoice, tampilkan daftar pembayaran
+        // Hitung total transaksi dengan status 'confirmed'
+        $totalTransactions = CourseRegistration::where('registration_status', 'confirmed')->sum('harga');
+
+        // Hitung jumlah pengguna yang statusnya 'confirmed'
+        $totalConfirmedUsers = CourseRegistration::where('registration_status', 'confirmed')->count();
+
+        // Tampilkan daftar pembayaran dengan pagination
         $pembayaran = CourseRegistration::with('course')->paginate(5);
 
-        return view('lfcms.pages.pembayaran.pembayaran', compact('pembayaran'));
+        // Kirim data ke view
+        return view('lfcms.pages.pembayaran.pembayaran', compact('pembayaran', 'totalTransactions', 'totalConfirmedUsers'));
     }
+
 
     protected function generateInvoice($orderId)
     {
