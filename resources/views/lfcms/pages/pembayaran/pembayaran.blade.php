@@ -97,7 +97,8 @@
                                 </td>
                                 <td class="px-7 py-6">{{ number_format($item->harga, 2) }}</td>
                                 <td class="px-7 py-6">
-                                    <a class="size-8 flex-center rounded-50 bg-primary-200 dark:bg-dark-icon">
+                                    <a href="{{ route('pembayaranCMS', ['order_id' => $item->order_id]) }}" target="_blank"
+                                        class="size-8 flex-center rounded-50 bg-primary-200 dark:bg-dark-icon">
                                         <i class="ri-download-cloud-2-line text-primary-500"></i>
                                     </a>
                                 </td>
