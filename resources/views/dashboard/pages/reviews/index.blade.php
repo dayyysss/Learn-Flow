@@ -53,19 +53,19 @@
                                                 {{ $review->user->name }}
                                             </p>
                                         </td>
-
+                    
                                         <!-- Date -->
                                         <td class="py-4 px-6 text-blackColor dark:text-blackColor-dark">
                                             <p>{{ $review->created_at->format('F d, Y') }}</p>
                                         </td>
-
+                    
                                         <!-- Review Details -->
                                         <td class="py-4 px-6">
                                             <!-- Course Name -->
                                             <p class="font-semibold text-blackColor dark:text-blackColor-dark">
                                                 Course: {{ $review->course->name }}
                                             </p>
-
+                    
                                             <!-- Star Ratings and Comments -->
                                             <div class="flex flex-wrap sm:flex-nowrap items-center w-full sm:w-auto">
                                                 <div class="flex items-center gap-2">
@@ -75,29 +75,25 @@
                                                             @php
                                                                 // Menghitung apakah bintang tersebut penuh, setengah, atau kosong
                                                                 $fullStar = $i <= floor($review->rating); // Bintang penuh
-                                                                $halfStar =
-                                                                    $i == ceil($review->rating) &&
-                                                                    $review->rating - floor($review->rating) >= 0.5; // Bintang setengah
+                                                                $halfStar = $i == ceil($review->rating) && $review->rating - floor($review->rating) >= 0.5; // Bintang setengah
                                                             @endphp
-
+                    
                                                             @if ($fullStar)
                                                                 <i class="icofont icofont-star" style="color: #fbbf24;"></i>
                                                             @elseif ($halfStar)
-                                                                <i class="icofont icofont-star-half"
-                                                                    style="color: #fbbf24;"></i>
+                                                                <i class="icofont icofont-star-half" style="color: #fbbf24;"></i>
                                                             @else
                                                                 <i class="icofont icofont-star" style="color: #e5e7eb;"></i>
                                                             @endif
                                                         @endfor
                                                     </div>
-
+                    
                                                     <!-- Comments -->
-                                                    <p
-                                                        class="text-sm text-blackColor dark:text-blackColor-dark overflow-hidden truncate max-w-[200px] sm:max-w-full">
+                                                    <p class="text-sm text-blackColor dark:text-blackColor-dark overflow-hidden truncate max-w-[200px] sm:max-w-full">
                                                         {{ $review->komentar }}
                                                     </p>
                                                 </div>
-
+                    
                                                 <!-- Review Count -->
                                                 <p class="text-sm text-blackColor dark:text-blackColor-dark ml-2">
                                                     ({{ $review->total_reviewers }} ulasan)
@@ -109,7 +105,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    
                     <!-- content 2 -->
                     <div class="hidden transition-all duration-300">
                         <div class="overflow-auto">
@@ -117,11 +113,10 @@
                                 <div
                                     class="text-sm md:text-base text-blackColor dark:text-blackColor-dark bg-lightGrey5 dark:bg-whiteColor-dark leading-1.8 md:leading-1.8 w-full md:w-3/4 mx-auto p-4 rounded-lg shadow-md">
                                     <!-- Header -->
-                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4 px-4 md:px-0">
-                                        <div class="py-3 font-semibold text-left col-span-1">Kursus</div>
-                                        <div class="py-3 font-semibold text-center col-span-1 md:col-span-1">Ulasan</div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                        <div class="px-5 py-3 font-semibold text-left">Kursus</div>
+                                        <div class="px-5 py-3 font-semibold text-center">Ulasan</div>
                                     </div>
-                                    
 
                                     <!-- Body (Reviews) -->
                                     <div class="overflow-x-auto">
