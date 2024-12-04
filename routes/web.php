@@ -27,6 +27,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 use App\Http\Controllers\Admin\ModulProgressController;
+use App\Http\Controllers\LFCMS\MenuListController;
 use App\Http\Controllers\LFCMS\MenuTypeController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -73,7 +74,6 @@ Route::prefix('lfcms')->group(function () {
     Route::controller(DashboardCMSController::class)->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
-        Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
         Route::get('/klien', 'klienCMS')->name('klienCMS');
         Route::resource('/halaman', PageController::class);
         Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
@@ -83,8 +83,26 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/pembayaran', 'pembayaranCMS')->name('pembayaranCMS');
         Route::get('/riwayat-pembayaran', 'historypembayaranCMS')->name('historypembayaranCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
-        Route::resource('/menu_type', MenuTypeController::class);
+
     });
+
+        //user
+        Route::resource('/administrator', UserController::class);
+        
+
+        //menu
+        Route::resource('/menu', MenuListController::class);
+        Route::resource('/menu_type', MenuTypeController::class);
+        Route::get('/menu/{menuTypeId}/menuList', [MenuListController::class, 'getMenusByMenuType']);
+        Route::post('/menu/update-order', [MenuListController::class, 'updateOrder'])->name('menu.updateOrder');
+        Route::post('/menu/update-parent', [MenuListController::class, 'updateParent'])->name('menu.updateParent');
+        Route::post('/menu/update-order', [MenuListController::class, 'updateOrder'])->name('menu.updateOrder');
+        Route::post('/menu/update-parent', [MenuListController::class, 'updateParent'])->name('menu.updateParent');
+        Route::post('/menu/remove-parent', [MenuListController::class, 'removeParent'])->name('menu.removeParent');
+
+
+
+
 });
 
 // Dashboard

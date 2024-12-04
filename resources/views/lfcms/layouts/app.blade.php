@@ -15,6 +15,12 @@
   <link rel="stylesheet" href="{{ asset('assets/lfcms/css/output.css')}}">
   <link rel="stylesheet" href="{{ asset('assets/lfcms/css/vendor/select/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/lfcms/css/vendor/summernote.min.css') }}">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="/node_modules/nestable2/jquery.nestable.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.css">
+
+
 </head>
 <body class="bg-body-light dark:bg-dark-body group-data-[theme-width=box]:container group-data-[theme-width=box]:max-w-screen-3xl xl:group-data-[theme-width=box]:px-3">
     {{-- <div id="loader" class="w-screen h-screen flex-center bg-white dark:bg-dark-card fixed inset-0 z-[9999]">
