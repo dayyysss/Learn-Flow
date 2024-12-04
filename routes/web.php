@@ -132,6 +132,7 @@ Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->n
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::get('/quiz/{slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 Route::resource('/certificate', CertificateController::class);
 

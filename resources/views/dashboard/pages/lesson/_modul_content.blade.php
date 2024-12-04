@@ -35,7 +35,7 @@
     @endif
 
     <div class="deskripsi mt-5">
-        <p>{{ $modul->materi }}</p>
+        <p>{!! $modul->materi !!}</p>
     </div>
 
     <!-- Navigation Buttons -->
