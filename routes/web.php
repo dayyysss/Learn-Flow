@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LFCMS\PembayaranController;
 use App\Models\Course;
 use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
@@ -80,7 +81,7 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/artikel', 'artikelCMS')->name('artikelCMS');
         Route::get('/kategori-artikel', 'kategoriartikelCMS')->name('kategoriartikelCMS');
-        Route::get('/pembayaran', 'pembayaranCMS')->name('pembayaranCMS');
+        Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
         Route::get('/riwayat-pembayaran', 'historypembayaranCMS')->name('historypembayaranCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
 
