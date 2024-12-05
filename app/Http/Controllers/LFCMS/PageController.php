@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\LFCMS;
 
 use App\Models\Page;
 use Illuminate\Support\Str;
@@ -12,11 +12,20 @@ use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller
 {   
-    public function index()
+    public function index(Request $request)
     {
-        $pages = Page::with('users')->paginate(10); // with() sebelum paginate()
-        return view('lfcms.pages.halaman.index', compact('pages'));
+        $search = $request->input('search');
+
+        $pages = Page::when($search, function ($query, $search) {
+            return $query->where('judul', 'like', "%{$search}%")
+                        ->orWhereHas('users', function ($query) use ($search) {
+                            $query->where('name', 'like', "%{$search}%"); 
+                        });
+        })->paginate(10); 
+
+        return view('lfcms.pages.halaman.index', compact('pages', 'search')); 
     }
+
     
     public function create()
     {

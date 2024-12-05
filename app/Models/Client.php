@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sponsor extends Model
+class Client extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'status', 'image', 'url'
+        'name', 'image', 'url', 'status'
     ];
 }
