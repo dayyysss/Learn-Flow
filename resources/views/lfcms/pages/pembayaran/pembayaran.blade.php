@@ -88,13 +88,10 @@
                                 <td class="px-7 py-6">{{ \Carbon\Carbon::parse($item->order_date)->format('d-m-Y') }}</td>
                                 <td class="px-7 py-6">{{ $item->course->name }}</td>
                                 <td class="px-7 py-6">
-                                    <span
-                                        class="badge {{ $item->registration_status === 'confirmed' ? 'badge-success' : 'badge-secondary-outline' }}">
-                                        <span
-                                            class="badge {{ $item->registration_status === 'Menunggu' ? 'badge-' : 'badge-secondary-outline' }}">
-                                            {{ ucfirst($item->registration_status) }}
-                                        </span>
-                                </td>
+                                    <span class="badge {{ $item->registration_status === 'Menunggu' ? 'badge-danger' : 'badge-secondary-outline' }}">
+                                        {{ ucfirst($item->registration_status) }}
+                                    </span>
+                                </td>     
                                 <td class="px-7 py-6">{{ number_format($item->harga, 2) }}</td>
                                 <td class="px-7 py-6">
                                     <a href="{{ route('pembayaranCMS', ['order_id' => $item->order_id]) }}" target="_blank"
