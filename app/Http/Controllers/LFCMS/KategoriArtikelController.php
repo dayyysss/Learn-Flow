@@ -72,8 +72,9 @@ class KategoriArtikelController extends Controller
     }
 
     public function destroy(CategoryArtikel $kategori_artikel)
-    {
-        $kategori_artikel->delete();
-        return response()->json(['message' => 'Data deleted successfully']);
-    }
+{
+    $kategori_artikel->delete();
+    return response()->json(['message' => 'Artikel berhasil dihapus']);
+}
+
 }

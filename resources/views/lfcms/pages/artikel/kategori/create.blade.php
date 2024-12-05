@@ -151,7 +151,6 @@
             .then((data) => {
                 alert("Kategori artikel berhasil ditambahkan");
                 closeModal();
-                location.reload();
             })
             .catch((error) => {
                 console.error("Error:", error);
