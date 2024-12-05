@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('page_title', 'Learn Flow | Course and LMS')</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icofont/css@1.0.0/icofont.min.css">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('assets/css/popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
@@ -14,8 +16,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- @vite(['public/assets/css/style.css']) --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://cdn.jsdelivr.net/npm/moment/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Versi lebih stabil -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> <!-- Chart.js -->
     {{-- @vite(['resources/css/app.css']) --}}
     @yield('head')
 </head>
@@ -115,6 +121,7 @@
     <script src="{{ asset('assets/js/vanilla-tilt.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    {{-- @vite(['public/assets/js/main.js']) --}}
     @notifyJs
 </body>
 

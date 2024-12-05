@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hak_akses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('menu_lists', function (Blueprint $table) {
+            $table->string('slug')->nullable()->change();
+            $table->string('url')->nullable()->change();
+            $table->string('ikon')->nullable()->change();
         });
     }
 
@@ -22,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hak_akses');
+        Schema::table('menu_lists', function (Blueprint $table) {
+            //
+        });
     }
 };

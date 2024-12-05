@@ -29,11 +29,22 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements LoginResponse {
             public function toResponse($request)
             {
-                notify()->success('Login berhasil!', 'Selamat datang!');
-                return redirect()->route('dashboard');
+                if (auth()->attempt($request->only('email', 'password'))) {
+                    if (auth()->user()->role_id == 1) {
+                        return redirect('/lfcms/dashboard');
+                    }
+
+                    notify()->success('Login berhasil!', 'Selamat datang!');
+                    return redirect()->route('dashboard');
+                }
+
+                return redirect()->route('login')->withErrors([
+                    'email' => 'Email atau password salah.',
+                ]);
             }
             }
         );
+
 
         $this->app->instance(
             LogoutResponse::class,

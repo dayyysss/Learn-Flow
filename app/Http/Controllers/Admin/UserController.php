@@ -24,4 +24,11 @@ class UserController extends Controller
     return view('landing.pages.instructor.instructor-detail', compact('instruktur'));
 }
 
+public function index()
+{
+    $user = User::all();
+
+    return view('lfcms.pages.user.administrator', compact('user'));
+}
+
 }

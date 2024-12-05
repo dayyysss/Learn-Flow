@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Quiz\QuizController;
+use App\Http\Controllers\LFCMS\PembayaranController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
@@ -25,27 +26,39 @@ use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\ModulProgressController;
+use App\Http\Controllers\LFCMS\MenuListController;
+use App\Http\Controllers\LFCMS\MenuTypeController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 // Auth
-Route::get('/login', function () { return view('auth.login');})->name('login');
+Route::get('/login', function () {
+    return view('auth.login'); })->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
-Route::get('/signup', function () { return view('auth.register');})->name('register');
+Route::get('/signup', function () {
+    return view('auth.register'); })->name('register');
 Route::post('/signup', [RegisteredUserController::class, 'store'])->name('register.post');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-Route::get('/forgot-password', function () { return view('auth.forgot-password');})->name('password.request');
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password'); })->name('password.request');
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-Route::get('/reset-password/{token}', function ($token) { return view('auth.reset-password', ['token' => $token]);})->name('password.reset');
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]); })->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
-Route::get('/email/verify', function () { return view('auth.verify-email');})->name('verification.notice');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email'); })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 // Route::get('/email/verify', function () {
 //     return view('auth.verify-email');
 // })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
+
+//apexchart
+Route::get('/visitor-count', [DashboardController::class, 'visitor']);
 
 // Landing Page
 Route::controller(LandingPageController::class)->group(function () {
@@ -65,16 +78,35 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
-        Route::resource('/klien',  ClientController::class);
+        Route::get('/klien', 'klienCMS')->name('klienCMS');
         Route::resource('/halaman', PageController::class);
         Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/artikel', 'artikelCMS')->name('artikelCMS');
         Route::get('/kategori-artikel', 'kategoriartikelCMS')->name('kategoriartikelCMS');
-        Route::get('/pembayaran', 'pembayaranCMS')->name('pembayaranCMS');
-        Route::get('/riwayat-pembayaran', 'historypembayaranCMS')->name('historypembayaranCMS');
+        Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
+        Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('historypembayaranCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
+
     });
+
+        //user
+        Route::resource('/administrator', UserController::class);
+        
+
+        //menu
+        Route::resource('/menu', MenuListController::class);
+        Route::resource('/menu_type', MenuTypeController::class);
+        Route::get('/menu/{menuTypeId}/menuList', [MenuListController::class, 'getMenusByMenuType']);
+        Route::post('/menu/update-order', [MenuListController::class, 'updateOrder'])->name('menu.updateOrder');
+        Route::post('/menu/update-parent', [MenuListController::class, 'updateParent'])->name('menu.updateParent');
+        Route::post('/menu/update-order', [MenuListController::class, 'updateOrder'])->name('menu.updateOrder');
+        Route::post('/menu/update-parent', [MenuListController::class, 'updateParent'])->name('menu.updateParent');
+        Route::post('/menu/remove-parent', [MenuListController::class, 'removeParent'])->name('menu.removeParent');
+
+
+
+
 });
 
 // Dashboard
@@ -83,7 +115,7 @@ Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index
 Route::resource('/courses', CourseController::class);
 Route::get('/create', [DashboardController::class, 'coursesCreate'])->name('dashboard.coursesCreate');
 Route::get('/message', [DashboardController::class, 'message'])->name('dashboard.message');
-Route::get('/reviews', [DashboardController::class, 'reviews'])->name('dashboard.reviews');
+Route::get('/reviews', [FeedbackController::class, 'reviews'])->name('dashboard.reviews');
 Route::get('/order-history', [CourseRegistrationController::class, 'orderHistory'])->name('dashboard.orderHistory');
 Route::resource('/settings', SettingController::class);
 Route::get('/my-profile', [DashboardController::class, 'myProfile'])->name('dashboard.myProfile');
@@ -103,6 +135,7 @@ Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->n
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::get('/quiz/{slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 Route::resource('/certificate', CertificateController::class);
 
@@ -149,15 +182,21 @@ Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('q
 //wishlist
 Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
-Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');;
+Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');
+;
 
 //feedback
-Route::resource('/feedback', FeedbackController::class);
+Route::resource('/reviews', FeedbackController::class)->except(['show', 'index']);
 
-Route::controller(CertificateController::class)->group(function(){
+Route::controller(CertificateController::class)->group(function () {
     Route::get('/certificate/{courseId}', 'show')->name('certificate.index');
     Route::get('/view-certificate/{courseId}', 'viewCertificate')->name('viewCertificate');
     Route::get('/download-certificate/{courseId}', 'downloadCertificate')->name('downloadCertificate');
 });
 
+// Rute untuk memperbarui progres modul
+Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'updateModulProgress'])->name('modul.updateProgress');
+
+// Rute untuk update progres berbasis scroll
+Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
 

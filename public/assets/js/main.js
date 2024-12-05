@@ -60,8 +60,8 @@ popup();
 countDown();
 
 // charts
-lineChart();
-pieChart();
+// lineChart();
+// pieChart();
 
 // click count
 count();

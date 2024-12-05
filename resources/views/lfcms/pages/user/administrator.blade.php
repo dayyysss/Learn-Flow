@@ -16,121 +16,128 @@
                                 <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                     <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                 </span>
-                                <input type="text" placeholder="Search for..." class="form-input pl-[30px]">
+                                <input type="text" id="searchInput" placeholder="Search for..." class="form-input pl-[30px]">
                             </form>
-                            <button type="button" class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5">
+                            
+                            <button type="button" id="refreshButton" class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5">
                                 <i class="ri-loop-right-line text-inherit text-sm"></i>
                                 <span>Refresh</span>
                             </button>
                         </div>
-                        <button class="btn b-light btn-primary-light dk-theme-card-square">
+                        <button id="addDataButton" class="btn b-light btn-primary-light dk-theme-card-square">
                             <i class="ri-add-fill text-inherit"></i>
                             <span>Add Data</span>
                         </button>
+
+                        
+
+            
                     </div>
                     <div class="overflow-x-auto mt-5">
                         <table class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
                             <thead>
                                 <tr class="text-primary-500">
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">No</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Nama</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Email</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Email diverifikasi pada</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">Aksi</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">No</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Nama</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Email</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Email diverifikasi pada</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                <tr> 
-                                    <td class="p-6 py-4">1</td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-3.5">
-                                            <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                <img src="assets/images/student/student-1.png" alt="student">
-                                            </a>
-                                            <div>
-                                                <h6 class="leading-none text-heading font-semibold">
-                                                    <a href="#">Eleanor Pena</a>
-                                                </h6>
-                                                <p class="font-spline_sans text-sm font-light mt-1">UX/UI Design</p>
+                            <tbody id="dataContainer" class="divide-y divide-gray-200 dark:divide-dark-border-three">
+                                @foreach ($user as $index => $user)
+                                    <tr>
+                                        <td class="p-6 py-4">{{ $index + 1 }}</td>
+                                        <td class="p-6 py-4">{{ $user->first_name . ' ' . $user->last_name }}</td>
+                                        <td class="p-6 py-4">{{ $user->email }}</td>
+                                        <td class="p-6 py-4">{{ $user->email_verified_at ?? '-' }}</td>
+                                        <td class="p-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <a href="#" class="btn-icon btn-primary-icon-light size-7">
+                                                    <i class="ri-edit-2-line text-inherit text-[13px]"></i>
+                                                </a>
+                                                <a href="#" class="btn-icon btn-danger-icon-light size-7">
+                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                </a>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 py-4">Elaonor@gmail.com</td>
-                                    <td class="p-6 py-4">2023-10-22</td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <a href="#" class="btn-icon btn-primary-icon-light size-7">
-                                                <i class="ri-edit-2-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <a href="#" class="btn-icon btn-danger-icon-light size-7">
-                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <div class="relative ml-5">
-                                                <button data-popover-target="td-3-0" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                    <i class="ri-more-2-fill text-inherit"></i>
-                                                </button>
-                                                <ul id="td-3-0" class="hidden popover-target invisible [&.visible]:!block" data-popover>
-                                                    <li>
-                                                        <a class="popover-item" href="#">More</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
+                            
                         </table>
                     </div>
-                    <!-- START PAGINATION -->
-                    <div class="flex-center-between mt-5">
-                        <div class="font-spline_sans text-sm text-gray-900 dark:text-dark-text">Showing 1 to 8 of 20 entries</div>
-                        <nav>
-                            <ul class="flex items-center gap-1">
-                                <li>
-                                    <a href="#" class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text hover:bg-primary-500 hover:text-white dark:bg-dark-card-two">
-                                        <i class="ri-arrow-left-s-line text-inherit"></i>                                            
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text [&.active]:bg-primary-500 [&.active]:text-white">1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text [&.active]:bg-primary-500 [&.active]:text-white active">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text [&.active]:bg-primary-500 [&.active]:text-white">3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text [&.active]:bg-primary-500 [&.active]:text-white">4</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text [&.active]:bg-primary-500 [&.active]:text-white">
-                                        <i class="ri-more-fill text-inherit"></i>                                              
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text [&.active]:bg-primary-500 [&.active]:text-white">10</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text hover:bg-primary-500 hover:text-white dark:bg-dark-card-two">
-                                        <i class="ri-arrow-right-s-line text-inherit"></i>                                                                                          
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                    @include('lfcms.components.pagination.pagination')
                 </div>
-                <!-- Prism Code -->
-                <div class="p-6 hidden">
-                    <pre>
-                        <code class="language-markup">
-                            &lt;p>Sorry we can't show the huge data table&lt;/p>
-                        </code>
-                    </pre>
-                </div>
-                <!-- Prism Code -->
             </div>
+            
+            @include('lfcms.pages.user.create')
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("refreshButton").addEventListener("click", function () {
+        const url = "/lfcms/administrator"; // Pastikan endpoint ini mengembalikan JSON
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Gagal memuat data");
+                }
+                return response.json();
+            })
+            .then(data => {
+                const container = document.getElementById("dataContainer");
+                container.innerHTML = "";
+
+                if (data.length > 0) {
+                    data.forEach((user, index) => {
+                        container.innerHTML += `
+                            <tr>
+                                <td class="p-6 py-4">${index + 1}</td>
+                                <td class="p-6 py-4">${user.first_name} ${user.last_name}</td>
+                                <td class="p-6 py-4">${user.email}</td>
+                                <td class="p-6 py-4">${user.email_verified_at || '-'}</td>
+                                <td class="p-6 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <a href="#" class="btn-icon btn-primary-icon-light size-7">
+                                            <i class="ri-edit-2-line text-inherit text-[13px]"></i>
+                                        </a>
+                                        <a href="#" class="btn-icon btn-danger-icon-light size-7">
+                                            <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>`;
+                    });
+                } else {
+                    container.innerHTML = `<tr><td colspan="5" class="p-6 text-center">Tidak ada data yang tersedia</td></tr>`;
+                }
+            })
+            .catch(error => {
+                console.error("Terjadi kesalahan:", error);
+            });
+    });
+</script>
+
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+    const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
+    const rows = document.querySelectorAll("#dataContainer tr"); // Ambil semua baris dalam tabel
+
+    rows.forEach(row => {
+        const name = row.children[1].textContent.toLowerCase(); // Ambil kolom nama
+        const email = row.children[2].textContent.toLowerCase(); // Ambil kolom email
+
+        // Periksa apakah query ada di nama atau email
+        if (name.includes(query) || email.includes(query)) {
+            row.style.display = ""; // Tampilkan baris
+        } else {
+            row.style.display = "none"; // Sembunyikan baris
+        }
+    });
+});
+
+</script>
 @endsection

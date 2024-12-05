@@ -160,5 +160,11 @@
                                 </ul>
                             </nav>
                         </div>
+                        @include('lfcms.components.pagination.pagination')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
