@@ -13,14 +13,12 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
-use App\Http\Controllers\LFCMS\MenuTypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Quiz\QuizController;
 use App\Http\Controllers\LFCMS\PembayaranController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
-use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\EnrolledCourseController;
@@ -30,6 +28,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\ModulProgressController;
+use App\Http\Controllers\LFCMS\MenuListController;
+use App\Http\Controllers\LFCMS\MenuTypeController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -75,7 +76,6 @@ Route::prefix('lfcms')->group(function () {
     Route::controller(DashboardCMSController::class)->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
-        Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
         Route::get('/klien', 'klienCMS')->name('klienCMS');
         Route::resource('/halaman', PageController::class);
         Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
@@ -85,8 +85,26 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
         Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('historypembayaranCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
-        Route::resource('/menu_type', MenuTypeController::class);
+
     });
+
+        //user
+        Route::resource('/administrator', UserController::class);
+        
+
+        //menu
+        Route::resource('/menu', MenuListController::class);
+        Route::resource('/menu_type', MenuTypeController::class);
+        Route::get('/menu/{menuTypeId}/menuList', [MenuListController::class, 'getMenusByMenuType']);
+        Route::post('/menu/update-order', [MenuListController::class, 'updateOrder'])->name('menu.updateOrder');
+        Route::post('/menu/update-parent', [MenuListController::class, 'updateParent'])->name('menu.updateParent');
+        Route::post('/menu/update-order', [MenuListController::class, 'updateOrder'])->name('menu.updateOrder');
+        Route::post('/menu/update-parent', [MenuListController::class, 'updateParent'])->name('menu.updateParent');
+        Route::post('/menu/remove-parent', [MenuListController::class, 'removeParent'])->name('menu.removeParent');
+
+
+
+
 });
 
 // Dashboard
@@ -115,6 +133,7 @@ Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->n
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::get('/quiz/{slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 Route::resource('/certificate', CertificateController::class);
 

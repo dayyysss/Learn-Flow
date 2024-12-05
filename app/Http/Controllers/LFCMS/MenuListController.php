@@ -213,7 +213,7 @@ class MenuListController extends Controller
         $menus = MenuList::where('menutype_id', $menuTypeId)->get();
 
         // Pastikan view menampilkan daftar menu yang benar
-        $html = view('admin.menu.partials.menu_list', compact('menus'))->render();
+        $html = view('lfcms.pages.menu.partials.menu_list', compact('menus'))->render();
 
         return response()->json(['html' => $html]);
     }
@@ -378,7 +378,7 @@ class MenuListController extends Controller
         $assignedPermissions = Permission::where('name', 'like', $menu->slug . '.%')->pluck('name')->toArray(); // Permissions terkait
 
         // Mengirimkan data ke view
-        return view('admin.menu.modal', compact('menu', 'menuTypes', 'allPermissions', 'assignedPermissions'));
+        return view('lfcms.pages.menu.modal', compact('menu', 'menuTypes', 'allPermissions', 'assignedPermissions'));
     }
 
     public function update(Request $request, $id)
