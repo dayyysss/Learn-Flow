@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
+use App\Http\Controllers\LFCMS\MenuListController;
+use App\Http\Controllers\LFCMS\MenuTypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Quiz\QuizController;
 use App\Http\Controllers\LFCMS\PembayaranController;
@@ -20,18 +22,17 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\LFCMS\ClientController;
 use App\Http\Controllers\LFCMS\PageController;
+use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
+use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\Admin\ModulProgressController;
-use App\Http\Controllers\LFCMS\MenuListController;
-use App\Http\Controllers\LFCMS\MenuTypeController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -83,7 +84,7 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/artikel', 'artikelCMS')->name('artikelCMS');
-        Route::get('/kategori-artikel', 'kategoriartikelCMS')->name('kategoriartikelCMS');
+        Route::resource('/kategori-artikel', KategoriArtikelController::class);
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
         Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('historypembayaranCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
@@ -142,8 +143,6 @@ Route::resource('/certificate', CertificateController::class);
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
 Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
 Route::resource('/kategori-kursus', CategoryCourseController::class);
-Route::resource('/artikel', ArtikelController::class);
-Route::resource('/kategori-artikel', CategoryArtikelController::class);
 
 // course-registrations
 Route::get('/course-registrations/create', [CourseRegistrationController::class, 'create'])->name('course-registrations.create');
