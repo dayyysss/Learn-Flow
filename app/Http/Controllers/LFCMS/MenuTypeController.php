@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Menu;
+namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
 use App\Models\MenuList;
