@@ -4,7 +4,8 @@
 @section('title2', 'Menu')
 
 @section('content')
-    <div
+
+<div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="flex flex-col md:flex-row gap-5">
         <!-- Sidebar: Tipe Menu -->
@@ -12,9 +13,11 @@
             <div class="flex mb-5 justify-between items-center">
                 <label>Tipe Menu:</label>
                 <div class="w-fit">
+                 
                     <button id="openModal" class="btn btn-primary bg-indigo-700 items-center flex">
-                        {{-- <x-heroicon-s-plus class="w-4 mr-1 text-white" />Tambah --}}Tambah
+                        Tambah
                     </button>
+                    
                 </div>
             </div>
             <div id="menu_type">
@@ -27,7 +30,7 @@
                         </div>
                         <div class="flex">
                             <a href="javascript:void(0)" class="text-blue-600 hover:underline" onclick="openEditModal({{ json_encode($type) }})">
-                                {{-- <x-heroicon-o-pencil-square class="w-4 text-cyan-800" /> --}} Edit
+                                Edit
                             </a>
                             <form id="deleteForm-{{ $type->id }}"
                                 action="{{ route('menu_type.destroy', $type->id) }}" method="POST"
@@ -37,7 +40,7 @@
                                 <div id="deleteContainer-{{ $type->id }}" style="display:inline;">
                                     <button type="button" class="btn-sm btn-danger delete-button"
                                         onclick="confirmDelete({{ $type->id }})">
-                                        {{-- <x-heroicon-o-trash class="w-4 text-cyan-800" /> --}}Delete
+                                       hapus
                                     </button>
                                 </div>
                             </form>
@@ -53,11 +56,11 @@
                 <h2 class="mb-2 text-left md:mb-0">Menu</h2>
                 <div class="flex gap-3">
                     <button id="saveOrder" class="btn bg-blue-500 btn-primary" style="display: none;">Simpan</button>
-                    <a href="/sally/hak-akses" class="flex btn btn-primary bg-blue-500">
-                        {{-- <x-heroicon-s-lock-closed class="w-4 mr-1 text-white" />Hak Akses Menu --}} Hak Akses
+                    <a href="/lfcms/hak-akses" class="flex btn btn-primary bg-blue-500">
+                        Hak Akses Menu
                     </a>
                     <button id="openModalMenuList" class="btn bg-indigo-700 btn-primary items-center flex">
-                        {{-- <x-heroicon-o-plus class="w-4 mr-1 text-white" />Tambah --}} Tambah
+                        Tambah
                     </button>
                 </div>
             </div>
@@ -75,7 +78,7 @@
 <!-- Tambahkan FontAwesome Icon Picker jika diperlukan -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"></script>
 <!-- Tambahkan Custom JS -->
-<script src="{{ asset('assets\lfcms\js\pages\menu.js') }}">
+<script src="{{ asset('assets/lfcms/js/pages/menu.js') }}"></script>
 
 <script>
     $(document).ready(function() {
@@ -109,13 +112,13 @@
                             ${menu.name}
                             <div class="flex">
                                 <a href="javascript:void(0)" class="text-blue-600 hover:underline" onclick='openEditModalList(${JSON.stringify(menu)})'>
-                                    
+                                   Edit
                                 </a>
                                 <form action="{{ route('menu.destroy', '') }}/${menu.id}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                       
+                                       hapus
                                     </button>
                                 </form>
                             </div>

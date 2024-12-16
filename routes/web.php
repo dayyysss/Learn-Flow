@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\HakAksesController;
 use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\LFCMS\MenuListController;
 use App\Http\Controllers\LFCMS\MenuTypeController;
@@ -100,6 +101,15 @@ Route::prefix('lfcms')->group(function () {
         Route::post('/menu/update-order', [MenuListController::class, 'updateOrder'])->name('menu.updateOrder');
         Route::post('/menu/update-parent', [MenuListController::class, 'updateParent'])->name('menu.updateParent');
         Route::post('/menu/remove-parent', [MenuListController::class, 'removeParent'])->name('menu.removeParent');
+
+        //hak Akses
+        Route::resource('/hak-akses', HakAksesController::class);
+        Route::put('role/{id}', [HakAksesController::class, 'updateRole'])->name('role.update');
+        Route::get('/menu-sidebar', [HakAksesController::class, 'indexSidebar'])->name('indexbyId');
+        Route::get('hak-akses/get-permissions', [HakAksesController::class, 'getPermissionsForRole'])->name('hak-akses.getPermissions');
+        Route::get('hak-akses/{roleId}', [HakAksesController::class, 'indexbyRole'])->name('HakAkses.index');
+        Route::delete('/role/{id}', [HakAksesController::class, 'destroy'])->name('role.destroy');
+
 
 
 
