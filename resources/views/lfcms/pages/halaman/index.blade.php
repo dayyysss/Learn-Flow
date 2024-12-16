@@ -14,17 +14,16 @@
                         <div class="flex items-center gap-5">
                             <!-- Form Pencarian -->
                             <form class="max-w-80 relative" method="GET" action="{{ route('halaman.index') }}">
-                                <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
-                                    <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
-                                </span>
-                                <input 
-                                    type="text" 
-                                    name="search" 
-                                    value="{{ request('search') }}" 
-                                    placeholder="Search for..." 
-                                    class="form-input pl-[30px]">
-                            </form>
-
+                            <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
+                                <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
+                            </span>
+                            <input 
+                                type="text" 
+                                name="search" 
+                                value="{{ $search ?? '' }}" 
+                                placeholder="Search for..." 
+                                class="form-input pl-[30px]">
+                        </form>
                             <!-- Tombol Refresh -->
                             <button 
                                 type="button" 
@@ -66,7 +65,7 @@
                                     </td>
                                     <td class="p-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <a href="{{ route('halaman.create', $page->id) }}" class="btn-icon btn-primary-icon-light size-7">
+                                            <a href="{{ route('halaman.edit', $page->id) }}" class="btn-icon btn-primary-icon-light size-7">
                                                 <i class="ri-edit-line"></i>
                                             </a>
                                             <form action="{{ route('halaman.destroy', $page->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
@@ -92,10 +91,58 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
-                <div class="mt-5">
-                    {{ $pages->links() }}
+                <!-- START PAGINATION -->
+                <div class="flex-center-between mt-5">
+                    <div class="font-spline_sans text-sm text-gray-900 dark:text-dark-text">
+                        Showing {{ $pages->firstItem() }} to {{ $pages->lastItem() }} of {{ $pages->total() }} entries
+                    </div>
+                    <nav>
+                        <ul class="flex items-center gap-1">
+                            <!-- Previous Page Link -->
+                            @if ($pages->onFirstPage())
+                                <li>
+                                    <span class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-500 dark:text-dark-text">
+                                        <i class="ri-arrow-left-s-line text-inherit"></i>
+                                    </span>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ $pages->previousPageUrl() }}"
+                                        class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text hover:bg-primary-500 hover:text-white dark:bg-dark-card-two">
+                                        <i class="ri-arrow-left-s-line text-inherit"></i>
+                                    </a>
+                                </li>
+                            @endif
+
+                            <!-- Page Numbers -->
+                            @foreach ($pages->getUrlRange(1, $pages->lastPage()) as $page => $url)
+                                <li>
+                                    <a href="{{ $url }}"
+                                        class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text {{ $pages->currentPage() == $page ? 'bg-primary-500 text-white' : '' }}">
+                                        {{ $page }}
+                                    </a>
+                                </li>
+                            @endforeach
+
+                            <!-- Next Page Link -->
+                            @if ($pages->hasMorePages())
+                                <li>
+                                    <a href="{{ $pages->nextPageUrl() }}"
+                                        class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text hover:bg-primary-500 hover:text-white dark:bg-dark-card-two">
+                                        <i class="ri-arrow-right-s-line text-inherit"></i>
+                                    </a>
+                                </li>
+                            @else
+                                <li>
+                                    <span class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-500 dark:text-dark-text">
+                                        <i class="ri-arrow-right-s-line text-inherit"></i>
+                                    </span>
+                                </li>
+                            @endif
+                        </ul>
+                    </nav>
                 </div>
+                <!-- END PAGINATION -->
             </div>
         </div>
     </div>
