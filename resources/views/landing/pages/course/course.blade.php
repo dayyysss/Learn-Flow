@@ -490,7 +490,7 @@
                                         'bg-primaryColor hover:bg-primaryColor');
                                     button.addClass(
                                         'bg-black bg-opacity-15'
-                                        ); // Kembalikan warna default
+                                    ); // Kembalikan warna default
                                     button.find('i').removeClass(
                                         'text-white'); // Kembalikan warna ikon
                                 },

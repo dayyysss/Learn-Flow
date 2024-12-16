@@ -448,7 +448,7 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Galeri Foto 
+                                Galeri Foto
                             </h4>
                             <div class="gallary-container">
                                 <div class="popup">

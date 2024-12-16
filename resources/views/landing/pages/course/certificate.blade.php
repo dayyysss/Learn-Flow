@@ -15,7 +15,7 @@
                 <img class="absolute right-[30px] top-[212px] md:right-10 md:top-[157px] lg:right-[45px] lg:top-[100px] animate-move-hor"
                     src="{{ asset('assets/images/herobanner/herobanner__5.png') }}" alt="">
             </div>
-            
+
             <!-- container for content -->
             <div class="container">
                 <div class="text-center">
@@ -23,23 +23,24 @@
                         <div class="w-full max-w-lg">
                             <div class="p-6 text-center mb-10">
                                 <!-- Displaying PDF Certificate -->
-                                <iframe id="openModal" src="{{ route('viewCertificate', ['certificateId' => $certificateId]) }}#toolbar=0&navpanes=0"
+                                <iframe id="openModal"
+                                    src="{{ route('viewCertificate', ['certificateId' => $certificateId]) }}#toolbar=0&navpanes=0"
                                     class="flex ml-auto mr-auto mt-10 justify-center" width="605px" height="425">
-                            </iframe>
-                            <br>
-                            
-                            <!-- Tombol untuk mengunduh sertifikat -->
-                            <a href="{{ route('downloadCertificate', ['certificateId' => $certificateId]) }}"
-                               class="inline-block px-6 py-2 font-semibold rounded text-whiteColor bg-primaryColor border-primaryColor border hover:text-primaryColor hover:bg-white rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                                Download PDF
-                            </a>
+                                </iframe>
+                                <br>
+
+                                <!-- Tombol untuk mengunduh sertifikat -->
+                                <a href="{{ route('downloadCertificate', ['certificateId' => $certificateId]) }}"
+                                    class="inline-block px-6 py-2 font-semibold rounded text-whiteColor bg-primaryColor border-primaryColor border hover:text-primaryColor hover:bg-white rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
+                                    Download PDF
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Certificate Details Section -->
         <div class="container py-10 md:py-50px lg:py-60px 2xl:py-100px">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10px">
@@ -58,7 +59,8 @@
                                     <span class="text-xs text-lightGrey6">(44)</span>
                                 </div>
                                 <!-- Course Title -->
-                                <p class="text-size-15 md:text-2xl font-bold text-blackColor dark:text-blackColor-dark leading-43px md:leading-14.5">
+                                <p
+                                    class="text-size-15 md:text-2xl font-bold text-blackColor dark:text-blackColor-dark leading-43px md:leading-14.5">
                                     {{ $course->name }}
                                 </p>
                                 <!-- Instructor Information -->
@@ -85,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Sidebar Column -->
                 <div class="lg:col-start-10 lg:col-span-3">
                     <div class="flex flex-col">
@@ -93,7 +95,8 @@
                         <div class="py-33px px-25px shadow-event mb-30px bg-whiteColor dark:bg-whiteColor-dark rounded-md"
                             data-aos="fade-up">
                             <div class="mt-5" data-aos="fade-up">
-                                <p class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mb-5px">
+                                <p
+                                    class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mb-5px">
                                     More inquiry about course
                                 </p>
                                 <button type="submit"
@@ -108,22 +111,22 @@
         </div>
     </div>
 
-</div>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-    document.getElementById('openModal').addEventListener('click', function () {
-        document.getElementById('certificateModal').classList.remove('hidden');
-    });
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        document.getElementById('openModal').addEventListener('click', function() {
+            document.getElementById('certificateModal').classList.remove('hidden');
+        });
 
-    document.getElementById('closeModal').addEventListener('click', function () {
-        document.getElementById('certificateModal').classList.add('hidden');
-    });
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('certificateModal').classList.add('hidden');
+        });
 
-    // Tutup modal saat klik di luar konten modal
-    document.getElementById('certificateModal').addEventListener('click', function (event) {
-        if (event.target === this) {
-            this.classList.add('hidden');
-        }
-    });
-</script>
+        // Tutup modal saat klik di luar konten modal
+        document.getElementById('certificateModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+    </script>
