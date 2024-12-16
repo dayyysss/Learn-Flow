@@ -47,11 +47,11 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
-                                Search here
+                                Cari Kursus
                             </h4>
                             <form
                                 class="w-full px-4 py-15px text-sm text-contentColor bg-lightGrey10 dark:bg-lightGrey10-dark dark:text-contentColor-dark flex justify-center items-center leading-26px">
-                                <input type="text" placeholder="Search Produce"
+                                <input type="text" placeholder="Cari..."
                                     class="placeholder:text-placeholder bg-transparent focus:outline-none placeholder:opacity-80 w-full">
                                 <button type="submit">
                                     <i class="icofont-search-1 text-base"></i>
@@ -63,7 +63,7 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
-                                categories
+                                Kategori Kursus
                             </h4>
                             <ul class="flex flex-col gap-y-4">
                                 <li
@@ -178,12 +178,11 @@
                                             class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                                             <!-- card image -->
                                             <div class="relative mb-4">
-                                                <a href="{{route('course.detail', $item->slug)}}" class="w-full overflow-hidden rounded">
-                                                    <img
-                                                    src="{{ asset('storage/' . $item->thumbnail) }}"
-                                                    alt=""
-                                                    class="w-full transition-all duration-300 group-hover:scale-110" style="height: 150px"                            s
-                                                >
+                                                <a href="{{ route('course.detail', $item->slug) }}"
+                                                    class="w-full overflow-hidden rounded">
+                                                    <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
+                                                        class="w-full transition-all duration-300 group-hover:scale-110"
+                                                        style="height: 150px" s>
                                                 </a>
                                                 <div
                                                     class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
@@ -226,7 +225,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="{{route('course.detail', $item->slug)}}"
+                                                <a href="{{ route('course.detail', $item->slug) }}"
                                                     class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                     {{ $item->name }}
                                                 </a>
@@ -295,7 +294,8 @@
                                                 class="p-15px lg:pr-30px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark flex flex-wrap md:flex-nowrap rounded">
                                                 <!-- card image -->
                                                 <div class="relative overflow-hidden w-full md:w-2/5">
-                                                    <a href="{{route('course.detail', $item->slug)}}" class="w-full overflow-hidden rounded">
+                                                    <a href="{{ route('course.detail', $item->slug) }}"
+                                                        class="w-full overflow-hidden rounded">
                                                         <img src="assets/images/grid/grid_1.png" alt=""
                                                             class="w-full transition-all duration-300 group-hover:scale-110 block">
                                                     </a>
@@ -342,7 +342,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a href="{{route('course.detail', $item->slug)}}"
+                                                        <a href="{{ route('course.detail', $item->slug) }}"
                                                             class="text-size-26 leading-30px font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                             {{ $item->name }}
                                                         </a>
@@ -415,33 +415,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- pagination -->
-                    <div>
-                        <ul class="flex items-center justify-center gap-15px mt-60px mb-30px">
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor cursor-not-allowed"><i
-                                        class="icofont-double-left"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-whiteColor hover:text-whiteColor bg-primaryColor hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-primaryColor dark:hover:bg-primaryColor">1</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor">2</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor">3</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor"><i
-                                        class="icofont-double-right"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('landing.components.pagination.pagination')
                 </div>
             </div>
         </div>
@@ -505,7 +479,7 @@
                             // Jika kursus sudah ada di wishlist, hapus dari wishlist
                             $.ajax({
                                 url: '/wishlist/' + response
-                                .wishlist_id, // URL untuk menghapus wishlist berdasarkan ID
+                                    .wishlist_id, // URL untuk menghapus wishlist berdasarkan ID
                                 method: 'DELETE',
                                 data: {
                                     _token: '{{ csrf_token() }}'
@@ -515,9 +489,10 @@
                                     button.removeClass(
                                         'bg-primaryColor hover:bg-primaryColor');
                                     button.addClass(
-                                    'bg-black bg-opacity-15'); // Kembalikan warna default
+                                        'bg-black bg-opacity-15'
+                                        ); // Kembalikan warna default
                                     button.find('i').removeClass(
-                                    'text-white'); // Kembalikan warna ikon
+                                        'text-white'); // Kembalikan warna ikon
                                 },
                                 error: function(xhr, status, error) {
                                     console.error('Error menghapus dari wishlist:',
@@ -540,7 +515,7 @@
                                     button.addClass(
                                         'bg-primaryColor hover:bg-primaryColor');
                                     button.find('i').addClass(
-                                    'text-white'); // Ubah warna ikon
+                                        'text-white'); // Ubah warna ikon
                                 },
                                 error: function(xhr, status, error) {
                                     console.error('Error menambahkan ke wishlist:',
