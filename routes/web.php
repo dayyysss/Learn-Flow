@@ -79,7 +79,8 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
-        Route::get('/klien', 'klienCMS')->name('klienCMS');
+        // Route::get('/klien', 'klienCMS')->name('klienCMS');
+        Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);
         Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
