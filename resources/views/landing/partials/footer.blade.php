@@ -48,7 +48,7 @@
             data-aos="fade-up"
           >
             <h4 class="text-size-22 font-bold text-whiteColor mb-3">
-              About us
+              Sekilas Tentang Kami
             </h4>
             <p
               class="text-base lg:text-sm 2xl:text-base text-darkgray mb-30px leading-1.8 2xl:leading-1.8"
@@ -82,7 +82,7 @@
             data-aos="fade-up"
           >
             <h4 class="text-size-22 font-bold text-whiteColor mb-3">
-              Usefull Links
+              Menu
             </h4>
             <ul class="flex flex-col gap-y-3">
               <li>
@@ -128,7 +128,7 @@
             data-aos="fade-up"
           >
             <h4 class="text-size-22 font-bold text-whiteColor mb-3">
-              Course
+              Kursus
             </h4>
             <ul class="flex flex-col gap-y-3">
               <li>
@@ -174,7 +174,7 @@
             data-aos="fade-up"
           >
             <h4 class="text-size-22 font-bold text-whiteColor mb-3">
-              Recent Post
+              Artikel Terbaru
             </h4>
             <ul class="flex flex-col gap-y-5">
               <li>
