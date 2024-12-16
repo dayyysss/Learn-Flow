@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sponsors', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('image')->nullable();
-            $table->string('url')->nullable();
-            $table->enum('status', ['draft', 'publik']);
-            $table->timestamps();
+        Schema::table('menu_lists', function (Blueprint $table) {
+            $table->string('slug')->nullable()->change();
+            $table->string('url')->nullable()->change();
+            $table->string('ikon')->nullable()->change();
         });
     }
 
@@ -26,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sponsors');
+        Schema::table('menu_lists', function (Blueprint $table) {
+            //
+        });
     }
 };

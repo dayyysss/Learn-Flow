@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sponsor extends Model
+class visitor_count extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'status', 'image', 'url'
+        'ip',
+        'total_visitors',
     ];
 }

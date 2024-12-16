@@ -179,8 +179,11 @@
                                             <!-- card image -->
                                             <div class="relative mb-4">
                                                 <a href="{{route('course.detail', $item->slug)}}" class="w-full overflow-hidden rounded">
-                                                    <img src="assets/images/grid/grid_1.png" alt=""
-                                                        class="w-full transition-all duration-300 group-hover:scale-110">
+                                                    <img
+                                                    src="{{ asset('storage/' . $item->thumbnail) }}"
+                                                    alt=""
+                                                    class="w-full transition-all duration-300 group-hover:scale-110" style="height: 150px"                            s
+                                                >
                                                 </a>
                                                 <div
                                                     class="absolute left-0 top-1 flex justify-between w-full items-center px-2">

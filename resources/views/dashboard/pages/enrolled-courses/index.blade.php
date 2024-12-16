@@ -46,7 +46,7 @@
                                             class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                                             <!-- card image -->
                                             <div class="relative mb-4">
-                                                <a href="../../course-details.html" class="w-full overflow-hidden rounded">
+                                                <a href="{{route('course.detail', $item->course->slug)}}" class="w-full overflow-hidden rounded">
                                                     <img src="{{ asset('storage/' . $item->course->thumbnail) }}"
                                                         alt=""
                                                         class="w-full transition-all duration-300 group-hover:scale-110"
@@ -88,7 +88,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="../../course-details.html"
+                                                <a href="{{route('course.detail', $item->course->slug)}}"
                                                     class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                     {{ $item->course->name }}
                                                 </a>
@@ -122,11 +122,13 @@
                                                         </a>
                                                     </div>
                                                     <div class="text-start md:text-end">
-                                                        <i class="icofont-star text-size-15 text-yellow"></i>
-                                                        <i class="icofont-star text-size-15 text-yellow"></i>
-                                                        <i class="icofont-star text-size-15 text-yellow"></i>
-                                                        <i class="icofont-star text-size-15 text-yellow"></i>
-                                                        <i class="icofont-star text-size-15 text-yellow"></i>
+                                                        <div>
+                                                        <i class="icofont-star text-size-10 text-yellow"></i>
+                                                        <i class="icofont-star text-size-10 text-yellow"></i>
+                                                        <i class="icofont-star text-size-10 text-yellow"></i>
+                                                        <i class="icofont-star text-size-10 text-yellow"></i>
+                                                        <i class="icofont-star text-size-10 text-yellow"></i>
+                                                        </div>
                                                         <span class="text-xs text-lightGrey6">(44)</span>
                                                     </div>
                                                 </div>
@@ -141,7 +143,7 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <a href="create-course.html"
+                                                    <a href="{{route('certificate.index', $item->course->id)}}"
                                                         class="text-size-15 text-whiteColor bg-secondaryColor w-full px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor rounded group text-nowrap text-center">
                                                         Download Certificate
                                                     </a>

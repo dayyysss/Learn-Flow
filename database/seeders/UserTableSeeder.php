@@ -17,11 +17,11 @@ class UserTableSeeder extends Seeder
     {
         //create data user
         User::create([
-            'first_name'=> 'Admin',
-            'last_name' => 'istrator',
-            'name'      => 'Administrator',
-            'email'     => 'admin@gmail.com',
-            'password'  => bcrypt('admin'),
+            'first_name'=> 'Super',
+            'last_name' => 'Admin',
+            'name'      => 'Superadmin',
+            'email'     => 'superadmin@gmail.com',
+            'password'  => bcrypt('superadmin'),
             'role_id'   => 1,
         ]);
 
@@ -43,6 +43,15 @@ class UserTableSeeder extends Seeder
             'role_id'   => 3,
         ]);
 
+        User::create([
+            'first_name'=> 'Admin',
+            'last_name' => 'istrator',
+            'name'      => 'Administrator',
+            'email'     => 'admin@gmail.com',
+            'password'  => bcrypt('admin'),
+            'role_id'   => 4,
+        ]);
+
         //assign permission to role
         $role = Role::find(1);
         $user = User::find(1);
@@ -55,6 +64,10 @@ class UserTableSeeder extends Seeder
         $role = Role::find(3);
         $user = User::find(3);
         $user->assignRole('instructor');
+
+        $role = Role::find(4);
+        $user = User::find(4);
+        $user->assignRole('admin');
         
         $permissions = Permission::all();
         $role->syncPermissions($permissions);

@@ -37,7 +37,7 @@
                                 </td>
                                 <td class="px-5px py-10px md:px-5">
                                     <p class="text-xs">
-                                        <span class="h-22px inline-block px-7px bg-green-500 leading-22px font-bold text-whiteColor rounded-md">
+                                        <span class="h-22px inline-block px-7px bg-green-500 leading-22px font-bold rounded-md">
                                             {{ $registration->registration_status }}
                                         </span>
                                     </p>

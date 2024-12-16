@@ -42,6 +42,9 @@
         <!-- Client Section -->
         @include('landing.components.blog')
     @endsection
+    @php
+        tracking_visitor();
+    @endphp
 </body>
 
 </html>

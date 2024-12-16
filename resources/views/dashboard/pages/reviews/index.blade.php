@@ -2,1037 +2,336 @@
 @section('page_title', 'LearnFlow | Reviews')
 
 @section('content')
-     <!-- dashboard content -->
-     <div class="lg:col-start-4 lg:col-span-9">
-      <!-- review area -->
-      <div
-        class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5"
-      >
-        <!-- heading -->
+    <!-- dashboard content -->
+    <div class="lg:col-start-4 lg:col-span-9">
+        <!-- review area -->
         <div
-          class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark"
-        >
-          <h2
-            class="text-2xl font-bold text-blackColor dark:text-blackColor-dark"
-          >
-            Reviews
-          </h2>
-        </div>
-        <div class="tab">
-          <div
-            class="tab-links flex flex-wrap mb-10px lg:mb-50px rounded gap-10px"
-          >
-            <button
-              class="is-checked relative py-10px px-5 md:py-15px lg:px-10 font-bold uppercase text-sm lg:text-base text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 whitespace-nowrap active"
-            >
-              RECEIVED
-            </button>
-
-            <button
-              class="is-checked relative py-10px px-5 md:py-15px lg:px-10 font-bold uppercase text-sm lg:text-base text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 whitespace-nowrap"
-            >
-              GIVEN
-            </button>
-          </div>
-          <div class="tab-contents">
-            <!-- content 1 -->
-            <div class="transition-all duration-300">
-              <div class="overflow-auto">
-                <table class="w-full text-left">
-                  <thead
-                    class="text-sm md:text-base text-blackColor dark:text-blackColor-dark bg-lightGrey5 dark:bg-whiteColor-dark leading-1.8 md:leading-1.8"
-                  >
-                    <tr>
-                      <th class="px-5px py-10px md:px-5">Student</th>
-                      <th class="px-5px py-10px md:px-5">Date</th>
-                      <th class="px-5px py-10px md:px-5">Feedback</th>
-                    </tr>
-                  </thead>
-                  <tbody
-                    class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal"
-                  >
-                    <tr class="leading-1.8 md:leading-1.8">
-                      <th class="px-5px py-10px md:px-5 font-normal">
-                        <p
-                          class="text-blackColor dark:text-blackColor-dark text-nowrap"
-                        >
-                          John Lock
-                        </p>
-                      </th>
-                      <td class="px-5px py-10px md:px-5 text-nowrap">
-                        <p>January 30,2030</p>
-                      </td>
-                      <td class="px-5px py-10px md:px-5">
-                        <p
-                          class="md:text-size-15 text-blackColor dark:text-blackColor-dark font-bold"
-                        >
-                          Course: Speaking Korean for Beginners
-                        </p>
-                        <div>
-                          <!-- review -->
-                          <div class="text-primaryColor">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <span
-                              class="md:text-sm text-blackColor dark:text-blackColor-dark font-bold"
-                              >(9 Reviews)</span
-                            >
-                          </div>
-                        </div>
-                        <p>Good</p>
-                      </td>
-                    </tr>
-                    <tr
-                      class="leading-1.8 md:leading-1.8 bg-lightGrey5 dark:bg-whiteColor-dark"
-                    >
-                      <th class="px-5px py-10px md:px-5 font-normal">
-                        <p
-                          class="text-blackColor dark:text-blackColor-dark text-nowrap"
-                        >
-                          John Robi
-                        </p>
-                      </th>
-                      <td class="px-5px py-10px md:px-5 text-nowrap">
-                        <p>June 30, 2025</p>
-                      </td>
-                      <td class="px-5px py-10px md:px-5">
-                        <p
-                          class="md:text-size-15 text-blackColor dark:text-blackColor-dark font-bold"
-                        >
-                          Course: PHP for Beginners
-                        </p>
-                        <div>
-                          <!-- review -->
-                          <div class="text-primaryColor">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <span
-                              class="md:text-sm text-blackColor dark:text-blackColor-dark font-bold"
-                              >(9 Reviews)</span
-                            >
-                          </div>
-                        </div>
-                        <p>Awesome</p>
-                      </td>
-                    </tr>
-                    <tr class="leading-1.8 md:leading-1.8">
-                      <th
-                        class="px-5px py-10px md:px-5 font-normal text-nowrap"
-                      >
-                        <p
-                          class="text-blackColor dark:text-blackColor-dark"
-                        >
-                          Mice Jerry
-                        </p>
-                      </th>
-                      <td class="px-5px py-10px md:px-5 text-nowrap">
-                        <p>April 30, 2024</p>
-                      </td>
-                      <td class="px-5px py-10px md:px-5">
-                        <p
-                          class="md:text-size-15 text-blackColor dark:text-blackColor-dark font-bold"
-                        >
-                          Course: WordPress for Beginners
-                        </p>
-                        <div>
-                          <!-- review -->
-                          <div class="text-primaryColor">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <span
-                              class="md:text-sm text-blackColor dark:text-blackColor-dark font-bold"
-                              >(9 Reviews)</span
-                            >
-                          </div>
-                        </div>
-                        <p>Nice Course</p>
-                      </td>
-                    </tr>
-                    <tr
-                      class="leading-1.8 md:leading-1.8 bg-lightGrey5 dark:bg-whiteColor-dark"
-                    >
-                      <th
-                        class="px-5px py-10px md:px-5 font-normal text-nowrap"
-                      >
-                        <p
-                          class="text-blackColor dark:text-blackColor-dark"
-                        >
-                          Mice Jerry
-                        </p>
-                      </th>
-                      <td class="px-5px py-10px md:px-5 text-nowrap">
-                        <p>October 30, 2213</p>
-                      </td>
-                      <td class="px-5px py-10px md:px-5">
-                        <p
-                          class="md:text-size-15 text-blackColor dark:text-blackColor-dark font-bold"
-                        >
-                          Course: Speaking Korean for Beginners
-                        </p>
-                        <div>
-                          <!-- review -->
-                          <div class="text-primaryColor">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <span
-                              class="md:text-sm text-blackColor dark:text-blackColor-dark font-bold"
-                              >(9 Reviews)</span
-                            >
-                          </div>
-                        </div>
-                        <p>-</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
+            <!-- heading -->
+            <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark">
+                <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
+                    Ulasan
+                </h2>
             </div>
-            <!-- content 2 -->
-            <div class="hidden transition-all duration-300">
-              <div class="overflow-auto">
-                <table class="w-full text-left">
-                  <thead
-                    class="text-sm md:text-base text-blackColor dark:text-blackColor-dark bg-lightGrey5 dark:bg-whiteColor-dark leading-1.8 md:leading-1.8"
-                  >
-                    <tr>
-                      <th class="px-5px py-10px md:px-5">
-                        Course Title
-                      </th>
-                      <th class="px-5px py-10px md:px-5">Review</th>
+            <div class="tab">
+                <div class="tab-links flex flex-wrap mb-10px lg:mb-50px rounded gap-10px">
+                    <button
+                        class="is-checked relative py-10px px-5 md:py-15px lg:px-10 font-bold uppercase text-sm lg:text-base text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 whitespace-nowrap active">
+                        Diterima
+                    </button>
 
-                      <th class="px-5px py-10px md:px-5"></th>
-                    </tr>
-                  </thead>
-                  <tbody
-                    class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal"
-                  >
-                    <tr class="leading-1.8 md:leading-1.8">
-                      <th class="px-5px py-10px md:px-5 font-normal">
-                        <p
-                          class="text-blackColor dark:text-blackColor-dark"
-                        >
-                          Course: How to Write Your First Novel
-                        </p>
-                      </th>
+                    <button
+                        class="is-checked relative py-10px px-5 md:py-15px lg:px-10 font-bold uppercase text-sm lg:text-base text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 whitespace-nowrap"
+                        id="givenBtn">
+                        Diberikan
+                    </button>
 
-                      <td class="px-5px py-10px md:px-5">
-                        <div>
-                          <!-- review -->
-                          <div class="text-primaryColor">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <span
-                              class="md:text-sm text-blackColor dark:text-blackColor-dark font-bold"
-                              >(9 Reviews)</span
-                            >
-                          </div>
+                    <!-- Tombol Tambah Review disembunyikan secara default -->
+                    <button id="addReviewBtn" onclick="openModal()"
+                        class="is-checked relative py-10px px-5 md:py-15px lg:px-10 font-bold uppercase text-sm lg:text-base text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 whitespace-nowrap ml-auto hidden">
+                        Tambah Ulasan
+                    </button>
+
+                </div>
+                <div class="tab-contents">
+                    <!-- content 1 -->
+                    <div class="overflow-auto">
+                        <table class="w-full min-w-full table-auto">
+                            <thead>
+                                <tr class="text-blackColor dark:text-blackColor-dark">
+                                    <th class="py-3 px-6 text-left">User</th>
+                                    <th class="py-3 px-6 text-left">Date</th>
+                                    <th class="py-3 px-6 text-left">Review Details</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 dark:text-gray-400">
+                                @foreach ($receivedReviews as $review)
+                                    <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <!-- User -->
+                                        <td class="py-4 px-6 whitespace-nowrap">
+                                            <p class="font-medium text-blackColor dark:text-blackColor-dark">
+                                                {{ $review->user->name }}
+                                            </p>
+                                        </td>
+                    
+                                        <!-- Date -->
+                                        <td class="py-4 px-6 text-blackColor dark:text-blackColor-dark">
+                                            <p>{{ $review->created_at->format('F d, Y') }}</p>
+                                        </td>
+                    
+                                        <!-- Review Details -->
+                                        <td class="py-4 px-6">
+                                            <!-- Course Name -->
+                                            <p class="font-semibold text-blackColor dark:text-blackColor-dark">
+                                                Course: {{ $review->course->name }}
+                                            </p>
+                    
+                                            <!-- Star Ratings and Comments -->
+                                            <div class="flex flex-wrap sm:flex-nowrap items-center w-full sm:w-auto">
+                                                <div class="flex items-center gap-2">
+                                                    <!-- Star Ratings -->
+                                                    <div class="text-primaryColor flex items-center">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            @php
+                                                                // Menghitung apakah bintang tersebut penuh, setengah, atau kosong
+                                                                $fullStar = $i <= floor($review->rating); // Bintang penuh
+                                                                $halfStar = $i == ceil($review->rating) && $review->rating - floor($review->rating) >= 0.5; // Bintang setengah
+                                                            @endphp
+                    
+                                                            @if ($fullStar)
+                                                                <i class="icofont icofont-star" style="color: #fbbf24;"></i>
+                                                            @elseif ($halfStar)
+                                                                <i class="icofont icofont-star-half" style="color: #fbbf24;"></i>
+                                                            @else
+                                                                <i class="icofont icofont-star" style="color: #e5e7eb;"></i>
+                                                            @endif
+                                                        @endfor
+                                                    </div>
+                    
+                                                    <!-- Comments -->
+                                                    <p class="text-sm text-blackColor dark:text-blackColor-dark overflow-hidden truncate max-w-[200px] sm:max-w-full">
+                                                        {{ $review->komentar }}
+                                                    </p>
+                                                </div>
+                    
+                                                <!-- Review Count -->
+                                                <p class="text-sm text-blackColor dark:text-blackColor-dark ml-2">
+                                                    ({{ $review->total_reviewers }} ulasan)
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- content 2 -->
+                    <div class="hidden transition-all duration-300">
+                        <div class="overflow-auto">
+                            <table class="w-full text-left">
+                                <div
+                                    class="text-sm md:text-base text-blackColor dark:text-blackColor-dark bg-lightGrey5 dark:bg-whiteColor-dark leading-1.8 md:leading-1.8 w-full md:w-3/4 mx-auto p-4 rounded-lg shadow-md">
+                                    <!-- Header -->
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                        <div class="px-5 py-3 font-semibold text-left">Kursus</div>
+                                        <div class="px-5 py-3 font-semibold text-center">Ulasan</div>
+                                    </div>
+
+                                    <!-- Body (Reviews) -->
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full table-auto">
+                                            <tbody>
+                                                @foreach ($givenReviews as $review)
+                                                    <tr class="border-b dark:border-gray-700">
+                                                        <td class="px-4 py-3">
+                                                            <p
+                                                                class="text-blackColor dark:text-blackColor-dark font-medium">
+                                                                {{ $review->course->name }}</p>
+                                                        </td>
+                                                        <td class="px-4 py-3">
+                                                            <div class="flex items-center text-primaryColor">
+                                                                @for ($i = 1; $i <= 5; $i++)
+                                                                    @php
+                                                                        $fullStar = $i <= floor($review->rating); // Full star
+                                                                        $halfStar =
+                                                                            $i == ceil($review->rating) &&
+                                                                            $review->rating - floor($review->rating) >=
+                                                                                0.5; // Half star
+                                                                    @endphp
+                                                                    @if ($fullStar)
+                                                                        <i class="icofont icofont-star"
+                                                                            style="color: #fbbf24;"></i>
+                                                                    @elseif ($halfStar)
+                                                                        <i class="icofont icofont-star-half"
+                                                                            style="color: #fbbf24;"></i>
+                                                                    @else
+                                                                        <i class="icofont icofont-star"
+                                                                            style="color: #e5e7eb;"></i>
+                                                                    @endif
+                                                                @endfor
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-4 py-3">
+                                                            <p
+                                                                class="text-blackColor dark:text-blackColor-dark mt-2 text-sm sm:text-base">
+                                                                {{ $review->komentar }}</p>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                <!-- Modal for Adding Review -->
+                                                <div id="addReviewModal"
+                                                    class="hidden fixed top-0 left-0 z-50 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
+                                                    <div
+                                                        class="bg-white dark:bg-gray-800 p-6 sm:p-8 md:p-10 lg:p-12 rounded-lg shadow-xl w-full sm:w-4/5 md:w-1/2 lg:w-1/3 transition-colors duration-300">
+                                                        <h2
+                                                            class="text-3xl font-semibold text-center text-black dark:text-white mb-6">
+                                                            Tambah Review
+                                                        </h2>
+
+                                                        <form id="addReviewForm">
+                                                            <!-- Course Dropdown -->
+                                                            <div class="mb-4">
+                                                                <label for="courseName"
+                                                                    class="block text-lg font-medium text-gray-700 dark:text-gray-300">Kursus</label>
+                                                                <select id="courseName" name="course_id"
+                                                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400"
+                                                                    required>
+                                                                    <option value="">Pilih Kursus</option>
+                                                                    @foreach ($courses as $course)
+                                                                        <option value="{{ $course->id }}">
+                                                                            {{ $course->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
+                                                            <!-- Rating Input -->
+                                                            <div class="mb-4">
+                                                                <label for="rating"
+                                                                    class="block text-lg font-medium text-gray-700 dark:text-gray-300">Rating</label>
+                                                                <input type="number" placeholder="1-5" id="rating"
+                                                                    name="rating" min="1" max="5"
+                                                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400"
+                                                                    required>
+                                                            </div>
+
+                                                            <!-- Comment Textarea -->
+                                                            <div class="mb-4">
+                                                                <label for="komentar"
+                                                                    class="block text-lg font-medium text-gray-700 dark:text-gray-300">Komentar</label>
+                                                                <textarea id="komentar" name="komentar" rows="4"
+                                                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400"
+                                                                    required></textarea>
+                                                            </div>
+
+                                                            <div class="flex justify-end space-x-4">
+                                                                <button type="button" onclick="closeModal()"
+                                                                    class="bg-gray-500 text-black text-lg py-2 px-4 rounded-md hover:bg-gray-600 transition duration-300">
+                                                                    Batal
+                                                                </button>
+                                                                <button type="submit"
+                                                                    class="bg-blue-500 text-black text-lg py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+                                                                    Kirim
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                         </div>
-                        <p>Good</p>
-                      </td>
-
-                      <td class="px-5px py-10px md:px-5">
-                        <div class="flex">
-                          <a
-                            class="flex items-center gap-1 md:text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor px-10px leading-1.8 relative before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300"
-                            href="#"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-edit"
-                            >
-                              <path
-                                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                              ></path>
-                              <path
-                                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                              ></path>
-                            </svg>
-                            Edit</a
-                          >
-                          <a
-                            class="flex items-center gap-1 md:text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor px-10px leading-1.8"
-                            href="#"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-trash-2"
-                            >
-                              <polyline
-                                points="3 6 5 6 21 6"
-                              ></polyline>
-                              <path
-                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                              ></path>
-                              <line
-                                x1="10"
-                                y1="11"
-                                x2="10"
-                                y2="17"
-                              ></line>
-                              <line
-                                x1="14"
-                                y1="11"
-                                x2="14"
-                                y2="17"
-                              ></line>
-                            </svg>
-                            Delete</a
-                          >
-                        </div>
-                      </td>
-                    </tr>
-                    <tr
-                      class="leading-1.8 md:leading-1.8 bg-lightGrey5 dark:bg-whiteColor-dark"
-                    >
-                      <th class="px-5px py-10px md:px-5 font-normal">
-                        <p
-                          class="text-blackColor dark:text-blackColor-dark"
-                        >
-                          Course: How to Web Design
-                        </p>
-                      </th>
-
-                      <td class="px-5px py-10px md:px-5">
-                        <div>
-                          <!-- review -->
-                          <div class="text-primaryColor">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <span
-                              class="md:text-sm text-blackColor dark:text-blackColor-dark font-bold"
-                              >(9 Reviews)</span
-                            >
-                          </div>
-                        </div>
-                        <p>Awesome Course</p>
-                      </td>
-
-                      <td class="px-5px py-10px md:px-5">
-                        <div class="flex">
-                          <a
-                            class="flex items-center gap-1 md:text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor px-10px leading-1.8 relative before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300"
-                            href="#"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-edit"
-                            >
-                              <path
-                                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                              ></path>
-                              <path
-                                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                              ></path>
-                            </svg>
-                            Edit</a
-                          >
-                          <a
-                            class="flex items-center gap-1 md:text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor px-10px leading-1.8"
-                            href="#"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-trash-2"
-                            >
-                              <polyline
-                                points="3 6 5 6 21 6"
-                              ></polyline>
-                              <path
-                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                              ></path>
-                              <line
-                                x1="10"
-                                y1="11"
-                                x2="10"
-                                y2="17"
-                              ></line>
-                              <line
-                                x1="14"
-                                y1="11"
-                                x2="14"
-                                y2="17"
-                              ></line>
-                            </svg>
-                            Delete</a
-                          >
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="leading-1.8 md:leading-1.8">
-                      <th class="px-5px py-10px md:px-5 font-normal">
-                        <p
-                          class="text-blackColor dark:text-blackColor-dark"
-                        >
-                          Course: English
-                        </p>
-                      </th>
-
-                      <td class="px-5px py-10px md:px-5">
-                        <div>
-                          <!-- review -->
-                          <div class="text-primaryColor">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-star w-4 inline-block"
-                            >
-                              <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                              ></polygon>
-                            </svg>
-                            <span
-                              class="md:text-sm text-blackColor dark:text-blackColor-dark font-bold"
-                              >(9 Reviews)</span
-                            >
-                          </div>
-                        </div>
-                        <p>-</p>
-                      </td>
-
-                      <td class="px-5px py-10px md:px-5">
-                        <div class="flex">
-                          <a
-                            class="flex items-center gap-1 md:text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor px-10px leading-1.8 relative before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300"
-                            href="#"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-edit"
-                            >
-                              <path
-                                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                              ></path>
-                              <path
-                                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                              ></path>
-                            </svg>
-                            Edit</a
-                          >
-                          <a
-                            class="flex items-center gap-1 md:text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor px-10px leading-1.8"
-                            href="#"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-trash-2"
-                            >
-                              <polyline
-                                points="3 6 5 6 21 6"
-                              ></polyline>
-                              <path
-                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                              ></path>
-                              <line
-                                x1="10"
-                                y1="11"
-                                x2="10"
-                                y2="17"
-                              ></line>
-                              <line
-                                x1="14"
-                                y1="11"
-                                x2="14"
-                                y2="17"
-                              ></line>
-                            </svg>
-                            Delete</a
-                          >
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-@endsection
+
+            <script>
+                function openModal() {
+                    document.getElementById("addReviewModal").classList.remove("hidden");
+                    // Disable scrolling when modal is open
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeModal() {
+                    document.getElementById("addReviewModal").classList.add("hidden");
+                    // Enable scrolling when modal is closed
+                    document.body.style.overflow = 'auto';
+                }
+
+                window.onclick = function(event) {
+                    var modal = document.getElementById("addReviewModal");
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                }
+
+                // Menambahkan event listener pada tombol "GIVEN"
+                document.getElementById('givenBtn').addEventListener('click', function() {
+                    // Menghapus kelas "hidden" dari tombol "Tambah Review"
+                    document.getElementById('addReviewBtn').classList.remove('hidden');
+                });
+
+
+
+                $('#addReviewForm').submit(function(e) {
+                    e.preventDefault();
+
+                    var courseName = $('#courseName').val();
+                    var rating = $('#rating').val();
+                    var komentar = $('#komentar').val();
+
+                    $.ajax({
+                        url: "{{ route('reviews.store') }}",
+                        method: 'POST',
+                        data: {
+                            course_id: courseName,
+                            rating: rating,
+                            komentar: komentar,
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert("Review successfully added!");
+                                location.reload();
+                            } else {
+                                alert("Failed to add review.");
+                            }
+                        },
+                        error: function() {
+                            alert('Error in submitting the review');
+                        }
+                    });
+                });
+
+                // Edit Review with AJAX
+                $('#editReviewForm').submit(function(e) {
+                    e.preventDefault();
+
+                    var reviewId = $('#editReviewId').val();
+                    var courseId = $('#editCourseName').val();
+                    var rating = $('#editRating').val();
+                    var komentar = $('#editComment').val();
+
+                    $.ajax({
+                        url: "/reviews/" + reviewId,
+                        method: 'PUT',
+                        data: {
+                            course_id: courseId,
+                            rating: rating,
+                            komentar: komentar,
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                location.reload();
+                            } else {
+                                alert('Failed to update review.');
+                            }
+                        }
+                    });
+                });
+
+                // Delete Review with AJAX
+                $('#confirmDeleteBtn').click(function() {
+                    var reviewId = $('#deleteReviewId').val();
+
+                    $.ajax({
+                        url: "/reviews/" + reviewId,
+                        method: 'DELETE',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                location.reload();
+                            } else {
+                                alert('Failed to delete review.');
+                            }
+                        }
+                    });
+                });
+            </script>
+
+        @endsection

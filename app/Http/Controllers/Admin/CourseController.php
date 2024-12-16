@@ -10,6 +10,7 @@ use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\CourseRegistration;
 use App\Models\Modul;
+use App\Models\Quiz;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
@@ -340,6 +341,24 @@ public function showModul($slug)
 
     return view('dashboard.pages.lesson._modul_content', compact('modul', 'previousModul', 'nextModul'));
 }
+public function showQuiz($slug)
+{
+    $modul = Quiz::with('bab.course')->where('slug', $slug)->firstOrFail();
+
+    // Cari modul sebelumnya
+    $previousModul = Modul::where('bab_id', $modul->bab_id)
+                          ->where('id', '<', $modul->id)
+                          ->orderBy('id', 'desc')
+                          ->first();
+
+    // Cari modul berikutnya
+    $nextModul = Modul::where('bab_id', $modul->bab_id)
+                     ->where('id', '>', $modul->id)
+                     ->orderBy('id', 'asc')
+                     ->first();
+
+    return view('dashboard.pages.lesson._quiz_content', compact('modul', 'previousModul', 'nextModul'));
+}
 
 
 public function showBab($slug)
@@ -347,12 +366,13 @@ public function showBab($slug)
     // Mencari Course berdasarkan slug
     $course = Course::where('slug', $slug)->firstOrFail();
 
-    // Mengambil semua Bab yang terkait dengan Course ini beserta Modulnya
-    $bab = $course->babs()->with('moduls')->get();
+    // Mengambil semua Bab yang terkait dengan Course ini beserta Modul dan Quiznya
+    $bab = $course->babs()->with(['moduls', 'quiz'])->get();
     
     // Mengirim data course dan bab ke view
     return view('dashboard.pages.lesson.lesson', compact('course', 'bab'));
 }
+
 
 public function myCourses()
 {
