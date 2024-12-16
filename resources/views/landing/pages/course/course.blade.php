@@ -1,8 +1,8 @@
 @extends('landing.layouts.landing-layouts')
-@section('page_title', 'Courses | Learn Flow')
+@section('page_title', 'Kursus | Learn Flow')
 @section('content')
 
-    @include('landing.components.breadcrumb', ['title' => 'Courses'])
+    @include('landing.components.breadcrumb', ['title' => 'Kursus'])
 
 
     <!-- courses section -->

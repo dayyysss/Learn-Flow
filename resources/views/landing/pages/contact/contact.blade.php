@@ -1,8 +1,8 @@
 @extends('landing.layouts.landing-layouts')
-@section('page_title', 'Contact Us | Learn Flow')
+@section('page_title', 'Kontak Kami | Learn Flow')
 @section('content')
 
-@include('landing.components.breadcrumb', ['title' => 'Contact Us'])
+@include('landing.components.breadcrumb', ['title' => 'Kontak Kami'])
   
     <!-- address section -->
     <section>

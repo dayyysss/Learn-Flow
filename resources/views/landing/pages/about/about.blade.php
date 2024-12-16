@@ -1,8 +1,8 @@
 @extends('landing.layouts.landing-layouts')
-@section('page_title', 'About Us | Learn Flow')
+@section('page_title', 'Tentang Kami | Learn Flow')
 @section('content')
 
-    @include('landing.components.breadcrumb', ['title' => 'About Us'])
+    @include('landing.components.breadcrumb', ['title' => 'Tentang Kami'])
 
     <section>
       <div class="container py-50px md:py-70px lg:py-20 2xl:py-100px">
