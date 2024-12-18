@@ -15,22 +15,22 @@
                             <div class="grid grid-cols-2 gap-x-4 gap-y-5">
                                 <div class="col-span-full xl:col-auto leading-none">
                                     <label for="firstName" class="form-label">Nama Depan</label>
-                                    <input type="text" id="firstName" value="Jonathon" class="form-input">
+                                    <input type="text" id="firstName" value="{{ $user->first_name }}" class="form-input">
                                 </div>
                                 <div class="col-span-full xl:col-auto leading-none">
                                     <label for="lastName" class="form-label">Nama Belakang</label>
-                                    <input type="text" id="lastName" value="Smith" class="form-input">
+                                    <input type="text" id="firstName" value="{{ $user->last_name }}" class="form-input">
                                 </div>
                                 <div class="col-span-full xl:col-auto leading-none">
                                     <label for="email" class="form-label">Alamat Surel</label>
-                                    <input type="email" id="email" value="lah@example.com" class="form-input">
+                                    <input type="email" id="email" value="{{ $user->email }}" class="form-input">
                                 </div>
                                 <div class="col-span-full xl:col-auto leading-none">
                                     <label for="poneNumber" class="form-label">Nomor Telepon</label>
-                                    <input type="tel" id="poneNumber" value="(907) 555-0101" class="form-input">
+                                    <input type="tel" id="no_telp" value="{{ $user->no_telp }}" class="form-input">
                                 </div>
                                 <div class="col-span-full xl:col-auto leading-none">
-                                    <label for="location" class="form-label">Lokasi</label>
+                                    <label for="location" class="form-label">Alamat</label>
                                     <input type="text" id="location" value="1901 Thornridge" class="form-input">
                                 </div>
                                 <div class="col-span-full xl:col-auto leading-none">
@@ -44,23 +44,12 @@
                                         <option value="default-option" data-select2-id="select2-data-11-2vow">Default Option
                                         </option>
                                         <option value="new-chart" data-select2-id="select2-data-12-thk3">New Chart</option>
-                                    </select><span
-                                        class="select2 select2-container select2-container--default select2-container--below select2-container--focus"
-                                        dir="ltr" data-select2-id="select2-data-2-08yv" style="width: 100%;"><span
-                                            class="selection"><span class="select2-selection select2-selection--single"
-                                                role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0"
-                                                aria-disabled="false" aria-labelledby="select2-lqyt-container"
-                                                aria-controls="select2-lqyt-container"><span
-                                                    class="select2-selection__rendered" id="select2-lqyt-container"
-                                                    role="textbox" aria-readonly="true" title="Default Option">Default
-                                                    Option</span><span class="select2-selection__arrow"
-                                                    role="presentation"><b
-                                                        role="presentation"></b></span></span></span><span
-                                            class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                    </select>
+                            
                                 </div>
                                 <div class="col-span-full">
-                                    <label for="deskripsiBio" class="form-label">Biografi</label>
-                                    <textarea name="deskripsiBio" id="deskripsiBio"
+                                    <label for="bio" class="form-label">Biografi</label>
+                                    <textarea name="bio" id="bio" value="{{ $user->no_telp }}"
                                         class="form-control w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md"
                                         cols="50" rows="10"></textarea>
                                 </div>
@@ -106,8 +95,8 @@
                     <div class="mt-7 px-6 text-center">
                         <div class="py-5">
                             <div class="flex-center">
-                                <h4 class="text-[22px] leading-none text-heading font-semibold relative">
-                                    Jonathon Smith
+                                <h4 class="text-[22px] leading-none text-heading font-semibold relative" value="{{ $user->name }}">
+                                 {{ $user->name }}
                                     <img src="{{ asset('assets/lfcms/images/icons/verified-icon-green.svg') }}"
                                         alt="verified-icon"
                                         class="absolute -top-1.5 -right-3.5 hidden [&.verified]:block unverified">
