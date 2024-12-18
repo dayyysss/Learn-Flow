@@ -35,6 +35,7 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 use App\Http\Controllers\LFCMS\HakAksesController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
+use App\Http\Controllers\LFCMS\TestimoniController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -84,8 +85,8 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/artikel', 'artikelCMS')->name('artikelCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
-        Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
     });
+    Route::resource('/testimonial', TestimoniController::class);
         // Route::get('/klien', 'klienCMS')->name('klienCMS');
         Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);

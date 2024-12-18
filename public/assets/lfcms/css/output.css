@@ -16337,6 +16337,9 @@ body {
 .ml-auto{
   margin-left: auto;
 }
+.mr-auto{
+  margin-right: auto;
+}
 
 .mr-2{
   margin-right: 0.5rem;
@@ -16666,6 +16669,10 @@ body {
 
 .h-8{
   height: 2rem;
+}
+
+.h-50{
+  height: 50%;
 }
 
 .h-9{
