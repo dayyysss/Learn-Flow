@@ -30,7 +30,7 @@
                         </div>
                         <div class="flex">
                             <a href="javascript:void(0)" class="text-blue-600 hover:underline" onclick="openEditModal({{ json_encode($type) }})">
-                                Edit
+                                <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                             </a>
                             <form id="deleteForm-{{ $type->id }}"
                                 action="{{ route('menu_type.destroy', $type->id) }}" method="POST"
@@ -40,7 +40,8 @@
                                 <div id="deleteContainer-{{ $type->id }}" style="display:inline;">
                                     <button type="button" class="btn-sm btn-danger delete-button"
                                         onclick="confirmDelete({{ $type->id }})">
-                                       hapus
+                                        <i class="ri-delete-bin-line text-inherit text-[13px] {{ $type->id == '1' ? 'hidden' : 'block' }}"></i>
+                                       
                                     </button>
                                 </div>
                             </form>
@@ -108,17 +109,17 @@
                 <li class="dd-item" data-id="${menu.id}">
                     <div class="flex">
                         <div class="dd-handle dd3-handle"></div>
-                        <div class="flex pl-7 flex-1 dd1-content justify-between">
-                            ${menu.name}
+                        <div class="flex pl-7 flex-1 dd1-content w-full justify-between">
+                            ${menu.content}
                             <div class="flex">
                                 <a href="javascript:void(0)" class="text-blue-600 hover:underline" onclick='openEditModalList(${JSON.stringify(menu)})'>
-                                   Edit
+                                   <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                 </a>
                                 <form action="{{ route('menu.destroy', '') }}/${menu.id}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                       hapus
+                                       <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                     </button>
                                 </form>
                             </div>
@@ -197,24 +198,31 @@
 
     .modal-back {
         display: none;
-        position: fixed; /* Agar modal tetap fixed pada layar */
+        position: fixed;
+        /* Agar modal tetap fixed pada layar */
         z-index: 1000;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Untuk latar belakang gelap */
-        display: flex; /* Flexbox untuk memastikan modal tetap di tengah */
-        justify-content: center; /* Pusatkan modal secara horizontal */
-        align-items: center; /* Pusatkan modal secara vertikal */
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Untuk latar belakang gelap */
+        display: flex;
+        /* Flexbox untuk memastikan modal tetap di tengah */
+        justify-content: center;
+        /* Pusatkan modal secara horizontal */
+        align-items: center;
+        /* Pusatkan modal secara vertikal */
     }
 
     .modal-content {
         background-color: #fff;
         padding: 20px;
         border-radius: 5px;
-        width: 400px; /* Atur lebar modal */
-        max-width: 90%; /* Pastikan modal responsif pada layar kecil */
+        width: 400px;
+        /* Atur lebar modal */
+        max-width: 90%;
+        /* Pastikan modal responsif pada layar kecil */
         position: relative;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
@@ -244,13 +252,13 @@
         border-radius: 4px;
     }
 
-    .dd-item > button {
+    .dd-item>button {
         margin-left: 65px;
         position: absolute;
     }
 
     .dd1-content {
-        background: #fafafa;
+        background: #ffffff;
         position: relative;
         border: 1px solid #d8d5d5;
         margin: 5px 0;
@@ -264,19 +272,27 @@
     }
 
     .dd-handle {
-        display: block;
-        position: relative;
-        height: 30px;
-        margin: 5px 0;
-        padding: 5px 10px;
-        color: #333;
-        text-decoration: none;
-        font-weight: 700;
-        border: 1px solid #ccc;
-        background: #140142;
-        border-radius: 3px 0px 0px 3px;
-        box-sizing: border-box;
-    }
+display: block;
+position: relative;
+height: 30px;
+margin: 5px 0;
+padding: 5px 10px;
+color: #fff; /* Warna teks */
+text-decoration: none;
+font-weight: 700;
+border: 1px solid #ccc;
+background: #140142;
+border-radius: 3px 0px 0px 3px;
+box-sizing: border-box;
+transition: background-color 0.3s ease; /* Animasi transisi */
+}
+
+.dd-handle:hover {
+background: #053d72; /* Warna biru muda saat hover */
+color: #fff; /* Tetap warna teks putih */
+cursor: pointer; /* Ganti kursor menjadi pointer */
+}
+
 
     .dd3-handle::before {
         content: "≡";
@@ -284,7 +300,7 @@
         justify-content: center;
         color: #fff;
 
-    /* position: absolute; */
+        /* position: absolute; */
         text-align: center;
         text-indent: 0px;
         left: 0;
@@ -305,6 +321,7 @@
         background-color: #6c757d;
     }
 </style>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"></script>
 

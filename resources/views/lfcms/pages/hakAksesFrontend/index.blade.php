@@ -41,7 +41,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
 
                                     @permission('hak-akses.delete') --}}
                                         <form id="deleteForm-{{ $role->id }}"
-                                            action="{{ route('role.destroy', $role->id) }}" method="POST"
+                                            action="{{ route('role.destroy.frontend', $role->id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf
                                             @method('DELETE')
@@ -63,7 +63,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
 
             <!-- Bagian Hak Akses Menu -->
             <div class="w-75 ml-5 bg-white rounded shadow-lg p-4">
-                <form id="role_form" action="{{ route('hak-akses.update', $selectedRole->id) }}" method="POST">
+                <form id="role_form" action="{{ route('hakAkses-frontend.update', $selectedRole->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -95,7 +95,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
     <div id="addRoleModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white rounded-lg shadow-lg w-1/3 p-6">
             <h5 class="text-lg font-semibold mb-4">Tambah Role Baru</h5>
-            <form id="form-sweet" action="{{ route('hak-akses.store') }}" method="POST">
+            <form id="form-sweet" action="{{ route('hakAkses-frontend.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
                     <label for="roleName" class="block text-sm font-medium text-gray-700">Nama Role</label>
@@ -116,7 +116,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
     <div id="editRoleModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white rounded-lg shadow-lg w-1/3 p-6">
             <h5 class="text-lg font-semibold mb-4">Edit Role</h5>
-            <form id="editRoleForm" method="POST" action="{{ route('hak-akses.update', 'role_id_placeholder') }}">
+            <form id="editRoleForm" method="POST" action="{{ route('hakAkses-frontend.update', 'role_id_placeholder') }}">
                 @csrf
                 @method('PUT')
                 <div class="mb-4">
@@ -162,7 +162,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
                     const roleId = this.value;
 
                     // Kirim permintaan AJAX
-                    fetch(`{{ route('hak-akses.index') }}?role_id=${roleId}`, {
+                    fetch(`{{ route('hakAkses-frontend.index') }}?role_id=${roleId}`, {
                             method: 'GET',
                             headers: {
                                 'X-Requested-With': 'XMLHttpRequest',
@@ -174,7 +174,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
                             document.getElementById('hakAksesMenu').innerHTML = data;
                             // Update form action untuk role yang dipilih
                             document.getElementById('role_form').action =
-                                `{{ route('hak-akses.update', '') }}/${roleId}`;
+                                `{{ route('hakAkses-frontend.update', '') }}/${roleId}`;
                         })
                         .catch(error => console.error('Error:', error));
                 });

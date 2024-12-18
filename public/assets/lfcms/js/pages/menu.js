@@ -83,44 +83,53 @@ function openEditModalList(menu) {
     console.log(menu);
 
     // Set form action dynamically
-    const form = document.getElementById('editMenuListForm');
+    const form = document.getElementById("editMenuListForm");
     form.action = `menu/${menu.id}`;
 
     // Gunakan 'content' untuk nama, 'link' untuk URL, dan 'icon' untuk ikon
-    document.getElementById('edit_nama').value = menu.name || '';
-    document.getElementById('edit_url').value = menu.url || '';
-    document.getElementById('edit_ikon').value = menu.ikon || '';
-    document.getElementById('edit_menutype_id').value = menu.menutype_id || '';
+    document.getElementById("edit_nama").value = menu.content || "";
+    document.getElementById("edit_url").value = menu.url || "";
+    document.getElementById("edit_ikon").value = menu.ikon || "";
+    document.getElementById("edit_menutype_id").value = menu.menutype_id || "";
 
     // Populate permissions
-    const permissionsList = document.getElementById('permissions-list');
-    permissionsList.innerHTML = ''; // Clear previous permissions
+    const permissionsList = document.getElementById("permissions-list");
+    permissionsList.innerHTML = ""; // Clear previous permissions
 
     // Permission options to check
-    const permissions = ['create', 'index', 'update', 'delete'];
+    const permissions = ["create", "index", "update", "delete"];
 
-    permissions.forEach(permission => {
+    permissions.forEach((permission) => {
         // Periksa apakah menu.permissions adalah objek dan memiliki izin
-        const isChecked = (menu.permissions && typeof menu.permissions === 'object' && menu.permissions[permission]) ? 'checked' : '';
-        
+        const isChecked =
+            menu.permissions &&
+            typeof menu.permissions === "object" &&
+            menu.permissions[permission]
+                ? "checked"
+                : "";
+
         permissionsList.innerHTML += `
             <label>
-                <input type="checkbox" name="permissions[]" value="${permission}" ${isChecked}> ${permission.charAt(0).toUpperCase() + permission.slice(1)}
+                <input type="checkbox" name="permissions[]" value="${permission}" ${isChecked}> ${
+            permission.charAt(0).toUpperCase() + permission.slice(1)
+        }
             </label><br>
         `;
     });
 
     // Show the modal
-    document.getElementById('editMenuListModal').style.display = 'flex';
+    document.getElementById("editMenuListModal").style.display = "flex";
 }
 
 // Function to handle form submission
-editFormList.onsubmit = function(event) {
-    const permissionsCheckboxes = document.querySelectorAll('input[name="permissions[]"]');
+editFormList.onsubmit = function (event) {
+    const permissionsCheckboxes = document.querySelectorAll(
+        'input[name="permissions[]"]'
+    );
     let selectedPermissions = [];
 
     // Check which permissions are selected
-    permissionsCheckboxes.forEach(checkbox => {
+    permissionsCheckboxes.forEach((checkbox) => {
         if (checkbox.checked) {
             selectedPermissions.push(checkbox.value);
         }
@@ -128,10 +137,10 @@ editFormList.onsubmit = function(event) {
 
     // If no permissions are selected, set permissions to null
     if (selectedPermissions.length === 0) {
-        const permissionsInput = document.createElement('input');
-        permissionsInput.type = 'hidden';
-        permissionsInput.name = 'permissions';
-        permissionsInput.value = 'null'; // Set to null
+        const permissionsInput = document.createElement("input");
+        permissionsInput.type = "hidden";
+        permissionsInput.name = "permissions";
+        permissionsInput.value = "null"; // Set to null
         editFormList.appendChild(permissionsInput);
     }
 
@@ -140,7 +149,6 @@ editFormList.onsubmit = function(event) {
 };
 
 // Function to close the modal
-document.querySelector('.close').onclick = function() {
-    document.getElementById('editMenuListModal').style.display = 'none';
+document.querySelector(".close").onclick = function () {
+    document.getElementById("editMenuListModal").style.display = "none";
 };
-

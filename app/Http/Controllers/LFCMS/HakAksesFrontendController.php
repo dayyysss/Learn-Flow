@@ -10,19 +10,19 @@ use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class HakAksesController extends Controller
+class HakAksesFrontendController extends Controller
 {
     public function index(Request $request)
     {
         // Ambil semua roles untuk ditampilkan
-        $roles = Role::where('akses', 'backend')->get();
+        $roles = Role::where('akses', 'frontend')->get();
     
         // Ambil role yang dipilih (default ke role pertama jika tidak ada yang dipilih)
         $selectedRoleId = $request->input('role_id', $roles->first()->id);
         $selectedRole = Role::findOrFail($selectedRoleId);
     
         // Ambil daftar menu dengan permissions dan children
-        $menuLists = MenuList::where('menutype_id', 1)
+        $menuLists = MenuList::where('menutype_id', 2)
             ->whereNull('parent_id') // Mengambil menu root saja
             ->with(['children' => function ($query) {
                 $query->orderBy('order'); // Urutkan children berdasarkan order
@@ -35,11 +35,11 @@ class HakAksesController extends Controller
     
         // Jika permintaan dari AJAX, kembalikan hanya bagian hak akses
         if ($request->ajax()) {
-            return view('lfcms.pages.hakAkses.partials.role_access', compact('menuLists', 'rolePermissions'))->render();
+            return view('lfcms.pages.hakAksesFrontend.partials.role_access', compact('menuLists', 'rolePermissions'))->render();
         }
     
         // Jika bukan AJAX, kembalikan tampilan penuh
-        return view('lfcms.pages.hakAkses.index', compact('roles', 'selectedRole', 'menuLists', 'rolePermissions'));
+        return view('lfcms.pages.hakAksesFrontend.index', compact('roles', 'selectedRole', 'menuLists', 'rolePermissions'));
     }
     
     
@@ -62,7 +62,7 @@ class HakAksesController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Hak Akses berhasil diperbarui!',
-                'redirect_url' => route('hak-akses.index') // URL tujuan
+                'redirect_url' => route('hakAkses-frontend.index') // URL tujuan
             ]);
         }
     
@@ -89,7 +89,7 @@ class HakAksesController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Level berhasil ditambahkan!',
-                'redirect_url' => route('hak-akses.index') // URL tujuan
+                'redirect_url' => route('hakAkses-frontend.index') // URL tujuan
             ]);
         }
     
@@ -115,7 +115,7 @@ class HakAksesController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Level berhasil diperbarui!',
-                'redirect_url' => route('hak-akses.index') // URL tujuan
+                'redirect_url' => route('hakAkses-frontend.index') // URL tujuan
             ]);
         }
     
@@ -131,7 +131,7 @@ class HakAksesController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Level berhasil dihapus!',
-                'redirect_url' => route('hak-akses.index') // URL tujuan
+                'redirect_url' => route('hakAkses-frontend.index') // URL tujuan
             ]);
         }
 }
