@@ -10,7 +10,7 @@
             @method('PATCH') <!-- Specify the HTTP method as PUT for updates -->
 
             <div class="mb-3">
-                <label for="name" class="form-label">Quiz Name</label>
+                <label for="name" class="form-label">Nama Quiz</label>
                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $quiz->name) }}"
                     required oninput="updateSlug()" />
             </div>
@@ -33,17 +33,21 @@
             </div>
 
             <div class="mb-3">
-                <label for="start_time" class="form-label">Start Time</label>
+                <label for="start_time" class="form-label">Waktu Mulai</label>
                 <input type="time" id="start_time" name="start_time" class="form-control"
-                    value="{{ old('start_time', $quiz->start_time) }}"
-                    />
+                    value="{{ old('start_time', $quiz->start_time) }}" />
             </div>
 
             <div class="mb-3">
-                <label for="end_time" class="form-label">End Time</label>
+                <label for="end_time" class="form-label">Waktu Selesai</label>
                 <input type="time" id="end_time" name="end_time" class="form-control"
-                    value="{{ old('end_time', $quiz->end_time) }}"
-                    />
+                    value="{{ old('end_time', $quiz->end_time) }}" />
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Deskripsi</label>
+                <input type="text" id="description" name="description" class="form-control"
+                    value="{{ old('description', $quiz->description) }}" />
             </div>
 
             <button type="submit" class="btn btn-primary">Update Quiz</button>

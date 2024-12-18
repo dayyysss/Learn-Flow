@@ -44,6 +44,7 @@
                             <th class="px-5px py-10px md:px-5">Nama</th>
                             <th class="px-5px py-10px md:px-5">Waktu Mulai</th>
                             <th class="px-5px py-10px md:px-5">Waktu Selesai</th>
+                            <th class="px-5px py-10px md:px-5">Deskripsi</th>
                             <th class="px-5px py-10px md:px-5">Aksi</th>
                         </tr>
                     </thead>
@@ -58,6 +59,9 @@
                                 </td>
                                 <td class="px-5px py-10px md:px-5">
                                     <p>{{ $quiz->end_time }}</p>
+                                </td>
+                                <td class="px-5px py-10px md:px-5">
+                                    <p>{{ $quiz->description }}</p>
                                 </td>
                                 <td class="px-5px py-10px md:px-5 flex justify-center gap-2">
                                     <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"

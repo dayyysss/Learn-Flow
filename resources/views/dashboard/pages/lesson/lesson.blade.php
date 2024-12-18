@@ -48,7 +48,7 @@
                                                 <li class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
                                                     <div>
                                                         <h4 class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
-                                                            <i class="icofont-quiz-alt mr-10px"></i>
+                                                            <i class="icofont-question-circle mr-10px"></i>
                                                             <a href="#" data-id="{{ $quiz->id }}" data-slug="{{ $quiz->slug }}" class="quiz-link font-medium text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                                 {{ $quiz->name }}
                                                             </a>
