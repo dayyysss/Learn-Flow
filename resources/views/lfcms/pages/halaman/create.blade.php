@@ -12,35 +12,96 @@
                     <form action="{{ route('halaman.store') }}" method="POST" enctype="multipart/form-data" class="p-6">
                         @csrf
                         <div class="flex lg:flex-row flex-col gap-x-4">
-                            <div class="w-full mb-4">
-                                <label for="judul" class="form-label">Judul</label>
-                                <input type="text" id="judul" name="judul" class="form-input" placeholder="Masukkan judul halaman" value="{{ old('judul') }}">
+                            <!-- Kolom Kiri -->
+                            <div class="flex flex-col w-full lg:w-1/2 gap-y-4">
+                                <div>
+                                    <label for="judul" class="form-label">Judul</label>
+                                    <input type="text" id="judul" name="judul" class="form-input"
+                                        placeholder="Masukkan judul halaman" value="{{ old('judul') }}">
+                                </div>
+                                <div>
+                                    <label for="slug" class="form-label">Slug</label>
+                                    <input type="text" id="slug" name="slug" class="form-input"
+                                        placeholder="Slug otomatis terisi" value="{{ old('slug') }}" readonly>
+                                </div>
                             </div>
-                            <div class="w-full mb-4">
-                                <label for="status" class="form-label">Status</label>
-                                <select id="status" name="status" class="form-input">
-                                    <option value="publik" {{ old('status') == 'publik' ? 'selected' : '' }}>Publik</option>
-                                    <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
-                                </select>
-                            </div>
-                            <div class="w-full mb-4">
-                                <label for="keyword" class="form-label">Keyword</label>
-                                <input type="text" id="keyword" name="keyword" class="form-input" placeholder="Masukkan kata kunci" value="{{ old('keyword') }}">
+                            <!-- Kolom Kanan -->
+                            <div class="flex flex-col w-full lg:w-1/2 gap-y-4">
+                                <div>
+                                    <label for="status" class="form-label">Status</label>
+                                    <select id="status" name="status" class="form-input">
+                                        <option value="publik" {{ old('status') == 'publik' ? 'selected' : '' }}>Publik
+                                        </option>
+                                        <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft
+                                        </option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="keyword" class="form-label">Kata Kunci</label>
+                                    <input type="text" id="keyword" name="keyword" class="form-input"
+                                        placeholder="Masukkan kata kunci" value="{{ old('keyword') }}">
+                                </div>
                             </div>
                         </div>
-                        <div class="flex lg:flex-row flex-col gap-x-4 mb-2">
-                            <div class="w-full mb-4">
-                                <label for="deskripsi" class="form-label">Deskripsi Lengkap</label>
-                                <textarea id="deskripsi" name="deskripsi" class="form-input summernote" placeholder="Masukkan deskripsi lengkap">{{ old('deskripsi') }}</textarea>
+                        <div class="flex lg:flex-row flex-col gap-x-4 mb-6 mt-6">
+                            <!-- Kolom Kiri untuk Deskripsi Lengkap -->
+                            <div class="flex-1 w-full">
+                                <label for="deskripsi" class="form-label">Deskripsi</label>
+                                <textarea 
+                                    id="deskripsi" 
+                                    name="deskripsi" 
+                                    class="form-input summernote w-full" 
+                                    placeholder="Masukkan deskripsi lengkap"
+                                >{{ old('deskripsi') }}</textarea>
                             </div>
-                        </div>
-                        <div class="flex mt-6 gap-5">
-                            <button type="submit" class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                            
+                            <!-- Kolom Kanan untuk Gambar -->
+                            <div class="flex-1 w-full">
+                                <label for="drag-drop" class="form-label">Gambar</label>
+                                <label 
+                                    for="drag-drop"
+                                    class="file-container text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/2] flex flex-col items-center justify-center gap-2.5 dk-border-one border-dashed rounded-10 w-full"
+                                >
+                                    <input type="file" id="drag-drop" hidden class="peer/file file-src">
+                                    <span class="flex-center flex-col text-center w-full">
+                                        <img 
+                                            src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" 
+                                            alt="file-icon" 
+                                            class="size-8 lg:size-auto mx-auto"
+                                        >
+                                        <div class="file-name mt-2 text-xl font-semibold text-gray-500 dark:text-dark-text">
+                                            Seret dan letakkan file di sini atau
+                                        </div>
+                                        <label 
+                                            for="drag-drop"
+                                            class="cursor-pointer text-sm text-primary-500 before:text-lg font-spline_sans before:font-remix before:pr-px before:content-['\f24e'] btn b-outline btn-primary-outline py-2.5 px-[18px] mt-4"
+                                        >
+                                            Klik untuk mengunggah
+                                        </label>
+                                        <span class="text-sm text-gray-900 dark:text-dark-text-two mt-2">
+                                            Ukuran file maksimum adalah 1 MB
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>        
+                        <div class="flex gap-5 mt-6">
+                            <button type="submit"
+                                class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
                             <a href="{{ route('halaman.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>
                         </div>
-                    </form>                                    
                 </div>
+                </form>
+
+                <script>
+                    document.getElementById('judul').addEventListener('input', function() {
+                        const judulValue = this.value;
+                        const slugValue = judulValue.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                        document.getElementById('slug').value = slugValue;
+                    });
+                </script>
             </div>
         </div>
+    </div>
     </div>
 @endsection
