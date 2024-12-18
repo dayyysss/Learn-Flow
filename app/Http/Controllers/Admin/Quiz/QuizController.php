@@ -39,6 +39,7 @@ class QuizController extends Controller
             'bab_id' => 'required|exists:babs,id',
             'start_time' => 'required', // Updated for AM/PM format
             'end_time' => 'required|after:start_time', // Updated for AM/PM format
+            'description' => 'require|text',
         ]);
 
         // Generate slug
@@ -53,6 +54,7 @@ class QuizController extends Controller
                 'bab_id' => $request->bab_id,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
+                'description' => $request->description,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Could not insert data: ' . $e->getMessage()])->withInput();
@@ -77,6 +79,7 @@ class QuizController extends Controller
             'bab_id' => 'required|exists:babs,id',
             'start_time' => 'nullable', // Adjusted for time format
             'end_time' => 'nullable|after:start_time', // Adjusted for time format
+            'description' => 'require|text',
         ]);
 
         // Generate slug
@@ -92,6 +95,7 @@ class QuizController extends Controller
                 'bab_id' => $request->bab_id,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
+                'description' => $request->description,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Could not update data: ' . $e->getMessage()])->withInput();

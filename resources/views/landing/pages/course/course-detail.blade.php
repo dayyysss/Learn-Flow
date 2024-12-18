@@ -19,7 +19,7 @@
                         </div>
 
                         <!-- course content -->
-                        <div>
+                        <div>z
                             <div class="flex items-center justify-between flex-wrap gap-6 mb-30px" data-aos="fade-up">
                                 <div class="flex items-center gap-6">
                                     <button
@@ -35,7 +35,6 @@
                                             {{ $course->updated_at->format('F d, Y') }}
                                         </span>
                                     </p>
-
                                 </div>
                             </div>
 
@@ -82,7 +81,7 @@
                             </div>
                             <p class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                                 data-aos="fade-up">
-                                {!! $course->deskripsi !!}}
+                                {!! $course->deskripsi !!}
                             </p>
                             <!-- details -->
                             <div class="mt-5">
@@ -245,7 +244,6 @@
                                                                     <p
                                                                         class="text-xs text-headingColor dark:text-headingColor-dark px-10px py-0.5 ml-10px bg-borderColor dark:bg-borderColor-dark rounded-full">
                                                                         {{ $bab->total_duration ?? '1hr 35min' }}
-                                                                        <!-- Durasi, sesuaikan dengan data -->
                                                                     </p>
                                                                 </div>
                                                                 <svg class="transition-all duration-500 rotate-0"
@@ -269,7 +267,6 @@
                                                                                 <h4
                                                                                     class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
                                                                                     @if ($modul->video)
-                                                                                        <!-- Jika modul memiliki video -->
                                                                                         <i
                                                                                             class="icofont-video-alt mr-10px"></i>
                                                                                         <span
@@ -277,7 +274,6 @@
                                                                                     @endif
                                                                                     {{ $modul->name }}
                                                                                 </h4>
-
                                                                             </div>
                                                                             <div
                                                                                 class="text-blackColor dark:text-blackColor-dark text-sm flex items-center">
@@ -292,32 +288,28 @@
                                                                                     </p>
                                                                                 </a>
                                                                             </div>
-                                                                            {{-- <div class="text-contentColor dark:text-contentColor-dark text-sm">
-                                                    <p>
-                                                        <i class="icofont-lock"></i> <!-- Tampilkan status jika diperlukan -->
-                                                    </p>
-                                                </div> --}}
                                                                         </li>
                                                                     @endforeach
 
-                                                                    <!-- Contoh item lainnya jika ada -->
-                                                                    <li
-                                                                        class="py-15px flex items-center justify-between flex-wrap">
-                                                                        <div>
-                                                                            <h4
-                                                                                class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
-                                                                                <i class="icofont-file-text mr-10px"></i>
-                                                                                <span class="font-medium">Lesson 03
-                                                                                    Exam:</span>
-                                                                            </h4>
-                                                                        </div>
-                                                                        <div
-                                                                            class="text-blackColor dark:text-blackColor-dark text-sm">
-                                                                            <p>
-                                                                                <i class="icofont-lock"></i> 20 Ques
-                                                                            </p>
-                                                                        </div>
-                                                                    </li>
+                                                                    <!-- Loop untuk menampilkan quiz di dalam bab -->
+                                                                    @foreach ($bab->quiz as $quiz)
+                                                                        <li
+                                                                            class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
+                                                                            <div>
+                                                                                <h4
+                                                                                    class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
+                                                                                    <i
+                                                                                        class="icofont-question-circle mr-10px"></i>
+                                                                                    <span class="font-medium">Quiz:</span>
+                                                                                    {{ $quiz->name }}
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div
+                                                                                class="text-blackColor dark:text-blackColor-dark text-sm">
+                                                                                <p><i class="icofont-lock"></i> 20 Ques</p>
+                                                                            </div>
+                                                                        </li>
+                                                                    @endforeach
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -325,7 +317,6 @@
                                                 </li>
                                             @endforeach
                                         </ul>
-
                                     </div>
                                     <!-- description -->
                                     <div class="hidden mb-5">
@@ -671,7 +662,7 @@
                                         </div>
                                     </div>
 
-                                   
+
                                 </div>
                             </div>
                             <div class="md:col-start-5 md:col-span-8">
@@ -1421,7 +1412,7 @@
                         </div>
 
                         <!-- tags
-                       -->
+                                                   -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4
