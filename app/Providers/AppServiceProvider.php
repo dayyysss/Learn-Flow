@@ -28,8 +28,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::aliasComponent(Carbon::class, 'carbon');
         Paginator::defaultView('dashboard.components.pagination.custom');
+        Paginator::defaultView('lfcms.components.pagination.pagination');
 
         View::composer('dashboard.partials.header', function ($view) {
+            $user = auth()->user();
+       
+            $view->with('user', $user);
+        });
+
+        View::composer('lfcms.partials.header', function ($view) {
             $user = auth()->user();
        
             $view->with('user', $user);

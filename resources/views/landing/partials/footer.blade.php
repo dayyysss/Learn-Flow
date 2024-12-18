@@ -12,7 +12,7 @@
                             <span class="text-primaryColor">Kami</span> ?
                         </h4>
                         <p class="text-whiteColor text-opacity-65">
-                          Jangan menunggu, buatlah kutipan cerdas & logis di sini. Ini cukup mudah.
+                            Jangan menunggu, buatlah kutipan cerdas & logis di sini. Ini cukup mudah.
                         </p>
                     </div>
                     <div data-aos="fade-up">

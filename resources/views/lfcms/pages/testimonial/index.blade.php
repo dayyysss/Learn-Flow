@@ -135,7 +135,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('lfcms.components.pagination.pagination')
+                        {{ $testimonial->links('lfcms.components.pagination.pagination') }}
                     </div>
                 </div>
             </div>
