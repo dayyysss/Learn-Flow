@@ -33,8 +33,8 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\Admin\HakAksesController;
-
+use App\Http\Controllers\LFCMS\HakAksesController;
+use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -81,18 +81,19 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
+        Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
+        Route::get('/artikel', 'artikelCMS')->name('artikelCMS');
+        Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
+        Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
+    });
         // Route::get('/klien', 'klienCMS')->name('klienCMS');
         Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);
-        Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
-        Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
-        Route::get('/artikel', 'artikelCMS')->name('artikelCMS');
+      
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
         Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('historypembayaranCMS');
-        Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
 
-    });
 
         //user
         Route::resource('/administrator', UserController::class);
@@ -115,6 +116,14 @@ Route::prefix('lfcms')->group(function () {
         Route::get('hak-akses/get-permissions', [HakAksesController::class, 'getPermissionsForRole'])->name('hak-akses.getPermissions');
         Route::get('hak-akses/{roleId}', [HakAksesController::class, 'indexbyRole'])->name('HakAkses.index');
         Route::delete('/role/{id}', [HakAksesController::class, 'destroy'])->name('role.destroy');
+
+        //hak Akses Frontend
+        Route::resource('/hakAkses-frontend', HakAksesFrontendController::class);
+        Route::put('frontend/role/{id}', [HakAksesFrontendController::class, 'updateRole'])->name('role.update.frontend');
+        Route::get('/menu-sidebar', [HakAksesFrontendController::class, 'indexSidebar'])->name('indexbyId');
+        Route::get('frontend/hak-akses/get-permissions', [HakAksesFrontendController::class, 'getPermissionsForRole'])->name('hak-akses.getPermissions.frontend');
+        Route::get('frontend/hak-akses/{roleId}', [HakAksesFrontendController::class, 'indexbyRole'])->name('HakAkses.index.frontend');
+        Route::delete('frontend/role/{id}', [HakAksesFrontendController::class, 'destroy'])->name('role.destroy.frontend');
 
 
 

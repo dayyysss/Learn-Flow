@@ -16,7 +16,7 @@
 
 <body class="relative font-inter font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
     <!-- preloader -->
-    {{-- <div
+    <div
         class="preloader flex fixed top-0 left-0 h-screen w-full items-center justify-center z-xxl bg-whiteColor opacity-100 visible transition-all duration-700">
         <!-- spinner -->
         <div
@@ -25,7 +25,7 @@
         <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
             <img src="assets/images/pre.png" alt="Preloader" class="h-10 w-10 block">
         </div>
-    </div> --}}
+    </div>
     <!-- theme fixed shadow -->
     <div>
         <div class="fixed-shadow left-[-250px]"></div>
@@ -110,6 +110,18 @@
 
                                 <form class="pt-25px" action="{{ route('login') }}" method="POST" data-aos="fade-up">
                                     @csrf
+
+                                    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
                                     <div class="mb-25px">
                                         <label
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Username

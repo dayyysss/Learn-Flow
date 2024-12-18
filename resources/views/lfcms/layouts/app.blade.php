@@ -17,9 +17,14 @@
   <link rel="stylesheet" href="{{ asset('assets/lfcms/css/vendor/summernote.min.css') }}">
 
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-  <script src="/node_modules/nestable2/jquery.nestable.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js">
+    </script>
+    
+  
 
 </head>
 <body class="bg-body-light dark:bg-dark-body group-data-[theme-width=box]:container group-data-[theme-width=box]:max-w-screen-3xl xl:group-data-[theme-width=box]:px-3">
