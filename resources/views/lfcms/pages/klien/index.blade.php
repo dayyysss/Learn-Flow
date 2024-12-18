@@ -8,7 +8,7 @@
                 <div class="card p-0">
                     <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
                         <h3 class="text-lg card-title leading-none">Data Klien</h3>
-                    @include('lfcms.components.breadcrumb.custom', ['title' => 'Klien'])
+                        @include('lfcms.components.breadcrumb.custom', ['title' => 'Klien'])
                     </div>
                     <div class="p-6">
                         <div class="flex-center-between">
@@ -17,15 +17,18 @@
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                     </span>
-                                    <input type="text" placeholder="Search for..." class="form-input pl-[30px]">
+                                    <input type="text" name="search" value="{{ $search ?? '' }}"
+                                        placeholder="Search for..." class="form-input pl-[30px]">
                                 </form>
                                 <button type="button"
-                                    class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5">
+                                    class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
+                                    onclick="window.location='{{ route('klien.index') }}'">
                                     <i class="ri-loop-right-line text-inherit text-sm"></i>
                                     <span>Refresh</span>
                                 </button>
                             </div>
-                            <button class="btn b-light btn-primary-light dk-theme-card-square">
+                            <button class="btn b-light btn-primary-light dk-theme-card-square"
+                                onclick="window.location.href='{{ route('klien.create') }}'">
                                 <i class="ri-add-fill text-inherit"></i>
                                 <span>Tambah Klien</span>
                             </button>
@@ -53,106 +56,80 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                    <tr>
-                                        <td class="p-6 py-4">1</td>
-                                        <td class="p-6 py-4">
-                                            <div class="flex items-center gap-3.5">
+                                    @forelse ($clients as $client)
+                                        <tr>
+                                            <td class="p-6 py-4">
+                                                {{ $loop->iteration + ($clients->currentPage() - 1) * $clients->perPage() }}
+                                            </td>
+                                            <td class="p-6 py-4">
+                                                <div class="flex items-center gap-3.5">
 
-                                                <div>
-                                                    <h6 class="leading-none text-heading font-semibold">
-                                                        <a href="#">Eleanor Pena</a>
-                                                    </h6>
-                                                    <p class="font-spline_sans text-sm font-light mt-1">UX/UI Design</p>
+                                                    <div>
+                                                        <h6 class="leading-none text-heading font-semibold">
+                                                            <a href="#">{{ $client->name }}</a>
+                                                        </h6>
+                                                        <p class="font-spline_sans text-sm font-light mt-1">
+                                                            {{ $client->job_title }}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="p-6 py-4">
-                                            <span class="badge badge-success-light rounded-full">Publik</span>
-                                        </td>
-                                        <td class="p-6 py-4">
-                                            <div class="flex flex-col gap-2">
-                                                <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                    <img src="assets/images/student/student-1.png" alt="student">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td class="p-6 py-4">
-                                            <div class="flex items-center gap-2">
-                                                <a href="#" class="btn-icon btn-primary-icon-light size-7">
-                                                    <i class="ri-edit-2-line text-inherit text-[13px]"></i>
-                                                </a>
-                                                <a href="#" class="btn-icon btn-danger-icon-light size-7">
-                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                </a>
-                                                <div class="relative ml-5">
-                                                    <button data-popover-target="td-3-0" data-popover-trigger="click"
-                                                        data-popover-placement="bottom-end"
-                                                        class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                        <i class="ri-more-2-fill text-inherit"></i>
-                                                    </button>
-                                                    <ul id="td-3-0"
-                                                        class="hidden popover-target invisible [&.visible]:!block"
-                                                        data-popover>
-                                                        <li>
-                                                            <a class="popover-item" href="#">More</a>
-                                                        </li>
-                                                    </ul>
+                                            </td>
+                                            <td class="p-6 py-4">
+                                                <span
+                                                    class="badge 
+                                            {{ $client->status == 'Publik' ? 'badge-success-light' : ($client->status == 'draft' ? 'badge-danger-light' : 'badge-warning-light') }}">
+                                                    {{ $client->status }}
+                                                </span>
+                                            </td>
+                                            <td class="p-6 py-4">
+                                                <div class="flex flex-col gap-2">
+                                                    <a href="#" class="size-12 rounded-50 overflow-hidden">
+                                                        <!-- Menggunakan path dinamis dengan direktori public/clients -->
+                                                        <img src="{{ asset('public/clients/' . $client->image) }}"
+                                                            alt="client">
+                                                    </a>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-6 py-4">2</td>
-                                        <td class="p-6 py-4">
-                                            <div class="flex items-center gap-3.5">
-
-                                                <div>
-                                                    <h6 class="leading-none text-heading font-semibold">
-                                                        <a href="#">Eleanor Pena</a>
-                                                    </h6>
-                                                    <p class="font-spline_sans text-sm font-light mt-1">UX/UI Design</p>
+                                            </td>
+                                            <td class="p-6 py-4">
+                                                <div class="flex items-center gap-2">
+                                                    <a href="{{ route('klien.edit', $client->id) }}"
+                                                        class="btn-icon btn-primary-icon-light size-7">
+                                                        <i class="ri-edit-2-line text-inherit text-[13px]"></i>
+                                                    </a>
+                                                    <a href="{{ route('klien.destroy', $client->id) }}"
+                                                        class="btn-icon btn-danger-icon-light size-7"
+                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus klien ini?')">
+                                                        <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                    </a>
+                                                    <div class="relative ml-5">
+                                                        <button data-popover-target="td-3-0" data-popover-trigger="click"
+                                                            data-popover-placement="bottom-end"
+                                                            class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
+                                                            <i class="ri-more-2-fill text-inherit"></i>
+                                                        </button>
+                                                        <ul id="td-3-0"
+                                                            class="hidden popover-target invisible [&.visible]:!block"
+                                                            data-popover>
+                                                            <li>
+                                                                <a class="popover-item" href="#">More</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="p-6 py-4">
-                                            <span class="badge badge-warning-light rounded-full">Draft</span>
-                                        </td>
-                                        <td class="p-6 py-4">
-                                            <div class="flex flex-col gap-2">
-                                                <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                    <img src="assets/images/student/student-1.png" alt="student">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td class="p-6 py-4">
-                                            <div class="flex items-center gap-2">
-                                                <a href="#" class="btn-icon btn-primary-icon-light size-7">
-                                                    <i class="ri-message-2-line text-inherit text-[13px]"></i>
-                                                </a>
-                                                <a href="#" class="btn-icon btn-danger-icon-light size-7">
-                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                </a>
-                                                <div class="relative ml-5">
-                                                    <button data-popover-target="td-3-0" data-popover-trigger="click"
-                                                        data-popover-placement="bottom-end"
-                                                        class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                        <i class="ri-more-2-fill text-inherit"></i>
-                                                    </button>
-                                                    <ul id="td-3-0"
-                                                        class="hidden popover-target invisible [&.visible]:!block"
-                                                        data-popover>
-                                                        <li>
-                                                            <a class="popover-item" href="#">More</a>
-                                                        </li>
-                                                    </ul>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">
+                                                <div class="alert alert-danger">
+                                                    Belum ada data yang masuk!
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
-                        @include('lfcms.components.pagination.pagination')
+                        {{ $clients->links('lfcms.components.pagination.pagination') }}
                     </div>
                 </div>
             </div>

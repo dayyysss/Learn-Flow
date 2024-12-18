@@ -144,7 +144,7 @@
                                                 <ul
                                                     class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
                                                     <li class="relative flex gap-x-15px items-center">
-                                                        <a href="course-details.html"><img src="assets/images/grid/cart1.jpg"
+                                                        <a href="course-details.html"><img src="{{ asset('assets/images/grid/cart1.jpg') }}"
                                                                 alt="photo" class="w-card-img py-[3px]"></a>
                                                         <div>
                                                             <a href="course-details.html"
@@ -154,44 +154,6 @@
                                                                 class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
                                                                 1 x
                                                                 <span class="text-secondaryColor">$ 80.00</span>
-                                                            </p>
-                                                        </div>
-
-                                                        <button
-                                                            class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
-                                                            <i class="icofont-close-line"></i>
-                                                        </button>
-                                                    </li>
-                                                    <li class="relative flex gap-x-15px items-center">
-                                                        <a href="course-details.html"><img src="assets/images/grid/cart2.jpg"
-                                                                alt="photo" class="w-card-img py-[3px]"></a>
-                                                        <div>
-                                                            <a href="course-details.html"
-                                                                class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">Design
-                                                                Minois</a>
-                                                            <p
-                                                                class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
-                                                                1 x
-                                                                <span class="text-secondaryColor">$ 60.00</span>
-                                                            </p>
-                                                        </div>
-
-                                                        <button
-                                                            class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
-                                                            <i class="icofont-close-line"></i>
-                                                        </button>
-                                                    </li>
-                                                    <li class="relative flex gap-x-15px items-center">
-                                                        <a href="course-details.html"><img src="assets/images/grid/cart3.jpg"
-                                                                alt="photo" class="w-card-img py-[3px]"></a>
-                                                        <div>
-                                                            <a href="course-details.html"
-                                                                class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">Crash
-                                                                Course</a>
-                                                            <p
-                                                                class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
-                                                                1 x
-                                                                <span class="text-secondaryColor">$ 70.00</span>
                                                             </p>
                                                         </div>
 

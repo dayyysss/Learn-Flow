@@ -15865,6 +15865,10 @@ body {
   position: relative;
 }
 
+.h-fit{
+  height: fit-content;
+}
+
 .sticky{
   position: sticky;
 }
@@ -16310,6 +16314,10 @@ body {
   margin-bottom: 50px;
 }
 
+.ml-2{
+  margin-left: 0.5rem;
+}
+
 .ml-3{
   margin-left: 0.75rem;
 }
@@ -16322,8 +16330,19 @@ body {
   margin-left: 1.25rem;
 }
 
+.ml-8{
+  margin-left: 2rem;
+}
+
 .ml-auto{
   margin-left: auto;
+}
+.mr-auto{
+  margin-right: auto;
+}
+
+.mr-2{
+  margin-right: 0.5rem;
 }
 
 .mr-4{
@@ -16652,6 +16671,10 @@ body {
   height: 2rem;
 }
 
+.h-50{
+  height: 50%;
+}
+
 .h-9{
   height: 2.25rem;
 }
@@ -16959,6 +16982,14 @@ body {
 
 .w-app-menu{
   width: 280px;
+}
+
+.w-80{
+  width: 20rem;
+}
+
+.w-75{
+  width: 75%;
 }
 
 .w-full{
@@ -21289,6 +21320,10 @@ body {
 }
 
 @media (min-width: 768px){
+  .md\:w-80{
+    width: 30rem;
+  }
+
   .md\:inset-0{
     inset: 0px;
   }
