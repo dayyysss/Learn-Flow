@@ -25,8 +25,6 @@ class KategoriArtikelController extends Controller
             'status' => 'required|boolean',
         ]);
 
-        $validated['status'] = ($validated['status'] === 'publik') ? 1 : 0;
-
         // Membuat slug dari nama kategori
         $validated['slug'] = Str::slug($validated['name'], '-');
 
