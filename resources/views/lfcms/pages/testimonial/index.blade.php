@@ -132,21 +132,27 @@
                                                 class="form-input">
                                         </div>
                                         <div>
-                                            <label for="description" class="form-label">Deskripsi</label>
-                                            <textarea name="description" id="description" rows="4" required class="form-input"></textarea>
-                                        </div>
-                                        <div>
                                             <label for="status" class="form-label">Status</label>
-                                            <select name="status" id="status" required class="form-input">
+                                            <select name="status" id="status" required class="form-input form-select w-full h-11">>
                                                 <option value="publik">Publik</option>
                                                 <option value="draft">Draft</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label for="image"
-                                                class="block text-sm font-medium text-gray-700">Gambar</label>
-                                            <input type="file" name="image" id="image" accept="image/*"
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                            <label for="description" class="form-label">Deskripsi</label>
+                                            <textarea name="description" id="description" rows="4" required class="form-input"></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Gambar</label>
+                                            <div class="file-container file-input-label bg-transparent text-[#727175] h-11 dk-theme-card-square">
+                                                <span class="px-3 rounded-lg rounded-r-none border-r bg-[#EEEEEE] dark:bg-dark-icon border-input-border dark:border-dark-border-four flex-center dk-theme-card-square">
+                                                    Choose File
+                                                </span>
+                                                <label for="image" class="p-2.5 grow">
+                                                    <input type="file" name="image" accept="image/*" id="image" class="hidden file-src">
+                                                    <span class="file-name text-sm">No file choose</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
 
