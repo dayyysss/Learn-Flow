@@ -10,7 +10,7 @@
                 <div class="p-1.5">
                     <h6 class="card-title">Tambah Artikel</h6>
                     <div class="mt-7 pt-0.5">
-                        <div class="grid grid-cols-2 gap-x-4 gap-y-5">
+                        <div class="grid  gap-y-5">
                             <div class="col-span-full xl:col-auto leading-none">
                                 <label for="judul" class="form-label">Judul</label> 
                                 <input type="text" id="judul" name="judul" placeholder="Judul Artikel" class="form-input" required>

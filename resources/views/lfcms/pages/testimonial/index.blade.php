@@ -13,12 +13,14 @@
                     <div class="p-6">
                         <div class="flex-center-between">
                             <div class="flex items-center gap-5">
+
                                 <form class="max-w-80 relative">
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                     </span>
-                                    <input type="text" placeholder="Search for..." class="form-input pl-[30px]">
+                                    <input type="text" id="searchInput" placeholder="Search for..." class="form-input pl-[30px]">
                                 </form>
+
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5">
                                     <i class="ri-loop-right-line text-inherit text-sm"></i>
@@ -51,8 +53,8 @@
                                             Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                    @foreach ($testimonial as $index => $item)
+                                <tbody id="dataContainer" class="divide-y divide-gray-200 dark:divide-dark-border-three">
+                                    @foreach($testimonial as $index => $testimonial)
                                         <tr>
                                             <td class="p-6 py-4">{{ $loop->iteration }}</td>
                                             <td class="p-6 py-4">
@@ -87,7 +89,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $testimonial->links('lfcms.components.pagination.pagination') }}
+                        {{-- {{ $testimonial->links('lfcms.components.pagination.pagination') }} --}}
                     </div>
                     <div id="modalTambahTestimonial"
                         class="modal-back ml-auto mr-auto fixed w-[40%] h-auto inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 transition duration-300 transform scale-95">
@@ -168,6 +170,30 @@
     <!-- Tambahkan Modal -->
 
     <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+        const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
+        const rows = document.querySelectorAll("#dataContainer tr"); // Ambil semua baris dalam tabel
+    
+        rows.forEach(row => {
+            const name = row.children[1].textContent.toLowerCase(); // Ambil kolom nama
+            const profession = row.children[2].textContent.toLowerCase(); // Ambil kolom email
+    
+            // Periksa apakah query ada di nama atau email
+            if (name.includes(query) || profession.includes(query)) {
+                row.style.display = ""; // Tampilkan baris
+            } else {
+                row.style.display = "none"; // Sembunyikan baris
+            }
+        });
+    });
+    
+    </script>
+
+<script>
+    // Fungsi untuk membuka modal
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+    }
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.classList.remove('hidden', 'scale-95', 'opacity-0');

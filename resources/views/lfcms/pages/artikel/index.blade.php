@@ -23,12 +23,12 @@
                                 <span>Refresh</span>
                             </button>
                         </div>
-                        <a href="{{ route('artikel.create') }}">
-                            <button class="btn b-light btn-primary-light dk-theme-card-square">
-                                <i class="ri-add-fill text-inherit"></i>
-                                <span>Tambah Artikel</span>
-                            </button>
-                        </a>                        
+                        <button class="btn b-light btn-primary-light dk-theme-card-square">
+                            <a href="{{route('artikel.create')}}">
+                            <i class="ri-add-fill text-inherit"></i>
+                            <span>Tambah Artikel</span>
+                            </a>
+                        </button>
                     </div>
                     <div class="overflow-x-auto mt-5">
                         <table class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
@@ -43,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                @foreach ($artikel as $item)
+                                @foreach ($articles as $item)
                                 <tr> 
                                     <td class="p-6 py-4">{{ $item->id }}</td>
                                     <td class="p-6 py-4">{{ $item->judul }}</td>
@@ -81,7 +81,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @include('lfcms.components.pagination.pagination', ['paginator' => $artikel])
+                    {{-- @include('lfcms.components.pagination.pagination', ['paginator' => $articles]) --}}
                 </div>
             </div>
         </div>

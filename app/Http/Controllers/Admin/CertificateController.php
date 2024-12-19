@@ -107,7 +107,7 @@ class CertificateController extends Controller
         $pdf->SetFont('Helvetica', 'B');
     $pdf->SetFontSize(16);
     $pdf->SetTextColor(0, 0, 0);
-    $pdf->SetXY(230, 15);
+    $pdf->SetXY(243, 14.5);
         $pdf->Cell(0, 10, $certificateId, 0, 1, 'L');
 
     // If signature exists, add it to the certificate
