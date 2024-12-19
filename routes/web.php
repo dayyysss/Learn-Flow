@@ -92,7 +92,7 @@ Route::prefix('lfcms')->group(function () {
         Route::resource('/halaman', PageController::class);
 
         //Artikel
-        Route::resource('/artikel', ArtikelController::class);
+        Route::resource('/artikel', ArticleController::class);
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
