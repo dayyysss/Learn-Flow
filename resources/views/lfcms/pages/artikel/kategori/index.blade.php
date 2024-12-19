@@ -98,7 +98,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('lfcms.components.pagination.pagination')
+                        {{-- @include('lfcms.components.pagination.pagination') --}}
                         @include('lfcms.pages.artikel.kategori.create')
                     </div>
                 </div>

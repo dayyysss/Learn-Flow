@@ -277,7 +277,7 @@
                                                                                 <p>
                                                                                     <i class="icofont-clock-time"></i> 22 minutes
                                                                                 </p>
-                                                                                <a href="{{ route('modul.detail', $modul->slug) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
+                                                                                <a href="{{ route('babCourse.index', $course->slug) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
                                                                                     <p class="px-10px">
                                                                                         <i class="icofont-eye"></i> Preview
                                                                                     </p>

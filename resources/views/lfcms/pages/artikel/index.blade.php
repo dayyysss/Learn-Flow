@@ -102,7 +102,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @include('lfcms.components.pagination.pagination')
+                    {{-- @include('lfcms.components.pagination.pagination') --}}
                 </div>
             </div>
         </div>
