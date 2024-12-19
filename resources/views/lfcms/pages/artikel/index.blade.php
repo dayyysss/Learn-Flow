@@ -24,8 +24,10 @@
                             </button>
                         </div>
                         <button class="btn b-light btn-primary-light dk-theme-card-square">
+                            <a href="{{route('artikel.create')}}">
                             <i class="ri-add-fill text-inherit"></i>
                             <span>Tambah Artikel</span>
+                            </a>
                         </button>
                     </div>
                     <div class="overflow-x-auto mt-5">
@@ -41,13 +43,18 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
+                                @foreach ($articles as $item)
                                 <tr> 
-                                    <td class="p-6 py-4">1</td>
-                                    <td class="p-6 py-4">Mencari Kursus Terdekat? Temukan di Bogor!</td>
-                                    <td class="p-6 py-4">Artikel</td>
-                                    <td class="p-6 py-4">Ibule</td>
+                                    <td class="p-6 py-4">{{ $item->id }}</td>
+                                    <td class="p-6 py-4">{{ $item->judul }}</td>
+                                    <td class="p-6 py-4">{{ $item->category->name }}</td>
+                                    <td class="p-6 py-4">{{ $item->user->name }}</td>
                                     <td class="p-6 py-4">
+                                        @if ($item->status == 1)
                                         <span class="badge badge-success-light rounded-full">Publik</span>
+                                        @else
+                                        <span class="badge badge-success-light rounded-full">Draft</span>
+                                        @endif
                                     </td>
                                     <td class="p-6 py-4">
                                         <div class="flex items-center gap-2">
@@ -70,39 +77,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr> 
-                                    <td class="p-6 py-4">2</td>
-                                    <td class="p-6 py-4">Mencari Kursus Terdekat? Temukan di Bogor!</td>
-                                    <td class="p-6 py-4">Artikel</td>
-                                    <td class="p-6 py-4">Ibule</td>
-                                    <td class="p-6 py-4">
-                                        <span class="badge badge-warning-light rounded-full">Draft</span>
-                                    </td>
-                                    <td class="p-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <a href="#" class="btn-icon btn-primary-icon-light size-7">
-                                                <i class="ri-edit-2-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <a href="#" class="btn-icon btn-danger-icon-light size-7">
-                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                            </a>
-                                            <div class="relative ml-5">
-                                                <button data-popover-target="td-3-0" data-popover-trigger="click" data-popover-placement="bottom-end" class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                    <i class="ri-more-2-fill text-inherit"></i>
-                                                </button>
-                                                <ul id="td-3-0" class="hidden popover-target invisible [&.visible]:!block" data-popover>
-                                                    <li>
-                                                        <a class="popover-item" href="#">More</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    @include('lfcms.components.pagination.pagination')
+                    {{-- @include('lfcms.components.pagination.pagination', ['paginator' => $articles]) --}}
                 </div>
             </div>
         </div>

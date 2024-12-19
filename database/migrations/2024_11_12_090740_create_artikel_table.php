@@ -17,11 +17,11 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('judul');
             $table->string('slug')->unique();
-            $table->text('deskripsi_singkat')->nullable();
+            $table->text(column: 'deskripsi_singkat')->nullable();
             $table->text('deskripsi');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category_artikel')->onDelete('cascade');
-            $table->date('pubish_date')->nullable();
+            $table->date('publish_date')->nullable();
             $table->string('keyword');
             $table->string('tag');
             $table->string('author');

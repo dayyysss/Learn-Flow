@@ -14,7 +14,7 @@ class TestimonialController extends Controller
     public function index()
     {
         // Mengambil semua data testimonials
-        $testimonials = Testimonial::all();
+        $testimonials = Testimonial::paginate(10);
 
         return view('testimonials.index', compact('testimonials'));
     }
