@@ -15,8 +15,8 @@ class TestimoniController extends Controller
      */
     public function index()
     {
-        $testimonial = Testimonial::paginate(10);  
-        
+        $testimonial = Testimonial::paginate(10);
+         
         return view('lfcms.pages.testimonial.index', compact('testimonial'));
     }
 
