@@ -66,12 +66,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="p-6 py-4">
+                                            <td class="p-6 py-4"> 
                                                 <span
-                                                    class="badge {{ $item->status == 'Publik' ? 'badge-success-light' : 'badge-warning-light' }} rounded-full">
+                                                    class="badge {{ strtolower($item->status) == 'publik' ? 'badge-success-light' : 'badge-warning-light' }} rounded-full">
                                                     {{ ucfirst($item->status) }}
                                                 </span>
-                                            </td>
+                                            </td>                                                                          
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
                                                     <a href="#" class="btn-icon btn-primary-icon-light size-7">

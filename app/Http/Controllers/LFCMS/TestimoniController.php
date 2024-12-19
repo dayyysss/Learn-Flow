@@ -68,6 +68,8 @@ class TestimoniController extends Controller
             'message' => 'Testimonial berhasil ditambahkan!',
             'redirect_url' => route('testimonial.index') // URL tujuan
         ]);
+
+        // return redirect()->route('testimonial.index')->with('success', 'Testimoni berhasil ditambahkan!');
     }
 
     /**
