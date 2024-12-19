@@ -73,7 +73,7 @@
 <div id="addDataModal" class="hidden">
     <div class="modal-content bg-white dark:bg-dark-card">
         <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold">Add Data</h3>
+            <h3 class="text-lg font-semibold">Tambah Data</h3>
             <button id="closeModalButton" class="text-gray-500 hover:text-red-500">
                 <i class="ri-close-line text-xl"></i>
             </button>
@@ -82,15 +82,15 @@
             <!-- Name Field -->
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium">Nama</label>
-                <input type="text" id="name" name="name" class="form-input mt-1 w-full"
+                <input type="text" id="name" name="name" class="form-input text-black mt-1 w-full"
                     placeholder="Masukan nama" required>
             </div>
             <!-- Status Field -->
             <div class="mb-4">
                 <label for="status" class="block text-sm font-medium">Status</label>
                 <select id="status" name="status" class="form-select mt-1 w-full" required>
-                    <option value="publik" selected>Publik</option>
-                    <option value="draft">Draft</option>
+                    <option value="1" selected>Publik</option>
+                    <option value="0">Draft</option>
                 </select>
             </div>
             <!-- Buttons -->
