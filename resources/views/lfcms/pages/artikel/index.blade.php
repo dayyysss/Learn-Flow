@@ -43,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                @foreach ($artikel as $item)
+                                @foreach ($articles as $item)
                                 <tr> 
                                     <td class="p-6 py-4">{{ $item->id }}</td>
                                     <td class="p-6 py-4">{{ $item->judul }}</td>
@@ -81,7 +81,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @include('lfcms.components.pagination.pagination', ['paginator' => $artikel])
+                    {{-- @include('lfcms.components.pagination.pagination', ['paginator' => $articles]) --}}
                 </div>
             </div>
         </div>

@@ -109,8 +109,8 @@
                                 <input type="text" id="deskripsi-singkat" placeholder="tag" class="form-input" required>
                             </div>
                             <div class="col-span-full xl:col-auto leading-none">
-                                <label for="deskripsi-singkat" class="form-label">Deskripsi Singkat</label>
-                                <textarea type="text" id="deskripsi-singkat" placeholder="deskripsi singkat" class="form-input h-20" required></textarea>
+                                <label for="deskripsi-singkat" class="form-label">Kata Kunci</label>
+                                <textarea type="text" id="deskripsi-singkat" placeholder="Kata kunci" class="form-input h-20" required></textarea>
                             </div>
 
 
