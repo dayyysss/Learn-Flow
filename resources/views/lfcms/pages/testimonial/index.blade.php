@@ -138,9 +138,9 @@
                                                 <option value="draft">Draft</option>
                                             </select>
                                         </div>
-                                        <div>
+                                        <div class="flex-1 w-full">
                                             <label for="description" class="form-label">Deskripsi</label>
-                                            <textarea name="description" id="description" rows="4" required class="form-input"></textarea>
+                                            <textarea id="description" name="description" class="form-input summernote w-full" placeholder="Masukkan deskripsi lengkap">{{ old('description') }}</textarea>
                                         </div>
                                         <div>
                                             <label class="form-label">Gambar</label>

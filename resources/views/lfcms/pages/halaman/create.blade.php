@@ -44,13 +44,10 @@
                             </div>
                         </div>
                         <div class="flex lg:flex-row flex-col gap-x-4 mb-6 mt-6">
-                            <!-- Kolom Kiri untuk Deskripsi Lengkap -->
                             <div class="flex-1 w-full">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
                                 <textarea id="deskripsi" name="deskripsi" class="form-input summernote w-full" placeholder="Masukkan deskripsi lengkap">{{ old('deskripsi') }}</textarea>
                             </div>
-
-                            <!-- Kolom Kanan untuk Gambar -->
                             <div class="flex-1 w-full">
                                 <label for="image" class="form-label">Gambar</label>
                                 <label for="image"
