@@ -123,28 +123,21 @@
                                     @csrf
                                     <div class="space-y-4">
                                         <div>
-                                            <label for="name"
-                                                class="block text-sm font-medium text-gray-700">Nama</label>
-                                            <input type="text" name="name" id="name" required
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                            <label for="name" class="form-label">Nama</label>
+                                            <input type="text" name="name" id="name" class="form-input" required>
                                         </div>
                                         <div>
-                                            <label for="profession"
-                                                class="block text-sm font-medium text-gray-700">Profesi</label>
+                                            <label for="profession" class="form-label">Profesi</label>
                                             <input type="text" name="profession" id="profession" required
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                                class="form-input">
                                         </div>
                                         <div>
-                                            <label for="description"
-                                                class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                                            <textarea name="description" id="description" rows="4" required
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                                            <label for="description" class="form-label">Deskripsi</label>
+                                            <textarea name="description" id="description" rows="4" required class="form-input"></textarea>
                                         </div>
                                         <div>
-                                            <label for="status"
-                                                class="block text-sm font-medium text-gray-700">Status</label>
-                                            <select name="status" id="status" required
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                            <label for="status" class="form-label">Status</label>
+                                            <select name="status" id="status" required class="form-input">
                                                 <option value="publik">Publik</option>
                                                 <option value="draft">Draft</option>
                                             </select>

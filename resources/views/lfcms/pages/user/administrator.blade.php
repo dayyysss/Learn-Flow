@@ -67,7 +67,7 @@
                             
                         </table>
                     </div>
-                    @include('lfcms.components.pagination.pagination')
+                    {{ $user->links('lfcms.components.pagination.pagination') }}
                 </div>
             </div>
             
