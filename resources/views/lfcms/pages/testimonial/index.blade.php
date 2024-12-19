@@ -61,17 +61,17 @@
                                                 <div class="flex items-center gap-3.5">
                                                     <div>
                                                         <h6 class="leading-none text-heading font-semibold">
-                                                            <a href="#">{{ $testimonial->name }}</a>
+                                                            <a href="#">{{ $item->name }}</a>
                                                         </h6>
                                                         <p class="font-spline_sans text-sm font-light mt-1">
-                                                            {{ $testimonial->profession }}</p>
+                                                            {{ $item->profession }}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="p-6 py-4">
                                                 <span
-                                                    class="badge {{ $testimonial->status == 'Publik' ? 'badge-success-light' : 'badge-warning-light' }} rounded-full">
-                                                    {{ $testimonial->status }}
+                                                    class="badge {{ $item->status == 'Publik' ? 'badge-success-light' : 'badge-warning-light' }} rounded-full">
+                                                    {{ ucfirst($item->status) }}
                                                 </span>
                                             </td>
                                             <td class="p-6 py-4">
@@ -82,26 +82,11 @@
                                                     <a href="#" class="btn-icon btn-danger-icon-light size-7">
                                                         <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <div class="relative ml-5">
-                                                        <button data-popover-target="td-3-{{ $index }}"
-                                                            data-popover-trigger="click" data-popover-placement="bottom-end"
-                                                            class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                            <i class="ri-more-2-fill text-inherit"></i>
-                                                        </button>
-                                                        <ul id="td-3-{{ $index }}"
-                                                            class="hidden popover-target invisible [&.visible]:!block"
-                                                            data-popover>
-                                                            <li>
-                                                                <a class="popover-item" href="#">More</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                         {{-- {{ $testimonial->links('lfcms.components.pagination.pagination') }} --}}
@@ -125,37 +110,41 @@
                                     @csrf
                                     <div class="space-y-4">
                                         <div>
-                                            <label for="name"
-                                                class="block text-sm font-medium text-gray-700">Nama</label>
-                                            <input type="text" name="name" id="name" required
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                            <label for="name" class="form-label">Nama</label>
+                                            <input type="text" name="name" id="name" class="form-input" required>
                                         </div>
                                         <div>
-                                            <label for="profession"
-                                                class="block text-sm font-medium text-gray-700">Profesi</label>
+                                            <label for="profession" class="form-label">Profesi</label>
                                             <input type="text" name="profession" id="profession" required
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                                class="form-input">
                                         </div>
                                         <div>
-                                            <label for="description"
-                                                class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                                            <textarea name="description" id="description" rows="4" required
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
-                                        </div>
-                                        <div>
-                                            <label for="status"
-                                                class="block text-sm font-medium text-gray-700">Status</label>
+                                            <label for="status" class="form-label">Status</label>
                                             <select name="status" id="status" required
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                                class="form-input form-select w-full h-11">>
                                                 <option value="publik">Publik</option>
                                                 <option value="draft">Draft</option>
                                             </select>
                                         </div>
+                                        <div class="flex-1 w-full">
+                                            <label for="description" class="form-label">Deskripsi</label>
+                                            <textarea id="description" name="description" class="form-input summernote w-full"
+                                                placeholder="Masukkan deskripsi lengkap">{{ old('description') }}</textarea>
+                                        </div>
                                         <div>
-                                            <label for="image"
-                                                class="block text-sm font-medium text-gray-700">Gambar</label>
-                                            <input type="file" name="image" id="image" accept="image/*"
-                                                class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                            <label class="form-label">Gambar</label>
+                                            <div
+                                                class="file-container file-input-label bg-transparent text-[#727175] h-11 dk-theme-card-square">
+                                                <span
+                                                    class="px-3 rounded-lg rounded-r-none border-r bg-[#EEEEEE] dark:bg-dark-icon border-input-border dark:border-dark-border-four flex-center dk-theme-card-square">
+                                                    Choose File
+                                                </span>
+                                                <label for="image" class="p-2.5 grow">
+                                                    <input type="file" name="image" accept="image/*" id="image"
+                                                        class="hidden file-src">
+                                                    <span class="file-name text-sm">No file choose</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
 

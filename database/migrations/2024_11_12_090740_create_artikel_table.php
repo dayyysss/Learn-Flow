@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('judul');
             $table->string('slug')->unique();
-            $table->text('deskripsi_singkat')->nullable();
+            $table->text(column: 'deskripsi_singkat')->nullable();
             $table->text('deskripsi');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category_artikel')->onDelete('cascade');

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CourseController;
-use App\Http\Controllers\Admin\ArtikelController;
+use App\Http\Controllers\LFCMS\ArtikelController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FeedbackController;
@@ -26,7 +26,6 @@ use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\EnrolledCourseController;
-use App\Http\Controllers\Admin\CategoryArtikelController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -91,6 +90,9 @@ Route::prefix('lfcms')->group(function () {
         // Route::get('/klien', 'klienCMS')->name('klienCMS');
         Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);
+
+        //Artikel
+        Route::resource('/artikel', ArtikelController::class);
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
