@@ -24,8 +24,10 @@
                             </button>
                         </div>
                         <button class="btn b-light btn-primary-light dk-theme-card-square">
+                            <a href="{{route('artikel.create')}}">
                             <i class="ri-add-fill text-inherit"></i>
                             <span>Tambah Artikel</span>
+                            </a>
                         </button>
                     </div>
                     <div class="overflow-x-auto mt-5">

@@ -63,7 +63,9 @@ class DashboardCMSController extends Controller
 
     public function pengaturanCMS()
     {
-        return view('lfcms.pages.pengaturan.index  ');
+        $user = auth()->user();
+
+        return view('lfcms.pages.pengaturan.index', compact('user'));
     }
 
     public function testimonialCMS()

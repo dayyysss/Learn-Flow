@@ -27,11 +27,12 @@
                                     <span>Refresh</span>
                                 </button>
                             </div>
-                            <button class="btn b-light btn-primary-light dk-theme-card-square" onclick="openModal('modalTambahTestimonial')">
+                            <button class="btn b-light btn-primary-light dk-theme-card-square"
+                                onclick="openModal('modalTambahTestimonial')">
                                 <i class="ri-add-fill text-inherit"></i>
                                 <span>Tambah Testimonial</span>
                             </button>
-                            
+
                         </div>
                         <div class="overflow-x-auto mt-5">
                             <table
@@ -43,7 +44,7 @@
                                             No</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
-                                            Nama</th>
+                                            Nama & Profesi</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                             Status</th>
@@ -62,12 +63,14 @@
                                                         <h6 class="leading-none text-heading font-semibold">
                                                             <a href="#">{{ $testimonial->name }}</a>
                                                         </h6>
-                                                        <p class="font-spline_sans text-sm font-light mt-1">{{ $testimonial->profession }}</p>
+                                                        <p class="font-spline_sans text-sm font-light mt-1">
+                                                            {{ $testimonial->profession }}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="p-6 py-4">
-                                                <span class="badge {{ $testimonial->status == 'Publik' ? 'badge-success-light' : 'badge-warning-light' }} rounded-full">
+                                                <span
+                                                    class="badge {{ $testimonial->status == 'Publik' ? 'badge-success-light' : 'badge-warning-light' }} rounded-full">
                                                     {{ $testimonial->status }}
                                                 </span>
                                             </td>
@@ -80,8 +83,8 @@
                                                         <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                     </a>
                                                     <div class="relative ml-5">
-                                                        <button data-popover-target="td-3-{{ $index }}" data-popover-trigger="click"
-                                                            data-popover-placement="bottom-end"
+                                                        <button data-popover-target="td-3-{{ $index }}"
+                                                            data-popover-trigger="click" data-popover-placement="bottom-end"
                                                             class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
                                                             <i class="ri-more-2-fill text-inherit"></i>
                                                         </button>
@@ -98,65 +101,64 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                
+
                             </table>
                         </div>
                         {{-- {{ $testimonial->links('lfcms.components.pagination.pagination') }} --}}
                     </div>
-                    <div id="modalTambahTestimonial" class="modal-back ml-auto mr-auto fixed w-[40%] h-auto inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50">
+                    <div id="modalTambahTestimonial"
+                        class="modal-back ml-auto mr-auto fixed w-[40%] h-auto inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 transition duration-300 transform scale-95">
                         <div class="flex items-center justify-center min-h-screen px-4">
                             <div class="w-full max-w-lg bg-white rounded-lg shadow-lg dark:bg-dark-card p-6">
                                 <!-- Header Modal -->
-                                <div class="flex justify-between items-center border-b pb-4">
+                                <div class="flex justify-between items-center border-b pb-4 mb-4">
                                     <h2 class="text-lg font-semibold text-heading">Tambah Testimonial</h2>
-                                    <button onclick="closeModal('modalTambahTestimonial')" class="text-gray-500 hover:text-gray-700">
+                                    <button onclick="closeModal('modalTambahTestimonial')"
+                                        class="text-gray-500 hover:text-gray-700">
                                         <i class="ri-close-fill text-lg"></i>
                                     </button>
                                 </div>
-                    
+
                                 <!-- Form -->
-                                <form action="{{ route('testimonial.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('testimonial.store') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
-                                    <div class="mt-4 space-y-4">
-                                        <!-- Nama -->
+                                    <div class="space-y-4">
                                         <div>
-                                            <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
+                                            <label for="name"
+                                                class="block text-sm font-medium text-gray-700">Nama</label>
                                             <input type="text" name="name" id="name" required
                                                 class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
                                         </div>
-                    
-                                        <!-- Profesi -->
                                         <div>
-                                            <label for="profession" class="block text-sm font-medium text-gray-700">Profesi</label>
+                                            <label for="profession"
+                                                class="block text-sm font-medium text-gray-700">Profesi</label>
                                             <input type="text" name="profession" id="profession" required
                                                 class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
                                         </div>
-                    
-                                        <!-- Deskripsi -->
                                         <div>
-                                            <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                                            <label for="description"
+                                                class="block text-sm font-medium text-gray-700">Deskripsi</label>
                                             <textarea name="description" id="description" rows="4" required
                                                 class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
                                         </div>
-                    
-                                        <!-- Status -->
                                         <div>
-                                            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                                            <label for="status"
+                                                class="block text-sm font-medium text-gray-700">Status</label>
                                             <select name="status" id="status" required
                                                 class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
                                                 <option value="publik">Publik</option>
                                                 <option value="draft">Draft</option>
                                             </select>
                                         </div>
-                    
-                                        <!-- Gambar -->
                                         <div>
-                                            <label for="image" class="block text-sm font-medium text-gray-700">Gambar</label>
+                                            <label for="image"
+                                                class="block text-sm font-medium text-gray-700">Gambar</label>
                                             <input type="file" name="image" id="image" accept="image/*"
                                                 class="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
                                         </div>
                                     </div>
-                    
+
                                     <!-- Footer Modal -->
                                     <div class="flex justify-end mt-6">
                                         <button type="button" onclick="closeModal('modalTambahTestimonial')"
@@ -203,11 +205,20 @@
     function openModal(modalId) {
         document.getElementById(modalId).classList.remove('hidden');
     }
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden', 'scale-95', 'opacity-0');
+            modal.classList.add('scale-100', 'opacity-100');
+        }
 
-    // Fungsi untuk menutup modal
-    function closeModal(modalId) {
-        document.getElementById(modalId).classList.add('hidden');
-    }
-</script>
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('scale-100', 'opacity-100');
+            modal.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Sesuaikan dengan durasi animasi
+        }
+    </script>
 
 @endsection

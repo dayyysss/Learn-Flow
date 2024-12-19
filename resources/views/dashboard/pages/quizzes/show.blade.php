@@ -5,8 +5,9 @@
     <div class="container">
         <h1>{{ $quiz->name }}</h1>
         <p><strong>Slug:</strong> {{ $quiz->slug }}</p>
-        <p><strong>Start Time:</strong> {{ $quiz->start_time }}</p>
-        <p><strong>End Time:</strong> {{ $quiz->end_time }}</p>
+        <p><strong>Waktu Mulai:</strong> {{ $quiz->start_time }}</p>
+        <p><strong>Waktu Selesai:</strong> {{ $quiz->end_time }}</p>
+        <p><strong>Deskripsi:</strong> {{ $quiz->description }}</p>
 
         <h3>Questions</h3>
         <ul>

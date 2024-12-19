@@ -19,7 +19,7 @@
                         </div>
 
                         <!-- course content -->
-                        <div>
+                        <div>z
                             <div class="flex items-center justify-between flex-wrap gap-6 mb-30px" data-aos="fade-up">
                                 <div class="flex items-center gap-6">
                                     <button
@@ -35,7 +35,6 @@
                                             {{ $course->updated_at->format('F d, Y') }}
                                         </span>
                                     </p>
-
                                 </div>
                             </div>
 
@@ -82,7 +81,7 @@
                             </div>
                             <p class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                                 data-aos="fade-up">
-                                {!! $course->deskripsi !!}}
+                                {!! $course->deskripsi !!}
                             </p>
                             <!-- details -->
                             <div class="mt-5">
@@ -245,7 +244,6 @@
                                                                     <p
                                                                         class="text-xs text-headingColor dark:text-headingColor-dark px-10px py-0.5 ml-10px bg-borderColor dark:bg-borderColor-dark rounded-full">
                                                                         {{ $bab->total_duration ?? '1hr 35min' }}
-                                                                        <!-- Durasi, sesuaikan dengan data -->
                                                                     </p>
                                                                 </div>
                                                                 <svg class="transition-all duration-500 rotate-0"
@@ -331,7 +329,6 @@
                                                 </li>
                                             @endforeach
                                         </ul>
-
                                     </div>
                                     <!-- description -->
                                     <div class="hidden mb-5">
