@@ -13,17 +13,14 @@
                     <div class="p-6">
                         <div class="flex-center-between">
                             <div class="flex items-center gap-5">
+
                                 <form class="max-w-80 relative">
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                     </span>
-                                    <input 
-                                    type="text" 
-                                    name="search" 
-                                    value="{{ $search ?? '' }}" 
-                                    placeholder="Search for..." 
-                                    class="form-input pl-[30px]">
+                                    <input type="text" placeholder="Search for..." class="form-input pl-[30px]">
                                 </form>
+
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
                                     onclick="window.location='{{ route('testimonial.index') }}'">
@@ -31,10 +28,10 @@
                                     <span>Refresh</span>
                                 </button>
                             </div>
-                            <button class="btn b-light btn-primary-light dk-theme-card-square" onclick="window.location.href='{{ route('testimonial.create') }}'">
-                            <i class="ri-add-fill text-inherit"></i>
-                            <span>Tambah Testimonial</span>
-                        </button>
+                            <button class="btn b-light btn-primary-light dk-theme-card-square">
+                                <i class="ri-add-fill text-inherit"></i>
+                                <span>Tambah Testimonial</span>
+                            </button>
                         </div>
                         <div class="overflow-x-auto mt-5">
                             <table
@@ -49,9 +46,6 @@
                                             Nama</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
-                                            Pesan</th>
-                                        <th
-                                            class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                             Status</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
@@ -59,43 +53,28 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                @forelse ($testimonials as $testimonial)    
-                                <tr>
-                                        <td class="p-6 py-4">{{ $loop->iteration + ($testimonials->currentPage() - 1) * $testimonials->perPage() }}</td>
+                                    <tr>
+                                        <td class="p-6 py-4">1</td>
                                         <td class="p-6 py-4">
                                             <div class="flex items-center gap-3.5">
 
                                                 <div>
                                                     <h6 class="leading-none text-heading font-semibold">
-                                                        <a href="#">{{ $testimonial->name }}</a>
+                                                        <a href="#">Eleanor Pena</a>
                                                     </h6>
-                                                    <p class="font-spline_sans text-sm font-light mt-1">{{ $testimonial->profession }}</p>
+                                                    <p class="font-spline_sans text-sm font-light mt-1">CEO Tokped</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="p-6 py-4">
-                                            <div class="flex items-center gap-3.5">
-                                                <div>
-                                                    <h6 class="leading-none text-heading font-semibold">
-                                                        <a href="#">{{ $testimonial->description }}</a>
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="p-6 py-4"> 
-                                        <span class="badge 
-                                            {{ $testimonial->status == 'Publik' ? 'badge-success-light' : ($testimonial->status == 'draft' ? 'badge-danger-light' : 'badge-warning-light') }}">
-                                            {{ $testimonial->status }}
-                                        </span>
+                                            <span class="badge badge-success-light rounded-full">Publik</span>
                                         </td>
                                         <td class="p-6 py-4">
                                             <div class="flex items-center gap-2">
-                                                <a href="{{ route('testimonial.edit', $testimonial->id) }}" class="btn-icon btn-primary-icon-light size-7">
+                                                <a href="#" class="btn-icon btn-primary-icon-light size-7">
                                                     <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                 </a>
-                                                <a href="{{ route('testimonial.destroy', $testimonial->id) }}" 
-                                                class="btn-icon btn-danger-icon-light size-7" 
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus testimonial ini?')">
+                                                <a href="#" class="btn-icon btn-danger-icon-light size-7">
                                                     <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                 </a>
                                                 <div class="relative ml-5">
@@ -115,56 +94,98 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">
-                                            <div class="alert alert-danger" style="margin: 20px 0;">
-                                                Data Tidak Tersedia!
+                                        <td class="p-6 py-4">2</td>
+                                        <td class="p-6 py-4">
+                                            <div class="flex items-center gap-3.5">
+
+                                                <div>
+                                                    <h6 class="leading-none text-heading font-semibold">
+                                                        <a href="#">Eleanor Pena</a>
+                                                    </h6>
+                                                    <p class="font-spline_sans text-sm font-light mt-1">CEO Tokped</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="p-6 py-4">
+                                            <span class="badge badge-warning-light rounded-full">Draft</span>
+                                        </td>
+                                        <td class="p-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <a href="#" class="btn-icon btn-primary-icon-light size-7">
+                                                    <i class="ri-message-2-line text-inherit text-[13px]"></i>
+                                                </a>
+                                                <a href="#" class="btn-icon btn-danger-icon-light size-7">
+                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                </a>
+                                                <div class="relative ml-5">
+                                                    <button data-popover-target="td-3-0" data-popover-trigger="click"
+                                                        data-popover-placement="bottom-end"
+                                                        class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
+                                                        <i class="ri-more-2-fill text-inherit"></i>
+                                                    </button>
+                                                    <ul id="td-3-0"
+                                                        class="hidden popover-target invisible [&.visible]:!block"
+                                                        data-popover>
+                                                        <li>
+                                                            <a class="popover-item" href="#">More</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
-                                @endforelse
                                 </tbody>
                             </table>
                         </div>
-                        <!-- START PAGINATION -->
-                        <div class="flex-center-between mt-5">
-                            <div class="font-spline_sans text-sm text-gray-900 dark:text-dark-text">
-                                Showing {{ $testimonials->firstItem() }} to {{ $testimonials->lastItem() }} of {{ $testimonials->total() }} entries
-                            </div>
-                            <nav>
-                                <ul class="flex items-center gap-1">
-                                    <!-- Previous Page Link -->
-                                    <li>
-                                        <a href="{{ $testimonials->previousPageUrl() }}"
-                                            class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text hover:bg-primary-500 hover:text-white dark:bg-dark-card-two">
-                                            <i class="ri-arrow-left-s-line text-inherit"></i>
-                                        </a>
-                                    </li>
-                                    
-                                    <!-- Page Links -->
-                                    @foreach ($testimonials->getUrlRange(1, $testimonials->lastPage()) as $page => $url)
-                                        <li>
-                                            <a href="{{ $url }}"
-                                                class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text {{ $page == $testimonials->currentPage() ? 'bg-primary-500 text-white' : '' }}">
-                                                {{ $page }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                    <!-- Next Page Link -->
-                                    <li>
-                                        <a href="{{ $testimonials->nextPageUrl() }}"
-                                            class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text hover:bg-primary-500 hover:text-white dark:bg-dark-card-two">
-                                            <i class="ri-arrow-right-s-line text-inherit"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                        @include('lfcms.components.pagination.pagination')
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Tambahkan Modal -->
+
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+        const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
+        const rows = document.querySelectorAll("#dataContainer tr"); // Ambil semua baris dalam tabel
+    
+        rows.forEach(row => {
+            const name = row.children[1].textContent.toLowerCase(); // Ambil kolom nama
+            const profession = row.children[2].textContent.toLowerCase(); // Ambil kolom email
+    
+            // Periksa apakah query ada di nama atau email
+            if (name.includes(query) || profession.includes(query)) {
+                row.style.display = ""; // Tampilkan baris
+            } else {
+                row.style.display = "none"; // Sembunyikan baris
+            }
+        });
+    });
+    
+    </script>
+
+<script>
+    // Fungsi untuk membuka modal
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+    }
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden', 'scale-95', 'opacity-0');
+            modal.classList.add('scale-100', 'opacity-100');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('scale-100', 'opacity-100');
+            modal.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Sesuaikan dengan durasi animasi
+        }
+    </script>
+
 @endsection
 

@@ -13,26 +13,10 @@ class TestimonialController extends Controller
      */
     public function index(Request $request)
     {
-        // Mendapatkan kata kunci pencarian dari input
-        $search = $request->input('search');
+        // Mengambil semua data testimonials
+        $testimonials = Testimonial::all();
 
-        // Mengambil data testimonials berdasarkan pencarian (jika ada)
-        $testimonials = Testimonial::when($search, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('profession', 'like', '%' . $search . '%');
-        })->paginate(5);
-
-        // Cek apakah data ditemukan
-        if ($testimonials->isEmpty()) {
-            // Jika tidak ada data, kirim pesan ke view
-            return view('lfcms.pages.testimonial.index', [
-                'testimonials' => $testimonials,
-                'message' => 'Data tidak ditemukan'
-            ]);
-        }
-
-        // Mengirimkan data testimonials dan kata kunci pencarian ke view
-        return view('lfcms.pages.testimonial.index', compact('testimonials', 'search'));
+        return view('testimonials.index', compact('testimonials'));
     }
 
 

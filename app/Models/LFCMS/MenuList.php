@@ -16,32 +16,33 @@ class MenuList extends Model
     parent::boot();
 
     static::creating(function ($menulists) {
-        // Buat slug berdasarkan menutype_id
-        if ($menulists->menutype_id == 1) {
+        // Buat slug berdasarkan menutype_id 1 dan 2
+        if (in_array($menulists->menutype_id, [1, 2])) {
             $slug = \Str::slug($menulists->name);
             $count = self::where('slug', 'like', $slug . '%')->count();
             $menulists->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
         } else {
-            // Gunakan angka bertambah dan tambahkan huruf acak
+            // Gunakan angka bertambah dan tambahkan huruf acak untuk slug jika bukan menutype 1 atau 2
             $count = self::count();
             $randomLetter = chr(rand(65, 90)); // Huruf acak dari A-Z
             $menulists->slug = ($count + 1) . $randomLetter;
         }
     });
-
+    
     static::updating(function ($menulists) {
-        // Update slug saat memperbarui data
-        if ($menulists->menutype_id == 1) {
+        // Update slug saat memperbarui data untuk menutype_id 1 dan 2
+        if (in_array($menulists->menutype_id, [1, 2])) {
             $slug = \Str::slug($menulists->name);
             $count = self::where('slug', 'like', $slug . '%')->where('id', '<>', $menulists->id)->count();
             $menulists->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
         } else {
-            // Gunakan angka bertambah dan huruf acak untuk slug
+            // Gunakan angka bertambah dan huruf acak untuk slug jika bukan menutype 1 atau 2
             $count = self::count();
-            $randomLetter = chr(rand(65, 90));
+            $randomLetter = chr(rand(65, 90)); // Huruf acak dari A-Z
             $menulists->slug = ($count + 1) . $randomLetter;
         }
     });
+    
 }
 
 

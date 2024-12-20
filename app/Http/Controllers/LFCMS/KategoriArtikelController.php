@@ -22,10 +22,8 @@ class KategoriArtikelController extends Controller
         // Validasi data yang diterima
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|in:publik,draft',
+            'status' => 'required|boolean',
         ]);
-
-        $validated['status'] = ($validated['status'] === 'publik') ? 1 : 0;
 
         // Membuat slug dari nama kategori
         $validated['slug'] = Str::slug($validated['name'], '-');
@@ -64,17 +62,27 @@ class KategoriArtikelController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|in:publik,draft',
+            'status' => 'required|boolean',
         ]);
+        $validated['user_id'] = auth()->user()->id;
 
         $kategori_artikel->update($validated);
-        return response()->json(['message' => 'Data updated successfully', 'data' => $kategori_artikel]);
+
+        return response()->json([
+            'id' => $kategori_artikel->id,
+            'name' => $kategori_artikel->name,
+            'status' => $kategori_artikel->status,
+            'user' => [
+                'name' => $kategori_artikel->user->name ?? 'Unknown'
+            ],
+            'message' => 'Kategori berhasil diperbarui',
+        ], 200);
+        
     }
 
     public function destroy(CategoryArtikel $kategori_artikel)
-{
-    $kategori_artikel->delete();
-    return response()->json(['message' => 'Artikel berhasil dihapus']);
-}
-
+    {
+        $kategori_artikel->delete();
+        return response()->json(['message' => 'Artikel berhasil dihapus']);
+    }
 }

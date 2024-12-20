@@ -271,6 +271,8 @@ $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs', 'ce
                 ->where('slug', $slug)
                 ->firstOrFail();
 
+                
+
 
 $thumbnailUrl = $this->getVideoThumbnail($course->video);
 

@@ -1,8 +1,8 @@
 @extends('landing.layouts.landing-layouts')
-@section('page_title', 'Blog | Learn Flow')
+@section('page_title', 'Artikel | Learn Flow')
 @section('content')
 
-    @include('landing.components.breadcrumb', ['title' => 'Blog'])
+    @include('landing.components.breadcrumb', ['title' => 'Artikel'])
 
     <!-- News and blog section -->
     <section>
@@ -261,38 +261,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- pagination -->
-                    <div>
-                        <ul class="flex items-center justify-center gap-15px mt-60px mb-30px">
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor cursor-not-allowed"><i
-                                        class="icofont-double-left"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-whiteColor hover:text-whiteColor bg-primaryColor hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor">1</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor">2</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor">3</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor"><i
-                                        class="icofont-double-right"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('landing.components.pagination.pagination')
                 </div>
                 <!-- blog sidebar -->
                 <div class="lg:col-start-9 lg:col-span-4">
                     <div class="flex flex-col">
-                        <!-- author details -->
+                        {{-- <!-- author details -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark text-center"
                             data-aos="fade-up">
                             <!-- athor avatar -->
@@ -340,17 +314,17 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- search input -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Search here
+                                Cari Artikel
                             </h4>
                             <form
                                 class="w-full px-4 py-15px text-sm text-contentColor bg-lightGrey10 dark:bg-lightGrey10-dark dark:text-contentColor-dark flex justify-center items-center leading-26px">
-                                <input type="text" placeholder="Search Produce"
+                                <input type="text" placeholder="Cari..."
                                     class="placeholder:text-placeholder bg-transparent focus:outline-none placeholder:opacity-80 w-full">
                                 <button type="submit">
                                     <i class="icofont-search-1 text-base"></i>
@@ -362,7 +336,7 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                categories
+                                Kategori Artikel
                             </h4>
                             <ul class="flex flex-col gap-y-4">
                                 <li
@@ -396,7 +370,7 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Recent Post
+                                Artikel Terbaru
                             </h4>
                             <ul class="flex flex-col gap-y-25px">
                                 <li class="flex items-center">
@@ -474,7 +448,7 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Photo Gallery
+                                Galeri Foto
                             </h4>
                             <div class="gallary-container">
                                 <div class="popup">
@@ -552,7 +526,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- contact form -->
+                        {{-- <!-- contact form -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4
@@ -571,13 +545,13 @@
                                     Send Message
                                 </button>
                             </form>
-                        </div>
+                        </div> --}}
                         <!-- tags -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Popular tag
+                                Tag Populer
                             </h4>
                             <ul class="flex flex-wrap gap-x-5px">
                                 <li>
@@ -637,7 +611,7 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Follow Us
+                                Ikuti Kami
                             </h4>
                             <div>
                                 <ul class="flex gap-10px items-center">

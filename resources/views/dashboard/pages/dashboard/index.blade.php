@@ -876,34 +876,34 @@
                                     rotate: -45,
                                     style: {
                                         fontSize: '12px',
-                                        color: '#333' // Warna teks sumbu x
+                                        colors: '#333' // Warna teks sumbu x
                                     }
                                 },
                                 axisBorder: {
-                                    color: '#e7e7e7' // Warna border sumbu x
+                                    colors: '#e7e7e7' // Warna border sumbu x
                                 },
                                 axisTicks: {
-                                    color: '#e7e7e7' // Warna ticks sumbu x
+                                    colors: '#e7e7e7' // Warna ticks sumbu x
                                 }
                             },
                             yaxis: {
                                 labels: {
                                     style: {
                                         fontSize: '12px',
-                                        color: '#333' // Warna teks sumbu y
+                                        colors: '#333' // Warna teks sumbu y
                                     },
                                     stepSize: 50 // Jarak antar tick
                                 },
                                 axisBorder: {
                                     show: true,
-                                    color: '#e7e7e7' // Warna border sumbu y
+                                    colors: '#e7e7e7' // Warna border sumbu y
                                 },
                                 axisTicks: {
                                     show: true
                                 }
                             },
                             grid: {
-                                borderColor: '#e7e7e7', // Warna garis grid
+                                borderColor: '#333', // Warna garis grid
                                 strokeDashArray: 0, // Garis putus-putus
                             },
                             tooltip: {

@@ -1,64 +1,109 @@
 @extends('lfcms.layouts.app')
 @section('page_title', 'Edit Halaman | Learn Flow CMS')
 @section('content')
-<div class="col-span-full">
-    <div class="card p-0">
-        <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
-            <h3 class="text-lg card-title leading-none">Data From</h3>
+    <div
+        class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
+        <div class="grid grid-cols-12">
+            <div class="col-span-full">
+                <div class="card p-0">
+                    <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
+                        <h3 class="text-lg card-title leading-none">Edit Halaman</h3>
+                    </div>
+                    <form action="{{ route('halaman.update', $page->id) }}" method="POST" enctype="multipart/form-data" class="p-6">
+                        @csrf
+                        @method('PUT')
+                        <div class="flex lg:flex-row flex-col gap-x-4">
+                            <!-- Kolom Kiri -->
+                            <div class="flex flex-col w-full lg:w-1/2 gap-y-4">
+                                <div>
+                                    <label for="judul" class="form-label">Judul</label>
+                                    <input type="text" id="judul" name="judul" class="form-input"
+                                        placeholder="Masukkan judul halaman" value="{{ old('judul', $page->judul) }}">
+                                </div>
+                                <div>
+                                    <label for="slug" class="form-label">Slug</label>
+                                    <input type="text" id="slug" name="slug" class="form-input"
+                                        placeholder="Slug otomatis terisi" value="{{ old('slug', $page->slug) }}" readonly>
+                                </div>
+                            </div>
+                            <!-- Kolom Kanan -->
+                            <div class="flex flex-col w-full lg:w-1/2 gap-y-4">
+                                <div>
+                                    <label for="status" class="form-label">Status</label>
+                                    <select id="status" name="status" class="form-input">
+                                        <option value="publik" {{ old('status', $page->status) == 'publik' ? 'selected' : '' }}>Publik</option>
+                                        <option value="draft" {{ old('status', $page->status) == 'draft' ? 'selected' : '' }}>Draft</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="keyword" class="form-label">Kata Kunci</label>
+                                    <input type="text" id="keyword" name="keyword" class="form-input"
+                                        placeholder="Masukkan kata kunci" value="{{ old('keyword', $page->keyword) }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex lg:flex-row flex-col gap-x-4 mb-6 mt-6">
+                            <!-- Kolom Kiri untuk Deskripsi Lengkap -->
+                            <div class="flex-1 w-full">
+                                <label for="deskripsi" class="form-label">Deskripsi</label>
+                                <textarea id="deskripsi" name="deskripsi" class="form-input summernote w-full" placeholder="Masukkan deskripsi lengkap">{{ old('deskripsi', $page->deskripsi) }}</textarea>
+                            </div>
+
+                            <!-- Kolom Kanan untuk Gambar -->
+                            <div class="flex-1 w-full">
+                                <label for="image" class="form-label">Gambar</label>
+                                <label for="image"
+                                    class="file-container text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/2] flex flex-col items-center justify-center gap-2.5 dk-border-one border-dashed rounded-10 w-full">
+                                    <input id="image" name="image" type="file" hidden class="peer/file file-src"
+                                        onchange="previewImage(this)">
+                                    <span class="flex-center flex-col text-center w-full">
+                                        <img id="image-preview"
+                                            src="{{ $page->image ? asset('storage/'.$page->image) : asset('assets/lfcms/images/icons/upload-file.svg') }}" 
+                                            alt="file-icon"
+                                            class="size-8 lg:size-auto mx-auto">
+                                        <div class="file-name mt-2 text-xl font-semibold text-gray-500 dark:text-dark-text">
+                                            Seret dan letakkan file di sini atau
+                                        </div>
+                                        <label for="image"
+                                            class="cursor-pointer text-sm text-primary-500 before:text-lg font-spline_sans before:font-remix before:pr-px before:content-['\f24e'] btn b-outline btn-primary-outline py-2.5 px-[18px] mt-4">
+                                            Klik untuk mengunggah
+                                        </label>
+                                        <span class="text-sm text-gray-900 dark:text-dark-text-two mt-2">
+                                            Ukuran file maksimum adalah 1 MB
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex gap-5 mt-6">
+                            <button type="submit"
+                                class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Update</button>
+                            <a href="{{ route('halaman.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>
+                        </div>
+                    </form>
+
+                <script>
+                    document.getElementById('judul').addEventListener('input', function() {
+                        const judulValue = this.value;
+                        const slugValue = judulValue.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                        document.getElementById('slug').value = slugValue;
+                    });
+
+                    function previewImage(input) {
+                        const preview = document.getElementById('image-preview');
+                        const file = input.files[0];
+                        const reader = new FileReader();
+
+                        reader.onloadend = function() {
+                            preview.src = reader.result;
+                        }
+
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                </script>
+            </div>
         </div>
-        <form action="#" class="p-6">
-            <div class="flex lg:flex-row flex-col gap-x-4">
-                <div class="w-full mb-4">
-                    <label for="full_name_data"
-                        class="form-label">Full
-                        Name</label>
-                    <input type="text" id="full_name_data" class="form-input" placeholder="Savannah Nguyen"
-                        autocomplete="off" required >
-                </div>
-                <div class="w-full mb-4">
-                    <label for="email-6"
-                        class="form-label">Email</label>
-                    <input type="email" id="email-6" class="form-input"
-                        placeholder="martinahernandezc@gmail.com" autocomplete="off" required >
-                </div>
-                <div class="w-full mb-4">
-                    <label for="password-6"
-                        class="form-label">Password</label>
-                    <input type="password" id="password-6" class="form-input" placeholder="**********"
-                        autocomplete="off" required >
-                </div>
-            </div>
-            <div class="flex lg:flex-row flex-col gap-x-4 mb-2">
-                <div class="w-full mb-4">
-                    <label for="location"
-                        class="form-label">Location</label>
-                    <input type="text" id="location" class="form-input" >
-                </div>
-                <div class="w-full mb-4">
-                    <label for="phone"
-                        class="form-label">Phone</label>
-                    <input type="tel" id="phone" class="form-input" placeholder="(+33)7 55 55 33 70"
-                        autocomplete="off" required >
-                </div>
-                <div class="w-full mb-4">
-                    <label for="state"
-                        class="form-label">State</label>
-                    <input type="text" id="state" class="form-input" placeholder="8080 Railroad St."
-                        autocomplete="off" required >
-                </div>
-            </div>
-            <div class="mb-6">
-                <textarea class="summernote"></textarea>
-            </div>
-            <div class="flex items-center gap-2 select-none mb-6">
-                <input type="checkbox" checked
-                    class="check check-primary-solid size-4 before:text-sm before:leading-none">
-                <label class="leading-none font-medium text-gray-500 dark:text-dark-text text-sm">Check
-                    Out</label>
-            </div>
-            <button type="submit"
-                class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Save & Continue</button>
-        </form>
     </div>
-</div>
 @endsection

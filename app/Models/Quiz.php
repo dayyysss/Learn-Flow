@@ -12,6 +12,7 @@ class Quiz extends Model
         'bab_id',
         'start_time',
         'end_time',
+        'description',
     ];
 
     public function bab()

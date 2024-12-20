@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('bab_id')->constrained('babs')->onDelete('cascade');
             $table->time('start_time');
             $table->time('end_time');
+            $table->text('description');
             $table->timestamps();
         });
     }

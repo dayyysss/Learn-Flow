@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('course_registrations', function (Blueprint $table) {
-            $table->string('certificate_id')->nullable()->after('progress');
+        Schema::table('clients', function (Blueprint $table) {
+            $table->dropColumn('job_title');
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('course_registrations', function (Blueprint $table) {
+        Schema::table('clients', function (Blueprint $table) {
             //
         });
     }

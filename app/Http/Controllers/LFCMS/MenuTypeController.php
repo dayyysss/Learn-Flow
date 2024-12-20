@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
-use App\Models\MenuList;
-use App\Models\MenuType;
+use App\Models\LFCMS\MenuList;
+use App\Models\LFCMS\MenuType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 

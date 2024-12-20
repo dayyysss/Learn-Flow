@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
-use App\Models\MenuList;
-use App\Models\MenuType;
+use App\Models\LFCMS\MenuList;
+use App\Models\LFCMS\MenuType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -66,10 +66,12 @@ class MenuListController extends Controller
         }
 
         
+        
         // Mengubah $menus ke format yang sesuai untuk Nestable
         $nestedMenus = $this->buildNestedMenu($menus);
-    
-        return view('admin.menu.index', compact('menuTypes', 'menus', 'nestedMenus', 'menuSidebar'));
+     
+        
+        return view('lfcms.pages.menu.index', compact('menuTypes', 'menus', 'nestedMenus', 'menuSidebar'));
     }
     
     // Fungsi untuk membangun struktur nested menu
@@ -195,7 +197,7 @@ class MenuListController extends Controller
         $menus = MenuList::where('menutype_id', $menuTypeId)->get();
 
         // Pastikan view menampilkan daftar menu yang benar
-        $html = view('admin.menu.partials.menu_list', compact('menus'))->render();
+        $html = view('lfcms.pages.menu.partials.menu_list', compact('menus'))->render();
 
         return response()->json(['html' => $html]);
     }
@@ -347,7 +349,7 @@ public function edit($id)
     $assignedPermissions = Permission::where('name', 'like', $menu->slug . '.%')->pluck('name')->toArray(); // Permissions terkait
 
     // Mengirimkan data ke view
-    return view('admin.menu.modal', compact('menu', 'menuTypes', 'allPermissions', 'assignedPermissions'));
+    return view('lfcms.pages.menu.modal', compact('menu', 'menuTypes', 'allPermissions', 'assignedPermissions'));
 }
 
 public function update(Request $request, $id)

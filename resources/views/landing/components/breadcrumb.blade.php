@@ -22,7 +22,7 @@
                 </h1>
                 <ul class="flex gap-1 justify-center">
                     <li>
-                        <a href="index.html" class="text-lg text-blackColor2 dark:text-blackColor2-dark">Home <i
+                        <a href="{{ url('/') }}" class="text-lg text-blackColor2 dark:text-blackColor2-dark">Home <i
                                 class="icofont-simple-right"></i></a>
                     </li>
                     <li>

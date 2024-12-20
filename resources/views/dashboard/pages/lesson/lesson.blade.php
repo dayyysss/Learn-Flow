@@ -48,7 +48,7 @@
                                                 <li class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
                                                     <div>
                                                         <h4 class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
-                                                            <i class="icofont-quiz-alt mr-10px"></i>
+                                                            <i class="icofont-question-circle mr-10px"></i>
                                                             <a href="#" data-id="{{ $quiz->id }}" data-slug="{{ $quiz->slug }}" class="quiz-link font-medium text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                                 {{ $quiz->name }}
                                                             </a>
@@ -75,93 +75,93 @@
 
 <!-- AJAX Script -->
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
-    const modulLinks = document.querySelectorAll('.modul-link');
-    const quizLinks = document.querySelectorAll('.quiz-link');
-    const contentContainer = document.getElementById('modul-content');
-    const progressBar = document.getElementById('progress-bar'); // Pastikan ada elemen ini
-    let lastProgress = 0;
+    document.addEventListener('DOMContentLoaded', function () {
+        const modulLinks = document.querySelectorAll('.modul-link');
+        const quizLinks = document.querySelectorAll('.quiz-link');
+        const contentContainer = document.getElementById('modul-content');
+        const progressBar = document.getElementById('progress-bar'); // Pastikan ada elemen ini
+        let lastProgress = 0;
 
-    // Fungsi untuk Memuat Konten Modul atau Quiz
-    function loadContent(type, slug) {
-        fetch(`/${type}/${slug}`)
-            .then(response => response.text())
-            .then(data => {
-                contentContainer.innerHTML = data;
-
-                // Tambahkan listener scroll untuk modul
-                if (type === 'modul') {
-                    addScrollListener(slug);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    // Fungsi untuk Mengirim Progress ke Server
-    function updateProgress(modulId, progressPercentage) {
-        if (Math.abs(progressPercentage - lastProgress) >= 5) {
-            fetch(`/modul/${modulId}/progress`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                },
-                body: JSON.stringify({ progress: progressPercentage })
-            })
-                .then(response => response.json())
+        // Fungsi untuk Memuat Konten Modul atau Quiz
+        function loadContent(type, slug) {
+            fetch(`/${type}/${slug}`)
+                .then(response => response.text())
                 .then(data => {
-                    console.log('Progress updated to:', progressPercentage + '%');
-                    lastProgress = progressPercentage;
+                    contentContainer.innerHTML = data;
+
+                    // Tambahkan listener scroll untuk modul
+                    if (type === 'modul') {
+                        addScrollListener(slug);
+                    }
                 })
                 .catch(error => console.error('Error:', error));
         }
-    }
 
-    // Fungsi untuk Menambahkan Listener Scroll
-    function addScrollListener(modulId) {
-        contentContainer.addEventListener('scroll', function () {
-            const scrollTop = contentContainer.scrollTop;
-            const scrollHeight = contentContainer.scrollHeight - contentContainer.clientHeight;
-
-            if (scrollHeight <= 0) return;
-
-            const progressPercentage = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
-
-            if (progressBar) {
-                progressBar.style.width = `${progressPercentage}%`;
-            }
-
+        // Fungsi untuk Mengirim Progress ke Server
+        function updateProgress(modulId, progressPercentage) {
             if (Math.abs(progressPercentage - lastProgress) >= 5) {
-                updateProgress(modulId, Math.round(progressPercentage));
+                fetch(`/modul/${modulId}/progress`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify({ progress: progressPercentage })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Progres diperbarui ke:', progressPercentage + '%');
+                        lastProgress = progressPercentage;
+                    })
+                    .catch(error => console.error('Error:', error));
             }
-        });
-    }
+        }
 
-    // Event Listener untuk Klik Modul
-    modulLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const slug = this.getAttribute('data-slug');
-            loadContent('modul', slug);
+        // Fungsi untuk Menambahkan Listener Scroll
+        function addScrollListener(modulId) {
+            contentContainer.addEventListener('scroll', function () {
+                const scrollTop = contentContainer.scrollTop;
+                const scrollHeight = contentContainer.scrollHeight - contentContainer.clientHeight;
+
+                if (scrollHeight <= 0) return;
+
+                const progressPercentage = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
+
+                if (progressBar) {
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+
+                if (Math.abs(progressPercentage - lastProgress) >= 5) {
+                    updateProgress(modulId, Math.round(progressPercentage));
+                }
+            });
+        }
+
+        // Event Listener untuk Klik Modul
+        modulLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const slug = this.getAttribute('data-slug');
+                loadContent('modul', slug);
+            });
         });
+
+        // Event Listener untuk Klik Quiz
+        quizLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const slug = this.getAttribute('data-slug');
+                loadContent('quiz', slug);
+            });
+        });
+
+        // Muat konten pertama (modul) secara otomatis
+        if (modulLinks.length > 0) {
+            const firstModulSlug = modulLinks[0].getAttribute('data-slug');
+            loadContent('modul', firstModulSlug);
+        }
     });
+</script>
 
-    // Event Listener untuk Klik Quiz
-    quizLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const slug = this.getAttribute('data-slug');
-            loadContent('quiz', slug);
-        });
-    });
-
-    // Muat konten pertama (modul) secara otomatis
-    if (modulLinks.length > 0) {
-        const firstModulSlug = modulLinks[0].getAttribute('data-slug');
-        loadContent('modul', firstModulSlug);
-    }
-});
-
-    </script>
     
 @endsection

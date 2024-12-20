@@ -6,13 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CategoryCourse;
 use App\Models\Course;
+use App\Models\Page;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 
 class LandingPageController extends Controller
 {
     public function index()
     {
-        return view('landing-page');
+        $hero = Page::with('users')->where('status', 'publik')->find(1);
+
+        return view('landing-page', compact('hero'));
     }
 
     public function about()

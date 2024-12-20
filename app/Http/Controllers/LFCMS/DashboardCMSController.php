@@ -4,12 +4,16 @@ namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class DashboardCMSController extends Controller
 {
     public function indexCMS()
     {
-        return view('lfcms.pages.dashboard.index');
+        $user = auth()->user();
+
+        return view('lfcms.pages.dashboard.index', compact('user'));
     }
 
     public function penggunaCMS()
@@ -59,7 +63,9 @@ class DashboardCMSController extends Controller
 
     public function pengaturanCMS()
     {
-        return view('lfcms.pages.pengaturan.index  ');
+        $user = auth()->user();
+
+        return view('lfcms.pages.pengaturan.index', compact('user'));
     }
 
     public function testimonialCMS()

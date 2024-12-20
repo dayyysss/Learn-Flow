@@ -33,7 +33,7 @@ class ModulProgressController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Modul progress initialized.']);
+        return response()->json(['message' => 'Progres modul diinisialisasi.']);
     }
 
     /**
@@ -48,7 +48,7 @@ class ModulProgressController extends Controller
 
         $user = auth()->user();
 
-        // Perbarui atau buat progress modul
+        // Perbarui atau buat progres modul
         $progress = ModulProgress::updateOrCreate(
             [
                 'modul_id' => $validated['modul_id'],
@@ -61,7 +61,7 @@ class ModulProgressController extends Controller
         );
 
         return response()->json([
-            'message' => 'Progress updated successfully.',
+            'message' => 'Progres berhasil diperbarui.',
             'progress' => $progress->progress,
             'status' => $progress->status,
         ]);

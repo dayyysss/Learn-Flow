@@ -69,8 +69,10 @@
                                             </td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
-                                                    <a href="#" class="btn-icon btn-primary-icon-light size-7">
-                                                        <i class="ri-message-2-line text-inherit text-[13px]"></i>
+                                                    <a href="#"
+                                                        class="btn-icon btn-primary-icon-light size-7 edit-category"
+                                                        data-id="{{ $item->id }}">
+                                                        <i class="ri-edit-fill text-[16px]"></i>
                                                     </a>
                                                     <!-- Tombol Hapus -->
                                                     <button class="btn-icon btn-danger-icon-light size-7 delete-category"
@@ -98,7 +100,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('lfcms.components.pagination.pagination')
+                        @include('lfcms.components.pagination.pagination', ['paginator' => $kategori])
+                        @include('lfcms.pages.artikel.kategori.edit')
                         @include('lfcms.pages.artikel.kategori.create')
                     </div>
                 </div>
@@ -128,7 +131,7 @@
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById('dataContainer');
-                    tbody.innerHTML = ''; // Hapus semua baris yang lama
+                    tbody.innerHTML = ''; // Hapus semua baris lama
 
                     data.forEach(item => {
                         const row = document.createElement('tr');
@@ -143,12 +146,24 @@
                     </td>
                     <td class="p-6 py-4">
                         <div class="flex items-center gap-2">
-                            <a href="#" class="btn-icon btn-primary-icon-light size-7">
-                                <i class="ri-message-2-line text-inherit text-[13px]"></i>
+                            <a href="#" class="btn-icon btn-primary-icon-light size-7 edit-category" data-id="${item.id}">
+                                <i class="ri-edit-fill text-[16px]"></i>
                             </a>
                             <button class="btn-icon btn-danger-icon-light size-7 delete-category" data-id="${item.id}">
                                 <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                             </button>
+                            <div class="relative ml-5">
+                                <button data-popover-target="td-3-0" data-popover-trigger="click"
+                                    data-popover-placement="bottom-end"
+                                    class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
+                                    <i class="ri-more-2-fill text-inherit"></i>
+                                </button>
+                                <ul id="td-3-0" class="hidden popover-target invisible [&.visible]:!block" data-popover>
+                                    <li>
+                                        <a class="popover-item" href="#">More</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </td>
                 `;
@@ -157,24 +172,32 @@
                 });
         }
 
-        // Panggil fungsi fetchData setiap kali halaman dimuat atau setelah aksi tertentu seperti menambah atau menghapus kategori
+
         fetchData();
 
         // Misalnya, setelah menghapus kategori, panggil fetchData lagi untuk memperbarui tampilan
-        document.querySelectorAll('.delete-category').forEach(button => {
-            button.addEventListener('click', function() {
-                const categoryId = this.getAttribute('data-id'); // Ambil ID kategori dari data-id
+        document.getElementById('dataContainer').addEventListener('click', function(e) {
+            // Tangani klik tombol Edit
+            if (e.target.closest('.edit-category')) {
+                const id = e.target.closest('.edit-category').dataset.id;
+                console.log(`Edit kategori dengan ID: ${id}`);
+                openEditModal(id); // Fungsi untuk membuka modal edit
+            }
+
+            // Tangani klik tombol Hapus
+            if (e.target.closest('.delete-category')) {
+                const categoryId = e.target.closest('.delete-category').getAttribute('data-id');
                 if (categoryId) {
-                    // Kirim request ke route untuk menghapus kategori
+                    // Kirim request untuk menghapus kategori
                     fetch(`/lfcms/kategori-artikel/${categoryId}`, {
                             method: 'DELETE',
                             headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Token CSRF
                                 'Content-Type': 'application/json'
                             }
                         })
                         .then(response => {
-                            if (!response.ok) { // Cek jika respons tidak sukses
+                            if (!response.ok) {
                                 throw new Error('Gagal menghapus kategori');
                             }
                             return response.json();
@@ -187,10 +210,8 @@
                             console.error('Error:', error);
                             alert('Terjadi kesalahan saat menghapus kategori.');
                         });
-                } else {
-                    console.error('ID kategori tidak ditemukan!');
                 }
-            });
+            }
         });
     </script>
 @endsection
