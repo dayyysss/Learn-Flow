@@ -125,7 +125,7 @@ class PageController extends Controller
         $page = Page::findOrFail($id);
 
         if ($page->image) {
-            Storage::delete('public/halaman' . $page->image);
+            Storage::delete('public/' . $page->image);
         }
 
         $page->delete();
