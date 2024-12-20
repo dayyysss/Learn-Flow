@@ -53,7 +53,7 @@
                                         @if ($item->status == 1)
                                         <span class="badge badge-success-light rounded-full">Publik</span>
                                         @else
-                                        <span class="badge badge-success-light rounded-full">Draft</span>
+                                        <span class="badge badge-warning-light rounded-full">Draft</span>
                                         @endif
                                     </td>
                                     <td class="p-6 py-4">
