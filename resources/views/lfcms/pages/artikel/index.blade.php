@@ -23,12 +23,10 @@
                                 <span>Refresh</span>
                             </button>
                         </div>
-                        <button class="btn b-light btn-primary-light dk-theme-card-square">
-                            <a href="{{route('artikel.create')}}">
+                        <a href="{{ route('artikel.create') }}" class="btn b-light btn-primary-light dk-theme-card-square">
                             <i class="ri-add-fill text-inherit"></i>
                             <span>Tambah Artikel</span>
-                            </a>
-                        </button>
+                        </a>                        
                     </div>
                     <div class="overflow-x-auto mt-5">
                         <table class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
