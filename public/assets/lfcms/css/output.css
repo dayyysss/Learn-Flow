@@ -14054,6 +14054,15 @@ div[modal-backdrop]{
   background-color: rgb(4 4 29 / var(--tw-bg-opacity));
 }
 
+.tipe-menu:where(.dark, .dark *){
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.menu_type_list:where(.dark, .dark *){
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .card-title{
   font-size: 1.25rem;
   line-height: 1.75rem;

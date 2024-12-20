@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Tambah Artikel | Learn Flow CMS')
+@section('page_title', 'Tambah Testimonial | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <form action="{{ route('testimonial.store') }}" method="POST"
@@ -13,8 +13,8 @@
                     <div class="mt-7 pt-0.5">
                         <div class="grid  gap-y-5">
                             <div class="col-span-full xl:col-auto leading-none">
-                                <label for="name" class="form-label">Nama Artikel</label> 
-                                <input type="text" id="name" name="name" placeholder="Nama Artikel" class="form-input" required>
+                                <label for="name" class="form-label">Nama</label> 
+                                <input type="text" id="name" name="name" placeholder="Masukan nama" class="form-input" required>
                             </div>
                         </div>
                             <div>

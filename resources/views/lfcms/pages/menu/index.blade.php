@@ -9,14 +9,17 @@
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
     <div class="flex flex-col md:flex-row gap-5">
         <!-- Sidebar: Tipe Menu -->
-        <div class="bg-white md:w-80 w-full h-fit rounded shadow-lg p-4">
-            <div class="flex mb-5 justify-between items-center">
+        <div class="bg-white md:w-80 w-full h-fit rounded shadow-lg p-4 dark:bg-dark-card-two">
+            <div class="tipe-menu flex mb-5 justify-between items-center">
                 <label>Tipe Menu:</label>
                 <div class="w-fit">
                  
-                    <button id="openModal" class="btn btn-primary bg-indigo-700 items-center flex">
-                        Tambah
-                    </button>
+
+                    <button class="btn b-light btn-primary-light dk-theme-card-square"
+                               id="openModal">
+                                <i class="btn ri-add-fill text-inherit"></i>
+                                <span>Tambah</span>
+                            </button>
                     
                 </div>
             </div>
@@ -26,7 +29,7 @@
                         <div class="flex items-center">
                             <input type="radio" id="menu_type_{{ $type->id }}" name="menu_type" value="{{ $type->id }}" class="mr-2 menu-type-item" 
                                    {{ $loop->first ? 'checked' : '' }}>
-                            <label class="capitalize" for="menu_type_{{ $type->id }}">{{ $type->name }}</label>
+                            <label class="menu_type_list capitalize" for="menu_type_{{ $type->id }}">{{ $type->name }}</label>
                         </div>
                         <div class="flex">
                             <a href="javascript:void(0)" class="text-blue-600 hover:underline" onclick="openEditModal({{ json_encode($type) }})">
@@ -52,17 +55,27 @@
         </div>
 
         <!-- Konten Utama: Menu -->
-        <div class="bg-white md:w-7/12 w-full rounded shadow-lg p-4">
+        <div class="bg-white md:w-7/12 w-full rounded dark:bg-dark-card-two shadow-lg p-4">
             <div class="flex flex-col md:flex-row justify-between flex-wrap-reverse mb-5 md:items-center items-end gap-3">
                 <h2 class="mb-2 text-left md:mb-0">Menu</h2>
                 <div class="flex gap-3">
-                    <button id="saveOrder" class="btn bg-blue-500 btn-primary" style="display: none;">Simpan</button>
-                    <a href="/lfcms/hak-akses" class="flex btn btn-primary bg-blue-500">
+                    {{-- <button id="saveOrder" class="btn bg-blue-500 btn-primary" style="display: none;">Simpan</button> --}}
+                    <button class="btn b-light btn-primary-light dk-theme-card-square"
+                    id="saveOrder" style="display: none;">
+                    <i class="btn ri-save-3-line text-inherit"></i>
+                     <span>Simpan</span>
+                 </button>
+                    <a href="/lfcms/hak-akses" class="btn b-light btn-primary-light dk-theme-card-square">
                         Hak Akses Menu
                     </a>
-                    <button id="openModalMenuList" class="btn bg-indigo-700 btn-primary items-center flex">
+                    {{-- <button id="openModalMenuList" class="btn bg-indigo-700 btn-primary items-center flex">
                         Tambah
-                    </button>
+                    </button> --}}
+                    <button class="btn b-light btn-primary-light dk-theme-card-square"
+                    id="openModalMenuList">
+                     <i class="btn ri-add-fill text-inherit"></i>
+                     <span>Tambah</span>
+                 </button>
                 </div>
             </div>
             <div class="dd w-full" id="nestable"></div>
