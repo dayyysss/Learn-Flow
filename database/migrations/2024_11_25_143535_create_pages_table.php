@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->string('deskripsi')->nullable();
-            $table->string('status')->nullable();
+            $table->enum('status', ['draft', 'publik']);
             $table->string('keyword')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();

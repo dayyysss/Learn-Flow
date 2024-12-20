@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('slug');
             $table->string('url');
             $table->string('ikon');
-            $table->foreignId('menutype_id')->references('id')->on('menu_types')->cascadeOnDelete();
-            $table->foreignId('index')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
-            $table->foreignId('create')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
-            $table->foreignId('update')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
-            $table->foreignId('delete')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
+            $table->foreignId('menu_type_id')->references('id')->on('menu_types')->cascadeOnDelete();
+            // $table->foreignId('index')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
+            // $table->foreignId('create')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
+            // $table->foreignId('update')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
+            // $table->foreignId('delete')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
             $table->timestamps();
         });
     }
