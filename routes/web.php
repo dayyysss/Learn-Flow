@@ -1,28 +1,33 @@
 <?php
 
 use App\Models\Course;
+use App\Models\ModulProgress;
 use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\LFCMS\PageController;
 use App\Http\Controllers\Admin\CourseController;
-use App\Http\Controllers\LFCMS\ArtikelController;
+use App\Http\Controllers\LFCMS\ClientController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\LFCMS\ArticleController;
+use App\Http\Controllers\LFCMS\ArtikelController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
+use App\Http\Controllers\LFCMS\HakAksesController;
 use App\Http\Controllers\LFCMS\MenuListController;
 use App\Http\Controllers\LFCMS\MenuTypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Quiz\QuizController;
+use App\Http\Controllers\LFCMS\TestimoniController;
 use App\Http\Controllers\LFCMS\PembayaranController;
 use App\Http\Controllers\Admin\CertificateController;
+use App\Http\Controllers\LFCMS\TestimonialController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
-use App\Http\Controllers\LFCMS\ClientController;
-use App\Http\Controllers\LFCMS\PageController;
-use App\Http\Controllers\LFCMS\TestimonialController;
 use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
@@ -30,14 +35,10 @@ use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\LFCMS\ArticleController;
-use App\Http\Controllers\LFCMS\HakAksesController;
-use App\Http\Controllers\LFCMS\HakAksesFrontendController;
-use App\Http\Controllers\LFCMS\TestimoniController;
-use App\Models\ModulProgress;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -74,7 +75,9 @@ Route::controller(LandingPageController::class)->group(function () {
 });
 
 // Dashboard CMS
-Route::prefix('lfcms')->group(function () {
+Route::prefix('lfcms')
+    ->middleware(['auth', RoleMiddleware::class . ':superadmin'])
+    ->group(function () {
     Route::controller(DashboardCMSController::class)->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
@@ -139,6 +142,8 @@ Route::prefix('lfcms')->group(function () {
 });
 
 // Dashboard
+Route::middleware(['auth', RoleMiddleware::class . ':admin|instructor|student'])
+    ->group(function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index.user');
 Route::resource('/courses', CourseController::class);
@@ -227,4 +232,4 @@ Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'upda
 // Rute untuk update progres berbasis scroll
 Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
 
-
+    });
