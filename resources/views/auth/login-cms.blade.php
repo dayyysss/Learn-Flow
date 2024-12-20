@@ -69,13 +69,6 @@
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
                                         Masuk
                                     </h3>
-                                    <p class="text-contentColor dark:text-contentColor-dark mb-15px">
-                                        Belum punya akun?
-                                        <a href="{{ url('/login') }}"
-                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Daftar
-                                            gratis
-                                        </a>
-                                    </p>
                                 </div>
 
                                 <form class="pt-25px" action="{{ route('login') }}" method="POST" data-aos="fade-up">
@@ -127,25 +120,6 @@
                                         <button type="submit"
                                             class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             Masuk
-                                        </button>
-                                    </div>
-
-                                    <!-- other login -->
-                                    <div>
-                                        <p
-                                            class="text-contentColor dark:text-contentColor-dark text-center relative mb-15px before:w-2/5 before:h-1px before:bg-borderColor4 dark:before:bg-borderColor2-dark before:absolute before:left-0 before:top-4 after:w-2/5 after:h-1px after:bg-borderColor4 dark:after:bg-borderColor2-dark after:absolute after:right-0 after:top-4">
-                                            or Log-in with
-                                        </p>
-                                    </div>
-                                    <div
-                                        class="text-center flex gap-x-1 md:gap-x-15px lg:gap-x-25px gap-y-5 items-center justify-center flex-wrap">
-                                        <button type="button"
-                                            class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            <i class="icofont-facebook"></i> Facebook
-                                        </button>
-                                        <button type="button"
-                                            class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            <i class="icofont-google-plus"></i> Google
                                         </button>
                                     </div>
                                 </form>
