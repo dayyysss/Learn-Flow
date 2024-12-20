@@ -55,7 +55,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="dataContainer" class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                    @foreach($testimonial as $index => $item)
+                                    @foreach ($testimonial as $index => $item)
                                         <tr>
                                             <td class="p-6 py-4">{{ $loop->iteration }}</td>
                                             <td class="p-6 py-4">
@@ -90,7 +90,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{-- {{ $testimonial->links('lfcms.components.pagination.pagination') }} --}}
+                        {{ $testimonial->links('lfcms.components.pagination.pagination') }}
                     </div>
                     <div id="modalTambahTestimonial"
                         class="modal-back ml-auto mr-auto fixed w-[40%] h-auto inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 transition duration-300 transform scale-95">
