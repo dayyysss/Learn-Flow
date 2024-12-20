@@ -33,7 +33,6 @@ class ArtikelController extends Controller
             'publish_date' => 'nullable|date',
             'keyword' => 'nullable|string',
             'tag' => 'nullable|string',
-            'author' => 'required|string',
             'status' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:1000',
         ]);
@@ -48,7 +47,7 @@ class ArtikelController extends Controller
         $artikel->publish_date = $request->publish_date;
         $artikel->keyword = $request->keyword;
         $artikel->tag = $request->tag;
-        $artikel->author = $request->author;
+        $artikel->author = auth()->user()->name;
         $artikel->status = $request->status;
         $artikel->visitor = 0 ;
 
