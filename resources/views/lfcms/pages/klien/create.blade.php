@@ -34,6 +34,8 @@
                                   <option value="draft">Draft</option>
                               </select>
                           </div>
+
+                          
                               
                             {{-- <div class="col-span-full xl:col-auto leading-none">
                                 <label for="coursePrice" class="form-label">Course price</label>
@@ -92,6 +94,10 @@
                                 </div>
                             </div> --}}
                         </div>
+                        
+                    </div>
+                    <div class="flex-center mt-5 !justify-end">
+                        <button type="submit" class="btn b-solid btn-primary-solid btn-lg dk-theme-card-square">Submit</button>
                     </div>
                 </div>
             </div>
@@ -119,9 +125,7 @@
                             </label>
                         </div>
                         
-                        <div class="flex-center !justify-end">
-                            <button type="submit" class="btn b-solid btn-primary-solid btn-lg dk-theme-card-square">Submit</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
