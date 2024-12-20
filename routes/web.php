@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\LFCMS\ClientController;
 use App\Http\Controllers\LFCMS\PageController;
+use App\Http\Controllers\LFCMS\TestimonialController;
 use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
@@ -41,21 +42,17 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 // Auth
-Route::get('/login', function () {
-    return view('auth.login'); })->name('login');
+Route::get('/login', function () { return view('auth.login'); })->name('login');
+Route::get('/LFPanel', function () { return view('auth.login-cms'); })->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');
-Route::get('/signup', function () {
-    return view('auth.register'); })->name('register');
+Route::get('/signup', function () { return view('auth.register'); })->name('register');
 Route::post('/signup', [RegisteredUserController::class, 'store'])->name('register.post');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-Route::get('/forgot-password', function () {
-    return view('auth.forgot-password'); })->name('password.request');
+Route::get('/forgot-password', function () { return view('auth.forgot-password'); })->name('password.request');
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-Route::get('/reset-password/{token}', function ($token) {
-    return view('auth.reset-password', ['token' => $token]); })->name('password.reset');
+Route::get('/reset-password/{token}', function ($token) { return view('auth.reset-password', ['token' => $token]); })->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
-Route::get('/email/verify', function () {
-    return view('auth.verify-email'); })->name('verification.notice');
+Route::get('/email/verify', function () { return view('auth.verify-email'); })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 // Route::get('/email/verify', function () {
 //     return view('auth.verify-email');
@@ -83,6 +80,9 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
+        Route::get('/klien', 'klienCMS')->name('klienCMS');
+        Route::resource('/halaman', PageController::class);
+        Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });

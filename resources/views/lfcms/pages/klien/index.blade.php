@@ -118,18 +118,52 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center">
-                                                <div class="alert alert-danger">
-                                                    Belum ada data yang masuk!
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforelse
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            <div class="alert alert-danger">
+                                                Belum ada data yang masuk!
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>
-                        {{ $clients->links('lfcms.components.pagination.pagination') }}
+                        <!-- START PAGINATION -->
+                        <div class="flex-center-between mt-5">
+                            <div class="font-spline_sans text-sm text-gray-900 dark:text-dark-text">
+                                Showing {{ $clients->firstItem() }} to {{ $clients->lastItem() }} of {{ $clients->total() }} entries
+                            </div>
+                            <nav>
+                                <ul class="flex items-center gap-1">
+                                    <!-- Previous Page Link -->
+                                    <li>
+                                        <a href="{{ $clients->previousPageUrl() }}"
+                                            class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text hover:bg-primary-500 hover:text-white dark:bg-dark-card-two">
+                                            <i class="ri-arrow-left-s-line text-inherit"></i>
+                                        </a>
+                                    </li>
+                                    
+                                    <!-- Page Links -->
+                                    @foreach ($clients->getUrlRange(1, $clients->lastPage()) as $page => $url)
+                                        <li>
+                                            <a href="{{ $url }}"
+                                                class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text {{ $page == $clients->currentPage() ? 'bg-primary-500 text-white' : '' }}">
+                                                {{ $page }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                    <!-- Next Page Link -->
+                                    <li>
+                                        <a href="{{ $clients->nextPageUrl() }}"
+                                            class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text hover:bg-primary-500 hover:text-white dark:bg-dark-card-two">
+                                            <i class="ri-arrow-right-s-line text-inherit"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        @include('lfcms.components.pagination.pagination')
                     </div>
                 </div>
             </div>

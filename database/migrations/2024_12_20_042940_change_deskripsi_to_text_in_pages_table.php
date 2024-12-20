@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('menu_lists', function (Blueprint $table) {
-            $table->string('slug')->nullable()->change();
-            $table->string('url')->nullable()->change();
-            $table->string('ikon')->nullable()->change();
+        Schema::table('pages', function (Blueprint $table) {
+            $table->text('deskripsi')->nullable()->change(); // Mengubah kolom deskripsi menjadi text
         });
     }
 
@@ -23,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('menu_lists', function (Blueprint $table) {
-            //
+        Schema::table('pages', function (Blueprint $table) {
+            $table->string('deskripsi')->nullable()->change(); // Mengembalikan ke string
         });
     }
 };
