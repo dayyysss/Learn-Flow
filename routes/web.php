@@ -85,14 +85,13 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
-    Route::resource('/artikel', ArticleController::class);
     Route::resource('/testimonial', TestimoniController::class);
         // Route::get('/klien', 'klienCMS')->name('klienCMS');
         Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);
 
         //Artikel
-        Route::resource('/artikel', ArticleController::class);
+        Route::resource('/artikel', ArtikelController::class);
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
