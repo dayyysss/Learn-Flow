@@ -13,25 +13,18 @@ class ClientController extends Controller
     public function index()
     {
         // Misalnya, Anda ingin mengambil data dari model Client dengan pagination
-        $clients = Client::paginate(10);  // Mengambil 8 data per halaman
+        $clients = Client::paginate(5);  // Mengambil 8 data per halaman
         
         return view('lfcms.pages.klien.index', compact('clients'));
     }
-
-    public function create()
-{
-    // Menampilkan view form tambah klien
-    return view('lfcms.pages.klien.create');
-}
-
 
     public function store(Request $request)
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'status' => 'required|in:draft,publik',
-            'url' => 'nullable',
+            'status' => 'required|in:draft,public',
+            'url' => 'nullable|url',
             'image' => 'nullable|image|max:2048',  // Validasi file gambar
         ]);
 
@@ -75,9 +68,9 @@ class ClientController extends Controller
         // Validasi input
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'status' => 'required|in:draft,publik',
+            'status' => 'required|in:draft,public',
             'image' => 'nullable|image|max:2048',  // Validasi file gambar
-            'url' => 'nullable'
+            'url' => 'nullable|url'
         ]);
 
         if ($validator->fails()) {
@@ -169,7 +162,7 @@ class ClientController extends Controller
         $ids = $request->input('ids');
 
         if ($ids) {
-            Client::whereIn('id', $ids)->update(['status' => 'publik']);
+            Client::whereIn('id', $ids)->update(['status' => 'public']);
             return response()->json(['success' => true, 'message' => 'Layanan berhasil dipublikasikan.']);
         }
 

@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\LFCMS\ClientController;
 use App\Http\Controllers\LFCMS\PageController;
+use App\Http\Controllers\LFCMS\TestimonialController;
 use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
@@ -79,6 +80,9 @@ Route::prefix('lfcms')->group(function () {
         Route::get('/dashboard', 'indexCMS')->name('indexCMS');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
+        Route::get('/klien', 'klienCMS')->name('klienCMS');
+        Route::resource('/halaman', PageController::class);
+        Route::get('/testimonial', 'testimonialCMS')->name('testimonialCMS');
         Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
