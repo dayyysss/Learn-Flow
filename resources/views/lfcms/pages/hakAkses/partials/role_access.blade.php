@@ -1,6 +1,6 @@
 <table class="table-auto w-full text-left border-collapse">
   <thead>
-      <tr>
+      <tr class="" style="background-color: ">
           <th class="border px-4 py-2">Nama Menu</th>
           <th class="border px-4 py-2">Tambah</th>
           <th class="border px-4 py-2">Baca</th>

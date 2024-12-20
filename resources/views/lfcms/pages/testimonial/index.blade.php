@@ -27,12 +27,14 @@
                                     <span>Refresh</span>
                                 </button>
                             </div>
-                            <button class="btn b-light btn-primary-light dk-theme-card-square"
-                               ><a href="{{route('testimonial.create')}}">
+
+                           
+                            <button onclick="window.location.href='{{ route('testimonial.create') }}'" class="btn b-light btn-primary-light dk-theme-card-square"
+                               >
                                 <i class="ri-add-fill text-inherit"></i>
                                 <span>Tambah Testimonial</span>
-                               </a>
                             </button>
+                        
 
                         </div>
                         <div class="overflow-x-auto mt-5">
