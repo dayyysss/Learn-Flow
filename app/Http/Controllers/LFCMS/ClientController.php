@@ -30,8 +30,8 @@ class ClientController extends Controller
         // Validasi input
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'status' => 'required|in:draft,public',
-            'url' => 'nullable|url',
+            'status' => 'required|in:draft,publik',
+            'url' => 'nullable',
             'image' => 'nullable|image|max:2048',  // Validasi file gambar
         ]);
 
@@ -75,9 +75,9 @@ class ClientController extends Controller
         // Validasi input
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'status' => 'required|in:draft,public',
+            'status' => 'required|in:draft,publik',
             'image' => 'nullable|image|max:2048',  // Validasi file gambar
-            'url' => 'nullable|url'
+            'url' => 'nullable'
         ]);
 
         if ($validator->fails()) {
@@ -169,7 +169,7 @@ class ClientController extends Controller
         $ids = $request->input('ids');
 
         if ($ids) {
-            Client::whereIn('id', $ids)->update(['status' => 'public']);
+            Client::whereIn('id', $ids)->update(['status' => 'publik']);
             return response()->json(['success' => true, 'message' => 'Layanan berhasil dipublikasikan.']);
         }
 

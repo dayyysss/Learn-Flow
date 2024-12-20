@@ -36,6 +36,7 @@ use App\Http\Controllers\LFCMS\ArticleController;
 use App\Http\Controllers\LFCMS\HakAksesController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\TestimoniController;
+use App\Models\ModulProgress;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -89,6 +90,10 @@ Route::prefix('lfcms')->group(function () {
         // Route::get('/klien', 'klienCMS')->name('klienCMS');
         Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);
+
+        // Route::get('/modul/{slug}/progress', [ModulProgressController::class, 'getProgress']);
+        //  Route::post('/modul/{slug}/progress', [ModulProgressController::class, 'updateProgress']);
+
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
@@ -222,4 +227,5 @@ Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'upda
 
 // Rute untuk update progres berbasis scroll
 Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
+
 
