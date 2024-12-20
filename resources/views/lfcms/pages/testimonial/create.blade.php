@@ -2,7 +2,9 @@
 @section('page_title', 'Tambah Artikel | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
-    <form action="https://template.codexshaper.com/admin/dashkit/all-course.html">
+    <form action="{{ route('testimonial.store') }}" method="POST"
+    enctype="multipart/form-data">
+    @csrf
         <div class="grid grid-cols-12 gap-x-4">
             <!-- Start Course Information -->
             <div class="col-span-full lg:col-span-7 card h-fit">
@@ -11,18 +13,27 @@
                     <div class="mt-7 pt-0.5">
                         <div class="grid  gap-y-5">
                             <div class="col-span-full xl:col-auto leading-none">
-                                <label for="courseTitle" class="form-label">Nama Artikel</label> 
-                                <input type="text" id="courseTitle" placeholder="Nama Artikel" class="form-input" required>
+                                <label for="name" class="form-label">Nama Artikel</label> 
+                                <input type="text" id="name" name="name" placeholder="Nama Artikel" class="form-input" required>
                             </div>
                         </div>
                             <div>
 
                               <div class="grid mt-3 gap-y-5">
                                 <div class="col-span-full xl:col-auto leading-none">
-                                    <label for="courseTitle" class="form-label">Profesi</label> 
-                                    <input type="text" id="courseTitle" placeholder="Masukan Profesi" class="form-input" required>
+                                    <label for="profession" class="form-label">Profesi</label> 
+                                    <input type="text" id="profession" name="profession" placeholder="Masukan Profesi" class="form-input" required>
                                 </div>
                             </div>
+
+                            <div class="col-span-full mt-3 xl:col-auto leading-none">
+                              <label for="status" class="form-label">Status</label>
+                              <select class="singleSelect" name="status" id="status">
+                                  <option selected disabled>Pilih Status</option>
+                                  <option value="publik">Publik</option>
+                                  <option value="draft">Draft</option>
+                              </select>
+                          </div>
                               
                             {{-- <div class="col-span-full xl:col-auto leading-none">
                                 <label for="coursePrice" class="form-label">Course price</label>
@@ -74,7 +85,7 @@
                             </div>  --}}
                             <div class="col-span-full mt-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea id="description" rows="8" class="summernote form-input"></textarea>
+                                <textarea id="description" name="description" rows="8" class="summernote form-input"></textarea>
                                 <div class="flex items-center gap-2 mt-3.5">
                                     <input type="checkbox" name="agreeTermCondition" id="agreeTermCondition" class="accent-primary-500">
                                     <label for="agreeTermCondition" class="text-xs leading-none text-gray-500 dark:text-dark-text select-none">I am totally agree with your term & condition</label>

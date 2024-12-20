@@ -77,7 +77,7 @@
                                             </td>                                                                          
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
-                                                    <a href="#" class="btn-icon btn-primary-icon-light size-7">
+                                                    <a href="{{route('testimonial.edit', $item->id)}}" class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
                                                     <a href="#" class="btn-icon btn-danger-icon-light size-7">

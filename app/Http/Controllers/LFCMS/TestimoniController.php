@@ -49,7 +49,7 @@ class TestimoniController extends Controller
         // Simpan data ke database
         Testimonial::create($validated);
 
-        return redirect()->route('testimonials.index')->with('success', 'Testimonial berhasil dibuat.');
+        return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil dibuat.');
     }
 
     /**
@@ -59,7 +59,7 @@ class TestimoniController extends Controller
     {
         $testimonial = Testimonial::findOrFail($id);
 
-        return view('testimonials.show', compact('testimonial'));
+        return view('testimonial.show', compact('testimonial'));
     }
 
     /**
@@ -69,7 +69,7 @@ class TestimoniController extends Controller
     {
         $testimonial = Testimonial::findOrFail($id);
 
-        return view('testimonials.edit', compact('testimonial'));
+        return view('lfcms.pages.testimonial.edit', compact('testimonial'));
     }
 
     /**
@@ -99,7 +99,7 @@ class TestimoniController extends Controller
         // Update data di database
         $testimonial->update($validated);
 
-        return redirect()->route('testimonials.index')->with('success', 'Testimonial berhasil diperbarui.');
+        return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil diperbarui.');
     }
 
     /**
@@ -117,7 +117,7 @@ class TestimoniController extends Controller
         // Hapus data dari database
         $testimonial->delete();
 
-        return redirect()->route('testimonials.index')->with('success', 'Testimonial berhasil dihapus.');
+        return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil dihapus.');
     }
 
     public function indexPublik()
