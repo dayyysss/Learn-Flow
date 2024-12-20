@@ -28,9 +28,10 @@
                                 </button>
                             </div>
                             <button class="btn b-light btn-primary-light dk-theme-card-square"
-                                onclick="openModal('modalTambahTestimonial')">
+                               ><a href="{{route('testimonial.create')}}">
                                 <i class="ri-add-fill text-inherit"></i>
                                 <span>Tambah Testimonial</span>
+                               </a>
                             </button>
 
                         </div>
@@ -54,7 +55,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="dataContainer" class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                    @foreach($testimonial as $index => $testimonial)
+                                    @foreach($testimonial as $index => $item)
                                         <tr>
                                             <td class="p-6 py-4">{{ $loop->iteration }}</td>
                                             <td class="p-6 py-4">
