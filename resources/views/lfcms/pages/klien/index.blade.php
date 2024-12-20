@@ -163,7 +163,7 @@
                                 </ul>
                             </nav>
                         </div>
-                        @include('lfcms.components.pagination.pagination')
+                        @include('lfcms.components.pagination.pagination', ['paginator' => $clients])
                     </div>
                 </div>
             </div>
