@@ -2,7 +2,7 @@
 @section('page_title', 'Edit Klien | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
-    <form action="{{ route('testimonial.update', $testimonial->id) }}" method="POST"
+    <form action="{{ route('klien.update', $client->id) }}" method="POST"
     enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -15,15 +15,15 @@
                         <div class="grid  gap-y-5">
                             <div class="col-span-full xl:col-auto leading-none">
                                 <label for="name" class="form-label">Nama Artikel</label> 
-                                <input type="text" id="name" name="name" placeholder="Nama Artikel" class="form-input" value="{{ old('name', $testimonial->name) }}" required>
+                                <input type="text" id="name" name="name" placeholder="Nama Artikel" class="form-input" value="{{ old('name', $client->name) }}" required>
                             </div>
                         </div>
                             <div>
 
                               <div class="grid mt-3 gap-y-5">
                                 <div class="col-span-full xl:col-auto leading-none">
-                                    <label for="profession" class="form-label">Profesi</label> 
-                                    <input type="text" id="profession" name="profession" placeholder="Masukan Profesi" class="form-input" value="{{ old('profession', $testimonial->profession) }}" required>
+                                    <label for="url" class="form-label">Url</label> 
+                                    <input type="text" id="url" name="url" placeholder="Masukan url" class="form-input" value="{{ old('url', $client->url) }}" required>
                                 </div>
                             </div>
 
@@ -31,8 +31,8 @@
                               <label for="status" class="form-label">Status</label>
                               <select class="singleSelect" name="status" id="status">
                                   <option selected disabled>Pilih Status</option>
-                                  <option value="publik" {{ old('status', $testimonial->status) == 'publik' ? 'selected' : '' }}>Publik</option>
-                                  <option value="draft" {{ old('status', $testimonial->status) == 'draft' ? 'selected' : '' }}>Draft</option>
+                                  <option value="publik" {{ old('status', $client->status) == 'publik' ? 'selected' : '' }}>Publik</option>
+                                  <option value="draft" {{ old('status', $client->status) == 'draft' ? 'selected' : '' }}>Draft</option>
                               </select>
                           </div>
                               
@@ -84,14 +84,14 @@
                                     <option value="bootcamp">Bootcamp</option>
                                 </select>
                             </div>  --}}
-                            <div class="col-span-full mt-3">
+                            {{-- <div class="col-span-full mt-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea id="description" name="description" rows="8" class="summernote form-input">{{$testimonial->description}}</textarea>
+                                <textarea id="description" name="description" rows="8" class="summernote form-input">{{$client->description}}</textarea>
                                 <div class="flex items-center gap-2 mt-3.5">
                                     <input type="checkbox" name="agreeTermCondition" id="agreeTermCondition" class="accent-primary-500">
                                     <label for="agreeTermCondition" class="text-xs leading-none text-gray-500 dark:text-dark-text select-none">I am totally agree with your term & condition</label>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                         <div class="col-span-full sm:col-span-4">
                                 <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">Image</p>
                                 <label for="image" class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/3] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square"
-                                style="background-image: url('{{ asset('storage/'.$testimonial->image) }}');">
+                                style="background-image: url('{{ asset('storage/'.$client->image) }}');">
 
                                     <input type="file" id="image" name="image" hidden class="img-src peer/file">
                                 <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
