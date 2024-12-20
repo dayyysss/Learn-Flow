@@ -109,7 +109,9 @@
                     <div class="mt-7 pt-0.5 flex flex-col gap-5">
                         <div class="col-span-full sm:col-span-4">
                                 <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">Image</p>
-                                <label for="image" class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/3] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square">
+                                <label for="image" class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/3] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square"
+                                style="background-image: url('{{ asset('storage/'.$testimonial->image) }}');">
+
                                     <input type="file" id="image" name="image" hidden class="img-src peer/file">
                                 <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
                                     <span class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
