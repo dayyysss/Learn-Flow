@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category_artikel')->onDelete('cascade');
-            $table->date('pubish_date')->nullable();
+            $table->date('publish_date')->nullable();
             $table->string('keyword');
             $table->string('tag');
             $table->string('author');

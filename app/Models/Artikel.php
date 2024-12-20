@@ -15,11 +15,12 @@ class Artikel extends Model
         'deskripsi_singkat',
         'deskripsi',
         'category_id',
-        'publis_date',
+        'publish_date',
         'keyword',
         'tag',
         'author',
         'visitor',
+        'status',
         'image',
     ];
 

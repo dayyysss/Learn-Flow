@@ -100,7 +100,7 @@
                                 </tbody>
                             </table>
                         </div>
-                            @include('lfcms.components.pagination.pagination', ['paginator' => $kategori])
+                        @include('lfcms.components.pagination.pagination', ['paginator' => $kategori])
                         @include('lfcms.pages.artikel.kategori.edit')
                         @include('lfcms.pages.artikel.kategori.create')
                     </div>

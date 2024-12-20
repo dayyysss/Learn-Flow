@@ -43,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                @foreach ($articles as $item)
+                                @foreach ($artikel as $item)
                                 <tr> 
                                     <td class="p-6 py-4">{{ $item->id }}</td>
                                     <td class="p-6 py-4">{{ $item->judul }}</td>
