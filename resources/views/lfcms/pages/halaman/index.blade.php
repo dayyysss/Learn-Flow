@@ -83,11 +83,15 @@
                                                 <a href="{{ route('halaman.edit', $page->id) }}" class="btn-icon btn-primary-icon-light size-7">
                                                     <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                 </a>
-                                                <a href="{{ route('page.destroy', $page->id) }}" 
-                                                class="btn-icon btn-danger-icon-light size-7" 
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus page ini?')">
-                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                </a>
+                                                <form action="{{ route('halaman.destroy', $page->id) }}" method="POST" style="display: inline-block;" 
+                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus page ini?')">
+                                                  @csrf
+                                                  @method('DELETE')
+                                                  <button type="submit" class="btn-icon btn-danger-icon-light size-7" title="Hapus Page">
+                                                      <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                  </button>
+                                              </form>
+                                              
                                                 <div class="relative ml-5">
                                                     <button data-popover-target="td-3-0" data-popover-trigger="click"
                                                         data-popover-placement="bottom-end"

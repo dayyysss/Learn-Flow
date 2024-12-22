@@ -13,9 +13,15 @@ class ClientController extends Controller
     public function index()
     {
         // Misalnya, Anda ingin mengambil data dari model Client dengan pagination
-        $clients = Client::paginate(5);  // Mengambil 8 data per halaman
+        $clients = Client::paginate(10);  // Mengambil 8 data per halaman
         
         return view('lfcms.pages.klien.index', compact('clients'));
+    }
+    public function create()
+    {
+       
+        
+        return view('lfcms.pages.klien.create');
     }
 
     public function store(Request $request)

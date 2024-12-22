@@ -23,12 +23,10 @@
                                 <span>Refresh</span>
                             </button>
                         </div>
-                        <button class="btn b-light btn-primary-light dk-theme-card-square">
-                            <a href="{{route('artikel.create')}}">
+                        <a href="{{ route('artikel.create') }}" class="btn b-light btn-primary-light dk-theme-card-square">
                             <i class="ri-add-fill text-inherit"></i>
                             <span>Tambah Artikel</span>
-                            </a>
-                        </button>
+                        </a>                        
                     </div>
                     <div class="overflow-x-auto mt-5">
                         <table class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
@@ -53,7 +51,7 @@
                                         @if ($item->status == 1)
                                         <span class="badge badge-success-light rounded-full">Publik</span>
                                         @else
-                                        <span class="badge badge-success-light rounded-full">Draft</span>
+                                        <span class="badge badge-warning-light rounded-full">Draft</span>
                                         @endif
                                     </td>
                                     <td class="p-6 py-4">

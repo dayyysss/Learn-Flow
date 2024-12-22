@@ -112,14 +112,14 @@
                                     @csrf
 
                                     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
 
 
                                     <div class="mb-25px">
@@ -325,7 +325,7 @@
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     @notifyJs
-    
+
     <script>
         document.querySelectorAll('.tab-links button').forEach((btn, index) => {
             btn.addEventListener('click', function() {
