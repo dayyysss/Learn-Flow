@@ -120,8 +120,8 @@
                                     @empty
                                     <tr>
                                         <td colspan="5" class="text-center">
-                                            <div class="alert alert-danger">
-                                                Belum ada data yang masuk!
+                                            <div class="alert alert-danger" style="margin: 20px 0;">
+                                                Data Tidak Tersedia!
                                             </div>
                                         </td>
                                     </tr>
@@ -163,7 +163,7 @@
                                 </ul>
                             </nav>
                         </div>
-                        @include('lfcms.components.pagination.pagination')
+
                     </div>
                 </div>
             </div>
