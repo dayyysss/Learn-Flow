@@ -17,7 +17,8 @@
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                     </span>
-                                    <input id="searchInput" type="text" placeholder="Search for..." class="form-input pl-[30px]">
+                                    <input id="searchInput" type="text" placeholder="Search for..."
+                                        class="form-input pl-[30px]">
                                 </form>
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5">
@@ -72,13 +73,25 @@
                                             </td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
-                                                        <a href="{{ route('artikel.edit', $item->id) }}"
-                                                            class="btn-icon btn-primary-icon-light size-7">
-                                                            <i class="ri-edit-2-line text-inherit text-[13px]"></i>
-                                                        </a>
-                                                    <a href="#" class="btn-icon btn-danger-icon-light size-7">
+                                                    <a href="{{ route('artikel.edit', $item->id) }}"
+                                                        class="btn-icon btn-primary-icon-light size-7">
+                                                        <i class="ri-edit-2-line text-inherit text-[13px]"></i>
+                                                    </a>
+                                                    <a href="{{ route('artikel.destroy', $item->id) }}"
+                                                        onclick="event.preventDefault(); 
+                                                                     if (confirm('Apakah Anda yakin ingin menghapus artikel ini?')) { 
+                                                                         document.getElementById('delete-form-{{ $item->id }}').submit(); 
+                                                                     }"
+                                                        class="btn-icon btn-danger-icon-light size-7">
                                                         <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                     </a>
+
+                                                    <form id="delete-form-{{ $item->id }}"
+                                                        action="{{ route('artikel.destroy', $item->id) }}" method="POST"
+                                                        style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
                                                     <div class="relative ml-5">
                                                         <button data-popover-target="td-3-0" data-popover-trigger="click"
                                                             data-popover-placement="bottom-end"

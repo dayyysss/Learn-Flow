@@ -105,4 +105,13 @@ class ArtikelController extends Controller
 
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui.');
     }
+
+    public function destroy($id)
+    {
+        $artikel = Artikel::findOrFail($id);
+        $artikel->delete();
+
+        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dihapus.');
+    }
+
 }
