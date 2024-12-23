@@ -21,7 +21,7 @@ class PageController extends Controller
                         ->orWhereHas('users', function ($query) use ($search) {
                             $query->where('name', 'like', "%{$search}%"); 
                         });
-        })->paginate(2); 
+        })->paginate(3); 
 
         return view('lfcms.pages.halaman.index', compact('pages', 'search')); 
     }
