@@ -15,25 +15,18 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Enrolled Courses - Mengambil jumlah pendaftaran yang statusnya 'confirmed'
         $enrolledCourses = CourseRegistration::where('registration_status', 'confirmed')->count();
 
-        // Active Courses - Mengambil jumlah kursus dengan progress antara 0 dan 99
         $activeCourses = CourseRegistration::whereBetween('progress', [0, 99])->count();
 
-        // Complete Courses - Mengambil jumlah kursus yang progressnya 100
         $completeCourses = CourseRegistration::where('progress', 100)->count();
 
-        // Total Courses - Mengambil jumlah seluruh kursus
         $totalCourses = Course::count();
 
-        // Total Students - Mengambil jumlah siswa dengan role_id 2 (siswa)
         $totalStudents = User::where('role_id', 2)->count();
 
-        // Total Earnings - Total penghasilan (misalnya jumlah harga dari enrollments, jika ada tabel enrollments)
-        $totalEarnings = CourseRegistration::sum('harga');
+        $totalEarnings = CourseRegistration::where('registration_status', 'confirmed')->sum('harga');
 
-        // Kirim data ke view
         return view('dashboard.pages.dashboard.index', compact(
             'enrolledCourses',
             'activeCourses',
