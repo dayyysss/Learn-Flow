@@ -76,8 +76,8 @@
                                             <td class="p-6 py-4">
                                                 <span
                                                     class="badge 
-                                            {{ $testimonial->status == 'Publik' ? 'badge-success-light' : ($testimonial->status == 'draft' ? 'badge-danger-light' : 'badge-warning-light') }}">
-                                                    {{ $testimonial->status }}
+                                            {{ $testimonial->status == 'Publik' ? 'badge-success-light' : ($testimonial->status == 'draft' ? 'badge-warning-light' : 'badge-success-light') }}">
+                                                    {{ ucfirst($testimonial->status) }}
                                                 </span>
                                             </td>
                                             <td class="p-6 py-4">
@@ -118,21 +118,22 @@
                                             </td>
                                         </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center">
-                                            <div class="alert alert-danger" style="margin: 20px 0;">
-                                                Data Tidak Tersedia!
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                        <tr>
+                                            <td colspan="5" class="text-center">
+                                                <div class="alert alert-danger" style="margin: 20px 0;">
+                                                    Data Tidak Tersedia!
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
                         <!-- START PAGINATION -->
                         <div class="flex-center-between mt-5">
                             <div class="font-spline_sans text-sm text-gray-900 dark:text-dark-text">
-                                Showing {{ $testimonials->firstItem() }} to {{ $testimonials->lastItem() }} of {{ $testimonials->total() }} entries
+                                Showing {{ $testimonials->firstItem() }} to {{ $testimonials->lastItem() }} of
+                                {{ $testimonials->total() }} entries
                             </div>
                             <nav>
                                 <ul class="flex items-center gap-1">
@@ -143,7 +144,7 @@
                                             <i class="ri-arrow-left-s-line text-inherit"></i>
                                         </a>
                                     </li>
-                                    
+
                                     <!-- Page Links -->
                                     @foreach ($testimonials->getUrlRange(1, $testimonials->lastPage()) as $page => $url)
                                         <li>
@@ -172,30 +173,30 @@
     <!-- Tambahkan Modal -->
 
     <script>
-        document.getElementById("searchInput").addEventListener("keyup", function () {
-        const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
-        const rows = document.querySelectorAll("#dataContainer tr"); // Ambil semua baris dalam tabel
-    
-        rows.forEach(row => {
-            const name = row.children[1].textContent.toLowerCase(); // Ambil kolom nama
-            const profession = row.children[2].textContent.toLowerCase(); // Ambil kolom email
-    
-            // Periksa apakah query ada di nama atau email
-            if (name.includes(query) || profession.includes(query)) {
-                row.style.display = ""; // Tampilkan baris
-            } else {
-                row.style.display = "none"; // Sembunyikan baris
-            }
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
+            const rows = document.querySelectorAll("#dataContainer tr"); // Ambil semua baris dalam tabel
+
+            rows.forEach(row => {
+                const name = row.children[1].textContent.toLowerCase(); // Ambil kolom nama
+                const profession = row.children[2].textContent.toLowerCase(); // Ambil kolom email
+
+                // Periksa apakah query ada di nama atau email
+                if (name.includes(query) || profession.includes(query)) {
+                    row.style.display = ""; // Tampilkan baris
+                } else {
+                    row.style.display = "none"; // Sembunyikan baris
+                }
+            });
         });
-    });
-    
     </script>
 
-<script>
-    // Fungsi untuk membuka modal
-    function openModal(modalId) {
-        document.getElementById(modalId).classList.remove('hidden');
-    }
+    <script>
+        // Fungsi untuk membuka modal
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.classList.remove('hidden', 'scale-95', 'opacity-0');
@@ -213,4 +214,3 @@
     </script>
 
 @endsection
-
