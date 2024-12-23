@@ -147,7 +147,7 @@ Route::prefix('lfcms')
 });
 
 // Dashboard
-Route::middleware(['auth', RoleMiddleware::class . ':admin|instructor|student'])
+Route::middleware(['auth'])
     ->group(function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index.user');
