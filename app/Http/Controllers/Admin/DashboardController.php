@@ -2,18 +2,48 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\visitor_count;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use App\Models\visitor_count;
+use App\Models\CourseRegistration;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.pages.dashboard.index');
+        // Enrolled Courses - Mengambil jumlah pendaftaran yang statusnya 'confirmed'
+        $enrolledCourses = CourseRegistration::where('registration_status', 'confirmed')->count();
+
+        // Active Courses - Mengambil jumlah kursus dengan progress antara 0 dan 99
+        $activeCourses = CourseRegistration::whereBetween('progress', [0, 99])->count();
+
+        // Complete Courses - Mengambil jumlah kursus yang progressnya 100
+        $completeCourses = CourseRegistration::where('progress', 100)->count();
+
+        // Total Courses - Mengambil jumlah seluruh kursus
+        $totalCourses = Course::count();
+
+        // Total Students - Mengambil jumlah siswa dengan role_id 2 (siswa)
+        $totalStudents = User::where('role_id', 2)->count();
+
+        // Total Earnings - Total penghasilan (misalnya jumlah harga dari enrollments, jika ada tabel enrollments)
+        $totalEarnings = CourseRegistration::sum('harga');
+
+        // Kirim data ke view
+        return view('dashboard.pages.dashboard.index', compact(
+            'enrolledCourses',
+            'activeCourses',
+            'completeCourses',
+            'totalCourses',
+            'totalStudents',
+            'totalEarnings'
+        ));
     }
+
     public function indexUser()
     {
 
