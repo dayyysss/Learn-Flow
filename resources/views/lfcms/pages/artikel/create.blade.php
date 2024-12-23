@@ -110,7 +110,7 @@
                                         placeholder="Masukan tag" autocomplete="off" onkeypress="addTag(event)">
 
 
-                                    <input type="hidden" name="tags" id="hidden-tags" value="{{ old('tags') }}">
+                                    <input type="hidden" name="tag" id="hidden-tags" value="{{ old('tag') }}">
                                 </div>
                                 <p class="text-xs">*tekan enter untuk memisahkan</p>
                             </div>
