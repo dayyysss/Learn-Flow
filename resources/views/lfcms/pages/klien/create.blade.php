@@ -9,7 +9,7 @@
             <!-- Start Course Information -->
             <div class="col-span-full lg:col-span-7 card h-fit">
                 <div class="p-1.5">
-                    <h6 class="card-title">Add klien</h6>
+                    <h6 class="card-title">Tambah Klien</h6>
                     <div class="mt-7 pt-0.5">
                         <div class="grid  gap-y-5">
                             <div class="col-span-full xl:col-auto leading-none">
@@ -110,17 +110,17 @@
 
                 <div class="card">
                 <div class="p-1.5">
-                        <h6 class="card-title">Add media files</h6>
+                        <h6 class="card-title">Data Tambahan</h6>
                     <div class="mt-7 pt-0.5 flex flex-col gap-5">
                         <div class="col-span-full sm:col-span-4">
-                                <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">Image</p>
+                                <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">Gambar</p>
                                 <label for="image" class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/3] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square">
                                     <input type="file" id="image" name="image" hidden class="img-src peer/file">
                                 <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
                                     <span class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
-                                        <img src="assets/images/icons/upload-file.svg" alt="icon" class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
+                                        <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon" class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
                                     </span>
-                                    <span class="mt-2 text-gray-500 dark:text-dark-text">Choose file</span>
+                                    <span class="mt-2 text-gray-500 dark:text-dark-text">Pilih file</span>
                                 </span>
                             </label>
                         </div>

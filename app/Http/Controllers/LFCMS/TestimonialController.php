@@ -13,11 +13,12 @@ class TestimonialController extends Controller
      */
     public function index(Request $request)
     {
-        // Mengambil semua data testimonials
-        $testimonials = Testimonial::all();
-
-        return view('testimonials.index', compact('testimonials'));
+        // Example with paginated data
+        $testimonials = Testimonial::paginate(10);
+        
+        return view('lfcms.pages.testimonial.index', compact('testimonials'));
     }
+
 
 
     /**

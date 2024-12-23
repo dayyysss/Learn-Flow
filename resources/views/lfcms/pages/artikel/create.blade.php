@@ -126,7 +126,7 @@
                             <div class="col-span-full">
                                 <p class="text-sm text-gray-500 mb-3">Thumbnail Image</p>
                                 <label for="image"
-                                    class="file-container ac-bg text-sm font-semibold cursor-pointer aspect-[1/1] flex items-center justify-center border-dashed border-gray-900 dark:border-dark-border rounded-lg">
+                                    class="file-container ac-bg text-sm font-semibold cursor-pointer aspect-[4/1.5] flex items-center justify-center border-dashed border-gray-900 dark:border-dark-border rounded-lg">
                                     <input type="file" id="image" name="image" hidden
                                         class="img-src peer/file">
                                     <span class="peer-[.uploaded]/file:hidden flex flex-col items-center">
