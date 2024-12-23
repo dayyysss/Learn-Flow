@@ -16,8 +16,9 @@ class LandingPageController extends Controller
     public function index()
     {
         $hero = Page::with('users')->where('status', 'publik')->find(1);
+        $about = Page::with('users')->where('status', 'publik')->find(2);
 
-        return view('landing-page', compact('hero'));
+        return view('landing-page', compact('hero', 'about'));
     }
 
     public function about()

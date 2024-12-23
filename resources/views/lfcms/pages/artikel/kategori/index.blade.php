@@ -73,7 +73,7 @@
                                                         class="btn-icon btn-primary-icon-light size-7 edit-category"
                                                         data-id="{{ $item->id }}">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
-                                                    </a>
+                                                    </a>    
                                                     <!-- Tombol Hapus -->
                                                     <button class="btn-icon btn-danger-icon-light size-7 delete-category"
                                                         data-id="{{ $item->id }}">
