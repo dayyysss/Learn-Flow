@@ -81,14 +81,14 @@
         <form id="addDataForm">
             <!-- Name Field -->
             <div class="mb-4">
-                <label for="name" class="block text-sm font-medium">Nama</label>
+                <label for="name" class="form-label">Nama</label>
                 <input type="text" id="name" name="name" class="form-input text-black mt-1 w-full"
                     placeholder="Masukan nama" required>
             </div>
             <!-- Status Field -->
-            <div class="mb-4">
-                <label for="status" class="block text-sm font-medium">Status</label>
-                <select id="status" name="status" class="form-select mt-1 w-full" required>
+            <div class="col-span-full mb-4">
+                <label for="status" class="form-label">Status</label>
+                <select class="singleSelect" name="status" id="status" required>
                     <option value="1" selected>Publik</option>
                     <option value="0">Draft</option>
                 </select>
@@ -112,13 +112,13 @@
     // Open modal
     if (addDataButton && addDataModal) {
         addDataButton.addEventListener("click", () => {
-            addDataModal.classList.add("active"); 
+            addDataModal.classList.add("active");
         });
     }
 
     // Close modal
     const closeModal = () => {
-        addDataModal.classList.remove("active"); 
+        addDataModal.classList.remove("active");
     };
 
     if (closeModalButton) closeModalButton.addEventListener("click", closeModal);
@@ -143,7 +143,7 @@
             .then((response) => {
                 if (response.redirected) {
                     window.location.href = response
-                    .url;
+                        .url;
                 } else {
                     return response.json();
                 }
