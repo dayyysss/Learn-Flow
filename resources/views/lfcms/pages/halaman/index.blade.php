@@ -73,7 +73,7 @@
                                             </td>
                                             <td class="p-6 py-4">
                                                 <span
-                                                    class="badge {{ strtolower($page->status) == 'publik' ? 'badge-success-light' : 'badge-warning-light' }} rounded-full">
+                                                    class="badge {{ strtolower($page->status) == 'publik' ? 'badge-success-light' : 'badge-warning-light' }}">
                                                     {{ ucfirst($page->status) }}
                                                 </span>
                                             </td>
