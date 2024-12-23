@@ -28,16 +28,16 @@
       </td>
       <td class="border px-4 py-2 text-center">
           @if($menu->updatePermission)
-              <input type="checkbox" name="permissions[]" value="{{ $menu->updatePermission->id }}"
+              <input type="checkbox" id="check-rs-3" name="permissions[]" value="{{ $menu->updatePermission->id }}"
                   {{ in_array($menu->updatePermission->id, $rolePermissions) ? 'checked' : '' }}
-                  class="form-checkbox h-4 w-4 text-blue-600">
+                  class="form-checkbox h-4 w-4 check check-info-solid rounded-full">
           @endif
       </td>
       <td class="border px-4 py-2 text-center">
           @if($menu->deletePermission)
-              <input type="checkbox" name="permissions[]" value="{{ $menu->deletePermission->id }}"
+              <input type="checkbox" id="check-rs-3" name="permissions[]" value="{{ $menu->deletePermission->id }}"
                   {{ in_array($menu->deletePermission->id, $rolePermissions) ? 'checked' : '' }}
-                  class="form-checkbox h-4 w-4 text-blue-600">
+                  class="form-checkbox h-4 w-4 check check-info-solid rounded-full">
           @endif
       </td>
   </tr>

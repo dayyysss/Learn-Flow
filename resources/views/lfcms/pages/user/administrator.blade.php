@@ -24,14 +24,11 @@
                                 <span>Refresh</span>
                             </button>
                         </div>
-                        <button id="addDataButton" class="btn b-light btn-primary-light dk-theme-card-square">
-                            <i class="ri-add-fill text-inherit"></i>
-                            <span>Add Data</span>
-                        </button>
-
-                        
-
-            
+                        <button class="btn b-light btn-primary-light dk-theme-card-square"
+                               id="openModal">
+                                <i class="btn ri-add-fill text-inherit"></i>
+                                <span>Tambah</span>
+                            </button>
                     </div>
                     <div class="overflow-x-auto mt-5">
                         <table class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
@@ -67,7 +64,7 @@
                             
                         </table>
                     </div>
-                    @include('lfcms.components.pagination.pagination', ['paginator' => $user])
+                    {{-- @include('lfcms.components.pagination.pagination', ['paginator' => $articles]) --}}
                 </div>
             </div>
             
@@ -140,4 +137,66 @@
 });
 
 </script>
+
+<script>
+    // Inisialisasi modal dan handler modal
+var modal = document.getElementById("addMenuTypeModal");
+var openModalBtn = document.getElementById("openModal");
+var closeModalBtns = document.querySelectorAll(".close-tambah, .close-modal");
+
+openModalBtn.onclick = function () {
+    modal.style.display = "flex";
+};
+
+closeModalBtns.forEach(function (btn) {
+    btn.onclick = function () {
+        modal.style.display = "none";
+    };
+});
+
+// Tutup modal ketika klik di luar konten modal
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+
+</script>
+
+<style>
+    .iconpicker-popover {
+        top: 300px;
+    }
+
+    .modal-back {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999 !important;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .close {
+        float: right;
+        cursor: pointer;
+        font-size: 24px;
+    }
+
+    .modal-footer {
+        text-align: right;
+    }
+</style>
 @endsection
