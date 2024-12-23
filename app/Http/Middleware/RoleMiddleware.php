@@ -24,9 +24,10 @@ class RoleMiddleware
         }
 
         // Ambil nama role user yang sedang login
-        $userRoleName = auth()->user()->getRoleNames(); // Mengembalikan koleksi role
+        $userRoleName = auth()->user()->getRoleNames();
 
-        // Periksa apakah role user ada dalam array $roles
+        $roles = explode('|', implode('|', $roles));
+
         if (!$userRoleName->intersect($roles)->count()) {
             return response()->view('errors.403'); // Menggunakan response()->view untuk menghindari masalah
         }

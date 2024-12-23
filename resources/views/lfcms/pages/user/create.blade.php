@@ -1,91 +1,57 @@
-<style>
-.second{
-  width: 50%;
-  margin-left: auto;
-  align-items: center
-}
-</style>
-<!-- Modal -->
-<div id="addDataModal" style="width: 50%" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 first">
-  <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg max-w-lg w-full second">
-      <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold">Add Data</h3>
-          <button id="closeModalButton" class="text-gray-500 hover:text-red-500">
-              <i class="ri-close-line text-xl"></i>
-          </button>
-      </div>
-      <form id="addDataForm">
-          <div class="mb-4">
-              <label for="first_name" class="block text-sm font-medium">First Name</label>
-              <input type="text" id="first_name" name="first_name" class="form-input mt-1 w-full" placeholder="Enter first name" required>
-          </div>
-          <div class="mb-4">
-              <label for="last_name" class="block text-sm font-medium">Last Name</label>
-              <input type="text" id="last_name" name="last_name" class="form-input mt-1 w-full" placeholder="Enter last name" required>
-          </div>
-          <div class="mb-4">
-              <label for="email" class="block text-sm font-medium">Email</label>
-              <input type="email" id="email" name="email" class="form-input mt-1 w-full" placeholder="Enter email" required>
-          </div>
-          <div class="flex justify-end gap-3">
-              <button type="button" id="cancelButton" class="btn b-light">Cancel</button>
-              <button type="submit" class="btn btn-primary-light">Save</button>
-          </div>
-      </form>
-  </div>
+<div id="addMenuTypeModal" class="modal-back" style="display: none">
+    <div class="modal-content">
+        <div class="flex justify-between">
+            <h3>Tambah User</h3>
+            <span class="close-tambah" style="cursor: pointer">&times;</span>
+        </div>
+        <form action="{{ route('administrator.store') }}" method="POST" class="space-y-4">
+            @csrf
+
+            <div class="mb-3 w-full">
+                <label for="name" class="form-label text-sm font-medium text-gray-700">Username</label>
+                <input type="text" class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm" id="name" name="name" required>
+            </div>
+
+            <div class="flex w-full gap-5">
+                <!-- Nama Depan -->
+                <div class="mb-3 w-1/2">
+                    <label for="first_name" class="form-label text-sm font-medium text-gray-700">Nama Depan</label>
+                    <input type="text" class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm" id="first_name" name="first_name" required>
+                </div>
+                
+                <!-- Nama Belakang -->
+                <div class="mb-3 w-1/2">
+                    <label for="last_name" class="form-label text-sm font-medium text-gray-700">Nama Belakang</label>
+                    <input type="text" class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm" id="last_name" name="last_name" required>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label text-sm font-medium text-gray-700">Email</label>
+                <input type="email" class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm" id="email" name="email" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label text-sm font-medium text-gray-700">Password</label>
+                <input type="password" class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm" id="password" name="password" required>
+            </div>
+
+            <!-- Role -->
+            <div class="mb-3">
+                <label for="role_id" class="form-label text-sm font-medium text-gray-700">Level</label>
+                <select class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm" id="role_id" name="role_id" required>
+                    @foreach ($role as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Footer with Submit Button -->
+            <div class="modal-footer flex justify-end">
+                <button type="submit" class="btn b-light btn-primary-light dk-theme-card-square bg-indigo-700">Simpan</button>
+            </div>
+        </form>
+    </div>
 </div>
-
-<script>
-  // Get modal and buttons
-  const addDataButton = document.getElementById("addDataButton");
-  const addDataModal = document.getElementById("addDataModal");
-  const closeModalButton = document.getElementById("closeModalButton");
-  const cancelButton = document.getElementById("cancelButton");
-  const addDataForm = document.getElementById("addDataForm");
-
-  // Open modal
-  addDataButton.addEventListener("click", () => {
-      addDataModal.classList.remove("hidden");
-  });
-
-  // Close modal
-  const closeModal = () => {
-      addDataModal.classList.add("hidden");
-  };
-  closeModalButton.addEventListener("click", closeModal);
-  cancelButton.addEventListener("click", closeModal);
-
-  // Handle form submission
-  addDataForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      // Get form data
-      const formData = new FormData(addDataForm);
-      const data = Object.fromEntries(formData);
-
-      // Optional: Send data to the server (AJAX request)
-      fetch("/lfcms/administrator", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-              "X-CSRF-TOKEN": "{{ csrf_token() }}", // Include CSRF token for Laravel
-          },
-          body: JSON.stringify(data),
-      })
-          .then((response) => {
-              if (!response.ok) {
-                  throw new Error("Failed to add data");
-              }
-              return response.json();
-          })
-          .then((data) => {
-              alert("Data added successfully!");
-              closeModal();
-              location.reload(); // Reload page to update data (optional)
-          })
-          .catch((error) => {
-              console.error("Error:", error);
-              alert("An error occurred. Please try again.");
-          });
-  });
-</script>
