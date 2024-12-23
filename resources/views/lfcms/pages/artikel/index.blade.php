@@ -17,7 +17,7 @@
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                     </span>
-                                    <input type="text" placeholder="Search for..." class="form-input pl-[30px]">
+                                    <input id="searchInput" type="text" placeholder="Search for..." class="form-input pl-[30px]">
                                 </form>
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5">
@@ -56,7 +56,7 @@
                                             Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
+                                <tbody id="dataContainer" class="divide-y divide-gray-200 dark:divide-dark-border-three">
                                     @foreach ($artikel as $item)
                                         <tr>
                                             <td class="p-6 py-4">{{ $item->id }}</td>
@@ -106,4 +106,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
+            const rows = document.querySelectorAll("#dataContainer tr"); // Ambil semua baris dalam tabel
+
+            rows.forEach(row => {
+                const judul = row.children[1].textContent.toLowerCase(); // Ambil kolom judul
+                const kategori = row.children[2].textContent.toLowerCase(); // Ambil kolom email
+
+                if (judul.includes(query) || kategori.includes(query)) {
+                    row.style.display = ""; // Tampilkan baris
+                } else {
+                    row.style.display = "none"; // Sembunyikan baris
+                }
+            });
+        });
+    </script>
 @endsection
