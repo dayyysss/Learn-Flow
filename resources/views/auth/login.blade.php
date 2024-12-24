@@ -173,10 +173,11 @@
                                             class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             <i class="icofont-facebook"></i> Facebook
                                         </button>
-                                        <button type="button"
-                                            class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            <i class="icofont-google-plus"></i> Google
-                                        </button>
+                                        <a href="{{ route('google.login') }}" 
+    class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+    <i class="icofont-google-plus"></i> Google
+</a>
+
                                     </div>
                                 </form>
                                 <x-notify::notify />

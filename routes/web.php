@@ -46,6 +46,7 @@ use App\Http\Controllers\Admin\CourseRegistrationController;
 // use App\Models\ModulProgress;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\GoogleController;
 
 // Auth
 Route::get('/login', function () { return view('auth.login'); })->name('login');
@@ -63,6 +64,10 @@ Route::get('/email/verify', function () { return view('auth.verify-email'); })->
 //     return view('auth.verify-email');
 // })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
+
+//Login Google
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
 //apexchart
 Route::get('/visitor-count', [DashboardController::class, 'visitor']);
