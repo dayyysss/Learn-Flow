@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\CategoryCourse;
 use App\Models\Course;
 use App\Models\Page;
+use App\Models\Artikel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -18,7 +19,9 @@ class LandingPageController extends Controller
         $hero = Page::with('users')->where('status', 'publik')->find(1);
         $about = Page::with('users')->where('status', 'publik')->find(2);
 
-        return view('landing-page', compact('hero', 'about'));
+        $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
+
+        return view('landing-page', compact('hero', 'about', 'artikel'));
     }
 
     public function about()
