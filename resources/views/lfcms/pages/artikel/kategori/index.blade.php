@@ -8,7 +8,7 @@
                 <div class="card p-0">
                     <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
                         <h3 class="text-lg card-title leading-none">Daftar Kategori Artikel</h3>
-                        @include('lfcms.components.breadcrumb.custom')
+                        @include('lfcms.components.breadcrumb.custom', ['title' => 'Kategori Artikel'])
                     </div>
                     <div class="p-6">
                         <div class="flex-center-between">
@@ -62,9 +62,9 @@
                                             <td class="p-6 py-4">
                                                 <!-- Cek apakah status adalah 1 (Publik) atau 0 (Draft) -->
                                                 @if ($item->status == 1)
-                                                    <span class="badge badge-success-light rounded-full">Publik</span>
+                                                    <span class="badge badge-success-light">Publik</span>
                                                 @else
-                                                    <span class="badge badge-warning-light rounded-full">Draft</span>
+                                                    <span class="badge badge-warning-light">Draft</span>
                                                 @endif
                                             </td>
                                             <td class="p-6 py-4">
@@ -72,7 +72,7 @@
                                                     <a href="#"
                                                         class="btn-icon btn-primary-icon-light size-7 edit-category"
                                                         data-id="{{ $item->id }}">
-                                                        <i class="ri-edit-fill text-[16px]"></i>
+                                                        <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
                                                     <!-- Tombol Hapus -->
                                                     <button class="btn-icon btn-danger-icon-light size-7 delete-category"

@@ -15684,6 +15684,10 @@ video {
   display: none;
 }
 
+.hidden {
+display: none;
+}
+
 html {
   font-family: "Urbanist", sans-serif;
 }

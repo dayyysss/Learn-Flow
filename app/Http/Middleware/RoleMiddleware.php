@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
@@ -24,11 +25,19 @@ class RoleMiddleware
         }
 
         // Ambil nama role user yang sedang login
-        $userRoleName = auth()->user()->getRoleNames(); // Mengembalikan koleksi role
+        $userRoleName = auth()->user()->getRoleNames();
 
-        // Periksa apakah role user ada dalam array $roles
+        Log::info('RoleMiddleware Debug', [
+            'user_id' => auth()->id(),
+            'user_role_names' => $userRoleName,
+            'required_roles' => $roles,
+        ]);
+
+        $roles = explode('|', implode('|', $roles));
+
+        // Jika tidak ada peran yang cocok, tampilkan 403
         if (!$userRoleName->intersect($roles)->count()) {
-            return response()->view('errors.403'); // Menggunakan response()->view untuk menghindari masalah
+            return response()->view('errors.403');
         }
 
         return $next($request);

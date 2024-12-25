@@ -64,7 +64,8 @@
                         <!-- navbar left -->
                         <div class="lg:col-start-1 lg:col-span-2">
                             <a href="{{ url('/') }}" class="block">
-                                <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="Logo" style="width: 180px;">
+                                <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="Logo"
+                                    style="width: 180px;">
                             </a>
                         </div>
 
@@ -144,7 +145,8 @@
                                                 <ul
                                                     class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
                                                     <li class="relative flex gap-x-15px items-center">
-                                                        <a href="course-details.html"><img src="{{ asset('assets/images/grid/cart1.jpg') }}"
+                                                        <a href="course-details.html"><img
+                                                                src="{{ asset('assets/images/grid/cart1.jpg') }}"
                                                                 alt="photo" class="w-card-img py-[3px]"></a>
                                                         <div>
                                                             <a href="course-details.html"
@@ -186,12 +188,11 @@
                                     <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
                                         <div class="mr-5 cursor-pointer group relative flex items-center">
                                             <!-- Gambar Profil -->
-                                            <img src="../../assets/images/dashbord/dashbord__2.jpg" alt="Profil"
-                                                class="w-8 h-8 rounded-full p-1 border-2 border-darkdeep7 box-content">
+                                            <img src="{{ Auth::user()->image ?? asset('assets/images/avatar/default-avatar.png') }}"
+                                                alt="Profil" class="w-8 h-8 rounded-full border-2 border-darkdeep7 p-1">
                                             <!-- Tambahkan panah sebagai ikon -->
-                                                <i
-                                                class="arrow-icon ml-2 transition-transform duration-300 icofont-simple-down arrow-icon-side transform rotate-0 leading-14px text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                              ></i>
+                                            <i
+                                                class="arrow-icon ml-2 transition-transform duration-300 icofont-simple-down arrow-icon-side transform rotate-0 leading-14px text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor"></i>
 
                                             <!-- Profile Dropdown -->
                                             <div

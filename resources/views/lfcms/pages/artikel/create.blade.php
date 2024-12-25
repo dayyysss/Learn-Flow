@@ -59,15 +59,7 @@
                                     <input type="text" id="slug" name="slug" placeholder="slug"
                                         class="form-input" required readonly>
                                 </div>
-                                <div class="col-span-full">
-                                    <label for="category_id" class="form-label">Kategori</label>
-                                    <select class="singleSelect" name="category_id" required>
-                                        <option selected disabled>Pilih Kategori</option>
-                                        @foreach ($kategori as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                          
                                 <!-- Author input dihapus, dan akan diambil otomatis dari auth()->user()->name -->
                                 <div class="col-span-full">
                                     <label for="deskripsi_singkat" class="form-label">Deskripsi Singkat</label>
@@ -79,39 +71,7 @@
                                     <textarea id="deskripsi" name="deskripsi" rows="6" class="summernote form-input" placeholder="Deskripsi Lengkap"
                                         required></textarea>
                                 </div>
-                                <div class="col-span-full">
-                                    <label for="keyword" class="form-label">Keyword</label>
-                                    <input type="text" id="keyword" name="keyword" placeholder="Keyword"
-                                        class="form-input">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label block mb-1 font-medium text-gray-700"
-                                        for="tag">Tag</label>
-
-                                    <div id="tags17270116427611_tagsinput"
-                                        class="tagsinput flex flex-wrap gap-2 items-center">
-                                        <!-- Tag yang sudah ditambahkan akan muncul di sini -->
-
-                                        <!-- Input untuk menambahkan tag -->
-                                        <input id="tags17270116427611_tag" class="tag-input p-2" value=""
-                                            placeholder="Masukan tag" autocomplete="off" onkeypress="addTag(event)">
-
-
-                                        <input type="hidden" name="tags" id="hidden-tags" value="{{ old('tags') }}">
-                                    </div>
-                                    <p class="text-xs">*tekan enter untuk memisahkan</p>
-                                </div>
-                                <div class="col-span-full">
-                                    <label for="publish_date" class="form-label">Publish Date</label>
-                                    <input type="date" id="publish_date" name="publish_date" class="form-input" required>
-                                </div>
-                                <div class="col-span-full">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="singleSelect" name="status" id="status" required>
-                                        <option value="1" selected>Publik</option>
-                                        <option value="0">Draft</option>
-                                    </select>
-                                </div>
+                     
                             </div>
                         </div>
                     </div>
@@ -121,26 +81,69 @@
                 <!-- Start Artikel Media File -->
                 <div class="col-span-full lg:col-span-5 card">
                     <div class="p-6">
-                        <h6 class="card-title text-xl font-semibold mb-4">Tambah Foto</h6>
+                        <h6 class="card-title text-xl font-semibold mb-4">Data Tambahan</h6>
                         <div class="mt-4 flex flex-col gap-5">
                             <div class="col-span-full">
-                                <p class="text-sm text-gray-500 mb-3">Thumbnail Image</p>
+                                <label for="category_id" class="form-label">Kategori</label>
+                                <select class="singleSelect" name="category_id" required>
+                                    <option selected disabled>Pilih Kategori</option>
+                                    @foreach ($kategori as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-span-full">
+                                <label for="keyword" class="form-label">Keyword</label>
+                                <input type="text" id="keyword" name="keyword" placeholder="Keyword"
+                                    class="form-input">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label block mb-1 font-medium text-gray-700"
+                                    for="tag">Tag</label>
+
+                                <div id="tags17270116427611_tagsinput"
+                                    class="tagsinput flex flex-wrap gap-2 items-center">
+                                    <!-- Tag yang sudah ditambahkan akan muncul di sini -->
+
+                                    <!-- Input untuk menambahkan tag -->
+                                    <input id="tags17270116427611_tag" class="tag-input p-2" value=""
+                                        placeholder="Masukan tag" autocomplete="off" onkeypress="addTag(event)">
+
+
+                                    <input type="hidden" name="tag" id="hidden-tags" value="{{ old('tag') }}">
+                                </div>
+                                <p class="text-xs">*tekan enter untuk memisahkan</p>
+                            </div>
+                            <div class="col-span-full">
+                                <label for="publish_date" class="form-label">Tanggal publish</label>
+                                <input type="date" id="publish_date" name="publish_date" class="form-input" required>
+                            </div>
+                            <div class="col-span-full">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="singleSelect" name="status" id="status" required>
+                                    <option value="1" selected>Publik</option>
+                                    <option value="0">Draft</option>
+                                </select>
+                            </div>
+                            <div class="col-span-full">
+                                <p class="text-sm text-gray-500 mb-3">Gambar</p>
                                 <label for="image"
                                     class="file-container ac-bg text-sm font-semibold cursor-pointer aspect-[4/1.5] flex items-center justify-center border-dashed border-gray-900 dark:border-dark-border rounded-lg">
                                     <input type="file" id="image" name="image" hidden
                                         class="img-src peer/file">
                                     <span class="peer-[.uploaded]/file:hidden flex flex-col items-center">
                                         <span class="flex-center bg-primary-200 dark:bg-dark-icon rounded-full p-2">
-                                            <img src="assets/images/icons/upload-file.svg" alt="icon" class="w-1/2">
+                                            <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon" class="w-1/2">
                                         </span>
                                         <span class="mt-2 text-gray-500">Pilih File</span>
                                     </span>
                                 </label>
                             </div>
                             <!-- Menambahkan jarak antara upload file dan tombol -->
-                            <div class="flex justify-end gap-4 mt-5">
-                                <button type="submit" class="btn btn-primary-solid btn-lg">Kirim</button>
-                                <a href="{{ route('artikel.index') }}" class="btn btn-secondary-solid btn-lg">Batal</a>
+                            <div class="flex gap-5 mt-6">
+                                <button type="submit"
+                                    class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                                <a href="{{ route('artikel.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>
                             </div>
                         </div>
                     </div>
