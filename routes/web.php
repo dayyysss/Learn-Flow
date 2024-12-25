@@ -39,11 +39,6 @@ use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\LFCMS\ArticleController;
-use App\Http\Controllers\LFCMS\HakAksesController;
-use App\Http\Controllers\LFCMS\HakAksesFrontendController;
-use App\Http\Controllers\LFCMS\TestimoniController;
-use App\Models\ModulProgress;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
