@@ -1,63 +1,94 @@
 @extends('lfcms.layouts.app')
-
 @section('page_title', 'Edit Klien | Learn Flow CMS')
-
 @section('content')
-<div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
-        <form action="#">
+    <div
+        class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
+        <form action="{{ route('klien.update', $client->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
             <div class="grid grid-cols-12 gap-x-4">
-
-                 <!-- Start Tambah Klien -->
-                <div class="col-span-full lg:col-span-5 card">
+                <!-- Start Course Information -->
+                <div class="col-span-full lg:col-span-7 card h-fit">
                     <div class="p-1.5">
-                        <h6 class="card-title">Add media files</h6>
-                        <div class="mt-7 pt-0.5 flex flex-col gap-5">
-                            <div class="col-span-full sm:col-span-4">
-                                <div class="col-span-full xl:col-auto leading-none mb-4">
-                                    <label for="courseTitle" class="form-label">Nama Klien</label> 
-                                    <input type="text" id="courseTitle" value="Advanced Python Programming" class="form-input">
+                        <h6 class="card-title">Edit Klien</h6>
+                        <div class="mt-7 pt-0.5">
+                            <div class="grid  gap-y-5">
+                                <div class="col-span-full xl:col-auto leading-none">
+                                    <label for="name" class="form-label">Nama</label>
+                                    <input type="text" id="name" name="name" placeholder="Masukan Nama"
+                                        class="form-input" value="{{ $client->name }}" required>
                                 </div>
-                                <div class="col-span-full xl:col-auto leading-none mb-4">
-                                    <label for="courseTitle" class="form-label">Url Klien</label> 
-                                    <input type="text" id="courseTitle" value="Advanced Python Programming" class="form-input">
+                            </div>
+                            <div>
+
+                                <div class="grid mt-3 gap-y-5">
+                                    <div class="col-span-full xl:col-auto leading-none">
+                                        <label for="url" class="form-label">Url</label>
+                                        <input type="text" id="url" name="url" placeholder="Masukan url"
+                                            class="form-input" value="{{ $client->url }}" required>
+                                    </div>
                                 </div>
-                                <div class="col-span-full xl:col-auto leading-none mb-4">
-                                    <label class="form-label">Status Klien</label>
-                                    <select class="singleSelect">
-                                        <option disabled>Select category</option>
-                                        <option value="val">Science</option>
-                                        <option value="val">Mathematics</option>
-                                        <option value="val">Engineering</option>
-                                        <option value="val">Humanities</option>
-                                        <option value="val">Social Sciences</option>
-                                        <option value="val">Business</option>
-                                        <option selected value="val">Computer Science</option>
-                                        <option value="val">Arts</option>
-                                        <option value="val">Health Sciences</option>
-                                        <option value="val">Law</option>
+
+                                <div class="col-span-full mt-3 xl:col-auto leading-none">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="singleSelect" name="status" id="status">
+                                        <option disabled>Pilih Status</option>
+                                        <option value="publik" {{ $client->status == 'publik' ? 'selected' : '' }}>Publik</option>
+                                        <option value="draft" {{ $client->status == 'draft' ? 'selected' : '' }}>Draft</option>
                                     </select>
                                 </div>
-                                <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">Thumbnail (548x234)</p>
-                                <label for="thumbnailsrc" class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/1.5] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square">
-                                    <input type="file" id="thumbnailsrc" hidden class="img-src peer/file">
-                                    <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
-                                        <span class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
-                                            <img src="assets/images/icons/upload-file.svg" alt="icon" class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
-                                        </span>
-                                        <span class="mt-2 text-gray-500 dark:text-dark-text">Choose file</span>
-                                    </span>
-                                </label>
+
                             </div>
-                            <div class="flex-center !justify-end">
-                                <button type="submit" class="btn b-solid btn-primary-solid btn-lg dk-theme-card-square">Update</button>
+                        </div>
+                        <div class="flex-center mt-5 !justify-end">
+                            <button type="submit"
+                                class="btn b-solid btn-primary-solid btn-md w-full dk-theme-card-square">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Course Information -->
+
+                <!-- Start Course Media File -->
+
+                <div class="col-span-full h-fit lg:col-span-5 gap-y-3">
+                    <div class="card">
+                        <div class="p-1.5">
+                            <h6 class="card-title">Data Tambahan</h6>
+                            <div class="mt-7 pt-0.5 flex flex-col gap-5">
+                                <div class="col-span-full sm:col-span-4">
+                                    <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">
+                                        Gambar</p>
+                                    <label for="image"
+                                        class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/3] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square">
+                                        <input type="file" id="image" name="image" hidden
+                                            class="img-src peer/file">
+                                        <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
+                                            <span
+                                                class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
+                                                <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}"
+                                                    alt="icon"
+                                                    class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
+                                            </span>
+                                            <span class="mt-2 text-gray-500 dark:text-dark-text">Pilih file</span>
+                                        </span>
+                                    </label>
+                                    <div class="flex items-center gap-4 mt-4">
+                                        @if($client->image)
+                                            <div>
+                                                <img src="{{ asset('storage/' . $client->image) }}" alt="Gambar Klien" class="w-20 h-20 object-cover rounded-md">
+                                            </div>
+                                            <p class="text-sm text-gray-500 dark:text-dark-text font-semibold">Preview Old Image</p>
+                                        @else
+                                            <p class="text-gray-500">Tidak ada gambar</p>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- End Course Media File -->
-        </div>
-    </form>
-</div>
-
-
+            </div>
+        </form>
+    </div>
 @endsection

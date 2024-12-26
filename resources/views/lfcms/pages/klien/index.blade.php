@@ -81,19 +81,16 @@
                                                 <div class="flex flex-col gap-2">
                                                     <a href="#" class="size-12 rounded-50 overflow-hidden">
                                                         <!-- Menggunakan path dinamis dengan direktori public/clients -->
-                                                        <img src="{{ asset('public/clients/' . $client->image) }}"
-                                                            alt="client">
-                                                    </a>
+                                                        <img src="{{ Storage::url($client->image) }}" alt="client">
+                                                        </a>
                                                 </div>
                                             </td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
-                                                    <a href="javascript:void(0)" 
-                                                        class="text-blue-600 hover:underline btn-icon btn-primary-icon-light size-7" 
-                                                        onclick="openEditModal({{ json_encode($client) }})">
+                                                    <a href="{{ route('klien.edit', $client->id) }}"
+                                                        class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
-
                                                     <form action="{{ route('klien.destroy', $client->id) }}" method="POST" class="inline-block">
                                                         @csrf
                                                         @method('DELETE')
@@ -173,88 +170,7 @@
         </div>
     </div>
 
-   <!-- Modal Edit Client -->
-<div id="editClientModal" class="modal hidden fixed inset-0 z-50 flex justify-center items-center bg-purple-900 bg-opacity-50">
-    <div class="modal-content bg-white rounded-lg p-4 w-full max-w-md" style="max-height: 70vh; overflow-y: auto;">
-        <form id="editClientForm">
-            <div class="grid grid-cols-12 gap-x-4">
-
-                <!-- Start Edit Klien -->
-                <div class="col-span-full card">
-                    <div class="p-0.5">
-                        <h6 class="card-title">Edit Klien</h6>
-                        <div class="mt-7 pt-0.5 flex flex-col gap-5">
-
-                            <div class="col-span-full sm:col-span-4">
-                                <div class="col-span-full xl:col-auto leading-none mb-2">
-                                    <label for="clientName" class="form-label">Nama Klien</label> 
-                                    <input type="text" id="clientName" class="form-input mt-1 block w-full" required />
-                                </div>
-
-                                <div class="col-span-full xl:col-auto leading-none mb-2">
-                                    <label for="clientUrl" class="form-label">URL Klien</label> 
-                                    <input type="text" id="clientUrl" class="form-input mt-1 block w-full" required />
-                                </div>
-
-                                <div class="col-span-full xl:col-auto leading-none mb-2">
-                                    <label class="form-label">Status Klien</label>
-                                    <select id="clientStatus" class="singleSelect" required>
-                                        <option value="Publik">Publik</option>
-                                        <option value="Draft">Draft</option>
-                                        <option value="Archived">Arsip</option>
-                                    </select>
-                                </div>
-
-                                <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">Thumbnail (548x234)</p>
-                                <label for="thumbnailsrc" class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/1.5] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square">
-                                    <input type="file" id="thumbnailsrc" hidden class="img-src peer/file">
-                                    <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
-                                        <span class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
-                                            <img src="assets/images/icons/upload-file.svg" alt="icon" class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
-                                        </span>
-                                        <span class="mt-2 text-gray-500 dark:text-dark-text">Choose file</span>
-                                    </span>
-                                </label>
-                            </div>
-
-                            <!-- Tombol Update -->
-                            <div class="flex-center !justify-end">
-                                <button type="button" onclick="closeEditModal()" class="btn btn-secondary mr-2">Batal</button>
-                                <button type="submit" class="btn b-solid btn-primary-solid btn-lg dk-theme-card-square">Update</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Edit Klien -->
-        </form>
-    </div>
-</div>
-
-
-<script>
-    function openEditModal(client) {
-        // Populate modal fields with client data
-        document.getElementById('clientName').value = client.name || '';
-        document.getElementById('clientUrl').value = client.url || '';
-        document.getElementById('clientStatus').value = client.status || '';
-        
-        // Show modal
-        document.getElementById('editClientModal').classList.remove('hidden');
-    }
-
-    function closeEditModal() {
-        // Hide modal
-        document.getElementById('editClientModal').classList.add('hidden');
-    }
-
-    // Example form submission handler
-    document.getElementById('editClientForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        // Process form data
-        console.log('Form submitted!');
-        closeEditModal();
-    });
-</script>
+   
 
     
 @endsection

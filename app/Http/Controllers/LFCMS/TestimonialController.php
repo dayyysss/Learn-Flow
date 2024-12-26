@@ -55,16 +55,6 @@ class TestimonialController extends Controller
     }
 
     /**
-     * Display the specified testimonial.
-     */
-    public function show($id)
-    {
-        $testimonial = Testimonial::findOrFail($id);
-
-        return view('lfcms.pages.testimonial.show', compact('testimonial'));
-    }
-
-    /**
      * Show the form for editing the specified testimonial.
      */
     public function edit($id)
@@ -120,6 +110,16 @@ class TestimonialController extends Controller
         $testimonial->delete();
 
         return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil dihapus.');
+    }
+
+    /**
+     * Display the specified testimonial.
+     */
+    public function show($id)
+    {
+        $testimonial = Testimonial::findOrFail($id);
+
+        return view('lfcms.pages.testimonial.show', compact('testimonial'));
     }
 
     public function indexPublik()
