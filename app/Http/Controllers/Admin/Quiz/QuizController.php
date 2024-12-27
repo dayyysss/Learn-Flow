@@ -26,11 +26,17 @@ class QuizController extends Controller
         return view('dashboard.pages.quizzes.show', compact('quiz'));
     }
 
-    public function create(): View
+    public function create()
     {
         $babs = Bab::all(); // Mengambil semua bab yang ada
-        return view('dashboard.pages.quizzes.create', compact('babs'));
+       return view('dashboard.pages.quizzes.create', compact('babs'));
     }
+
+    // public function create(): View
+    // {
+    //     $babs = Bab::all(); // Mengambil semua bab yang ada
+    //     return view('dashboard.pages.quizzes.create', compact('babs'));
+    // }
 
     public function store(Request $request): RedirectResponse
     {
