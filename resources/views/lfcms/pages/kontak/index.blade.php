@@ -27,11 +27,6 @@
                                     <span>Refresh</span>
                                 </button>
                             </div>
-                            <button class="btn b-light btn-primary-light dk-theme-card-square"
-                                onclick="window.location.href='{{ route('kontak.create') }}'">
-                                <i class="ri-add-fill text-inherit"></i>
-                                <span>Tambah Kontak</span>
-                            </button>
                         </div>
                         <div class="overflow-x-auto mt-5">
                             <table
@@ -46,10 +41,16 @@
                                             Nama</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
-                                            Status</th>
+                                            Email</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
-                                            Gambar</th>
+                                            Topik</th>
+                                        <th
+                                            class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
+                                            Telepon</th>
+                                        <th
+                                            class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
+                                            Pesan</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                             Aksi</th>
@@ -63,68 +64,44 @@
                                             </td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-3.5">
-
                                                     <div>
                                                         <h6 class="leading-none text-heading font-semibold">
                                                             <a href="#">{{ $contact->name }}</a>
                                                         </h6>
-                                                        <p class="font-spline_sans text-sm font-light mt-1">
-                                                            {{ $contact->profession }}</p>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="p-6 py-4">
-                                                <span
-                                                    class="badge 
-                                            {{ $contact->status == 'Publik' ? 'badge-success-light' : ($contact->status == 'draft' ? 'badge-warning-light' : 'badge-success-light') }}">
-                                                    {{ ucfirst($contact->status) }}
-                                                </span>
-                                            </td>
-                                            <td class="p-6 py-4">
-                                                <div class="flex flex-col gap-2">
-                                                <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                        <!-- Menggunakan path dinamis dengan direktori public/clients -->
-                                                        <img src="{{ Storage::url($contact->image) }}" alt="testi">
-                                                        </a>
-                                                </div>
-                                            </td>
+                                            <td class="p-6 py-4">{{ $contact->email }}</td>
+                                            <td class="p-6 py-4">{{ $contact->topic }}</td>
+                                            <td class="p-6 py-4">{{ $contact->phone }}</td>
+                                            <td class="p-6 py-4">{{ $contact->message }}</td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
-                                                    <a href="{{ route('contact.edit', $contact->id) }}"
+                                                    <a href="{{ route('kontak.show', $contact->id) }}"
+                                                        class="btn-icon btn-primary-icon-light size-7">
+                                                        <i class="ri-eye-2-line text-inherit text-[13px]"></i>
+                                                    </a>
+                                                    <a href="{{ route('kontak.edit', $contact->id) }}"
                                                         class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <form action="{{ route('contact.destroy', $contact->id) }}" method="POST" class="inline-block">
+                                                    <form action="{{ route('kontak.destroy', $contact->id) }}" method="POST" class="inline-block">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
                                                                 class="btn-icon btn-danger-icon-light size-7"
-                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus contact ini?')">
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus kontak ini?')">
                                                             <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                         </button>
                                                     </form>
-                                                    <div class="relative ml-5">
-                                                        <button data-popover-target="td-3-0" data-popover-trigger="click"
-                                                            data-popover-placement="bottom-end"
-                                                            class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                            <i class="ri-more-2-fill text-inherit"></i>
-                                                        </button>
-                                                        <ul id="td-3-0"
-                                                            class="hidden popover-target invisible [&.visible]:!block"
-                                                            data-popover>
-                                                            <li>
-                                                                <a class="popover-item" href="#">More</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5" class="text-center">
+                                            <td colspan="7" class="text-center">
                                                 <div class="alert alert-danger" style="margin: 20px 0;">
-                                                    Data Tidak Tersedia!
+                                                    Data kontak tidak tersedia!
                                                 </div>
                                             </td>
                                         </tr>

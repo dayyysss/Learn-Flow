@@ -36,6 +36,7 @@ use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
+use App\Http\Controllers\LFCMS\ContactController    ;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 // use App\Http\Controllers\LFCMS\ArticleController;
@@ -94,7 +95,7 @@ Route::prefix('lfcms')
         Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);
         Route::resource('/testimonial', TestimonialController::class);
-        Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
+        Route::resource('/kontak', ContactController::class);
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
     // Route::resource('/testimonial', TestimoniController::class);
