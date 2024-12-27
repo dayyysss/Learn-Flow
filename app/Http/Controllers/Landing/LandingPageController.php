@@ -54,7 +54,9 @@ class LandingPageController extends Controller
 
     public function blog()
     {
-        return view('landing.pages.blog.blog');
+        $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
+
+        return view('landing.pages.blog.blog', compact('artikel'));
     }
 
     public function contact()

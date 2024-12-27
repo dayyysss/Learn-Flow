@@ -38,7 +38,7 @@
                         <div class="p-5 md:p-35px md:pt-10">
                             <h3
                                 class="text-2xl md:text-4xl leading-30px md:leading-45px font-bold text-blackColor hover:text-primaryColor pb-25px dark:text-blackColor-dark dark:hover:text-primaryColor">
-                                <a href="{{ route('artikel.show', $item->id) }}">{{ $item->judul }}</a>
+                                <a href="{{ route('artikel.show', $item->slug) }}">{{ $item->judul }}</a>
                             </h3>
                             <p class="text-base text-contentColor dark:text-contentColor-dark mb-30px">
                                 {!! Str::limit($item->deskripsi_singkat, 150) !!}
@@ -76,7 +76,7 @@
                         <div class="px-5 py-25px">
                             <h3
                                 class="text-2xl md:text-size-28 leading-30px md:leading-35px font-bold text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
-                                <a href="{{ route('artikel.show', $item->id) }}">{{ $item->judul }}</a>
+                                <a href="{{ route('artikel.show', $item->slug) }}">{{ $item->judul }}</a>
                             </h3>
                         </div>
                     </div>
