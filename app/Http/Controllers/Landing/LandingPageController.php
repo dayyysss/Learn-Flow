@@ -52,11 +52,26 @@ class LandingPageController extends Controller
         return view('landing.pages.events.event');
     }
 
-    public function blog()
+    public function artikel()
     {
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
 
         return view('landing.pages.blog.blog', compact('artikel'));
+    }
+
+    // Fungsi pencarian artikel
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $artikel = Artikel::where('status', '1')
+            ->where(function ($query) use ($search) {
+                $query->where('keyword', 'LIKE', "%{$search}%")
+                    ->orWhere('judul', 'LIKE', "%{$search}%")
+                    ->orWhere('deskripsi', 'LIKE', "%{$search}%");
+            })
+            ->paginate(3);
+    
+        return view('landing.pages.blog.blog', compact('artikel', 'search'));
     }
 
     public function contact()

@@ -79,7 +79,15 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/course', 'course')->name('course');
     Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
     Route::get('/event', 'event')->name('event');
-    Route::get('/blog', 'blog')->name('blog');
+
+    Route::prefix('artikel')->group(function () {
+        Route::get('/', 'artikel')->name('artikel');
+        Route::get('/cari', 'search')->name('artikel.search');
+        // Route::get('/kategori/{name}', 'showCategory')->name('artikel.category');
+        // Route::get('/tag/{tag}', 'showTag')->name('artikel.tag');
+        // Route::get('/{slug}', 'showSlug')->name('artikel.showSlug');
+    });
+
     Route::get('/kontak', 'contact')->name('contact');
     Route::get('/instruktur', 'instructor')->name('instructor');
 });

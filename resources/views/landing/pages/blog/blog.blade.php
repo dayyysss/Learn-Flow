@@ -125,9 +125,9 @@
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
                                 Cari Artikel
                             </h4>
-                            <form
+                            <form action="{{ route('artikel.search') }}" method="GET"
                                 class="w-full px-4 py-15px text-sm text-contentColor bg-lightGrey10 dark:bg-lightGrey10-dark dark:text-contentColor-dark flex justify-center items-center leading-26px">
-                                <input type="text" placeholder="Cari..."
+                                <input type="text" placeholder="Cari..." name="search"
                                     class="placeholder:text-placeholder bg-transparent focus:outline-none placeholder:opacity-80 w-full">
                                 <button type="submit">
                                     <i class="icofont-search-1 text-base"></i>
