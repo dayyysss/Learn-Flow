@@ -38,9 +38,14 @@ class LandingPageController extends Controller
         
         // Lakukan eager loading relasi 'category_courses'
         $course = Course::where('publish_date', '<=', Carbon::now())
-        ->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
+        ->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->paginate(10);
+
+        $commonData = $this->loadCommonData();
         
-        return view('landing.pages.course.course', compact('course', 'categories', 'instrukturs'));
+        return view('landing.pages.course.course', array_merge(
+            ['course' => $course, 'categories' => $categories, 'instrukturs' => $instrukturs],
+            $commonData, 
+        ));
     }
 
     public function zoomWebinar()
@@ -99,4 +104,34 @@ class LandingPageController extends Controller
     {
         return view('landing.pages.instructor.instructor');
     }
+    
+    private function loadCommonData()
+{
+    // Ambil kategori dan hitung jumlah kursus yang terkait
+    $categories = CategoryCourse::withCount(['courses' => function ($query) {
+        // Menyesuaikan kolom yang digunakan untuk relasi
+        $query->whereColumn('courses.categories_id', 'category_courses.id');
+    }])
+    ->orderBy('courses_count', 'desc') // Urutkan berdasarkan jumlah kursus
+    ->get();
+
+    // Ambil tag populer berdasarkan kursus
+    $popularTags = DB::table('courses')
+        ->whereNotNull('tags')
+        ->pluck('tags')
+        ->flatMap(function ($tagsString) {
+            return explode(',', $tagsString);
+        })
+        ->map(fn($tag) => trim($tag))
+        ->filter()
+        ->countBy()
+        ->sortDesc()
+        ->take(10);
+
+    // Kembalikan data kategori dan tag populer
+    return compact('categories', 'popularTags');
+}
+
+
+
 }
