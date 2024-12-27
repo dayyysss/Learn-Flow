@@ -38,6 +38,11 @@
                 <input type="password" class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm" id="password" name="password" required>
             </div>
 
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label text-sm font-medium text-gray-700">Password</label>
+                <input type="password_confirmation" class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm" id="password_confirmation" name="password_confirmation" required>
+            </div>
+
             <!-- Role -->
             <div class="mb-3">
                 <label for="role_id" class="form-label text-sm font-medium text-gray-700">Level</label>
