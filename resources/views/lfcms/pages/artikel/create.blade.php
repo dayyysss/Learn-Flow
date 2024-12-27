@@ -110,7 +110,7 @@
                                         placeholder="Masukan tag" autocomplete="off" onkeypress="addTag(event)">
 
 
-                                    <input type="hidden" name="tags" id="hidden-tags" value="{{ old('tags') }}">
+                                    <input type="hidden" name="tag" id="hidden-tags" value="{{ old('tag') }}">
                                 </div>
                                 <p class="text-xs">*tekan enter untuk memisahkan</p>
                             </div>
@@ -140,9 +140,10 @@
                                 </label>
                             </div>
                             <!-- Menambahkan jarak antara upload file dan tombol -->
-                            <div class="flex justify-end gap-4 mt-5">
-                                <button type="submit" class="btn btn-primary-solid btn-lg">Kirim</button>
-                                <a href="{{ route('artikel.index') }}" class="btn btn-secondary-solid btn-lg">Batal</a>
+                            <div class="flex gap-5 mt-6">
+                                <button type="submit"
+                                    class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                                <a href="{{ route('artikel.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>
                             </div>
                         </div>
                     </div>

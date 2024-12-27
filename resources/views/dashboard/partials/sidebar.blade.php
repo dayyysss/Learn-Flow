@@ -6,8 +6,9 @@
             <!-- greeting -->
             <h5
                 class="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-                WELCOME, MICLE OBEMA
+                WELCOME, {{ strtoupper(Auth::user()->name) }}
             </h5>
+
             <ul>
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard') }}"
@@ -59,8 +60,7 @@
                             Kursus
                         </a>
                         <i
-                        class="icofont-simple-down arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                      ></i>
+                            class="icofont-simple-down arrow-icon-side ml-auto transition-transform duration-300 transform rotate-0 leading-14px text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor"></i>
                     </div>
                     <!-- Submenu Kategori -->
                     <ul id="submenu-kategori"

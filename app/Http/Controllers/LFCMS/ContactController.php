@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class ContactController extends Controller
         $contacts = Contact::paginate(10);
     
         // Menampilkan view dan mengirimkan data kontak ke view
-        return view('admin.contact.index', compact('contacts'));
+        return view('lfcms.pages.kontak.index', compact('contacts'));
     }    
 
     /**
@@ -60,7 +60,17 @@ class ContactController extends Controller
         $contact->delete();
 
         // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('contact.index')->with('success', 'Kontak berhasil dihapus');
+        return redirect()->route('kontak.index')->with('success', 'Kontak berhasil dihapus');
+    }
+
+    /**
+     * Display the specified testimonial.
+     */
+    public function show($id)
+    {
+        $contact = Contact::findOrFail($id);
+
+        return view('lfcms.pages.kontak.show', compact('contact'));
     }
 
     public function reply(Request $request, $id)
@@ -77,7 +87,7 @@ class ContactController extends Controller
         Mail::to($contact->email)->send(new ContactFormSubmitted($contact, $request->reply_message));
     
         // Redirect kembali ke halaman kontak dengan pesan sukses
-        return redirect()->route('contact.index')->with('success', 'Balasan berhasil dikirim ke ' . $contact->email);
+        return redirect()->route('kontak.index')->with('success', 'Balasan berhasil dikirim ke ' . $contact->email);
     }
 
     public function bulkDelete(Request $request)

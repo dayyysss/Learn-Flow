@@ -7,16 +7,38 @@ use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\visitor_count;
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\CourseRegistration;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.pages.dashboard.index');
+        $enrolledCourses = CourseRegistration::where('registration_status', 'confirmed')->count();
+
+        $activeCourses = CourseRegistration::whereBetween('progress', [0, 99])->count();
+
+        $completeCourses = CourseRegistration::where('progress', 100)->count();
+
+        $totalCourses = Course::count();
+
+        $totalStudents = User::where('role_id', 2)->count();
+
+        $totalEarnings = CourseRegistration::where('registration_status', 'confirmed')->sum('harga');
+
+        return view('dashboard.pages.dashboard.index', compact(
+            'enrolledCourses',
+            'activeCourses',
+            'completeCourses',
+            'totalCourses',
+            'totalStudents',
+            'totalEarnings'
+        ));
     }
+
     public function indexUser()
     {
 

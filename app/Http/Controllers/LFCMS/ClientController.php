@@ -2,25 +2,30 @@
 
 namespace App\Http\Controllers\LFCMS;
 
-use App\Http\Controllers\Controller;
 use App\Models\Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Misalnya, Anda ingin mengambil data dari model Client dengan pagination
-        $clients = Client::paginate(10);  // Mengambil 8 data per halaman
+        $search = $request->input('search');
+ 
+        $clients = Client::when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%");
+        })->paginate(2);
         
-        return view('lfcms.pages.klien.index', compact('clients'));
+ 
+        return view('lfcms.pages.klien.index', compact('clients', 'search'));
     }
+    
     public function create()
     {
-       
-        
         return view('lfcms.pages.klien.create');
     }
 

@@ -22,7 +22,6 @@ use App\Http\Controllers\LFCMS\MenuListController;
 use App\Http\Controllers\LFCMS\MenuTypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Quiz\QuizController;
-use App\Http\Controllers\LFCMS\TestimoniController;
 use App\Http\Controllers\LFCMS\PembayaranController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\LFCMS\TestimonialController;
@@ -37,6 +36,7 @@ use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
+use App\Http\Controllers\LFCMS\ContactController    ;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 // use App\Http\Controllers\LFCMS\ArticleController;
@@ -46,6 +46,7 @@ use App\Http\Controllers\Admin\CourseRegistrationController;
 // use App\Models\ModulProgress;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\GoogleController;
 
 // Auth
 Route::get('/login', function () { return view('auth.login'); })->name('login');
@@ -63,6 +64,10 @@ Route::get('/email/verify', function () { return view('auth.verify-email'); })->
 //     return view('auth.verify-email');
 // })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
+
+//Login Google
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
 //apexchart
 Route::get('/visitor-count', [DashboardController::class, 'visitor']);
@@ -90,7 +95,7 @@ Route::prefix('lfcms')
         Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);
         Route::resource('/testimonial', TestimonialController::class);
-        Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
+        Route::resource('/kontak', ContactController::class);
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
     // Route::resource('/testimonial', TestimoniController::class);

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('job_title');
             $table->string('image')->nullable();
             $table->string('url')->nullable();
             $table->enum('status', ['draft', 'publik']);
