@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('moduls', function (Blueprint $table) {
-            $table->boolean('task')->nullable()->after('status');
+            $table->boolean('task')->nullable()->after('file');
         });
     }
 
