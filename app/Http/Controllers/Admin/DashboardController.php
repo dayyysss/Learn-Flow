@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate;
+use App\Models\Course;
 use App\Models\visitor_count;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -131,5 +134,21 @@ class DashboardController extends Controller
         }
 
         return $data;
+    }
+
+    public function count()
+    {
+        $user = Auth::user();
+
+        // Hitung jumlah kursus yang terdaftar oleh pengguna
+        $registeredCoursesCount = Course::where('user_id', $user->id)->count();
+
+        // Hitung jumlah sertifikat yang dimiliki pengguna
+        $certificatesCount = Certificate::where('user_id', $user->id)->count();
+
+        return view('dashboard.partials.header', [
+            'registeredCoursesCount' => $registeredCoursesCount,
+            'certificatesCount' => $certificatesCount,
+        ]);
     }
 }
