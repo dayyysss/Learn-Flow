@@ -41,11 +41,11 @@
                                 <a href="{{ route('artikel.show', $item->id) }}">{{ $item->judul }}</a>
                             </h3>
                             <p class="text-base text-contentColor dark:text-contentColor-dark mb-30px">
-                                {!! Str::limit($item->deskripsi, 150) !!}
+                                {!! Str::limit($item->deskripsi_singkat, 150) !!}
                             </p>
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center gap-3">
-                                    <img src="{{ asset('storage/' . $item->image) }}" alt=""
+                                    <img src="{{ asset('storage/' . $item->author_image) }}" alt=""
                                         class="w-11 h-11 rounded-full">
                                     <div class="text-sm md:text-lg text-darkdeep5 dark:text-darkdeep5-dark">
                                         By: <span
@@ -57,27 +57,35 @@
                     </div>
                 @else
                     <!-- Artikel berikutnya ditampilkan kecil -->
-                    <div class="lg:col-start-9 lg:col-span-4">
-                        <div class="group shadow-blog" data-aos="fade-up">
-                            <div class="overflow-hidden relative">
-                                <img src="{{ asset('storage/' . $item->image) }}" alt=""
-                                    class="w-full group-hover:scale-110 transition-all duration-300">
-                                <div
-                                    class="text-base md:text-2xl leading-5 md:leading-30px font-semibold text-white px-15px py-5px md:px-22px md:py-7px bg-primaryColor rounded text-center absolute top-5 left-5">
-                                    {{ $item->created_at->format('d') }} <br>
-                                    {{ $item->created_at->format('M') }}
-                                </div>
-                            </div>
-                            <div class="px-5 py-25px">
-                                <h3
-                                    class="text-2xl md:text-size-28 leading-30px md:leading-35px font-bold text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
-                                    <a href="{{ route('artikel.show', $item->id) }}">{{ $item->judul }}</a>
-                                </h3>
+                    @if ($key == 1)
+                        <div class="lg:col-start-9 lg:col-span-4">
+                            <div class="flex flex-col gap-y-30px">
+                    @endif
+                    <div class="group shadow-blog" data-aos="fade-up">
+                        <!-- Blog Thumbnail -->
+                        <div class="overflow-hidden relative">
+                            <img src="{{ asset('storage/' . $item->image) }}" alt=""
+                                class="w-full group-hover:scale-110 transition-all duration-300">
+                            <div
+                                class="text-base md:text-2xl leading-5 md:leading-30px font-semibold text-white px-15px py-5px md:px-22px md:py-7px bg-primaryColor rounded text-center absolute top-5 left-5">
+                                {{ $item->created_at->format('d') }} <br>
+                                {{ $item->created_at->format('M') }}
                             </div>
                         </div>
+                        <!-- Blog Content -->
+                        <div class="px-5 py-25px">
+                            <h3
+                                class="text-2xl md:text-size-28 leading-30px md:leading-35px font-bold text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
+                                <a href="{{ route('artikel.show', $item->id) }}">{{ $item->judul }}</a>
+                            </h3>
+                        </div>
                     </div>
-                @endif
-            @endforeach
-        </div>
+                    @if ($key == count($artikel) - 1)
+                 </div>
+            </div>
+        @endif
+    @endif
+@endforeach
     </div>
-</section>
+        </div>
+            </section>
