@@ -68,22 +68,14 @@
                         <li>
                             <a href="{{ route('courses.index') }}"
                                 class="sidebar-link {{ request()->routeIs('courses.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">
-                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                                </svg>
+                                -
                                 Daftar Kursus
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('kategori-kursus.index') }}"
                                 class="sidebar-link {{ request()->routeIs('kategori-kursus.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 mt-2 flex gap-3 text-nowrap">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">
-                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                                </svg>
+                                -
                                 Kategori Kursus
                             </a>
                         </li>
