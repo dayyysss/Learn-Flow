@@ -73,8 +73,8 @@
                                             <td class="p-6 py-4">
                                                 <span
                                                     class="badge 
-                                            {{ $client->status == 'Publik' ? 'badge-success-light' : ($client->status == 'draft' ? 'badge-danger-light' : 'badge-warning-light') }}">
-                                                    {{ $client->status }}
+                                            {{ $client->status == 'Publik' ? 'badge-success-light' : ($client->status == 'draft' ? 'badge-warning-light' : 'badge-success-light') }}">
+                                                    {{ ucfirst($client->status) }}
                                                 </span>
                                             </td>
                                             <td class="p-6 py-4">

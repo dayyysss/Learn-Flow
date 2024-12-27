@@ -83,9 +83,9 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::prefix('artikel')->group(function () {
         Route::get('/', 'artikel')->name('artikel');
         Route::get('/cari', 'search')->name('artikel.search');
-        // Route::get('/kategori/{name}', 'showCategory')->name('artikel.category');
-        // Route::get('/tag/{tag}', 'showTag')->name('artikel.tag');
-        // Route::get('/{slug}', 'showSlug')->name('artikel.showSlug');
+        Route::get('/kategori/{name}', 'showCategory')->name('artikel.category');
+        Route::get('/tag/{tag}', 'showTag')->name('artikel.tag');
+        Route::get('/{slug}', 'showSlug')->name('artikel.showSlug');
     });
 
     Route::get('/kontak', 'contact')->name('contact');

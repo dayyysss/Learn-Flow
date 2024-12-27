@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Landing;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CategoryCourse;
+use App\Models\CategoryArtikel;
 use App\Models\Course;
 use App\Models\Page;
 use App\Models\Artikel;
@@ -56,7 +57,22 @@ class LandingPageController extends Controller
     {
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
 
-        return view('landing.pages.blog.blog', compact('artikel'));
+        $category = CategoryArtikel::all();
+
+        return view('landing.pages.blog.blog', compact('artikel', 'category'));
+    }
+
+    // Fungsi menampilkan berdasarkan kategori artikel
+    public function showCategory($name)
+    {
+        $category = CategoryArtikel::all();
+        $categories = CategoryArtikel::where('name', $name)->firstOrFail();
+        $artikel = Artikel::where('category_id', $categories->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(3);
+
+    
+        return view('landing.pages.blog.blog', compact('artikel', 'categories', 'category'));
     }
 
     // Fungsi pencarian artikel
