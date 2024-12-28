@@ -132,49 +132,22 @@
                             Artikel Terbaru
                         </h4>
                         <ul class="flex flex-col gap-y-5">
+                            {{-- @foreach ($latestArticles as $article) --}}
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="assets/images/footer/footer__1.png" alt="" class="w-61px h-54px">
+                                        <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul}}" class="w-61px h-54px">
                                     </div>
                                     <div>
-                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
+                                        <p class="text-xs text-darkgray mb-7px">  {{ $article->created_at->format('d M Y') }}</p>
                                         <h6
                                             class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
-                                            Best Your Business
+                                            {!! Str::limit($article->judul, 20) !!}
                                         </h6>
                                     </div>
                                 </a>
                             </li>
-
-                            <li>
-                                <a class="flex items-center gap-3 group cursor-pointer">
-                                    <div>
-                                        <img src="assets/images/footer/footer__2.png" alt="" class="w-61px h-54px">
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
-                                        <h6
-                                            class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
-                                            Keep Your Business
-                                        </h6>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="flex items-center gap-3 group cursor-pointer">
-                                    <div>
-                                        <img src="assets/images/footer/footer__3.png" alt="" class="w-61px h-54px">
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
-                                        <h6
-                                            class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
-                                            Nice Your Business
-                                        </h6>
-                                    </div>
-                                </a>
-                            </li>
+                            {{-- @endforeach --}}
                         </ul>
                     </div>
                 </div>
@@ -185,7 +158,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-30px pt-10 items-center">
                     <div class="lg:col-start-1 lg:col-span-3">
                         <a href=" {{ url('/') }} ">
-                            <img src="assets/images/logo/logo_1.png" alt="logo LF" style="width: 180px;">
+                            <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo LF" style="width: 180px;">
                         </a>
                     </div>
 

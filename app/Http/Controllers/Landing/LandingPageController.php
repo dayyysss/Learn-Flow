@@ -23,7 +23,7 @@ class LandingPageController extends Controller
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
         $klien = Client::where('status', 'publik')->get();
 
-        return view('landing-page', compact('hero', 'about', 'artikel', 'klien'));
+        return view('landing-page', array_merge(compact('hero', 'about', 'artikel', 'klien'),$commonData));
     }
 
     public function about()
@@ -112,8 +112,7 @@ class LandingPageController extends Controller
         $category = CategoryArtikel::all();
         $commonData = $this->loadCommonData();
     
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'),$commonData
-        ));
+        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'),$commonData));
     }
     
     public function showCategory($name)
@@ -156,6 +155,7 @@ class LandingPageController extends Controller
     
     private function loadCommonData()
     {
+        $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
         $categoriesArtikel = CategoryArtikel::orderBy('created_at', 'desc')->get();
         $recentPosts = Artikel::where('status', '1')
         ->orderBy('created_at', 'desc')
@@ -198,9 +198,5 @@ class LandingPageController extends Controller
         
         // Kembalikan data kategori dan tag populer
         return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
-}
-
-
-
-
+    }
 }

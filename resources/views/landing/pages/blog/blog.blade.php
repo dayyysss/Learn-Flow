@@ -15,7 +15,7 @@
                         <div class="group shadow-blog2" data-aos="fade-up">
                             <!-- blog thumbnail -->
                             <div class="overflow-hidden relative">
-                                <img src="{{ asset('storage/' . $article->image) }}" alt="" class="w-full">
+                                <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul}}" class="w-full">
                                 <div
                                     class="text-size-22 leading-6 font-semibold text-white px-15px py-5px md:px-6 md:py-2 bg-primaryColor rounded text-center absolute top-5 right-5">
                                     <h3>
