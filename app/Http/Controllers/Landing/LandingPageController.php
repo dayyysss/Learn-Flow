@@ -30,23 +30,76 @@ class LandingPageController extends Controller
         return view('landing.pages.about.about');
     }
 
-    public function course()
-    {
+    public function course(Request $request)
+{
+    // Mengambil semua kategori dengan jumlah kursus terkait
+    $categories = CategoryCourse::withCount('courses')->get();
+    $instrukturs = CategoryCourse::all();
+    
+    // Ambil parameter kategori, tag, skill_level, dan search dari permintaan
+    $selectedCategory = $request->get('category');
+    $selectedTag = $request->get('tag');
+    $selectedSkillLevel = $request->get('skill_level');
+    $searchQuery = $request->get('search'); // Menambahkan pencarian
 
-        $categories = CategoryCourse::all();
-        $instrukturs = CategoryCourse::all();
-        
-        // Lakukan eager loading relasi 'category_courses'
-        $course = Course::where('publish_date', '<=', Carbon::now())
-        ->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->paginate(10);
-
-        $commonData = $this->loadCommonData();
-        
-        return view('landing.pages.course.course', array_merge(
-            ['course' => $course, 'categories' => $categories, 'instrukturs' => $instrukturs],
-            $commonData, 
-        ));
+    // Query kursus dengan filter kategori, tag, skill_level, dan pencarian
+    $courseQuery = Course::where('publish_date', '<=', Carbon::now())
+        ->with(['users', 'categories', 'babs.moduls', 'instrukturs']);
+    
+    if ($selectedCategory) {
+        $courseQuery->whereHas('categories', function ($query) use ($selectedCategory) {
+            $query->where('id', $selectedCategory);
+        });
     }
+    
+    if ($selectedTag) {
+        $courseQuery->where('tags', 'like', '%' . $selectedTag . '%');
+    }
+    
+    if ($selectedSkillLevel) {
+        $courseQuery->where('tingkatan', $selectedSkillLevel);
+    }
+
+    if ($searchQuery) {
+        $courseQuery->where(function($query) use ($searchQuery) {
+            $query->where('name', 'like', '%' . $searchQuery . '%') // Pencarian berdasarkan judul
+                  ->orWhere('deskripsi', 'like', '%' . $searchQuery . '%'); // Pencarian berdasarkan deskripsi
+        });
+    }
+
+    // Paginasi hasil kursus
+    $course = $courseQuery->paginate(2);
+
+    // Menambahkan parameter pencarian pada URL pagination
+    $course->appends([
+        'search' => $searchQuery,
+        'category' => $selectedCategory,
+        'tag' => $selectedTag,
+        'skill_level' => $selectedSkillLevel,
+    ]);
+
+    // Data umum lainnya
+    $commonData = $this->loadCommonData();
+    
+    return view('landing.pages.course.course', array_merge(
+        [
+            'course' => $course,
+            'categories' => $categories,
+            'instrukturs' => $instrukturs,
+            'selectedCategory' => $selectedCategory,
+            'selectedTag' => $selectedTag,
+            'selectedSkillLevel' => $selectedSkillLevel,
+            'searchQuery' => $searchQuery, // Menyertakan query pencarian
+        ],
+        $commonData
+    ));
+}
+
+    
+
+    
+    
+
 
     public function zoomWebinar()
     {
@@ -109,28 +162,31 @@ class LandingPageController extends Controller
 {
     // Ambil kategori dan hitung jumlah kursus yang terkait
     $categories = CategoryCourse::withCount(['courses' => function ($query) {
-        // Menyesuaikan kolom yang digunakan untuk relasi
-        $query->whereColumn('courses.categories_id', 'category_courses.id');
+        // Filter kursus dengan publish_date yang sudah terlewat
+        $query->where('publish_date', '<=', now());
     }])
     ->orderBy('courses_count', 'desc') // Urutkan berdasarkan jumlah kursus
     ->get();
 
-    // Ambil tag populer berdasarkan kursus
+    // Ambil tag populer berdasarkan kursus dengan publish_date yang sudah terlewat
     $popularTags = DB::table('courses')
-        ->whereNotNull('tags')
-        ->pluck('tags')
+        ->whereNotNull('tags') // Pastikan tags tidak null
+        ->where('publish_date', '<=', now()) // Filter kursus dengan publish_date yang sudah terlewat
+        ->pluck('tags') // Ambil kolom tags
         ->flatMap(function ($tagsString) {
+            // Pecah string tags menjadi array
             return explode(',', $tagsString);
         })
-        ->map(fn($tag) => trim($tag))
-        ->filter()
-        ->countBy()
-        ->sortDesc()
-        ->take(10);
+        ->map(fn($tag) => trim($tag)) // Hilangkan spasi pada setiap tag
+        ->filter() // Hilangkan nilai kosong
+        ->countBy() // Hitung jumlah kemunculan setiap tag
+        ->sortDesc() // Urutkan berdasarkan jumlah kemunculan
+        ->take(10); // Ambil 10 tag teratas
 
     // Kembalikan data kategori dan tag populer
     return compact('categories', 'popularTags');
 }
+
 
 
 
