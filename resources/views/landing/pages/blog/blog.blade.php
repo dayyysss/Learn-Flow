@@ -28,7 +28,7 @@
                             <div class="pt-26px pb-5 px-30px">
                                 <h3
                                     class="text-2xl md:text-size-32 lg:text-size-28 2xl:text-size-34 leading-34px md:leading-10 2xl:leading-13.5 font-bold text-blackColor2 hover:text-primaryColor dark:text-blackColor2-dark dark:hover:text-primaryColor">
-                                    <a href="{{ route('artikel.show', $article->slug) }}">{{ $article->judul }}</a>
+                                    <a href="{{ route('artikel.showSlug', $article->slug) }}">{{ $article->judul }}</a>
                                 </h3>
                                 <div class="mb-14px pb-19px border-b border-borderColor dark:border-borderColor-dark">
                                     <ul class="flex flex-wrap items-center gap-x-15px">
@@ -50,7 +50,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <div>
-                                        <a href="{{ route('artikel.show', $article->slug) }}"
+                                        <a href="{{ route('artikel.showSlug', $article->slug) }}"
                                             class="uppercase text-secondaryColor hover:text-primaryColor">
                                             BACA SELENGKAPNYA <i class="icofont-double-right"></i></a>
                                     </div>
@@ -141,17 +141,19 @@
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
                                 Kategori Artikel
                             </h4>
-                            @if ($category->count())
-                            @foreach ($category as $categories)
-                                <ul class="flex flex-col gap-y-4">
-                                    <li class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor transition-all duration-300 text-sm font-medium px-4 py-2 border border-borderColor2 hover:border-primaryColor dark:border-borderColor2-dark dark:hover:border-primaryColor flex justify-between leading-7">
-                                        <a href="{{ url('artikel/kategori/' . strtolower($categories->name)) }}">{{ $categories->name }}</a>
-                                    </li>
-                                </ul>
-                            @endforeach
-                        @else
-                            <p>No categories available</p>
-                        @endif
+                            <ul class="flex flex-col gap-y-4">
+                                @if ($category->count())
+                                    @foreach ($category as $categories)
+                                        <li
+                                            class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor transition-all duration-300 text-sm font-medium px-4 py-2 border border-borderColor2 hover:border-primaryColor dark:border-borderColor2-dark dark:hover:border-primaryColor flex justify-between leading-7">
+                                            <a
+                                                href="{{ url('artikel/kategori/' . strtolower($categories->name)) }}">{{ $categories->name }}</a>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    <p>No categories available</p>
+                                @endif
+                            </ul>
                         </div>
                         <!-- recent posts -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
@@ -161,78 +163,45 @@
                                 Artikel Terbaru
                             </h4>
                             <ul class="flex flex-col gap-y-25px">
-                                <li class="flex items-center">
-                                    <div class="w-2/5 pr-5 relative">
-                                        <a href="blog-details.html" class="w-full"><img src="assets/images/blog/blog_11.png"
-                                                alt="" class="w-full"></a>
-                                        <span
-                                            class="text-xs font-medium text-whiteColor h-6 w-6 leading-6 text-center bg-primaryColor absolute top-0 left-0">01</span>
-                                    </div>
-                                    <div class="w-3/5">
-                                        <a href="blog-details.html"
-                                            class="w-full text-sm text-contentColor font-medium leading-7 dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">23
-                                            December 2024</a>
-                                        <h3 class="font-bold leading-22px mb-15px">
-                                            <a class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                                href="blog-details.html">Show at the University</a>
-                                        </h3>
-                                    </div>
-                                </li>
-                                <li class="flex items-center">
-                                    <div class="w-2/5 pr-5 relative">
-                                        <a href="blog-details.html" class="w-full"><img src="assets/images/blog/blog_12.png"
-                                                alt="" class="w-full"></a>
-                                        <span
-                                            class="text-xs font-medium text-whiteColor h-6 w-6 leading-6 text-center bg-primaryColor absolute top-0 left-0">02</span>
-                                    </div>
-                                    <div class="w-3/5">
-                                        <a href="blog-details.html"
-                                            class="w-full text-sm text-contentColor font-medium leading-7 dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">23
-                                            December 2024</a>
-                                        <h3 class="font-bold leading-22px mb-15px">
-                                            <a class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                                href="blog-details.html">Show at the University</a>
-                                        </h3>
-                                    </div>
-                                </li>
-                                <li class="flex items-center">
-                                    <div class="w-2/5 pr-5 relative">
-                                        <a href="blog-details.html" class="w-full"><img src="assets/images/blog/blog_13.png"
-                                                alt="" class="w-full"></a>
-                                        <span
-                                            class="text-xs font-medium text-whiteColor h-6 w-6 leading-6 text-center bg-primaryColor absolute top-0 left-0">03</span>
-                                    </div>
-                                    <div class="w-3/5">
-                                        <a href="blog-details.html"
-                                            class="w-full text-sm text-contentColor font-medium leading-7 dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">23
-                                            December 2024</a>
-                                        <h3 class="font-bold leading-22px mb-15px">
-                                            <a class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                                href="blog-details.html">Show at the University</a>
-                                        </h3>
-                                    </div>
-                                </li>
-                                <li class="flex items-center">
-                                    <div class="w-2/5 pr-5 relative">
-                                        <a href="blog-details.html" class="w-full"><img
-                                                src="assets/images/blog/blog_14.png" alt="" class="w-full"></a>
-                                        <span
-                                            class="text-xs font-medium text-whiteColor h-6 w-6 leading-6 text-center bg-primaryColor absolute top-0 left-0">04</span>
-                                    </div>
-                                    <div class="w-3/5">
-                                        <a href="blog-details.html"
-                                            class="w-full text-sm text-contentColor font-medium leading-7 dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">23
-                                            December 2024</a>
-                                        <h3 class="font-bold leading-22px mb-15px">
-                                            <a class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                                href="blog-details.html">Show at the University</a>
-                                        </h3>
-                                    </div>
-                                </li>
+                                @forelse($recentPosts as $index => $post)
+                                    <li class="flex items-center">
+                                        <div class="w-2/5 pr-5 relative">
+                                            <a href="{{ route('artikel.showSlug', $post->slug) }}" class="w-full">
+                                                @if ($post->image)
+                                                    <img src="{{ asset('storage/' . $post->image) }}"
+                                                        alt="{{ $post->judul }}" class="w-full">
+                                                @else
+                                                    <img src="{{ asset('assets/images/blog/default.png') }}"
+                                                        alt="Default Image" class="w-full">
+                                                @endif
+                                            </a>
+                                            <span
+                                                class="text-xs font-medium text-whiteColor h-6 w-6 leading-6 text-center bg-primaryColor absolute top-0 left-0">
+                                                {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                                            </span>
+                                        </div>
+                                        <div class="w-3/5">
+                                            <a href="{{ route('artikel.showSlug', $post->slug) }}"
+                                                class="w-full text-sm text-contentColor font-medium leading-7 dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+                                                {{ $post->created_at->format('d F Y') }}
+                                            </a>
+                                            <h3 class="font-bold leading-22px mb-15px">
+                                                <a class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
+                                                    href="{{ route('artikel.showSlug', $post->slug) }}">
+                                                    {{ Str::limit($post->judul, 40) }}
+                                                </a>
+                                            </h3>
+                                        </div>
+                                    </li>
+                                @empty
+                                    <li class="text-center text-gray-500">
+                                        Tidak ada artikel terbaru
+                                    </li>
+                                @endforelse
                             </ul>
                         </div>
                         <!-- photo gallary -->
-                        <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
+                        {{-- <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
@@ -261,61 +230,11 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="image-wrapper relative group" data-aos="fade-up">
-                                        <img src="assets/images/blog/blog_16.png" alt="Image 1"
-                                            class="gallery-image w-full">
-                                        <div
-                                            class="absolute left-0 top-0 right-0 bottom-0 bg-blackColor bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-60 text-whiteColor flex items-center justify-center">
-                                            <button class="popup-open">
-                                                <i class="icofont-eye-alt opacity-0 group-hover:opacity-100"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="image-wrapper relative group" data-aos="fade-up">
-                                        <img src="assets/images/blog/blog_17.png" alt="Image 1"
-                                            class="gallery-image w-full">
-                                        <div
-                                            class="absolute left-0 top-0 right-0 bottom-0 bg-blackColor bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-60 text-whiteColor flex items-center justify-center">
-                                            <button class="popup-open">
-                                                <i class="icofont-eye-alt opacity-0 group-hover:opacity-100"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="image-wrapper relative group" data-aos="fade-up">
-                                        <img src="assets/images/blog/blog_18.png" alt="Image 1"
-                                            class="gallery-image w-full">
-                                        <div
-                                            class="absolute left-0 top-0 right-0 bottom-0 bg-blackColor bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-60 text-whiteColor flex items-center justify-center">
-                                            <button class="popup-open">
-                                                <i class="icofont-eye-alt opacity-0 group-hover:opacity-100"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="image-wrapper relative group" data-aos="fade-up">
-                                        <img src="assets/images/blog/blog_19.png" alt="Image 1"
-                                            class="gallery-image w-full">
-                                        <div
-                                            class="absolute left-0 top-0 right-0 bottom-0 bg-blackColor bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-60 text-whiteColor flex items-center justify-center">
-                                            <button class="popup-open">
-                                                <i class="icofont-eye-alt opacity-0 group-hover:opacity-100"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="image-wrapper relative group" data-aos="fade-up">
-                                        <img src="assets/images/blog/blog_20.png" alt="Image 1"
-                                            class="gallery-image w-full">
-                                        <div
-                                            class="absolute left-0 top-0 right-0 bottom-0 bg-blackColor bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-60 text-whiteColor flex items-center justify-center">
-                                            <button class="popup-open">
-                                                <i class="icofont-eye-alt opacity-0 group-hover:opacity-100"></i>
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {{-- <!-- contact form -->
-                        <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
+                        </div> --}}
+                        <!-- contact form -->
+                        {{-- <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
@@ -341,58 +260,18 @@
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
                                 Tag Populer
                             </h4>
-                            <ul class="flex flex-wrap gap-x-5px">
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">Business</a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">DESIGN
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">APPS
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">LANDING
-                                        PAGE
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">DATA
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">BOOK
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">DESIGN
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">BOOK
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">LANDING
-                                        PAGE
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html"
-                                        class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">DATA</a>
-                                </li>
-                            </ul>
+                            @if ($popularTags && $popularTags->isNotEmpty())
+                                <ul class="flex flex-wrap gap-x-5px">
+                                    @foreach ($popularTags as $tag => $count)
+                                        <li>
+                                            <a href="{{ route('artikel.tag', ['tag' => $tag]) }}"
+                                                class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">{{ $tag }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p>No tags available.</p>
+                            @endif
                         </div>
                         <!-- social area -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"

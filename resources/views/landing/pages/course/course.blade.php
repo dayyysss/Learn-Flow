@@ -78,8 +78,8 @@
                                 @foreach ($categories as $category)
                                     <li
                                         class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                                        <a href="{{ route('course', ['category' => $category->id]) }}"
-                                            class="{{ $selectedCategory == $category->id ? 'text-primaryColor font-bold' : '' }}">
+                                        <a href="{{ route('course', ['category' => $category->slug]) }}"
+                                            class="{{ $selectedCategory == $category->slug ? 'text-primaryColor font-bold' : '' }}">
                                             {{ $category->name }}
                                         </a>
                                         <span>{{ $category->courses_count }}</span>
@@ -290,7 +290,7 @@
                                 </div>
                             @endforeach
                             @else
-                                <p class="text-center text-lg font-semibold">Kursus tidak ditemukan untuk kategori ini.</p>
+                                <p class="text-center w-100 text-lg font-semibold">Kursus tidak ditemukan untuk kategori ini.</p>
                             @endif
 
                             {{-- <div class="pagination">

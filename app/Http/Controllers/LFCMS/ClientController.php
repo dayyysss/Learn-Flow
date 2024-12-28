@@ -18,7 +18,7 @@ class ClientController extends Controller
  
         $clients = Client::when($search, function ($query, $search) {
             return $query->where('name', 'like', "%{$search}%");
-        })->paginate(2);
+        })->paginate(10);
         
  
         return view('lfcms.pages.klien.index', compact('clients', 'search'));
