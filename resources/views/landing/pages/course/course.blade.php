@@ -290,23 +290,27 @@
                                 </div>
                             @endforeach
                             @else
-                                <p class="text-center w-100 text-lg font-semibold">Kursus tidak ditemukan untuk kategori ini.</p>
-                            @endif
-
+                            <!-- Pesan jika tidak ada kursus ditemukan -->
+                            <div class="coll-span-full text-center py-10 bg-lightGrey dark:bg-darkdeep3-dark text-xl font-semibold text-primaryColor">
+                                Kursus tidak ditemukan untuk pencarian ini.
+                            </div>
+                        @endif
+                            
                             {{-- <div class="pagination">
                                 {{ $course->appends(['search' => request()->get('search'), 'category' => request()->get('category'), 'tag' => request()->get('tag'), 'skill_level' => request()->get('skill_level')])->links() }}
                             </div> --}}
                             
                             
-
+                            
                         </div>
-
-
+                        
+                        
                         <!-- list ordered cards -->
                         <div class="hidden opacity-0 transition-all duration-300">
                             <div class="flex flex-col gap-30px">
                                 <!-- card 1 -->
-                                @foreach ($course as $item)
+                                @if($course->count())
+                                 @foreach ($course as $item)
                                     <div class="w-full group grid-item rounded">
                                         <div class="tab-content-wrapper" data-aos="fade-up">
                                             <div
@@ -430,6 +434,12 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @else
+                            <!-- Pesan jika tidak ada kursus ditemukan -->
+                            <div class="coll-span-full text-center py-10 bg-lightGrey dark:bg-darkdeep3-dark text-xl font-semibold text-primaryColor">
+                                Kursus tidak ditemukan untuk pencarian ini.
+                            </div>
+                        @endif
 
                             </div>
                             <nav>
@@ -631,4 +641,17 @@
 
 
 </script> --}}
+
+<style>
+    .coll-span-full {
+    grid-column: span 3;
+    text-align: center;
+    background-color: #f4f4f4;
+    padding: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 8px;
+}
+</style>
 @endsection
