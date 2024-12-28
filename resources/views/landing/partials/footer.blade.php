@@ -132,22 +132,20 @@
                             Artikel Terbaru
                         </h4>
                         <ul class="flex flex-col gap-y-5">
-                            {{-- @foreach ($latestArticles as $article) --}}
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul}}" class="w-61px h-54px">
+                                        <img src="assets/images/footer/footer__1.png" alt="" class="w-61px h-54px">
                                     </div>
                                     <div>
-                                        <p class="text-xs text-darkgray mb-7px">  {{ $article->created_at->format('d M Y') }}</p>
+                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
                                         <h6
                                             class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
-                                            {!! Str::limit($article->judul, 20) !!}
+                                            Best Your Business
                                         </h6>
                                     </div>
                                 </a>
                             </li>
-                            {{-- @endforeach --}}
                         </ul>
                     </div>
                 </div>
