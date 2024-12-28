@@ -135,13 +135,42 @@
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="assets/images/footer/footer__1.png" alt="" class="w-61px h-54px">
+                                        <img src="{{ asset('assets/images/footer/footer__1.png') }}" alt="" class="w-61px h-54px">
                                     </div>
                                     <div>
                                         <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
                                         <h6
                                             class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
                                             Best Your Business
+                                        </h6>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="flex items-center gap-3 group cursor-pointer">
+                                    <div>
+                                        <img src="{{ asset('assets/images/footer/footer__2.png') }}" alt="" class="w-61px h-54px">
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
+                                        <h6
+                                            class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
+                                            Keep Your Business
+                                        </h6>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center gap-3 group cursor-pointer">
+                                    <div>
+                                        <img src="{{ asset('assets/images/footer/footer__3.png') }}" alt="" class="w-61px h-54px">
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
+                                        <h6
+                                            class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
+                                            Nice Your Business
                                         </h6>
                                     </div>
                                 </a>
