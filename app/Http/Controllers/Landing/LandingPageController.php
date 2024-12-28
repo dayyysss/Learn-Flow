@@ -96,12 +96,6 @@ class LandingPageController extends Controller
         ));
     }
     
-    
-
-    
-    
-
-
     public function zoomWebinar()
     {
         return view('landing.pages.zoom-webinars.zoom');
@@ -161,32 +155,49 @@ class LandingPageController extends Controller
     }
     
     private function loadCommonData()
-{
-    // Ambil kategori dan hitung jumlah kursus yang terkait
-    $categories = CategoryCourse::withCount(['courses' => function ($query) {
-        // Filter kursus dengan publish_date yang sudah terlewat
-        $query->where('publish_date', '<=', now());
-    }])
-    ->orderBy('courses_count', 'desc') // Urutkan berdasarkan jumlah kursus
-    ->get();
+    {
+        $categoriesArtikel = CategoryArtikel::orderBy('created_at', 'desc')->get();
+        $recentPosts = Artikel::where('status', '1')
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
+        // Ambil kategori dan hitung jumlah kursus yang terkait
+        $categories = CategoryCourse::withCount(['courses' => function ($query) {
+            // Filter kursus dengan publish_date yang sudah terlewat
+            $query->where('publish_date', '<=', now());
+        }])
+        ->orderBy('courses_count', 'desc') // Urutkan berdasarkan jumlah kursus
+        ->get();
+    
+        // Ambil tag populer berdasarkan kursus dengan publish_date yang sudah terlewat
+        $popularTags = DB::table('courses')
+            ->whereNotNull('tags') // Pastikan tags tidak null
+            ->where('publish_date', '<=', now()) // Filter kursus dengan publish_date yang sudah terlewat
+            ->pluck('tags') // Ambil kolom tags
+            ->flatMap(function ($tagsString) {
+                // Pecah string tags menjadi array
+                return explode(',', $tagsString);
+            })
+            ->map(fn($tag) => trim($tag)) // Hilangkan spasi pada setiap tag
+            ->filter() // Hilangkan nilai kosong
+            ->countBy() // Hitung jumlah kemunculan setiap tag
+            ->sortDesc() // Urutkan berdasarkan jumlah kemunculan
+            ->take(10); // Ambil 10 tag teratas
 
-    // Ambil tag populer berdasarkan kursus dengan publish_date yang sudah terlewat
-    $popularTags = DB::table('courses')
-        ->whereNotNull('tags') // Pastikan tags tidak null
-        ->where('publish_date', '<=', now()) // Filter kursus dengan publish_date yang sudah terlewat
-        ->pluck('tags') // Ambil kolom tags
-        ->flatMap(function ($tagsString) {
-            // Pecah string tags menjadi array
-            return explode(',', $tagsString);
-        })
-        ->map(fn($tag) => trim($tag)) // Hilangkan spasi pada setiap tag
-        ->filter() // Hilangkan nilai kosong
-        ->countBy() // Hitung jumlah kemunculan setiap tag
-        ->sortDesc() // Urutkan berdasarkan jumlah kemunculan
-        ->take(10); // Ambil 10 tag teratas
-
-    // Kembalikan data kategori dan tag populer
-    return compact('categories', 'popularTags');
+        $popularTagsArtikel = DB::table('artikel')
+            ->whereNotNull('tag')
+            ->pluck('tag')
+            ->flatMap(function ($tagsString) {
+                return explode(',', $tagsString);
+            })
+            ->map(fn($tag) => trim($tag))
+            ->filter()
+            ->countBy()
+            ->sortDesc()
+            ->take(10);
+        
+        // Kembalikan data kategori dan tag populer
+        return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
 }
 
 

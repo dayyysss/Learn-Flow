@@ -143,11 +143,11 @@
                             </h4>
                             <ul class="flex flex-col gap-y-4">
                                 @if ($category->count())
-                                    @foreach ($category as $categories)
+                                    @foreach ($category as $categoriesArtikel)
                                         <li
                                             class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor transition-all duration-300 text-sm font-medium px-4 py-2 border border-borderColor2 hover:border-primaryColor dark:border-borderColor2-dark dark:hover:border-primaryColor flex justify-between leading-7">
                                             <a
-                                                href="{{ url('artikel/kategori/' . strtolower($categories->name)) }}">{{ $categories->name }}</a>
+                                                href="{{ url('artikel/kategori/' . strtolower($categoriesArtikel->name)) }}">{{ $categoriesArtikel->name }}</a>
                                         </li>
                                     @endforeach
                                 @else
@@ -260,9 +260,9 @@
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
                                 Tag Populer
                             </h4>
-                            @if ($popularTags && $popularTags->isNotEmpty())
+                            @if ($popularTagsArtikel && $popularTagsArtikel->isNotEmpty())
                                 <ul class="flex flex-wrap gap-x-5px">
-                                    @foreach ($popularTags as $tag => $count)
+                                    @foreach ($popularTagsArtikel as $tag => $count)
                                         <li>
                                             <a href="{{ route('artikel.tag', ['tag' => $tag]) }}"
                                                 class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">{{ $tag }}</a>
