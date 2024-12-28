@@ -63,7 +63,7 @@
 
             <div class="mb-3 permissions" id="permissions-container">
                 <label class="form-label text-sm font-medium text-gray-700">Permissions</label>
-                <div class="flex flex-wrap space-x-4">
+                <div class="flex flex-wrap space-x-2">
                     <label><input type="checkbox" name="permissions[]" value="index"> Index</label>
                     <label id="create-permission"><input type="checkbox" name="permissions[]" value="create">
                         Create</label>

@@ -106,7 +106,7 @@
                     </div>
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
                         <li>
-                            <a href="{{ route('indexCMS') }}" class="flex font-medium px-4 py-2 hover:bg-gray-200 dark:hover:bg-dark-icon dark:hover:text-white">Dashboard</a>
+                            <a href="{{ route('dashboard.index') }}" class="flex font-medium px-4 py-2 hover:bg-gray-200 dark:hover:bg-dark-icon dark:hover:text-white">Dashboard</a>
                         </li>
                         <li>
                             <a href="{{ route('pengaturanCMS') }}" class="flex font-medium px-4 py-2 hover:bg-gray-200 dark:hover:bg-dark-icon dark:hover:text-white">Pengaturan</a>

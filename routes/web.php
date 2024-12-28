@@ -97,7 +97,7 @@ Route::prefix('lfcms')
     ->middleware(['auth', RoleMiddleware::class . ':superadmin'])
     ->group(function () {
     Route::controller(DashboardCMSController::class)->group(function () {
-        Route::get('/dashboard', 'indexCMS')->name('indexCMS');
+        Route::get('/dashboard', 'indexCMS')->name('dashboard.index');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
         Route::resource('/klien', ClientController::class);
@@ -120,8 +120,8 @@ Route::prefix('lfcms')
         Route::resource('/artikel', ArtikelController::class);
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
-        Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
-        Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('historypembayaranCMS');
+        Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaran.index');
+        Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('riwayat-pembayaran.index');
 
 
         //user
