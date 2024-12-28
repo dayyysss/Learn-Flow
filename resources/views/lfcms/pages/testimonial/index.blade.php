@@ -17,8 +17,7 @@
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                     </span>
-                                    <input type="text" name="search" value="{{ $search ?? '' }}"
-                                        placeholder="Search for..." class="form-input pl-[30px]">
+                                    <input type="text" id="searchInput" placeholder="Search for..." class="form-input pl-[30px]">
                                 </form>
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
@@ -215,5 +214,7 @@
             }, 300); // Sesuaikan dengan durasi animasi
         }
     </script>
+
+    
 
 @endsection
