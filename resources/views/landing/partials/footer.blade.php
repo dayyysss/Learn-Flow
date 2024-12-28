@@ -135,7 +135,7 @@
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="assets/images/footer/footer__1.png" alt="" class="w-61px h-54px">
+                                        <img src="{{ asset('assets/images/footer/footer__1.png') }}" alt="" class="w-61px h-54px">
                                     </div>
                                     <div>
                                         <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
@@ -150,7 +150,7 @@
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="assets/images/footer/footer__2.png" alt="" class="w-61px h-54px">
+                                        <img src="{{ asset('assets/images/footer/footer__2.png') }}" alt="" class="w-61px h-54px">
                                     </div>
                                     <div>
                                         <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
@@ -164,7 +164,7 @@
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="assets/images/footer/footer__3.png" alt="" class="w-61px h-54px">
+                                        <img src="{{ asset('assets/images/footer/footer__3.png') }}" alt="" class="w-61px h-54px">
                                     </div>
                                     <div>
                                         <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
@@ -185,7 +185,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-30px pt-10 items-center">
                     <div class="lg:col-start-1 lg:col-span-3">
                         <a href=" {{ url('/') }} ">
-                            <img src="assets/images/logo/logo_1.png" alt="logo LF" style="width: 180px;">
+                            <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo LF" style="width: 180px;">
                         </a>
                     </div>
 

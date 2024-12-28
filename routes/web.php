@@ -243,5 +243,5 @@ Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'upda
 
 // Rute untuk update progres berbasis scroll
 Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
-
+Route::get('/modultes', [DashboardController::class, 'modulPembelajaran'])->name('dashboard.modulPembelajaran');
     });

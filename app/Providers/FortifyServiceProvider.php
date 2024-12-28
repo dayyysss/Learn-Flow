@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -14,6 +17,7 @@ use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\LogoutResponse;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 
@@ -29,7 +33,17 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements LoginResponse {
             public function toResponse($request)
             {
-                if (auth()->attempt($request->only('email', 'password'))) {
+                $login = $request->input('login');
+                $password = $request->password;
+
+                // Tentukan kredensial berdasarkan input login (email atau name)
+                $credentials = filter_var($login, FILTER_VALIDATE_EMAIL)
+                    ? ['email' => $login, 'password' => $password]
+                    : ['name' => $login, 'password' => $password];
+
+                // Coba autentikasi
+                if (auth()->attempt($credentials)) {
+                    // Jika autentikasi berhasil dan user memiliki role_id = 1
                     if (auth()->user()->role_id == 1) {
                         return redirect('/lfcms/dashboard');
                     }
@@ -38,8 +52,9 @@ class FortifyServiceProvider extends ServiceProvider
                     return redirect()->route('dashboard');
                 }
 
+                // Jika gagal autentikasi, arahkan kembali ke login dengan pesan kesalahan
                 return redirect()->route('login')->withErrors([
-                    'email' => 'Email atau password salah.',
+                    'login' => 'Email atau password yang Anda masukkan salah. Silakan coba lagi.',
                 ]);
             }
             }
@@ -97,6 +112,33 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::verifyEmailView(function () {
             return view('auth.verify-email');
         });
+
+        Fortify::authenticateUsing(function ($request) {
+            // Cek apakah input berupa email atau bukan
+            $input = $request->input('login');
+            $isEmail = filter_var($input, FILTER_VALIDATE_EMAIL);
+
+            // Jika input adalah email, cari berdasarkan email, jika tidak cari berdasarkan nama
+            if ($isEmail) {
+                $user = User::where('email', $input)->first();
+            } else {
+                $user = User::where('name', $input)->first();
+            }
+
+            // Jika pengguna ditemukan dan password cocok, kembalikan pengguna
+            if ($user && Hash::check($request->input('password'), $user->password)) {
+                return $user;
+            }
+
+            // Menampilkan pesan yang berbeda berdasarkan jenis input
+            $message = $isEmail ? 'Email atau password yang Anda masukkan salah. Silakan coba lagi.' : 'Name atau password yang Anda masukkan salah. Silakan coba lagi.';
+
+            throw ValidationException::withMessages([
+                'login' => [$message],
+            ]);
+        });
+
+
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
