@@ -22,8 +22,9 @@ class LandingPageController extends Controller
         $about = Page::with('users')->where('status', 'publik')->find(2);
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
         $klien = Client::where('status', 'publik')->get();
+        $commonData = $this->loadCommonData();
 
-        return view('landing-page', array_merge(compact('hero', 'about', 'artikel', 'klien'),$commonData));
+        return view('landing-page', array_merge(compact('hero', 'about', 'artikel', 'klien'), $commonData));
     }
 
     public function about()

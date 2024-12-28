@@ -173,4 +173,9 @@ class DashboardController extends Controller
             'certificatesCount' => $certificatesCount,
         ]);
     }
+
+    public function modulPembelajaran()
+    {
+        return view('dashboard.pages.modul.create');
+    }
 }
