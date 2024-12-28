@@ -37,14 +37,9 @@ class LandingPageController extends Controller
         $categories = CategoryCourse::all();
         $instrukturs = CategoryCourse::all();
         $course = Course::where('publish_date', '<=', Carbon::now())
-        ->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->paginate(10);
-
-        $commonData = $this->loadCommonData();
+        ->with(['users', 'categories', 'babs.moduls', 'instrukturs'])->get();
         
-        return view('landing.pages.course.course', array_merge(
-            ['course' => $course, 'categories' => $categories, 'instrukturs' => $instrukturs],
-            $commonData, 
-        ));
+        return view('landing.pages.course.course', compact('course', 'categories', 'instrukturs'));
     }
 
     public function zoomWebinar()
@@ -103,5 +98,29 @@ class LandingPageController extends Controller
     public function instructor()
     {
         return view('landing.pages.instructor.instructor');
+    }
+
+    private function loadCommonData()
+    {
+        $categories = CategoryArtikel::orderBy('created_at', 'desc')->get();
+        $recentPosts = Artikel::where('status', '1')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+    
+        $popularTags = DB::table('artikel')
+            ->whereNotNull('tag')
+            ->pluck('tag')
+            ->flatMap(function ($tagsString) {
+                return explode(',', $tagsString);
+            })
+            ->map(fn($tag) => trim($tag))
+            ->filter()
+            ->countBy()
+            ->sortDesc()
+            ->take(10);
+    
+        // Hapus variable yang tidak digunakan
+        return compact('categories', 'popularTags', 'recentPosts');
     }
 }
