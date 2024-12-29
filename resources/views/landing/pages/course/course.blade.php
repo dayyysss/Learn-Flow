@@ -13,7 +13,8 @@
                 data-aos="fade-up">
                 <div>
                     <p class="text-blackColor dark:text-blackColor-dark">
-                        Showing 1–12 of 54 Results
+                        Showing {{ $course->firstItem() }} to {{ $course->lastItem() }} of {{ $course->total() }}
+                                entries
                     </p>
                 </div>
                 <div class="flex items-center">
@@ -49,128 +50,135 @@
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
                                 Cari Kursus
                             </h4>
-                            <form
-                                class="w-full px-4 py-15px text-sm text-contentColor bg-lightGrey10 dark:bg-lightGrey10-dark dark:text-contentColor-dark flex justify-center items-center leading-26px">
-                                <input type="text" placeholder="Cari..."
-                                    class="placeholder:text-placeholder bg-transparent focus:outline-none placeholder:opacity-80 w-full">
+                            <form action="{{ route('course') }}" method="GET" class="w-full px-4 py-15px text-sm text-contentColor bg-lightGrey10 dark:bg-lightGrey10-dark dark:text-contentColor-dark flex justify-center items-center leading-26px">
+                                <input type="text" name="search" id="searchInput" placeholder="Cari..." value="{{ request()->get('search') }}" 
+                                    class="form-input placeholder:text-placeholder bg-transparent focus:outline-none placeholder:opacity-80 w-full">
                                 <button type="submit">
                                     <i class="icofont-search-1 text-base"></i>
                                 </button>
                             </form>
+                            
+                            
                         </div>
                         <!-- categories -->
                         <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"
                             data-aos="fade-up">
-                            <h4
-                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
+                            <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
                                 Kategori Kursus
                             </h4>
                             <ul class="flex flex-col gap-y-4">
                                 <li
-                                    class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                                    <a href="#">Mobile Set</a> <a href="#">03</a>
-                                </li>
-                                <li
-                                    class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                                    <a href="#">Mobile Set</a> <a href="#">03</a>
-                                </li>
-                                <li
-                                    class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                                    <a href="#">Raxila Dish nonyte</a> <a href="#">09</a>
-                                </li>
-                                <li
-                                    class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                                    <a href="#">Fresh Vegetable</a> <a href="#">01</a>
-                                </li>
-                                <li
-                                    class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                                    <a href="#">Fruites</a> <a href="#">00</a>
-                                </li>
-                                <li
-                                    class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                                    <a href="#">Gesuriesey</a> <a href="#">26</a>
-                                </li>
+                                        class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
+                                        <a href="{{ route('course') }}"
+                                            class="{{ empty($selectedCategory) ? 'text-primaryColor font-bold' : '' }}">
+                                            All
+                                        </a>
+                                        
+                                    </li>
+                                @foreach ($categories as $category)
+                                    <li
+                                        class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-13px py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
+                                        <a href="{{ route('course', ['category' => $category->slug]) }}"
+                                            class="{{ $selectedCategory == $category->slug ? 'text-primaryColor font-bold' : '' }}">
+                                            {{ $category->name }}
+                                        </a>
+                                        <span>{{ $category->courses_count }}</span>
+                                    </li>
+                                @endforeach
                             </ul>
+                            
                         </div>
+
                         <!-- tags -->
                         <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"
-                            data-aos="fade-up">
-                            <h4
-                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
-                                Tag
-                            </h4>
-                            <ul class="flex flex-col gap-y-23px">
-                                <li
-                                    class="text-primaryColor text-size-15 font-medium dark:text-contentColor-dark flex justify-between leading-26px group">
-                                    <a href="#" class="w-full flex items-center gap-11px"><span
-                                            class="w-14px h-15px border border-primaryColor bg-primaryColor group-hover:border-primaryColor group-hover:bg-primaryColor"></span>
-                                        <span>Mechanic</span></a>
+                        data-aos="fade-up">
+                        <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
+                            Tag
+                        </h4>
+                        <ul class="flex flex-col gap-y-23px">
+                            <!-- Tambahkan link "All" untuk melihat semua tag -->
+                            <li class="text-primaryColor text-size-15 font-medium dark:text-contentColor-dark flex justify-between leading-26px group">
+                                <a href="{{ route('course') }}"
+                                   class="w-full flex items-center gap-11px {{ empty($selectedTag) ? 'text-secondaryColor' : '' }}">
+                                    <span class="w-14px h-15px border border-primaryColor bg-primaryColor group-hover:border-primaryColor group-hover:bg-primaryColor"></span>
+                                    <span>All</span> <!-- Menampilkan semua kursus -->
+                                </a>
+                            </li>
+                        
+                            @foreach ($popularTags as $tag => $count)
+                                <li class="text-primaryColor text-size-15 font-medium dark:text-contentColor-dark flex justify-between leading-26px group">
+                                    <a href="{{ route('course', ['tag' => $tag]) }}"
+                                       class="w-full flex items-center gap-11px {{ $selectedTag === $tag ? 'text-secondaryColor' : '' }}">
+                                        <span class="w-14px h-15px border border-primaryColor bg-primaryColor group-hover:border-primaryColor group-hover:bg-primaryColor"></span>
+                                        <span>{{ $tag }}</span>
+                                        <span>({{ $count }})</span> <!-- Menampilkan jumlah kursus terkait -->
+                                    </a>
                                 </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:hover:text-primaryColor dark:text-contentColor-dark flex justify-between leading-26px group">
-                                    <a href="#" class="w-full flex items-center gap-11px"><span
-                                            class="w-14px h-15px border border-darkdeep6 group-hover:border-primaryColor group-hover:bg-primaryColor"></span>
-                                        <span>English</span></a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:hover:text-primaryColor dark:text-contentColor-dark flex justify-between leading-26px group">
-                                    <a href="#" class="w-full flex items-center gap-11px"><span
-                                            class="w-14px h-15px border border-darkdeep6 group-hover:border-primaryColor group-hover:bg-primaryColor"></span>
-                                        <span>Computer Science</span></a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:hover:text-primaryColor dark:text-contentColor-dark flex justify-between leading-26px group">
-                                    <a href="#" class="w-full flex items-center gap-11px"><span
-                                            class="w-14px h-15px border border-darkdeep6 group-hover:border-primaryColor group-hover:bg-primaryColor"></span>
-                                        <span>Data & Tech</span></a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:hover:text-primaryColor dark:text-contentColor-dark flex justify-between leading-26px group">
-                                    <a href="#" class="w-full flex items-center gap-11px"><span
-                                            class="w-14px h-15px border border-darkdeep6 group-hover:border-primaryColor group-hover:bg-primaryColor"></span>
-                                        <span>Ux Desgin</span></a>
-                                </li>
-                            </ul>
-                        </div>
+                            @endforeach
+                        </ul>
+                        
+                    </div>
+
+                    
                         <!-- skills -->
                         <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"
-                            data-aos="fade-up">
-                            <h4
-                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
-                                Skill Level
-                            </h4>
-                            <ul class="flex flex-col gap-y-10px">
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="#" class="w-full"> All </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="#" class="w-full"> Fullstack </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="#" class="w-full"> English Learn </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="#" class="w-full"> Intermediate </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="#" class="w-full"> Wordpress </a>
-                                </li>
-                            </ul>
-                        </div>
+                        data-aos="fade-up">
+                        <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
+                            Skill Level
+                        </h4>
+                        <ul class="flex flex-col gap-y-10px">
+                            <!-- Menambahkan opsi "All" untuk melihat semua skill level -->
+                            <li class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                <a href="{{ route('course') }}" class="w-full {{ !request()->get('skill_level') ? 'text-primaryColor' : '' }}">
+                                    All
+                                </a>
+                            </li>
+                        
+                            <!-- Daftar Skill Level yang sudah terurut -->
+                            <li class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                <a href="{{ route('course', ['skill_level' => 'beginner']) }}" class="w-full {{ request()->get('skill_level') === 'beginner' ? 'text-primaryColor' : '' }}">
+                                    Beginner
+                                </a>
+                            </li>
+                            <li class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                <a href="{{ route('course', ['skill_level' => 'intermediate']) }}" class="w-full {{ request()->get('skill_level') === 'intermediate' ? 'text-primaryColor' : '' }}">
+                                    Intermediate
+                                </a>
+                            </li>
+                            <li class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                <a href="{{ route('course', ['skill_level' => 'advanced']) }}" class="w-full {{ request()->get('skill_level') === 'advanced' ? 'text-primaryColor' : '' }}">
+                                    Advanced
+                                </a>
+                            </li>
+                            <li class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                <a href="{{ route('course', ['skill_level' => 'specialist']) }}" class="w-full {{ request()->get('skill_level') === 'specialist' ? 'text-primaryColor' : '' }}">
+                                    Specialist
+                                </a>
+                            </li>
+                            <li class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                <a href="{{ route('course', ['skill_level' => 'expert']) }}" class="w-full {{ request()->get('skill_level') === 'expert' ? 'text-primaryColor' : '' }}">
+                                    Expert
+                                </a>
+                            </li>
+                            <li class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                <a href="{{ route('course', ['skill_level' => 'professional']) }}" class="w-full {{ request()->get('skill_level') === 'professional' ? 'text-primaryColor' : '' }}">
+                                    Professional
+                                </a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+
                     </div>
                 </div>
                 <!-- courses main -->
                 <div class="md:col-start-5 md:col-span-8 lg:col-start-4 lg:col-span-9 space-y-[30px]">
                     <div class="tab-contents">
                         <!-- grid ordered cards -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-30px">
+                        <div id="dataContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-30px">
                             <!-- card 1 -->
 
+                            @if($course->count())
                             @foreach ($course as $item)
                                 <div class="group">
                                     <div class="tab-content-wrapper" data-aos="fade-up">
@@ -281,13 +289,28 @@
                                     </div>
                                 </div>
                             @endforeach
-
+                            @else
+                            <!-- Pesan jika tidak ada kursus ditemukan -->
+                            <div class="coll-span-full text-center py-10 bg-lightGrey dark:bg-darkdeep3-dark text-xl font-semibold text-primaryColor">
+                                Kursus tidak ditemukan untuk pencarian ini.
+                            </div>
+                        @endif
+                            
+                            {{-- <div class="pagination">
+                                {{ $course->appends(['search' => request()->get('search'), 'category' => request()->get('category'), 'tag' => request()->get('tag'), 'skill_level' => request()->get('skill_level')])->links() }}
+                            </div> --}}
+                            
+                            
+                            
                         </div>
+                        
+                        
                         <!-- list ordered cards -->
                         <div class="hidden opacity-0 transition-all duration-300">
                             <div class="flex flex-col gap-30px">
                                 <!-- card 1 -->
-                                @foreach ($course as $item)
+                                @if($course->count())
+                                 @foreach ($course as $item)
                                     <div class="w-full group grid-item rounded">
                                         <div class="tab-content-wrapper" data-aos="fade-up">
                                             <div
@@ -411,11 +434,77 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @else
+                            <!-- Pesan jika tidak ada kursus ditemukan -->
+                            <div class="coll-span-full text-center py-10 bg-lightGrey dark:bg-darkdeep3-dark text-xl font-semibold text-primaryColor">
+                                Kursus tidak ditemukan untuk pencarian ini.
+                            </div>
+                        @endif
 
                             </div>
+                            <nav>
+                                <ul class="flex items-center justify-center gap-15px mt-60px mb-30px">
+                                    <!-- Previous Page Link -->
+                                    <li>
+                                        <a href="{{ $course->previousPageUrl() }}"
+                                            class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor {{ $course->onFirstPage() ? 'cursor-not-allowed' : '' }}">
+                                            <i class="icofont-double-left"></i>
+                                        </a>
+                                    </li>
+
+                                    <!-- Page Links -->
+                                    @foreach ($course->getUrlRange(1, $course->lastPage()) as $page => $url)
+                                        <li>
+                                            <a href="{{ $url }}"
+                                                class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center {{ $course->currentPage() == $page ? 'text-whiteColor bg-primaryColor hover:bg-primaryColor' : 'text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor' }}">
+                                                {{ $page }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+
+                                    <!-- Next Page Link -->
+                                    <li>
+                                        <a href="{{ $course->nextPageUrl() }}"
+                                            class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor {{ !$course->hasMorePages() ? 'cursor-not-allowed' : '' }}">
+                                            <i class="icofont-double-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
                         </div>
+                        <nav>
+                            <ul class="flex items-center justify-center gap-15px mt-60px mb-30px">
+                                <!-- Previous Page Link -->
+                                <li>
+                                    <a href="{{ $course->previousPageUrl() }}"
+                                        class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor {{ $course->onFirstPage() ? 'cursor-not-allowed' : '' }}">
+                                        <i class="icofont-double-left"></i>
+                                    </a>
+                                </li>
+                        
+                                <!-- Page Links -->
+                                @foreach ($course->getUrlRange(1, $course->lastPage()) as $page => $url)
+                                    <li>
+                                        <a href="{{ $url }}"
+                                            class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center {{ $course->currentPage() == $page ? 'text-whiteColor bg-primaryColor hover:bg-primaryColor' : 'text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor' }}">
+                                            {{ $page }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                        
+                                <!-- Next Page Link -->
+                                <li>
+                                    <a href="{{ $course->nextPageUrl() }}"
+                                        class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor {{ !$course->hasMorePages() ? 'cursor-not-allowed' : '' }}">
+                                        <i class="icofont-double-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        
                     </div>
-                    @include('landing.components.pagination.pagination')
+                    {{-- @include('landing.components.pagination.pagination') --}}
                 </div>
             </div>
         </div>
@@ -532,4 +621,37 @@
         });
     </script>
 
+{{-- <script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+    const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
+    const cards = document.querySelectorAll("#dataContainer .group"); // Ambil semua card
+
+    cards.forEach(card => {
+        const name = card.querySelector("a.text-lg").textContent.toLowerCase(); // Ambil nama kursus
+        const category = card.querySelector(".text-xs").textContent.toLowerCase(); // Ambil kategori
+
+        // Periksa apakah query ada di nama atau kategori
+        if (name.includes(query) || category.includes(query)) {
+            card.style.display = ""; // Tampilkan card
+        } else {
+            card.style.display = "none"; // Sembunyikan card
+        }
+    });
+});
+
+
+</script> --}}
+
+<style>
+    .coll-span-full {
+    grid-column: span 3;
+    text-align: center;
+    background-color: #f4f4f4;
+    padding: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 8px;
+}
+</style>
 @endsection

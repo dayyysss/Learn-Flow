@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('moduls', function (Blueprint $table) {
-            $table->boolean('task')->nullable()->after('file');
+        Schema::table('menu_lists', function (Blueprint $table) {
+            $table->text('ikon')->nullable()->change();
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('moduls', function (Blueprint $table) {
+        Schema::table('menu_lists', function (Blueprint $table) {
             //
         });
     }

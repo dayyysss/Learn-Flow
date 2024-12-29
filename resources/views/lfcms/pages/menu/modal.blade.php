@@ -63,7 +63,7 @@
 
             <div class="mb-3 permissions" id="permissions-container">
                 <label class="form-label text-sm font-medium text-gray-700">Permissions</label>
-                <div class="flex flex-wrap space-x-4">
+                <div class="flex flex-wrap space-x-2">
                     <label><input type="checkbox" name="permissions[]" value="index"> Index</label>
                     <label id="create-permission"><input type="checkbox" name="permissions[]" value="create">
                         Create</label>
@@ -136,7 +136,7 @@
             </div>
 
             <!-- Menu Type -->
-            <div class="mb-3">
+            <div class="mb-3 hidden">
                 <label for="edit_menutype_id" class="form-label text-sm font-medium text-gray-700">Menu Type</label>
                 <select id="edit_menutype_id" name="menutype_id"
                     class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 sm:text-sm">
@@ -147,7 +147,7 @@
             </div>
 
             <!-- Permissions -->
-            <div class="mb-3 permissions" id="permissions-container-edit">
+            <div class="mb-3 permissions hidden" id="permissions-container-edit">
 
                 <label class="form-label text-sm font-medium text-gray-700">Permissions</label>
                 <div id="permissions-list" class="flex gap-1">
@@ -265,23 +265,25 @@
 
 <script>
     document.getElementById('menutype_id').addEventListener('change', function() {
-        var menutypeId = this.value;
+        var menutypeId = parseInt(this.value); // Pastikan nilainya berupa angka
         var permissionsContainer = document.getElementById('permissions-container');
 
-        if (menutypeId != 1) {
-            // Sembunyikan semua opsi permissions jika tipe menu bukan ID 1
+        // Periksa jika menutypeId adalah 1 atau 2
+        if (menutypeId === 1 || menutypeId === 2) {
+            // Tampilkan opsi permissions
+            permissionsContainer.style.display = 'block';
+        } else {
+            // Sembunyikan semua opsi permissions jika tipe menu bukan ID 1 atau 2
             permissionsContainer.style.display = 'none';
             // Pastikan semua checkbox tidak dicentang
             var checkboxes = permissionsContainer.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach(function(checkbox) {
                 checkbox.checked = false;
             });
-        } else {
-            // Tampilkan kembali opsi permissions jika tipe menu adalah ID 1
-            permissionsContainer.style.display = 'block';
         }
     });
 </script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

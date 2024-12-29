@@ -126,7 +126,7 @@
                                         <label
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Username
                                             atau email</label>
-                                        <input type="text" id="email" name="email"
+                                        <input type="text" id="login" name="login" required
                                             placeholder="Your username or email"
                                             class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                     </div>

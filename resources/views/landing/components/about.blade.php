@@ -5,8 +5,7 @@
             <!-- about left -->
             <div class="relative z-0 mb-30px lg:mb-0 pb-0 md:pb-30px xl:pb-0 overflow-visible" data-aos="fade-up">
                 <div class="tilt">
-                    <img class="md:ml-[70px]" src="assets/images/about/about_2.png" alt="">
-                    {{-- <img class="md:ml-[70px]" src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->judul }}"> --}}
+                    <img class="md:ml-[70px]" src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->judul }}">
                     <img class="absolute right-0 sm:right-[-17px] md:right-36 lg:right-4 bottom-[91px] md:bottom-0"
                         src="assets/images/about/about_3.png" alt="">
                     <img class="absolute top-[-18px] left-[30px] animate-move-hor z-[-1]"
@@ -32,23 +31,23 @@
                     class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
                     Tentang Kami
                 </span>
-                <h3
+                {{-- <h3
                     class="text-3xl md:text-size-45 leading-10 md:leading-2xl font-bold text-blackColor dark:text-blackColor-dark pb-25px">
                     Selamat datang di
 
                     Pusat Pembelajaran <span
                         class="relative after:w-full after:h-[7px] after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5">Online</span>
-                </h3>
-                {{-- <p>
+                </h3> --}}
+                <div class="dark:text-blackColor-dark">
                     {!! $about->deskripsi !!}
-                </p> --}}
-                <p
+                </div>
+                {{-- <p
                     class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark mb-6 pl-3 border-l-2 border-primaryColor">
                     Di sini, Anda akan menemukan materi yang dirancang untuk mendukung pembelajaran dalam berbagai
                     disiplin ilmu. Dari kursus pemrograman hingga desain grafis, kami memastikan semua bahan ajar yang
                     kami sediakan terupdate dengan perkembangan terbaru di bidangnya.
-                </p>
-                <ul class="space-y-5">
+                </p> --}}
+                {{-- <ul class="space-y-5">
                     <li class="flex items-center group">
                         <i
                             class="icofont-check px-2 py-2 text-primaryColor bg-whitegrey3 bg-opacity-40 group-hover:bg-primaryColor group-hover:text-white group-hover:opacity-100 mr-15px dark:bg-whitegrey1-dark"></i>
@@ -70,7 +69,9 @@
                             Pengalaman Belajar yang Interaktif
                         </p>
                     </li>
-                </ul>
+                </ul> --}}
+
+
             </div>
         </div>
         <!-- about counter -->
@@ -142,3 +143,5 @@
         </div>
     </div>
 </section>
+
+
