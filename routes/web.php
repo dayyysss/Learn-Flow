@@ -96,6 +96,9 @@ Route::prefix('lfcms')
         Route::resource('/halaman', PageController::class);
         Route::resource('/testimonial', TestimonialController::class);
         Route::resource('/kontak', ContactController::class);
+        Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
+        Route::delete('/kontak/{id}', [ContactController::class, 'destroy'])->name('kontak.destroy');
+        Route::post('/kontak/{id}/reply', [ContactController::class, 'reply'])->name('kontak.reply');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
     // Route::resource('/testimonial', TestimoniController::class);
