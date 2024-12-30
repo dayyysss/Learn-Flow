@@ -31,7 +31,9 @@ class LandingPageController extends Controller
 
     public function about()
     {
-        return view('landing.pages.about.about');
+        $testimonial = Testimonial::where('status', 'publik')->get();
+
+        return view('landing.pages.about.about', compact('testimonial'));
     }
 
     public function course(Request $request)
