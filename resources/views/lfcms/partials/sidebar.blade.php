@@ -71,10 +71,10 @@
                 @else
 
                 
-                <li
+                <span
                 class="!mt-5 pt-5 border-t border-gray-200 dark:border-dark-border-two mx-4 group-data-[sidebar-size=sm]:hidden">
                 <h5 class="text-heading text-lg leading-none font-semibold mb-5">{{$menu->name}}</h5>
-                </li>
+                </span>
 
                 @endif
                 @endpermission
@@ -89,7 +89,8 @@
     </div>
     <!-- Logout Link -->
     <div class="mt-auto px-7 py-6 group-data-[sidebar-size=sm]:px-2">
-        <a href="#"
+        <a href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
             class="flex-center-between text-gray-500 dark:text-dark-text font-semibold leading-none bg-gray-200 dark:bg-[#090927] dark:group-data-[sidebar-size=sm]:bg-dark-card-shade rounded-[10px] px-6 py-4 group-data-[sidebar-size=sm]:p-[12px_8px] group-data-[sidebar-size=sm]:justify-center dk-theme-card-square">
             <span class="group-data-[sidebar-size=sm]:hidden block">Keluar</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
@@ -99,7 +100,11 @@
                     fill="currentColor" />
             </svg>
         </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+            @csrf
+        </form>
     </div>
+    
 </div>
 
 
