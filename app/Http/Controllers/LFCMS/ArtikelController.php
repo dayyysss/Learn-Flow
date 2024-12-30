@@ -14,13 +14,13 @@ class ArtikelController extends Controller
     {
         $artikel = Artikel::paginate(10);
 
-        return view ('lfcms.pages.artikel.index', compact('artikel'));
+        return view('lfcms.pages.artikel.index', compact('artikel'));
     }
 
     public function create()
     {
         $kategori = CategoryArtikel::all();
-        return view ('lfcms.pages.artikel.create', compact('kategori'));
+        return view('lfcms.pages.artikel.create', compact('kategori'));
     }
 
     public function store(Request $request)
@@ -49,7 +49,7 @@ class ArtikelController extends Controller
         $artikel->tag = $request->tag;
         $artikel->author = auth()->user()->name;
         $artikel->status = $request->status;
-        $artikel->visitor = 0 ;
+        $artikel->visitor = 0;
 
         if ($request->hasFile('image')) {
             $artikel->image = $request->file('image')->store('artikel_image', 'public');
@@ -59,4 +59,59 @@ class ArtikelController extends Controller
 
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan');
     }
+
+    public function edit($id)
+    {
+        $artikel = Artikel::findOrFail($id);
+        $kategori = CategoryArtikel::all();
+        return view('lfcms.pages.artikel.edit', compact('artikel', 'kategori'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'required',
+            'slug' => 'required',
+            'deskripsi_singkat' => 'required',
+            'deskripsi' => 'required',
+            'category_id' => 'required',
+            'status' => 'required',
+            'publish_date' => 'required|date',
+            'tag' => 'nullable|string',
+            'image' => 'nullable|image',
+        ]);
+
+        $artikel = Artikel::findOrFail($id);
+
+        // Update artikel
+        $artikel->judul = $request->judul;
+        $artikel->slug = $request->slug;
+        $artikel->deskripsi_singkat = $request->deskripsi_singkat;
+        $artikel->deskripsi = $request->deskripsi;
+        $artikel->category_id = $request->category_id;
+        $artikel->status = $request->status;
+        $artikel->publish_date = $request->publish_date;
+
+        if ($request->filled('tag')) {
+            $artikel->tag = $request->tag;
+        }
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('artikel_image', 'public');
+            $artikel->image = $path;
+        }
+
+        $artikel->save();
+
+        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $artikel = Artikel::findOrFail($id);
+        $artikel->delete();
+
+        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dihapus.');
+    }
+
 }

@@ -1,112 +1,53 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Tambah Klien | Learn Flow CMS')
+@section('page_title', isset($klien) ? 'Edit Klien | Learn Flow CMS' : 'Tambah Klien | Learn Flow CMS')
 @section('content')
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
-        <form action="{{ route('klien.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ isset($klien) ? route('klien.update', $klien->id) : route('klien.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @if(isset($klien))
+                @method('PUT')
+            @endif
             <div class="grid grid-cols-12 gap-x-4">
                 <!-- Start Course Information -->
                 <div class="col-span-full lg:col-span-7 card h-fit">
                     <div class="p-1.5">
-                        <h6 class="card-title">Tambah Klien</h6>
+                        <h6 class="card-title">{{ isset($klien) ? 'Edit Klien' : 'Tambah Klien' }}</h6>
                         <div class="mt-7 pt-0.5">
-                            <div class="grid  gap-y-5">
+                            <div class="grid gap-y-5">
                                 <div class="col-span-full xl:col-auto leading-none">
                                     <label for="name" class="form-label">Nama</label>
                                     <input type="text" id="name" name="name" placeholder="Masukan Nama"
-                                        class="form-input" required>
+                                        class="form-input" value="{{ old('name', $klien->name ?? '') }}" required>
                                 </div>
                             </div>
                             <div>
-
                                 <div class="grid mt-3 gap-y-5">
                                     <div class="col-span-full xl:col-auto leading-none">
                                         <label for="url" class="form-label">Url</label>
                                         <input type="text" id="url" name="url" placeholder="Masukan url"
-                                            class="form-input" required>
+                                            class="form-input" value="{{ old('url', $klien->url ?? '') }}" required>
                                     </div>
                                 </div>
-
                                 <div class="col-span-full mt-3 xl:col-auto leading-none">
                                     <label for="status" class="form-label">Status</label>
                                     <select class="singleSelect" name="status" id="status">
                                         <option selected disabled>Pilih Status</option>
-                                        <option value="publik">Publik</option>
-                                        <option value="draft">Draft</option>
+                                        <option value="publik" {{ old('status', $klien->status ?? '') == 'publik' ? 'selected' : '' }}>Publik</option>
+                                        <option value="draft" {{ old('status', $klien->status ?? '') == 'draft' ? 'selected' : '' }}>Draft</option>
                                     </select>
                                 </div>
-
-
-
-                                {{-- <div class="col-span-full xl:col-auto leading-none">
-                                <label for="coursePrice" class="form-label">Course price</label>
-                                <input type="number" id="coursePrice" placeholder="$200.00" class="form-input" required>
-                            </div> --}}
-                                {{-- <div class="col-span-full xl:col-auto leading-none">
-                                <label class="form-label">Courses category</label>
-                                <select class="singleSelect">
-                                    <option selected disabled>Select category</option>
-                                    <option value="val">Science</option>
-                                    <option value="val">Mathematics</option>
-                                    <option value="val">Engineering</option>
-                                    <option value="val">Humanities</option>
-                                    <option value="val">Social Sciences</option>
-                                    <option value="val">Business</option>
-                                    <option value="val">Computer Science</option>
-                                    <option value="val">Arts</option>
-                                    <option value="val">Health Sciences</option>
-                                    <option value="val">Law</option>
-                                </select>
-                            </div>
-                            <div class="col-span-full xl:col-auto leading-none">
-                                <label class="form-label">Courses level</label>
-                                <select class="singleSelect">
-                                    <option selected disabled>Select Label</option>
-                                    <option value="val">Beginner</option>
-                                    <option value="val">Intermediate</option>
-                                    <option value="val">Advanced</option>
-                                    <option value="val">Expert</option>
-                                </select>
-                            </div>
-                             --}}
-                                {{-- <div class="col-span-full mt-3 xl:col-auto leading-none">
-                                <label for="deskripsi-singkat" class="form-label">Deskripsi Singkat</label>
-                                <textarea type="text" id="deskripsi-singkat" placeholder="deskripsi singkat" class="form-input h-[100px]" required></textarea>
-                            </div> --}}
-                                {{-- <div class="col-span-full xl:col-auto leading-none">
-                                <label class="form-label">Courses Type</label>
-                                <select class="singleSelect">
-                                    <option selected disabled>Select Course Type</option>
-                                    <option value="workshop">Workshop</option>
-                                    <option value="seminar">Seminar</option>
-                                    <option value="online">Online</option>
-                                    <option value="hybrid">Hybrid</option>
-                                    <option value="self-paced">Self-paced</option>
-                                    <option value="certification">Certification</option>
-                                    <option value="bootcamp">Bootcamp</option>
-                                </select>
-                            </div>  --}}
-                                {{-- <div class="col-span-full mt-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea id="description" name="description" rows="8" class="summernote form-input"></textarea>
-                                <div class="flex items-center gap-2 mt-3.5">
-                                    <input type="checkbox" name="agreeTermCondition" id="agreeTermCondition" class="accent-primary-500">
-                                    <label for="agreeTermCondition" class="text-xs leading-none text-gray-500 dark:text-dark-text select-none">I am totally agree with your term & condition</label>
-                                </div>
-                            </div> --}}
                             </div>
                         </div>
                         <div class="flex-center mt-5 !justify-end">
                             <button type="submit"
-                                class="btn b-solid btn-primary-solid btn-md w-full dk-theme-card-square">Tambah</button>
+                                class="btn b-solid btn-primary-solid btn-md w-full dk-theme-card-square">{{ isset($klien) ? 'Update' : 'Tambah' }}</button>
                         </div>
                     </div>
                 </div>
                 <!-- End Course Information -->
 
                 <!-- Start Course Media File -->
-
                 <div class="col-span-full h-fit lg:col-span-5 gap-y-3">
                     <div class="card">
                         <div class="p-1.5">
@@ -129,6 +70,9 @@
                                             <span class="mt-2 text-gray-500 dark:text-dark-text">Pilih file</span>
                                         </span>
                                     </label>
+                                    @if(isset($klien) && $klien->image)
+                                        <p class="mt-2 text-sm">Gambar saat ini: <a href="{{ asset('storage/' . $klien->image) }}" target="_blank">Lihat Gambar</a></p>
+                                    @endif
                                 </div>
                             </div>
                         </div>

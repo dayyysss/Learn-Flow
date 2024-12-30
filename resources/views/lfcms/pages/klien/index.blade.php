@@ -13,12 +13,16 @@
                     <div class="p-6">
                         <div class="flex-center-between">
                             <div class="flex items-center gap-5">
-                                <form class="max-w-80 relative">
+                            <form class="max-w-80 relative">
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                     </span>
-                                    <input type="text" name="search" value="{{ $search ?? '' }}"
-                                        placeholder="Search for..." class="form-input pl-[30px]">
+                                    <input 
+                                    type="text" 
+                                    name="search" 
+                                    value="{{ $search ?? '' }}" 
+                                    placeholder="Search for..." 
+                                    class="form-input pl-[30px]">
                                 </form>
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
@@ -63,30 +67,22 @@
                                             </td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-3.5">
-
-                                                    <div>
-                                                        <h6 class="leading-none text-heading font-semibold">
-                                                            <a href="#">{{ $client->name }}</a>
-                                                        </h6>
-                                                        <p class="font-spline_sans text-sm font-light mt-1">
-                                                            {{ $client->job_title }}</p>
-                                                    </div>
+                                                    <a href="#">{{ $client->name }}</a>
                                                 </div>
                                             </td>
                                             <td class="p-6 py-4">
                                                 <span
                                                     class="badge 
-                                            {{ $client->status == 'Publik' ? 'badge-success-light' : ($client->status == 'draft' ? 'badge-danger-light' : 'badge-warning-light') }}">
-                                                    {{ $client->status }}
+                                            {{ $client->status == 'Publik' ? 'badge-success-light' : ($client->status == 'draft' ? 'badge-warning-light' : 'badge-success-light') }}">
+                                                    {{ ucfirst($client->status) }}
                                                 </span>
                                             </td>
                                             <td class="p-6 py-4">
                                                 <div class="flex flex-col gap-2">
                                                     <a href="#" class="size-12 rounded-50 overflow-hidden">
                                                         <!-- Menggunakan path dinamis dengan direktori public/clients -->
-                                                        <img src="{{ asset('public/clients/' . $client->image) }}"
-                                                            alt="client">
-                                                    </a>
+                                                        <img src="{{ Storage::url($client->image) }}" alt="client">
+                                                        </a>
                                                 </div>
                                             </td>
                                             <td class="p-6 py-4">
@@ -95,11 +91,16 @@
                                                         class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <a href="{{ route('klien.destroy', $client->id) }}"
-                                                        class="btn-icon btn-danger-icon-light size-7"
-                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus klien ini?')">
-                                                        <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                    </a>
+                                                    <form action="{{ route('klien.destroy', $client->id) }}" method="POST" class="inline-block">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                                class="btn-icon btn-danger-icon-light size-7"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus klien ini?')">
+                                                            <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                        </button>
+                                                    </form>
+
                                                     <div class="relative ml-5">
                                                         <button data-popover-target="td-3-0" data-popover-trigger="click"
                                                             data-popover-placement="bottom-end"
@@ -168,4 +169,8 @@
             </div>
         </div>
     </div>
+
+   
+
+    
 @endsection

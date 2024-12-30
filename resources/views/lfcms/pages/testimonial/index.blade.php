@@ -17,8 +17,7 @@
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
                                     </span>
-                                    <input type="text" name="search" value="{{ $search ?? '' }}"
-                                        placeholder="Search for..." class="form-input pl-[30px]">
+                                    <input type="text" id="searchInput" placeholder="Search for..." class="form-input pl-[30px]">
                                 </form>
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
@@ -82,11 +81,10 @@
                                             </td>
                                             <td class="p-6 py-4">
                                                 <div class="flex flex-col gap-2">
-                                                    <a href="#" class="size-12 rounded-50 overflow-hidden">
-                                                        <!-- Menggunakan path dinamis dengan direktori public/testimonials -->
-                                                        <img src="{{ asset('public/testimonials/' . $testimonial->image) }}"
-                                                            alt="testimonial">
-                                                    </a>
+                                                <a href="#" class="size-12 rounded-50 overflow-hidden">
+                                                        <!-- Menggunakan path dinamis dengan direktori public/clients -->
+                                                        <img src="{{ Storage::url($testimonial->image) }}" alt="testi">
+                                                        </a>
                                                 </div>
                                             </td>
                                             <td class="p-6 py-4">
@@ -95,11 +93,15 @@
                                                         class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <a href="{{ route('testimonial.destroy', $testimonial->id) }}"
-                                                        class="btn-icon btn-danger-icon-light size-7"
-                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus Testimonial ini?')">
-                                                        <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                    </a>
+                                                    <form action="{{ route('testimonial.destroy', $testimonial->id) }}" method="POST" class="inline-block">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                                class="btn-icon btn-danger-icon-light size-7"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus testimonial ini?')">
+                                                            <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                        </button>
+                                                    </form>
                                                     <div class="relative ml-5">
                                                         <button data-popover-target="td-3-0" data-popover-trigger="click"
                                                             data-popover-placement="bottom-end"
@@ -212,5 +214,7 @@
             }, 300); // Sesuaikan dengan durasi animasi
         }
     </script>
+
+    
 
 @endsection

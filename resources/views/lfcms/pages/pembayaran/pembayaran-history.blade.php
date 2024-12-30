@@ -52,7 +52,7 @@
                                     <td class="px-7 py-6">{{ number_format($item->harga, 2) }}</td>
                                     <td class="px-7 py-6">
                                         <!-- Invoice Preview Button -->
-                                        <a href="{{ route('historypembayaranCMS', ['preview_invoice' => $item->id]) }}" target="_blank"
+                                        <a href="{{ route('riwayat-pembayaran.index', ['preview_invoice' => $item->id]) }}" target="_blank"
                                             class="size-8 flex-center rounded-50 bg-primary-200 dark:bg-dark-icon">
                                             <i class="ri-download-cloud-2-line text-primary-500"></i>
                                         </a>

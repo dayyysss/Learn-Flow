@@ -86,9 +86,9 @@ class MenuListController extends Controller
             'id' => $menu->id,
             'content' => $menu->name,
             'slug' => $menu->slug,
-            'link' => $menu->url,
+            'url' => $menu->url,
             'menutype_id' => $menu->menutype_id,
-            'icon' => $menu->ikon,
+            'ikon' => $menu->ikon,
             'permissions' => [
                 'create' => optional($menu->createPermission)->name ?? false,
                 'index' => optional($menu->indexPermission)->name ?? false,

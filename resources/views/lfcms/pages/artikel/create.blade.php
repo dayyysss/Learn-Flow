@@ -44,7 +44,7 @@
             @csrf
             <div class="grid grid-cols-12 gap-x-4">
                 <!-- Start Artikel Information -->
-                <div class="col-span-full lg:col-span-7 card">
+                <div class="col-span-full lg:col-span-7 card h-fit">
                     <div class="p-6">
                         <h6 class="card-title text-xl font-semibold mb-4">Tambah Artikel</h6>
                         <div class="mt-4">
@@ -63,9 +63,10 @@
                                 <!-- Author input dihapus, dan akan diambil otomatis dari auth()->user()->name -->
                                 <div class="col-span-full">
                                     <label for="deskripsi_singkat" class="form-label">Deskripsi Singkat</label>
-                                    <textarea id="deskripsi_singkat" name="deskripsi_singkat" rows="3" class="form-input"
+                                    <textarea id="deskripsi_singkat" name="deskripsi_singkat" rows="3" class="form-input h-[100px]"
                                         placeholder="Deskripsi Singkat" required></textarea>
                                 </div>
+
                                 <div class="col-span-full">
                                     <label for="deskripsi" class="form-label">Deskripsi</label>
                                     <textarea id="deskripsi" name="deskripsi" rows="6" class="summernote form-input" placeholder="Deskripsi Lengkap"
@@ -110,14 +111,11 @@
                                         placeholder="Masukan tag" autocomplete="off" onkeypress="addTag(event)">
 
 
-                                    <input type="hidden" name="tags" id="hidden-tags" value="{{ old('tags') }}">
+                                    <input type="hidden" name="tag" id="hidden-tags" value="{{ old('tag') }}">
                                 </div>
                                 <p class="text-xs">*tekan enter untuk memisahkan</p>
                             </div>
-                            <div class="col-span-full">
-                                <label for="publish_date" class="form-label">Tanggal publish</label>
-                                <input type="date" id="publish_date" name="publish_date" class="form-input" required>
-                            </div>
+
                             <div class="col-span-full">
                                 <label for="status" class="form-label">Status</label>
                                 <select class="singleSelect" name="status" id="status" required>
@@ -125,6 +123,14 @@
                                     <option value="0">Draft</option>
                                 </select>
                             </div>
+
+                            <div class="col-span-full">
+                                <label for="publish_date" class="form-label">Tanggal publish</label>
+                                <input type="date" id="publish_date" name="publish_date" class="form-input" required>
+                            </div>
+
+                            
+
                             <div class="col-span-full">
                                 <p class="text-sm text-gray-500 mb-3">Gambar</p>
                                 <label for="image"
@@ -140,9 +146,10 @@
                                 </label>
                             </div>
                             <!-- Menambahkan jarak antara upload file dan tombol -->
-                            <div class="flex justify-end gap-4 mt-5">
-                                <button type="submit" class="btn btn-primary-solid btn-lg">Kirim</button>
-                                <a href="{{ route('artikel.index') }}" class="btn btn-secondary-solid btn-lg">Batal</a>
+                            <div class="flex gap-5 mt-6">
+                                <button type="submit"
+                                    class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                                <a href="{{ route('artikel.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>
                             </div>
                         </div>
                     </div>

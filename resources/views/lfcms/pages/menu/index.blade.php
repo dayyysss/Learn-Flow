@@ -333,6 +333,10 @@ cursor: pointer; /* Ganti kursor menjadi pointer */
     .btn-secondary {
         background-color: #6c757d;
     }
+
+    .dd {
+        max-width: 100%;
+    }
 </style>
 
 

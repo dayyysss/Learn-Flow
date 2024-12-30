@@ -126,7 +126,7 @@
                                         <label
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Username
                                             atau email</label>
-                                        <input type="text" id="email" name="email"
+                                        <input type="text" id="login" name="login" required
                                             placeholder="Your username or email"
                                             class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                     </div>
@@ -173,10 +173,11 @@
                                             class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             <i class="icofont-facebook"></i> Facebook
                                         </button>
-                                        <button type="button"
-                                            class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            <i class="icofont-google-plus"></i> Google
-                                        </button>
+                                        <a href="{{ route('google.login') }}" 
+    class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+    <i class="icofont-google-plus"></i> Google
+</a>
+
                                     </div>
                                 </form>
                                 <x-notify::notify />

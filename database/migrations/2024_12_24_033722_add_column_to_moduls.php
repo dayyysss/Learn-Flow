@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->dropColumn('job_title');
+        Schema::table('moduls', function (Blueprint $table) {
+            $table->boolean('task')->nullable()->after('file');
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('clients', function (Blueprint $table) {
+        Schema::table('moduls', function (Blueprint $table) {
             //
         });
     }

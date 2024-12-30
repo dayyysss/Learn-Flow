@@ -22,7 +22,6 @@ use App\Http\Controllers\LFCMS\MenuListController;
 use App\Http\Controllers\LFCMS\MenuTypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Quiz\QuizController;
-use App\Http\Controllers\LFCMS\TestimoniController;
 use App\Http\Controllers\LFCMS\PembayaranController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\LFCMS\TestimonialController;
@@ -37,6 +36,7 @@ use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
+use App\Http\Controllers\LFCMS\ContactController    ;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 // use App\Http\Controllers\LFCMS\ArticleController;
@@ -46,6 +46,7 @@ use App\Http\Controllers\Admin\CourseRegistrationController;
 // use App\Models\ModulProgress;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\GoogleController;
 
 // Auth
 Route::get('/login', function () { return view('auth.login'); })->name('login');
@@ -64,6 +65,10 @@ Route::get('/email/verify', function () { return view('auth.verify-email'); })->
 // })->name('verification.notice');
 // Route::post('/email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 
+//Login Google
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
 //apexchart
 Route::get('/visitor-count', [DashboardController::class, 'visitor']);
 
@@ -74,7 +79,15 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/course', 'course')->name('course');
     Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
     Route::get('/event', 'event')->name('event');
-    Route::get('/blog', 'blog')->name('blog');
+
+    Route::prefix('artikel')->group(function () {
+        Route::get('/', 'artikel')->name('artikel');
+        Route::get('/{slug}', 'showSlug')->name('artikel.showSlug');
+        Route::get('/cari', 'search')->name('artikel.search');
+        Route::get('/kategori/{name}', 'showCategory')->name('artikel.category');
+        Route::get('/tag/{tag}', 'showTag')->name('artikel.tag');
+    });
+
     Route::get('/kontak', 'contact')->name('contact');
     Route::get('/instruktur', 'instructor')->name('instructor');
 });
@@ -84,13 +97,16 @@ Route::prefix('lfcms')
     ->middleware(['auth', RoleMiddleware::class . ':superadmin'])
     ->group(function () {
     Route::controller(DashboardCMSController::class)->group(function () {
-        Route::get('/dashboard', 'indexCMS')->name('indexCMS');
+        Route::get('/dashboard', 'indexCMS')->name('dashboard.index');
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
         Route::resource('/klien', ClientController::class);
         Route::resource('/halaman', PageController::class);
         Route::resource('/testimonial', TestimonialController::class);
-        Route::get('/kontak', 'kontakCMS')->name('kontakCMS');
+        Route::resource('/kontak', ContactController::class);
+        Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
+        Route::delete('/kontak/{id}', [ContactController::class, 'destroy'])->name('kontak.destroy');
+        Route::post('/kontak/{id}/reply', [ContactController::class, 'reply'])->name('kontak.reply');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
     // Route::resource('/testimonial', TestimoniController::class);
@@ -102,12 +118,13 @@ Route::prefix('lfcms')
         //  Route::post('/modul/{slug}/progress', [ModulProgressController::class, 'updateProgress']);
 
 
+
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
-        Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaranCMS');
-        Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('historypembayaranCMS');
+        Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaran.index');
+        Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('riwayat-pembayaran.index');
 
 
         //user
@@ -147,7 +164,7 @@ Route::prefix('lfcms')
 });
 
 // Dashboard
-Route::middleware(['auth', RoleMiddleware::class . ':admin|instructor|student'])
+Route::middleware(['auth'])
     ->group(function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index.user');
@@ -174,7 +191,7 @@ Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->n
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
-Route::get('/quiz/{slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
+Route::get('/quiz/course/{slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 Route::resource('/certificate', CertificateController::class);
 
@@ -202,15 +219,8 @@ Route::patch('/cart', [CartController::class, 'updateCart']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
+Route::resource('quiz', App\Http\Controllers\Admin\Quiz\QuizController::class);
 
-//quiz
-Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
-Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
-Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
-Route::get('/quiz/{id}', [QuizController::class, 'show'])->name('quiz.show');
-Route::get('/quiz/{id}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
-Route::patch('/quiz/{id}/update', [QuizController::class, 'update'])->name('quiz.update');
-Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.destroy');
 
 //quiz result
 Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');
@@ -236,5 +246,5 @@ Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'upda
 
 // Rute untuk update progres berbasis scroll
 Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
-
+Route::get('/modultes', [DashboardController::class, 'modulPembelajaran'])->name('dashboard.modulPembelajaran');
     });

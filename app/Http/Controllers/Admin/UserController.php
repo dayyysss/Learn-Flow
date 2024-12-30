@@ -57,12 +57,11 @@ Validator::make($request->all(), [
         'max:255',
         Rule::unique(User::class),
     ],
+    'password' => ['required'],
+    'password_confirmation' => ['required', 'same:password'], // Menambahkan konfirmasi password
     'roles' => ['required', 'array'], // Validasi roles
     'roles.*' => ['exists:roles,name'], // Pastikan roles yang dipilih valid
 ])->validate();
-
-// Generate password acak
-$password = Str::random(8);
 
 // Set default image path
 $defaultImagePath = 'profile_images/default.png';
@@ -73,7 +72,7 @@ $user = User::create([
     'last_name' => $request['last_name'],
     'name' => $request['name'],
     'email' => $request['email'],
-    'password' => Hash::make($password),
+    'password' => Hash::make($request['password']),
     'image' => $defaultImagePath, // Set gambar default
 ]);
 

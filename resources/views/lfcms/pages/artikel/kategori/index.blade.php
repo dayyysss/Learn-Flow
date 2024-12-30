@@ -141,8 +141,8 @@
                     <td class="p-6 py-4">${item.user.name}</td>
                     <td class="p-6 py-4">
                         ${item.status == 1 ? 
-                            '<span class="badge badge-success-light rounded-full">Publik</span>' : 
-                            '<span class="badge badge-warning-light rounded-full">Draft</span>'}
+                            '<span class="badge badge-success-light">Publik</span>' : 
+                            '<span class="badge badge-warning-light">Draft</span>'}
                     </td>
                     <td class="p-6 py-4">
                         <div class="flex items-center gap-2">

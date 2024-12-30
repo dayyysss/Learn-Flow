@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator; // Tambahkan ini
 use App\Models\Contact;
 use App\Mail\ContactFormSubmitted;
 use Illuminate\Support\Facades\Mail;
@@ -20,7 +21,7 @@ class ContactController extends Controller
         $contacts = Contact::paginate(10);
     
         // Menampilkan view dan mengirimkan data kontak ke view
-        return view('admin.contact.index', compact('contacts'));
+        return view('lfcms.pages.kontak.index', compact('contacts'));
     }    
 
     /**
@@ -42,7 +43,7 @@ class ContactController extends Controller
         $contact = Contact::create($request->all());
     
         // Mengirim email ke admin (atau siapapun penerima emailnya)
-        Mail::to('admin@example.com')->send(new ContactFormSubmitted($contact));
+        Mail::to('nyoba@example.com')->send(new ContactFormSubmitted($contact));
     
 
         return response()->json(['success' => true, 'message' => 'Pesan berhasil dikirim cuy']);
@@ -60,15 +61,29 @@ class ContactController extends Controller
         $contact->delete();
 
         // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('contact.index')->with('success', 'Kontak berhasil dihapus');
+        return redirect()->route('kontak.index')->with('success', 'Kontak berhasil dihapus');
+    }
+
+    /**
+     * Display the specified testimonial.
+     */
+    public function show($id)
+    {
+        $contact = Contact::findOrFail($id);
+
+        return view('lfcms.pages.kontak.show', compact('contact'));
     }
 
     public function reply(Request $request, $id)
     {
         // Validasi data dari form balasan
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'reply_message' => 'required|string',
         ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
     
         // Mendapatkan data kontak
         $contact = Contact::findOrFail($id);
@@ -77,7 +92,7 @@ class ContactController extends Controller
         Mail::to($contact->email)->send(new ContactFormSubmitted($contact, $request->reply_message));
     
         // Redirect kembali ke halaman kontak dengan pesan sukses
-        return redirect()->route('contact.index')->with('success', 'Balasan berhasil dikirim ke ' . $contact->email);
+        return redirect()->route('kontak.index')->with('success', 'Balasan berhasil dikirim ke ' . $contact->email);
     }
 
     public function bulkDelete(Request $request)
