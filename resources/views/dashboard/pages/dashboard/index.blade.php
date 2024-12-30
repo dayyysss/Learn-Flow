@@ -17,14 +17,17 @@
 
                     <!-- counter area -->
                     <div class="counter grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-30px gap-y-5 pb-5">
-                        <div class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div
+                            class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
                                 <div>
                                     <img src="../../assets/images/counter/counter__1.png" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                        <span data-countup-number="{{ $enrolledCourses }}">{{ $enrolledCourses }}</span><span></span>
+                                    <p
+                                        class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                        <span
+                                            data-countup-number="{{ $enrolledCourses }}">{{ $enrolledCourses }}</span><span></span>
                                     </p>
                                     <p class="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                         Enrolled Courses
@@ -32,14 +35,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div
+                            class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
                                 <div>
                                     <img src="../../assets/images/counter/counter__2.png" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                        <span data-countup-number="{{ $activeCourses }}">{{ $activeCourses }}</span><span></span>
+                                    <p
+                                        class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                        <span
+                                            data-countup-number="{{ $activeCourses }}">{{ $activeCourses }}</span><span></span>
                                     </p>
                                     <p class="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                         Active Courses
@@ -47,14 +53,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div
+                            class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
                                 <div>
                                     <img src="../../assets/images/counter/counter__3.png" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                        <span data-countup-number="{{ $completeCourses }}">{{ $completeCourses }}</span><span></span>
+                                    <p
+                                        class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                        <span
+                                            data-countup-number="{{ $completeCourses }}">{{ $completeCourses }}</span><span></span>
                                     </p>
                                     <p class="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                         Complete Courses
@@ -62,14 +71,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div
+                            class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
                                 <div>
                                     <img src="../../assets/images/counter/counter__4.png" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                        <span data-countup-number="{{ $totalCourses }}">{{ $totalCourses }}</span><span></span>
+                                    <p
+                                        class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                        <span
+                                            data-countup-number="{{ $totalCourses }}">{{ $totalCourses }}</span><span></span>
                                     </p>
                                     <p class="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                         Total Courses
@@ -77,14 +89,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div
+                            class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
                                 <div>
                                     <img src="../../assets/images/counter/counter__3.png" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                        <span data-countup-number="{{ $totalStudents }}">{{ $totalStudents }}</span><span></span>
+                                    <p
+                                        class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                        <span
+                                            data-countup-number="{{ $totalStudents }}">{{ $totalStudents }}</span><span></span>
                                     </p>
                                     <p class="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                         Total Students
@@ -92,14 +107,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div
+                            class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
                                 <div>
                                     <img src="../../assets/images/counter/counter__4.png" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                        <span data-countup-number="{{ $totalEarnings }}">{{ $totalEarnings }}</span><span>k</span>
+                                    <p
+                                        class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                        <span
+                                            data-countup-number="{{ $totalEarnings }}">{{ $totalEarnings }}</span><span>k</span>
                                     </p>
                                     <p class="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                         Total Earning
@@ -107,7 +125,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
 
                 <!-- chart area-->
@@ -176,19 +194,11 @@
                                         <!-- Filter Range Tanggal -->
                                         <div id="rangeTanggalFilter" class="hidden flex flex-col gap-4">
                                             <div>
-                                                <label for="start_date"
+                                                <label for="range-tanggal"
                                                     class="text-sm font-medium text-blackColor dark:text-blackColor-dark">
-                                                    Tanggal Mulai
+                                                    Tanggal Awal - Tanggal Akhir
                                                 </label>
-                                                <input type="date" id="start_date"
-                                                    class="w-full mt-2 border border-lightGrey dark:border-darkGrey rounded-md p-3 text-sm bg-lightGrey5 dark:bg-lightGrey5-dark text-blackColor dark:text-lightGrey2 focus:ring-2 focus:ring-primaryColor focus:outline-none">
-                                            </div>
-                                            <div>
-                                                <label for="end_date"
-                                                    class="text-sm font-medium text-blackColor dark:text-blackColor-dark">
-                                                    Tanggal Akhir
-                                                </label>
-                                                <input type="date" id="end_date"
+                                                <input type="text" id="date_range"
                                                     class="w-full mt-2 border border-lightGrey dark:border-darkGrey rounded-md p-3 text-sm bg-lightGrey5 dark:bg-lightGrey5-dark text-blackColor dark:text-lightGrey2 focus:ring-2 focus:ring-primaryColor focus:outline-none">
                                             </div>
                                         </div>
@@ -965,22 +975,24 @@
 
             // Fungsi untuk menangani filter
             $('#applyFilter').on('click', function() {
-                const filterType = $('#filterType').val();
+                const tipe_filter = $('#filterType').val();
                 let data = {};
 
-                if (filterType === 'bulan-tahun') {
+                if (tipe_filter === 'bulan-tahun') {
                     data.bulan = $('#bulan').val();
                     data.tahun = $('#tahun').val();
-                } else if (filterType === 'range-tanggal') {
-                    data.start_date = $('#start_date').val();
-                    data.end_date = $('#end_date').val();
+                } else if (tipe_filter === 'range-tanggal') {
+                    // Mengambil nilai dari rentang tanggal
+                    const dateRange = $('#date_range').val().split(' - ');
+                    data.tanggal_awal = dateRange[0]; // Tanggal mulai
+                    // data.tanggal_akhir = dateRange[1]; // Tanggal akhir
                 }
 
                 $.ajax({
                     url: '/visitor-count',
                     method: 'GET',
                     data: {
-                        filterType,
+                        tipe_filter,
                         ...data
                     },
                     success: function(response) {
@@ -1011,6 +1023,12 @@
                 }
             });
 
+            // Inisialisasi Flatpickr untuk rentang tanggal
+            flatpickr("#date_range", {
+                mode: "range", // Memungkinkan pemilihan rentang tanggal
+                dateFormat: "d-m-Y", // Format tanggal yang digunakan adalah Y-m-d (contoh: 2024-10-19)
+            });
+
             // Inisialisasi chart dengan data default
             $.ajax({
                 url: '/visitor-count',
@@ -1037,7 +1055,7 @@
                 const isDarkMode = $('body').hasClass('dark');
                 const textColor = isDarkMode ? 'blackColor-dark' : 'blackColor';
                 const borderColor = isDarkMode ? '#3E3E3E' :
-                '#e7e7e7'; // Contoh perubahan warna border untuk dark mode
+                    '#e7e7e7'; // Contoh perubahan warna border untuk dark mode
 
                 // Mengubah warna teks sumbu X dan Y
                 $(':root').css({
