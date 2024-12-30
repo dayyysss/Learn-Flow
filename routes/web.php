@@ -91,6 +91,7 @@ Route::controller(LandingPageController::class)->group(function () {
 
     Route::get('/kontak', 'contact')->name('contact');
     Route::get('/instruktur', 'instructor')->name('instructor');
+    Route::get('/instruktur/{id}', [LandingPageController::class, 'showinstructor'])->name('showinstructor');
 });
 
 // Dashboard CMS

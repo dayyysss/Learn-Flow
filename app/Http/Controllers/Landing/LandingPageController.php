@@ -10,7 +10,9 @@ use App\Models\Course;
 use App\Models\Page;
 use App\Models\Artikel;
 use App\Models\Client;
+use App\Models\LFCMS\Administrator;
 use App\Models\Testimonial;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -157,9 +159,41 @@ class LandingPageController extends Controller
     }
 
     public function instructor()
-    {
-        return view('landing.pages.instructor.instructor');
+{
+    // Ambil semua instruktur dengan role_id = 3
+    $instrukturs = User::where('role_id', '3')->get();
+
+    // Pastikan data sosial media berupa JSON
+    foreach ($instrukturs as $instruktur) {
+        $instruktur->sosial_media = json_decode($instruktur->sosial_media, true);
     }
+
+    // Kirim data instruktur ke view
+    return view('landing.pages.instructor.instructor', compact('instrukturs'));
+}
+public function showinstructor($id)
+{
+    // Ambil instruktur dengan id tertentu
+    $instrukturs = User::findOrFail($id);  // Ambil instruktur tunggal
+
+    $relatedCourses = Course::where('instruktur_id', $id)
+                            ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+
+    // Pastikan sosial_media berupa JSON
+    $instrukturs->sosial_media = json_decode($instrukturs->sosial_media, true);
+
+    // Kirim data instruktur ke view
+    return view('landing.pages.instructor.instructor-detail', compact('instrukturs', 'relatedCourses'));
+}
+
+
+
+
+
+
     
     private function loadCommonData()
     {
