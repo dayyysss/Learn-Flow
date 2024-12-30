@@ -68,7 +68,7 @@
                         class="text-sm md:text-base text-blackColor dark:text-blackColor-dark bg-lightGrey5 dark:bg-whiteColor-dark leading-1.8 md:leading-1.8">
                         <tr>
                             <th class="px-5px py-10px md:px-5">Quiz</th>
-                            <th class="px-5px py-10px md:px-5">Student</th>
+                            <th class="px-5px py-10px md:px-5">Siswa</th>
                             <th class="px-5px py-10px md:px-5">Tanggal</th>
                             <th class="px-5px py-10px md:px-5">Duration</th>
                             <th class="px-5px py-10px md:px-5">Benar</th>

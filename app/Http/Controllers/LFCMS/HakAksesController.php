@@ -72,6 +72,7 @@ class HakAksesController extends Controller
             // Validasi input
             $validator = Validator::make($request->all(), [
                 'name' => 'required|unique:roles,name',
+
             ]);
     
             if ($validator->fails()) {
@@ -83,7 +84,8 @@ class HakAksesController extends Controller
             }
     
             // Buat role baru
-            Role::create(['name' => $request->name]);
+            Role::create(['name' => $request->name,
+            'akses' => 'backend',]);
     
             // Kembalikan response sukses
             return response()->json([
@@ -99,6 +101,7 @@ class HakAksesController extends Controller
             // Validasi input
             $validator = Validator::make($request->all(), [
                 'name' => 'required|unique:roles,name,' . $id, // Mengizinkan nama yang sama untuk role yang sedang diperbarui
+                
             ]);
     
             if ($validator->fails()) {

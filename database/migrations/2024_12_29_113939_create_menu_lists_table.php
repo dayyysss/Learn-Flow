@@ -17,8 +17,8 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->string('name');
             $table->string('slug');
-            $table->string('url');
-            $table->string('ikon');
+            $table->string('url')->nullable();
+            $table->text('ikon')->nullable();
             $table->foreignId('menutype_id')->references('id')->on('menu_types')->cascadeOnDelete();
             $table->foreignId('index')->nullable()->references('id')->on('permissions')->cascadeOnDelete();
             $table->foreignId('create')->nullable()->references('id')->on('permissions')->cascadeOnDelete();

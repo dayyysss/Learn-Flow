@@ -47,6 +47,7 @@ use App\Http\Controllers\Admin\CourseRegistrationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 
 // Auth
 Route::get('/login', function () { return view('auth.login'); })->name('login');
@@ -118,6 +119,8 @@ Route::prefix('lfcms')
         //  Route::post('/modul/{slug}/progress', [ModulProgressController::class, 'updateProgress']);
 
 
+        //website
+        Route::resource('/website', WebsiteConfigurationController::class);
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
