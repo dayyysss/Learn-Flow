@@ -70,24 +70,23 @@
                         <ul class="flex flex-col gap-y-3">
                             <li>
                                 <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">About
-                                    Us</a>
+                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Beranda</a>
                             </li>
                             <li>
                                 <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Teachers</a>
+                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Tentang</a>
                             </li>
                             <li>
                                 <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Partner</a>
+                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Kursus</a>
                             </li>
                             <li>
                                 <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Room-Details</a>
+                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Artikel</a>
                             </li>
                             <li>
                                 <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Gallery</a>
+                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Kontak</a>
                             </li>
                         </ul>
                     </div>
@@ -135,7 +134,8 @@
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="{{ asset('assets/images/footer/footer__1.png') }}" alt="" class="w-61px h-54px">
+                                        <img src="{{ asset('assets/images/footer/footer__1.png') }}" alt=""
+                                            class="w-61px h-54px">
                                     </div>
                                     <div>
                                         <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
@@ -150,7 +150,8 @@
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="{{ asset('assets/images/footer/footer__2.png') }}" alt="" class="w-61px h-54px">
+                                        <img src="{{ asset('assets/images/footer/footer__2.png') }}" alt=""
+                                            class="w-61px h-54px">
                                     </div>
                                     <div>
                                         <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
@@ -164,7 +165,8 @@
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="{{ asset('assets/images/footer/footer__3.png') }}" alt="" class="w-61px h-54px">
+                                        <img src="{{ asset('assets/images/footer/footer__3.png') }}" alt=""
+                                            class="w-61px h-54px">
                                     </div>
                                     <div>
                                         <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
