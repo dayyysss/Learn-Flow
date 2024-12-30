@@ -4,6 +4,7 @@ namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator; // Tambahkan ini
 use App\Models\Contact;
 use App\Mail\ContactFormSubmitted;
 use Illuminate\Support\Facades\Mail;
@@ -42,7 +43,7 @@ class ContactController extends Controller
         $contact = Contact::create($request->all());
     
         // Mengirim email ke admin (atau siapapun penerima emailnya)
-        Mail::to('admin@example.com')->send(new ContactFormSubmitted($contact));
+        Mail::to('nyoba@example.com')->send(new ContactFormSubmitted($contact));
     
 
         return response()->json(['success' => true, 'message' => 'Pesan berhasil dikirim cuy']);
@@ -76,9 +77,13 @@ class ContactController extends Controller
     public function reply(Request $request, $id)
     {
         // Validasi data dari form balasan
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'reply_message' => 'required|string',
         ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
     
         // Mendapatkan data kontak
         $contact = Contact::findOrFail($id);

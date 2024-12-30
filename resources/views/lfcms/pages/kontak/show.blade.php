@@ -49,28 +49,36 @@
             </div>
 
             <!-- Reply Email -->
-
             <div class="col-span-full lg:col-span-6 card">
-                    <div class="p-1.5">
-                        <h6 class="card-title">Balas Pesan </h6>
-                        <div class="mt-7 pt-0.5 flex flex-col gap-5">
-                            <div class="col-span-full">
-                                    <textarea id="description" rows="8" class="summernote form-input">
-                                        Advanced Python programming delves into the more sophisticated aspects of the language, 
-                                        enabling developers to create powerful and efficient applications. This includes mastering 
-                                        Object-Oriented Programming (OOP) to design modular and reusable code through classes, 
-                                        inheritance, and polymorphism.
-                                    </textarea>
-                                </div>
-                            <div class="flex-center !justify-end">
-                                <button type="submit" class="btn b-solid btn-primary-solid btn-lg dk-theme-card-square">Reply</button>
-                            </div>
+            <div class="p-1.5">
+                <h6 class="card-title">Balas Pesan</h6>
+                <div class="mt-7 pt-0.5 flex flex-col gap-5">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
                         </div>
-                    </div>
+                    @endif
+
+                    <form action="{{ route('kontak.reply', ['id' => $contact->id]) }}" method="POST">
+                        @csrf
+                        <!-- Email Pengirim -->
+                        <input type="hidden" name="email" value="{{ $contact->email }}">
+
+                        <!-- Textarea untuk Balasan -->
+                        <div class="col-span-full">
+                            <textarea id="reply_message" name="replyMessage" rows="8" class="summernote form-input">
+                                
+                            </textarea>
+                        </div>
+
+                        <!-- Tombol Kirim -->
+                        <div class="flex-center !justify-end">
+                            <button type="submit" class="btn b-solid btn-primary-solid btn-lg dk-theme-card-square">Reply</button>
+                        </div>
+                    </form>
                 </div>
-                <!-- End Course Media File -->
-       </div>
-    </div>
+            </div>
+        </div>
     <!-- End Main Content -->
 
     <!-- Start Delete Email Modal -->

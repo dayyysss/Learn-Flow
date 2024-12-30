@@ -10,6 +10,7 @@ use App\Models\Course;
 use App\Models\Page;
 use App\Models\Artikel;
 use App\Models\Client;
+use App\Models\Testimonial;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -21,10 +22,11 @@ class LandingPageController extends Controller
         $hero = Page::with('users')->where('status', 'publik')->find(1);
         $about = Page::with('users')->where('status', 'publik')->find(2);
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
+        $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $klien = Client::where('status', 'publik')->get();
         $commonData = $this->loadCommonData();
 
-        return view('landing-page', array_merge(compact('hero', 'about', 'artikel', 'klien'), $commonData));
+        return view('landing-page', array_merge(compact('hero', 'about', 'artikel', 'klien', 'testimonial'), $commonData));
     }
 
     public function about()
