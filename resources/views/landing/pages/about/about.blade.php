@@ -1528,35 +1528,36 @@
             <!-- testimonial slider -->
             <div class="testimonial -mx-15px relative bg-lightGrey10 dark:bg-lightGrey10-dark" data-aos="fade-up">
                 <!-- Swiper -->
-                <div class="swiper mySwiper">   
+                <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <!-- testimonial 1 -->
                         @foreach ($testimonial as $testimoni)
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="{{ asset('storage/' . $testimoni->image) }}" alt="{{ $testimoni->name }}"
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
+                            <div class="swiper-slide px-15px">
+                                <div
+                                    class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
+                                    <div class="flex justify-between items-center mb-15px lg:mb-30px">
+                                        <div class="flex items-center gap-5">
+                                            <div>
+                                                <img src="{{ asset('storage/' . $testimoni->image) }}"
+                                                    alt="{{ $testimoni->name }}" class="w-58px h-58px rounded-full">
+                                            </div>
 
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                {{ $testimoni->name }}
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">{{ $testimoni->profession }}</p>
+                                            <div>
+                                                <h5
+                                                    class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
+                                                    {{ $testimoni->name }}
+                                                </h5>
+                                                <p class="text-sm text-lightGrey9">{{ $testimoni->profession }}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                    {!! $testimoni->description !!}
-                                    </p>
+                                    <div>
+                                        <p class="text-contentColor dark:text-contentColor-dark">
+                                            {!! $testimoni->description !!}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     <div class="swiper-button-next translate-x-2 md:translate-x-8 3xl:translate-x-12"></div>
@@ -1580,60 +1581,13 @@
             </div>
             <!-- brands -->
             <div class="flex flex-wrap justify-center">
-                <!-- brand 1 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_1.png" alt="">
-                    </a>
-                </div>
-                <!-- brand  -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_2.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 3 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_3.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 4 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_4.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 5 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_5.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 6 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_6.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 7 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_7.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 8 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_8.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 9 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_9.png" alt="">
-                    </a>
-                </div>
+                @foreach ($klien as $client)
+                    <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
+                        <a href="{{ $client->url }}" class="pt-25px pb-45px text-center w-full flex justify-center">
+                            <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}">
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
