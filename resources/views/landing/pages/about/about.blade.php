@@ -18,11 +18,11 @@
                 <div data-aos="fade-up" class="2xl:ml-65px">
                     <span
                         class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
-                        About Us
+                        Tentang Kami
                     </span>
                     <h3
                         class="text-3xl md:text-size-45 leading-10 md:leading-2xl font-bold text-blackColor dark:text-blackColor-dark pb-25px">
-                        Welcome to the online Learning Center
+                        Selamat datang di Pusat Pembelajaran online
                     </h3>
                     <p class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark mb-25px">
                         Meet my startup design agency Shape Rex Currently I am working
@@ -44,7 +44,7 @@
                     <div class="mt-30px">
                         <a href="#"
                             class="text-sm md:text-size-15 text-whiteColor bg-primaryColor border border-primaryColor px-25px py-15px hover:text-primaryColor hover:bg-whiteColor rounded inline-block mr-6px md:mr-30px dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                            About More <i class="icofont-long-arrow-right"></i>
+                            Selengkapnya <i class="icofont-long-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -60,22 +60,22 @@
                 <div class="tab-links flex flex-wrap md:flex-nowrap mb-10px lg:mb-50px rounded gap-10px lg:gap-35px">
                     <button
                         class="is-checked relative py-10px px-25px md:py-10px md:px-10 lg:py-15px lg:px-60px font-bold uppercase text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 active">
-                        About
+                        Tentang
                     </button>
 
                     <button
                         class="is-checked relative py-10px px-25px md:py-10px md:px-10 lg:py-15px lg:px-60px font-bold uppercase text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300">
-                        COURSE
+                        Kursus
                     </button>
 
                     <button
                         class="is-checked relative py-10px px-25px md:py-10px md:px-10 lg:py-15px lg:px-60px font-bold uppercase text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300">
-                        AWARDS
+                        Penghargaan
                     </button>
 
                     <button
                         class="is-checked relative py-10px px-25px md:py-10px md:px-10 lg:py-15px lg:px-60px font-bold uppercase text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300">
-                        EDUCATION
+                        Pendidikan
                     </button>
                 </div>
                 <div class="tab-contents">
@@ -549,7 +549,7 @@
                 <div data-aos="fade-up">
                     <span
                         class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
-                        Popular Courses
+                        Kursus Populer
                     </span>
                     <h3 class="text-3xl md:text-[35px] lg:text-size-42 leading-[45px] 2xl:leading-[45px] md:leading-[50px] font-bold mb-5 md:mb-10 text-blackColor dark:text-blackColor-dark"
                         data-aos="fade-up">
@@ -1514,15 +1514,15 @@
                 <div class="text-center">
                     <span
                         class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
-                        Course List
+                        Testimonial
                     </span>
                 </div>
 
                 <h3
                     class="text-3xl md:text-[35px] lg:text-size-38 3xl:text-size-42 leading-10 mf:leading-45px 2xl:leading-50px 3xl:leading-2xl font-bold text-blackColor dark:text-blackColor-dark text-center">
-                    Client
+                    Testimoni
                     <span
-                        class="relative after:w-full after:h-[7px] z-0 after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5 after:z-[-1]">Testimonial</span>
+                        class="relative after:w-full after:h-[7px] z-0 after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5 after:z-[-1]">Klien</span>
                 </h3>
             </div>
             <!-- testimonial slider -->
@@ -1531,365 +1531,34 @@
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <!-- testimonial 1 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
+                        @foreach ($testimonial as $testimoni)
+                            <div class="swiper-slide px-15px">
+                                <div
+                                    class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
+                                    <div class="flex justify-between items-center mb-15px lg:mb-30px">
+                                        <div class="flex items-center gap-5">
+                                            <div>
+                                                <img src="{{ asset('storage/' . $testimoni->image) }}"
+                                                    alt="{{ $testimoni->name }}" class="w-58px h-58px rounded-full">
+                                            </div>
 
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
+                                            <div>
+                                                <h5
+                                                    class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
+                                                    {{ $testimoni->name }}
+                                                </h5>
+                                                <p class="text-sm text-lightGrey9">{{ $testimoni->profession }}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
+                                    <div>
+                                        <p class="text-contentColor dark:text-contentColor-dark">
+                                            {!! $testimoni->description !!}
+                                        </p>
                                     </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
                                 </div>
                             </div>
-                        </div>
-                        <!-- testimonial 2 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- testimonial 3 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- testimonial 4 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- testimonial 5 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- testimonial 6 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- testimonial 7 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- testimonial 8 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- testimonial 9 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- testimonial 10 -->
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="assets/images/testimonial/testi_1.png" alt=""
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
-
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                Mirnsdo Jons
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">Ui/Ux Designer</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-x-1">
-                                        <i class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-yellow"></i><i
-                                            class="icofont-star text-xs md:text-lg text-lightGrey6"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                        The other hand we denounce with righteou indg ation men
-                                        who are so beguiled and demoraliz ed by the of the mo
-                                        ment.Dislike men who are so beguiled and dems ed by the
-                                        charms of pleas ure of the moment. Lorem
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="swiper-button-next translate-x-2 md:translate-x-8 3xl:translate-x-12"></div>
                     <div class="swiper-button-prev -translate-x-2 md:-translate-x-8 3xl:-translate-x-12"></div>
@@ -1912,60 +1581,13 @@
             </div>
             <!-- brands -->
             <div class="flex flex-wrap justify-center">
-                <!-- brand 1 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_1.png" alt="">
-                    </a>
-                </div>
-                <!-- brand  -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_2.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 3 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_3.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 4 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_4.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 5 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_5.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 6 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_6.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 7 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_7.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 8 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_8.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 9 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_9.png" alt="">
-                    </a>
-                </div>
+                @foreach ($klien as $client)
+                    <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
+                        <a href="{{ $client->url }}" class="pt-25px pb-45px text-center w-full flex justify-center">
+                            <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}">
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

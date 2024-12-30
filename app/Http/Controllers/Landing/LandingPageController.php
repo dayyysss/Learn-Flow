@@ -31,7 +31,10 @@ class LandingPageController extends Controller
 
     public function about()
     {
-        return view('landing.pages.about.about');
+        $testimonial = Testimonial::where('status', 'publik')->get();
+        $klien = Client::where('status', 'publik')->orderBy('created_at', 'desc')->take(9)->get();
+
+        return view('landing.pages.about.about', compact('testimonial', 'klien'));
     }
 
     public function course(Request $request)
