@@ -40,7 +40,7 @@
                             Alamat Email
                         </h3>
                         <p class="text-size-13 lg:text-size-15 text-contentColor dark:text-contentColor-dark leaing-5">
-                            techbootmail@gmail.com
+                            info.learnflow@gmail.com
                         </p>
                         <p class="text-size-15 text-contentColor dark:text-contentColor-dark leaing-26px">
                             998757478492
@@ -69,10 +69,10 @@
                             Alamat
                         </h3>
                         <p class="text-size-13 lg:text-size-15 text-contentColor dark:text-contentColor-dark leaing-5">
-                            Digital Agency Network 2024
+                            Idlewood Network 2025
                         </p>
                         <p class="text-size-15 text-contentColor dark:text-contentColor-dark leaing-26px">
-                            Eastbourne Terrace
+                            Eastbound Trance
                         </p>
                     </div>
                 </div>
@@ -98,10 +98,10 @@
                             No Telepon
                         </h3>
                         <p class="text-size-13 lg:text-size-15 text-contentColor dark:text-contentColor-dark leaing-5">
-                            +880 123 456 789 , 99874
+                            +6289 1024 2231 2
                         </p>
                         <p class="text-size-15 text-contentColor dark:text-contentColor-dark leaing-26px">
-                            +880 123 456 789
+                            +6282 1130 6421 2
                         </p>
                     </div>
                 </div>
