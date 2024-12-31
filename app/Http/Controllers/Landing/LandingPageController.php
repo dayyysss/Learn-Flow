@@ -32,7 +32,6 @@ class LandingPageController extends Controller
         $contactData = $this->getContactsLogo();
 
         return view('landing-page', array_merge($contactData, compact('hero', 'about', 'artikel', 'klien', 'testimonial'), $commonData));
-        // return view('landing-page', array_merge($contactData, compact('artikel', 'pages4K', 'pagesTentangK', 'pages18TH', 'pages', 'pagesHero', 'pagesGambar', 'pagesGambar2', 'testimonial', 'superiority', 'services', 'portfolios', 'sliders', 'pagesCta') + $commonData));
     }
 
     public function about()
@@ -114,12 +113,18 @@ class LandingPageController extends Controller
     
     public function zoomWebinar()
     {
-        return view('landing.pages.zoom-webinars.zoom');
+        $category = CategoryArtikel::all();
+        $contactData = $this->getContactsLogo();
+
+        return view('landing.pages.zoom-webinars.zoom', array_merge(compact('category'), $contactData));
     }
 
     public function event()
     {
-        return view('landing.pages.events.event');
+        $category = CategoryArtikel::all();
+        $contactData = $this->getContactsLogo();
+
+        return view('landing.pages.events.event', array_merge(compact('category'), $contactData));
     }
 
     public function blog()
@@ -138,8 +143,9 @@ class LandingPageController extends Controller
         $articles->increment('visitor');
         $category = CategoryArtikel::all();
         $commonData = $this->loadCommonData();
+        $contactData = $this->getContactsLogo();
 
-        return view('landing.pages.blog.blog-detail', array_merge(compact('articles', 'category'), $commonData));
+        return view('landing.pages.blog.blog-detail', array_merge(compact('articles', 'category'), $commonData, $contactData));
     }
     
     public function showCategory($name)
@@ -147,17 +153,18 @@ class LandingPageController extends Controller
         $category = CategoryArtikel::all();
         $categories = CategoryArtikel::where('name', $name)->firstOrFail();
         $commonData = $this->loadCommonData();
+        $contactData = $this->getContactsLogo();
         $artikel = Artikel::where('category_id', $categories->id)
             ->orderBy('created_at', 'desc')
             ->paginate(3);
 
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'categories', 'category'),$commonData));
+        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'categories', 'category'),$commonData), $contactData);
     }
 
     public function showTag($tag)
     {
         $tag = urldecode($tag);  
-        
+        $contactData = $this->getContactsLogo();
         $artikel = Artikel::where('status', '1') 
             ->where('tag', 'LIKE', "%{$tag}%")
             ->orderBy('created_at', 'desc')
@@ -166,7 +173,7 @@ class LandingPageController extends Controller
         $category = CategoryArtikel::all();
         $commonData = $this->loadCommonData();
     
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'), $commonData));
+        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'), $commonData, $contactData));
     }
     
     public function search(Request $request)
@@ -174,6 +181,7 @@ class LandingPageController extends Controller
         $search = $request->input('search');
         $category = CategoryArtikel::all();
         $commonData = $this->loadCommonData();
+        $contactData = $this->getContactsLogo();
         $artikel = Artikel::where('status', '1')
             ->where(function ($query) use ($search) {
                 $query->where('keyword', 'LIKE', "%{$search}%")
@@ -182,7 +190,7 @@ class LandingPageController extends Controller
             })
             ->paginate(3);
         
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'search', 'category'),$commonData));
+        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'search', 'category'), $commonData, $contactData));
     }
 
     public function contact()
@@ -195,6 +203,7 @@ class LandingPageController extends Controller
 
     public function instructor()
     {
+        $contactData = $this->getContactsLogo();
         // Ambil semua instruktur dengan role_id = 3
         $instrukturs = User::where('role_id', '3')->get();
 
@@ -204,11 +213,12 @@ class LandingPageController extends Controller
         }
 
         // Kirim data instruktur ke view
-        return view('landing.pages.instructor.instructor', compact('instrukturs'));
+        return view('landing.pages.instructor.instructor', array_merge(compact('instrukturs'), $contactData));
     }
 
     public function showinstructor($id)
     {
+        $contactData = $this->getContactsLogo();
         // Ambil instruktur dengan id tertentu
         $instrukturs = User::findOrFail($id);  // Ambil instruktur tunggal
 
@@ -222,7 +232,7 @@ class LandingPageController extends Controller
         $instrukturs->sosial_media = json_decode($instrukturs->sosial_media, true);
 
         // Kirim data instruktur ke view
-        return view('landing.pages.instructor.instructor-detail', compact('instrukturs', 'relatedCourses'));
+        return view('landing.pages.instructor.instructor-detail', array_merge(compact('instrukturs', 'relatedCourses'), $contactData));
     }
 
     private function loadCommonData()
@@ -345,8 +355,9 @@ class LandingPageController extends Controller
         $nestedHeaderMenus = $this->buildNestedMenu($headerMenus);
         $nestedFooterMenus = $this->buildNestedMenu($footerMenus);
         $nestedSidebarMenus = $this->buildNestedMenu($sidebarMenus);
+        $contactData = $this->getContactsLogo();
 
-        return view('landing.layouts.landing-layouts', compact('nestedHeaderMenus', 'nestedFooterMenus', 'nestedSidebarMenus'));
+        return view('landing.layouts.landing-layouts', array_merge(compact('nestedHeaderMenus', 'nestedFooterMenus', 'nestedSidebarMenus'), $contactData));
     }
 
     private function buildNestedMenu($menus)
