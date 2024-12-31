@@ -36,9 +36,9 @@
                                 <input type="text" id="alamat" name="alamat" value="{{$configuration->alamat ?? '-'}}" class="form-input">
                             </div>
                     
-                            <div class="col-span-full">
-                                <label for="meta_deskripsi" class="form-label">Meta Deskripsi</label>
-                                <textarea id="meta_deskripsi" name="meta_deskripsi" class="summernote">{{$configuration->meta_deskripsi ?? '-'}}</textarea> 
+                            <div class="col-span-full xl:col-auto leading-none">
+                                <label for="meta_deskripsi" class="form-label">Alamat</label>
+                                <textarea type="text" id="meta_deskripsi" name="meta_deskripsi" value="" class="form-input h-[150px]">{{$configuration->meta_deskripsi ?? '-'}}</textarea>
                             </div>
                         </div>
                         
@@ -47,10 +47,7 @@
                                 <i class="ri-checkbox-circle-line text-inherit hidden sm:block"></i>
                                 <span>Save Changes</span>
                             </button>
-                            <button type="reset" class="btn b-light btn-danger-light dk-theme-card-square" data-modal-target="cancelAcSettingModal" data-modal-toggle="cancelAcSettingModal">
-                                <i class="ri-delete-bin-line text-inherit hidden sm:block"></i>
-                                <span>Cancel</span>
-                            </button>
+                            
                         </div>
                     </form>
                        
@@ -103,28 +100,40 @@
                         </ul>
                         
                     </div>
+
+
                     <div class="py-5 border-t border-gray-200 dark:border-dark-border text-left">
                         <div class="flex-center-between">
-                            <h6 class="text-gray-500 dark:text-dark-text leading-none font-semibold">About</h6>
-                            <button class="size-7 hover:bg-gray-200 dark:hover:bg-dark-icon rounded-md" data-modal-target="addBioModal" data-modal-toggle="addBioModal">
+                            <h6 class="text-gray-500 dark:text-dark-text leading-none font-semibold">Kontak</h6>
+                            <button class="size-7 hover:bg-gray-200 dark:hover:bg-dark-icon rounded-md" data-modal-target="addKontak" data-modal-toggle="addKontak">
                                 <i class="ri-edit-2-line"></i>
                             </button>
                         </div>
                         <ul class="flex flex-col gap-y-3 *:flex *:gap-x-2.5 *:leading-none *:text-gray-500 dark:*:text-dark-text *:font-medium mt-4">
-                            <li>
-                                <i class="ri-home-2-line text-inherit"></i>
-                                <div>Lives in <span class="text-heading dark:text-dark-text">1901 Thornridge</span></div>
-                            </li>
-                            <li>
-                                <i class="ri-briefcase-line text-inherit"></i>
-                                <div>Works at <span class="text-heading dark:text-dark-text">ebay</span></div>
-                            </li>
+                            @foreach(json_decode($configuration->informasi_kontak, true) as $contact)
+                                <li class="flex items-center gap-x-2.5">
+                                    <!-- Menentukan Ikon Berdasarkan Jenis Kontak -->
+                                    @if(strtolower($contact['name']) == 'telepon')
+                                        <i class="ri-phone-line text-inherit"></i>
+                                    @elseif(strtolower($contact['name']) == 'alamat')
+                                        <i class="ri-home-2-line text-inherit"></i>
+                                    @elseif(strtolower($contact['name']) == 'email')
+                                        <i class="ri-mail-line text-inherit"></i>
+                                    @elseif(strtolower($contact['name']) == 'website')
+                                        <i class="ri-link-m text-inherit"></i>
+                                    @else
+                                        <i class="ri-information-line text-inherit"></i>
+                                    @endif
+                                    <div>{{ $contact['name'] }}: <span class="text-heading dark:text-dark-text">{{ $contact['value'] }}</span></div>
+                                </li>
+                            @endforeach
                         </ul>
+                        
                     </div>
                     <div class="py-5 border-t border-gray-200 dark:border-dark-border text-left">
                         <div class="flex-center-between">
                             <h6 class="text-gray-500 dark:text-dark-text leading-none font-semibold">Social</h6>
-                            <button class="size-7 hover:bg-gray-200 dark:hover:bg-dark-icon rounded-md" data-modal-target="addBioModal" data-modal-toggle="addBioModal">
+                            <button class="size-7 hover:bg-gray-200 dark:hover:bg-dark-icon rounded-md" data-modal-target="addSosmed" data-modal-toggle="addSosmed">
                                 <i class="ri-edit-2-line"></i>
                             </button>
                         </div>
@@ -204,9 +213,9 @@
     const tagContainer = document.getElementById('tagContainer');
     const form = document.getElementById('keywordForm');
 
-    let tags = [];
+    let tags = @json($existingKeywords); // Menyertakan existing keywords dari Blade ke dalam JavaScript
 
-    // Tambah tag baru
+    // Fungsi untuk menambahkan tag baru
     const addTag = (tag) => {
         if (tag && !tags.includes(tag)) {
             tags.push(tag);
@@ -214,7 +223,7 @@
         }
     };
 
-    // Hapus tag
+    // Fungsi untuk menghapus tag
     const removeTag = (tag) => {
         tags = tags.filter(t => t !== tag);
         renderTags();
@@ -222,7 +231,7 @@
 
     // Render tag di container
     const renderTags = () => {
-        tagContainer.innerHTML = '';
+        tagContainer.innerHTML = '';  // Kosongkan tagContainer sebelum merender ulang
         tags.forEach(tag => {
             const tagElement = document.createElement('span');
             tagElement.className = 'bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm flex items-center gap-2';
@@ -233,7 +242,7 @@
             tagContainer.appendChild(tagElement);
         });
 
-        // Event listener untuk hapus tag
+        // Menambahkan event listener untuk menghapus tag
         tagContainer.querySelectorAll('button[data-tag]').forEach(button => {
             button.addEventListener('click', (e) => {
                 removeTag(e.target.getAttribute('data-tag'));
@@ -290,7 +299,11 @@
             console.error('Error saving keywords:', error);
         }
     });
+
+    // Render initial tags from database
+    renderTags();
 });
+
 
 
 </script>
