@@ -15,7 +15,8 @@
                         <div class="group shadow-blog2" data-aos="fade-up">
                             <!-- blog thumbnail -->
                             <div class="overflow-hidden relative">
-                                <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul}}" class="w-full">
+                                <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul }}"
+                                    class="w-full">
                                 <div
                                     class="text-size-22 leading-6 font-semibold text-white px-15px py-5px md:px-6 md:py-2 bg-primaryColor rounded text-center absolute top-5 right-5">
                                     <h3>
@@ -64,60 +65,35 @@
                             </div>
                         </div>
                     @endforeach
-                    @include('landing.components.pagination.pagination')
+                    <!-- pagination -->
+                    <div>
+                        <ul class="flex items-center justify-center gap-15px mt-60px mb-30px">
+                            <li>
+                                <a href="{{ $artikel->previousPageUrl() }}"
+                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor {{ $artikel->onFirstPage() ? 'cursor-not-allowed' : '' }}">
+                                    <i class="icofont-double-left"></i>
+                                </a>
+                            </li>
+                            @for ($i = 1; $i <= $artikel->lastPage(); $i++)
+                                <li>
+                                    <a href="{{ $artikel->url($i) }}"
+                                        class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center {{ $artikel->currentPage() == $i ? 'text-whiteColor bg-primaryColor' : 'text-blackColor2 bg-whitegrey1' }} hover:text-whiteColor hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor">
+                                        {{ $i }}
+                                    </a>
+                                </li>
+                            @endfor
+                            <li>
+                                <a href="{{ $artikel->nextPageUrl() }}"
+                                    class="w-10 h-10 leading-10 md:w-50px md:h-50px md:leading-50px text-center text-blackColor2 hover:text-whiteColor bg-whitegrey1 hover:bg-primaryColor dark:text-blackColor2-dark dark:hover:text-whiteColor dark:bg-whitegrey1-dark dark:hover:bg-primaryColor {{ !$artikel->hasMorePages() ? 'cursor-not-allowed' : '' }}">
+                                    <i class="icofont-double-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- blog sidebar -->
                 <div class="lg:col-start-9 lg:col-span-4">
                     <div class="flex flex-col">
-                        {{-- <!-- author details -->
-                        <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark text-center"
-                            data-aos="fade-up">
-                            <!-- athor avatar -->
-                            <div class="mb-30px flex justify-center">
-                                <img src="assets/images/blog/blog_10.png" alt="" class="w-24 h-24 rounded-full">
-                            </div>
-                            <!-- author name -->
-                            <div class="mb-3">
-                                <h3 class="mb-7px">
-                                    <a href="#"
-                                        class="text-xl font-bold text-blackColor2 dark:text-blackColor2-dark">Rosalina D.
-                                        Willaim</a>
-                                </h3>
-                                <p class="text-xs text-contentColor2 dark:text-contentColor2-dark">
-                                    Blogger/Photographer
-                                </p>
-                            </div>
-                            <!-- description -->
-                            <p class="text-sm text-contentColor dark:text-contentColor-dark mb-15px">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing
-                                elit.Veritatis distinctio suscipit reprehenderit atque
-                            </p>
-                            <!-- social -->
-                            <div>
-                                <ul class="flex gap-10px justify-center items-center">
-                                    <li>
-                                        <a href="#"
-                                            class="w-35px h-35px leading-35px text-center border border-borderColor2 text-contentColor hover:text-whiteColor hover:bg-primaryColor dark:text-contentColor-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:border-borderColor2-dark rounded"><i
-                                                class="icofont-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="w-35px h-35px leading-35px text-center border border-borderColor2 text-contentColor hover:text-whiteColor hover:bg-primaryColor dark:text-contentColor-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:border-borderColor2-dark rounded"><i
-                                                class="icofont-youtube-play"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="w-35px h-35px leading-35px text-center border border-borderColor2 text-contentColor hover:text-whiteColor hover:bg-primaryColor dark:text-contentColor-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:border-borderColor2-dark rounded"><i
-                                                class="icofont-instagram"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="w-35px h-35px leading-35px text-center border border-borderColor2 text-contentColor hover:text-whiteColor hover:bg-primaryColor dark:text-contentColor-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:border-borderColor2-dark rounded"><i
-                                                class="icofont-twitter"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> --}}
                         <!-- search input -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
@@ -127,7 +103,7 @@
                             </h4>
                             <form action="{{ route('blog.search') }}" method="GET"
                                 class="w-full px-4 py-15px text-sm text-contentColor bg-lightGrey10 dark:bg-lightGrey10-dark dark:text-contentColor-dark flex justify-center items-center leading-26px">
-                                <input type="text" placeholder="Cari..." name="search"
+                                <input type="text" placeholder="Cari..." name="search" id="search"
                                     class="placeholder:text-placeholder bg-transparent focus:outline-none placeholder:opacity-80 w-full">
                                 <button type="submit">
                                     <i class="icofont-search-1 text-base"></i>
@@ -147,7 +123,7 @@
                                         <li
                                             class="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor transition-all duration-300 text-sm font-medium px-4 py-2 border border-borderColor2 hover:border-primaryColor dark:border-borderColor2-dark dark:hover:border-primaryColor flex justify-between leading-7">
                                             <a
-                                                href="{{ url('artikel/kategori/' . strtolower($categoriesArtikel->name)) }}">{{ $categoriesArtikel->name }}</a>
+                                                href="{{ url('blog/kategori/' . strtolower($categoriesArtikel->name)) }}">{{ $categoriesArtikel->name }}</a>
                                         </li>
                                     @endforeach
                                 @else
@@ -200,59 +176,6 @@
                                 @endforelse
                             </ul>
                         </div>
-                        <!-- photo gallary -->
-                        {{-- <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
-                            data-aos="fade-up">
-                            <h4
-                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Galeri Foto
-                            </h4>
-                            <div class="gallary-container">
-                                <div class="popup">
-                                    <div id="slider-container" class="slider-container">
-                                        <span class="close-btn">&times;</span>
-                                        <div class="slider-container-wrapper"></div>
-                                    </div>
-                                    <div class="slider-navigation">
-                                        <button class="prev-btn">Prev</button>
-                                        <button class="next-btn">Next</button>
-                                    </div>
-                                </div>
-
-                                <div class="grid grid-cols-3 gap-5px">
-                                    <div class="image-wrapper relative group" data-aos="fade-up">
-                                        <img src="assets/images/blog/blog_15.png" alt="Image 1"
-                                            class="gallery-image w-full">
-                                        <div
-                                            class="absolute left-0 top-0 right-0 bottom-0 bg-blackColor bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-60 text-whiteColor flex items-center justify-center">
-                                            <button class="popup-open">
-                                                <i class="icofont-eye-alt opacity-0 group-hover:opacity-100"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        <!-- contact form -->
-                        {{-- <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
-                            data-aos="fade-up">
-                            <h4
-                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Get in Touch
-                            </h4>
-                            <form class="space-y-5">
-                                <input type="text" placeholder="Enter Name*"
-                                    class="w-full text-contentColor leading-7 pb-10px bg-transparent focus:outline-none placeholder:text-placeholder placeholder:opacity-80 border-b border-borderColor2 dark:text-contentColor-dark dark:border-borderColor2-dark">
-                                <input type="email" placeholder="Enter your mail*"
-                                    class="w-full text-contentColor leading-7 pb-10px bg-transparent focus:outline-none placeholder:text-placeholder placeholder:opacity-80 border-b border-borderColor2 dark:text-contentColor-dark dark:border-borderColor2-dark">
-                                <input type="text" placeholder="Message*"
-                                    class="w-full text-contentColor leading-7 pb-10px bg-transparent focus:outline-none placeholder:text-placeholder placeholder:opacity-80 border-b border-borderColor2 dark:text-contentColor-dark dark:border-borderColor2-dark">
-                                <button type="submit"
-                                    class="text-size-15 text-whiteColor uppercase bg-primaryColor border border-primaryColor px-55px py-13px hover:text-primaryColor hover:bg-whiteColor rounded inline-block dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                                    Send Message
-                                </button>
-                            </form>
-                        </div> --}}
                         <!-- tags -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
@@ -264,8 +187,10 @@
                                 <ul class="flex flex-wrap gap-x-5px">
                                     @foreach ($popularTagsArtikel as $tag => $count)
                                         <li>
-                                            <a href="{{ route('blog.tag', ['tag' => $tag]) }}"
-                                                class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">{{ $tag }}</a>
+                                            <a href="{{ route('blog.tag', ['tag' => urlencode($tag)]) }}"
+                                                class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">
+                                                {{ $tag }}
+                                            </a>
                                         </li>
                                     @endforeach
                                 </ul>

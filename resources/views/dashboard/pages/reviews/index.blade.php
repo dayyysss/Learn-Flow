@@ -2,6 +2,15 @@
 @section('page_title', 'LearnFlow | Reviews')
 
 @section('content')
+    <style>
+        .star {
+            color: #d3d3d3;
+        }
+
+        .star.selected {
+            color: #ffcc00;
+        }
+    </style>
     <!-- dashboard content -->
     <div class="lg:col-start-4 lg:col-span-9">
         <!-- review area -->
@@ -198,10 +207,22 @@
                                                             <div class="mb-4">
                                                                 <label for="rating"
                                                                     class="block text-lg font-medium text-gray-700 dark:text-gray-300">Rating</label>
-                                                                <input type="number" placeholder="1-5" id="rating"
-                                                                    name="rating" min="1" max="5"
-                                                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400"
-                                                                    required>
+                                                                <div id="ratingStars" class="flex">
+                                                                    <!-- Bintang-bintang yang dapat diklik -->
+                                                                    <span class="star text-4xl cursor-pointer"
+                                                                        data-value="1">&#9733;</span>
+                                                                    <span class="star text-4xl cursor-pointer"
+                                                                        data-value="2">&#9733;</span>
+                                                                    <span class="star text-4xl cursor-pointer"
+                                                                        data-value="3">&#9733;</span>
+                                                                    <span class="star text-4xl cursor-pointer"
+                                                                        data-value="4">&#9733;</span>
+                                                                    <span class="star text-4xl cursor-pointer"
+                                                                        data-value="5">&#9733;</span>
+                                                                </div>
+                                                                <!-- Input hidden untuk menyimpan nilai rating -->
+                                                                <input type="hidden" id="rating" name="rating"
+                                                                    value="" required>
                                                             </div>
 
                                                             <!-- Textarea Komentar untuk Kursus -->
@@ -235,8 +256,7 @@
                                                                         Instruktur
                                                                     </label>
                                                                     <select id="instructorName" name="instructor_id"
-                                                                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400"
-                                                                        required>
+                                                                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400">
                                                                         <option value="">Pilih Instruktur</option>
                                                                         @foreach ($instructors as $instructor)
                                                                             <option value="{{ $instructor->id }}">
@@ -249,13 +269,24 @@
                                                                 <div class="mb-4">
                                                                     <label for="instructorRating"
                                                                         class="block text-lg font-medium text-gray-700 dark:text-gray-300">
-                                                                        Rating
+                                                                        Rating Instruktur
                                                                     </label>
-                                                                    <input type="number" placeholder="1-5"
-                                                                        id="instructorRating" name="rating"
-                                                                        min="1" max="5"
-                                                                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400"
-                                                                        required>
+                                                                    <div id="instructorRatingStars" class="flex">
+                                                                        <!-- Bintang yang bisa diklik -->
+                                                                        <span class="star text-4xl cursor-pointer"
+                                                                            data-value="1">&#9733;</span>
+                                                                        <span class="star text-4xl cursor-pointer"
+                                                                            data-value="2">&#9733;</span>
+                                                                        <span class="star text-4xl cursor-pointer"
+                                                                            data-value="3">&#9733;</span>
+                                                                        <span class="star text-4xl cursor-pointer"
+                                                                            data-value="4">&#9733;</span>
+                                                                        <span class="star text-4xl cursor-pointer"
+                                                                            data-value="5">&#9733;</span>
+                                                                    </div>
+                                                                    <!-- Input hidden untuk menyimpan rating instruktur -->
+                                                                    <input type="hidden" id="instructorRating"
+                                                                        name="instructor_rating" value="">
                                                                 </div>
 
                                                                 <!-- Textarea Komentar untuk Instruktur -->
@@ -265,9 +296,10 @@
                                                                         Komentar
                                                                     </label>
                                                                     <textarea id="instructorKomentar" name="komentar" rows="4"
-                                                                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400"
-                                                                        required></textarea>
+                                                                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400"></textarea>
                                                                 </div>
+
+
 
                                                                 <!-- Tombol Sembunyikan Ulasan Instruktur -->
                                                                 <button type="button" id="hideInstructorReviewBtn"
@@ -315,28 +347,18 @@
                 function toggleInstructorReviewSection() {
                     const reviewSection = document.getElementById('instructorReviewSection');
                     const toggleButton = document.getElementById('toggleInstructorReviewBtn');
-                    const hideButton = document.getElementById('hideInstructorReviewBtn');
+                    const courseReview = document.getElementById('rating');
 
-                    // Ambil nilai input dari ulasan kursus
-                    const courseName = document.getElementById('courseName').value.trim();
-                    const rating = document.getElementById('rating').value.trim();
-                    const komentar = document.getElementById('komentar').value.trim();
-
-                    // Validasi apakah ulasan kursus sudah diisi
-                    if (!courseName || !rating || !komentar) {
-                        alert('Harap berikan ulasan untuk kursus terlebih dahulu.');
-                        return; 
-                    }
-
-                    // Jika ulasan kursus sudah lengkap, toggle bagian ulasan instruktur
-                    if (reviewSection.classList.contains('hidden')) {
-                        // Tampilkan ulasan instruktur
-                        reviewSection.classList.remove('hidden');
-                        toggleButton.classList.add('hidden'); 
+                    if (courseReview.value) {
+                        if (reviewSection.classList.contains('hidden')) {
+                            reviewSection.classList.remove('hidden');
+                            toggleButton.classList.add('hidden');
+                        } else {
+                            reviewSection.classList.add('hidden');
+                            toggleButton.classList.remove('hidden');
+                        }
                     } else {
-                        // Sembunyikan ulasan instruktur
-                        reviewSection.classList.add('hidden');
-                        toggleButton.classList.remove('hidden');
+                        alert("Harap beri ulasan kursus terlebih dahulu sebelum memberikan ulasan instruktur.");
                     }
                 }
 
@@ -359,6 +381,44 @@
                     document.getElementById('addReviewBtn').classList.remove('hidden');
                 });
 
+                document.addEventListener('DOMContentLoaded', function() {
+                    const stars = document.querySelectorAll('#ratingStars .star');
+                    const ratingInput = document.getElementById('rating');
+
+                    stars.forEach(star => {
+                        star.addEventListener('click', function() {
+                            const value = this.getAttribute('data-value');
+                            ratingInput.value = value;
+
+                            // Reset semua bintang
+                            stars.forEach(star => {
+                                star.classList.remove('selected');
+                            });
+
+                            for (let i = 0; i < value; i++) {
+                                stars[i].classList.add('selected');
+                            }
+                        });
+                    });
+                });
+
+                // Ketika bintang diklik, beri rating
+                $('#instructorRatingStars .star').click(function() {
+                    var ratingValue = $(this).data('value'); // Mengambil nilai rating (1-5)
+
+                    // Update warna bintang yang telah dipilih
+                    $('#instructorRatingStars .star').each(function() {
+                        var currentStarValue = $(this).data('value');
+                        if (currentStarValue <= ratingValue) {
+                            $(this).css('color', 'gold'); // Bintang yang dipilih berwarna emas
+                        } else {
+                            $(this).css('color', 'gray'); // Bintang yang belum dipilih berwarna abu-abu
+                        }
+                    });
+
+                    // Menyimpan nilai rating ke dalam input hidden
+                    $('#instructorRating').val(ratingValue);
+                });
 
 
                 $('#addReviewForm').submit(function(e) {
@@ -395,17 +455,18 @@
                         data: requestData,
                         success: function(response) {
                             if (response.success) {
-                                alert("Ulasan berhasil ditambahkan!");
-                                location.reload(); // Reload halaman setelah sukses
+                                alert(response.message); // Menampilkan pesan sukses
+                                location.reload();
                             } else {
-                                alert("Ulasan gagal ditambahkan.");
+                                alert(response.message); // Menampilkan pesan gagal
                             }
                         },
                         error: function() {
-                            alert('Error saat mengirimkan ulasan');
+                            alert('Terjadi kesalahan saat mengirimkan ulasan');
                         }
                     });
                 });
+
 
                 // Edit Review with AJAX
                 $('#editReviewForm').submit(function(e) {
