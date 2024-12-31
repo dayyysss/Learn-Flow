@@ -66,7 +66,6 @@ class FeedbackController extends Controller
         ]);
 
         try {
-            // Menyimpan review baru
             $feedback = new Feedback();
             $feedback->user_id = auth()->id();
             $feedback->course_id = $request->input('course_id');
@@ -74,15 +73,18 @@ class FeedbackController extends Controller
             $feedback->komentar = $request->input('komentar');
             $feedback->instructor_rating = $request->input('instructor_rating');
             $feedback->instructor_komentar = $request->input('instructor_komentar');
+
+            $course = Course::find($request->input('course_id'));
+
+            $feedback->instruktur_id = $course ? $course->user_id : null;
+
             $feedback->save();
 
-            // Mengirimkan respon JSON dengan status sukses
             return response()->json([
                 'success' => true,
                 'message' => 'Ulasan berhasil ditambahkan!'
             ]);
         } catch (\Exception $e) {
-            // Jika terjadi error, mengirimkan respon JSON dengan status gagal
             return response()->json([
                 'success' => false,
                 'message' => 'Ulasan gagal ditambahkan.'
