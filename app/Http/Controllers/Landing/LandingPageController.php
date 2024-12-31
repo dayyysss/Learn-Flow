@@ -50,7 +50,6 @@ class LandingPageController extends Controller
         // Mengambil semua kategori dengan jumlah kursus terkait
         $categories = CategoryCourse::withCount('courses')->get();
         $instrukturs = CategoryCourse::all();
-        $contactData = $this->getContactsLogo();
         
         // Ambil parameter kategori, tag, skill_level, dan search dari permintaan
         $selectedCategory = $request->get('category');
@@ -96,6 +95,7 @@ class LandingPageController extends Controller
     
         // Data umum lainnya
         $commonData = $this->loadCommonData();
+        $contactData = $this->getContactsLogo();
         
         return view('landing.pages.course.course', array_merge(
             [
