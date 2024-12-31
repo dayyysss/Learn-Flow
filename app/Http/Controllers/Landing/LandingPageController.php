@@ -117,7 +117,7 @@ class LandingPageController extends Controller
         return view('landing.pages.events.event');
     }
 
-    public function artikel()
+    public function blog()
     {
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->paginate(3);
         $category = CategoryArtikel::all();
@@ -160,42 +160,37 @@ class LandingPageController extends Controller
     }
 
     public function instructor()
-{
-    // Ambil semua instruktur dengan role_id = 3
-    $instrukturs = User::where('role_id', '3')->get();
+    {
+        // Ambil semua instruktur dengan role_id = 3
+        $instrukturs = User::where('role_id', '3')->get();
 
-    // Pastikan data sosial media berupa JSON
-    foreach ($instrukturs as $instruktur) {
-        $instruktur->sosial_media = json_decode($instruktur->sosial_media, true);
+        // Pastikan data sosial media berupa JSON
+        foreach ($instrukturs as $instruktur) {
+            $instruktur->sosial_media = json_decode($instruktur->sosial_media, true);
+        }
+
+        // Kirim data instruktur ke view
+        return view('landing.pages.instructor.instructor', compact('instrukturs'));
     }
 
-    // Kirim data instruktur ke view
-    return view('landing.pages.instructor.instructor', compact('instrukturs'));
-}
-public function showinstructor($id)
-{
-    // Ambil instruktur dengan id tertentu
-    $instrukturs = User::findOrFail($id);  // Ambil instruktur tunggal
+    public function showinstructor($id)
+    {
+        // Ambil instruktur dengan id tertentu
+        $instrukturs = User::findOrFail($id);  // Ambil instruktur tunggal
 
-    $relatedCourses = Course::where('instruktur_id', $id)
-                            ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
-                            ->orderBy('created_at', 'desc')
-                            ->take(5)
-                            ->get();
+        $relatedCourses = Course::where('instruktur_id', $id)
+                                ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
+                                ->orderBy('created_at', 'desc')
+                                ->take(5)
+                                ->get();
 
-    // Pastikan sosial_media berupa JSON
-    $instrukturs->sosial_media = json_decode($instrukturs->sosial_media, true);
+        // Pastikan sosial_media berupa JSON
+        $instrukturs->sosial_media = json_decode($instrukturs->sosial_media, true);
 
-    // Kirim data instruktur ke view
-    return view('landing.pages.instructor.instructor-detail', compact('instrukturs', 'relatedCourses'));
-}
+        // Kirim data instruktur ke view
+        return view('landing.pages.instructor.instructor-detail', compact('instrukturs', 'relatedCourses'));
+    }
 
-
-
-
-
-
-    
     private function loadCommonData()
     {
         $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();

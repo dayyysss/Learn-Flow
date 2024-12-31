@@ -28,7 +28,7 @@
                             <div class="pt-26px pb-5 px-30px">
                                 <h3
                                     class="text-2xl md:text-size-32 lg:text-size-28 2xl:text-size-34 leading-34px md:leading-10 2xl:leading-13.5 font-bold text-blackColor2 hover:text-primaryColor dark:text-blackColor2-dark dark:hover:text-primaryColor">
-                                    <a href="{{ route('artikel.showSlug', $article->slug) }}">{{ $article->judul }}</a>
+                                    <a href="{{ route('blog.showSlug', $article->slug) }}">{{ $article->judul }}</a>
                                 </h3>
                                 <div class="mb-14px pb-19px border-b border-borderColor dark:border-borderColor-dark">
                                     <ul class="flex flex-wrap items-center gap-x-15px">
@@ -50,7 +50,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <div>
-                                        <a href="{{ route('artikel.showSlug', $article->slug) }}"
+                                        <a href="{{ route('blog.showSlug', $article->slug) }}"
                                             class="uppercase text-secondaryColor hover:text-primaryColor">
                                             BACA SELENGKAPNYA <i class="icofont-double-right"></i></a>
                                     </div>
@@ -125,7 +125,7 @@
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
                                 Cari Artikel
                             </h4>
-                            <form action="{{ route('artikel.search') }}" method="GET"
+                            <form action="{{ route('blog.search') }}" method="GET"
                                 class="w-full px-4 py-15px text-sm text-contentColor bg-lightGrey10 dark:bg-lightGrey10-dark dark:text-contentColor-dark flex justify-center items-center leading-26px">
                                 <input type="text" placeholder="Cari..." name="search"
                                     class="placeholder:text-placeholder bg-transparent focus:outline-none placeholder:opacity-80 w-full">
@@ -166,7 +166,7 @@
                                 @forelse($recentPosts as $index => $post)
                                     <li class="flex items-center">
                                         <div class="w-2/5 pr-5 relative">
-                                            <a href="{{ route('artikel.showSlug', $post->slug) }}" class="w-full">
+                                            <a href="{{ route('blog.showSlug', $post->slug) }}" class="w-full">
                                                 @if ($post->image)
                                                     <img src="{{ asset('storage/' . $post->image) }}"
                                                         alt="{{ $post->judul }}" class="w-full">
@@ -181,13 +181,13 @@
                                             </span>
                                         </div>
                                         <div class="w-3/5">
-                                            <a href="{{ route('artikel.showSlug', $post->slug) }}"
+                                            <a href="{{ route('blog.showSlug', $post->slug) }}"
                                                 class="w-full text-sm text-contentColor font-medium leading-7 dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                 {{ $post->created_at->format('d F Y') }}
                                             </a>
                                             <h3 class="font-bold leading-22px mb-15px">
                                                 <a class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
-                                                    href="{{ route('artikel.showSlug', $post->slug) }}">
+                                                    href="{{ route('blog.showSlug', $post->slug) }}">
                                                     {{ Str::limit($post->judul, 40) }}
                                                 </a>
                                             </h3>
@@ -264,7 +264,7 @@
                                 <ul class="flex flex-wrap gap-x-5px">
                                     @foreach ($popularTagsArtikel as $tag => $count)
                                         <li>
-                                            <a href="{{ route('artikel.tag', ['tag' => $tag]) }}"
+                                            <a href="{{ route('blog.tag', ['tag' => $tag]) }}"
                                                 class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">{{ $tag }}</a>
                                         </li>
                                     @endforeach
