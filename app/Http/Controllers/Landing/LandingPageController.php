@@ -26,7 +26,7 @@ class LandingPageController extends Controller
         $about = Page::with('users')->where('status', 'publik')->find(2);
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
         $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
-        $klien = Client::where('status', 'publik')->get();
+        $klien = Client::where('status', 'publik')->take(5)->get();
         $commonData = $this->loadCommonData();
 
         return view('landing-page', array_merge(compact('hero', 'about', 'artikel', 'klien', 'testimonial'), $commonData));
