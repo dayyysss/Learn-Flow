@@ -108,7 +108,7 @@ class DashboardController extends Controller
         $bulan = $request->bulan ?? date('m');
         $rangeTanggal = explode(' - ', $request->range_tanggal ?? '');
 
-        if ($tipeFilter == 'range tanggal' && count($rangeTanggal) == 2) {
+        if ($tipeFilter == 'range-tanggal' && count($rangeTanggal) == 2) {
             $tanggal_awal = $rangeTanggal[0];
             $tanggal_akhir = $rangeTanggal[1];
         } else {
