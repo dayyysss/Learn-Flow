@@ -12,6 +12,7 @@ use App\Models\Artikel;
 use App\Models\Client;
 use App\Models\LFCMS\Administrator;
 use App\Models\Testimonial;
+use App\Models\WebsiteConfiguration;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -116,7 +117,7 @@ class LandingPageController extends Controller
         return view('landing.pages.events.event');
     }
 
-    public function artikel()
+    public function blog()
     {
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->paginate(3);
         $category = CategoryArtikel::all();
@@ -159,42 +160,37 @@ class LandingPageController extends Controller
     }
 
     public function instructor()
-{
-    // Ambil semua instruktur dengan role_id = 3
-    $instrukturs = User::where('role_id', '3')->get();
+    {
+        // Ambil semua instruktur dengan role_id = 3
+        $instrukturs = User::where('role_id', '3')->get();
 
-    // Pastikan data sosial media berupa JSON
-    foreach ($instrukturs as $instruktur) {
-        $instruktur->sosial_media = json_decode($instruktur->sosial_media, true);
+        // Pastikan data sosial media berupa JSON
+        foreach ($instrukturs as $instruktur) {
+            $instruktur->sosial_media = json_decode($instruktur->sosial_media, true);
+        }
+
+        // Kirim data instruktur ke view
+        return view('landing.pages.instructor.instructor', compact('instrukturs'));
     }
 
-    // Kirim data instruktur ke view
-    return view('landing.pages.instructor.instructor', compact('instrukturs'));
-}
-public function showinstructor($id)
-{
-    // Ambil instruktur dengan id tertentu
-    $instrukturs = User::findOrFail($id);  // Ambil instruktur tunggal
+    public function showinstructor($id)
+    {
+        // Ambil instruktur dengan id tertentu
+        $instrukturs = User::findOrFail($id);  // Ambil instruktur tunggal
 
-    $relatedCourses = Course::where('instruktur_id', $id)
-                            ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
-                            ->orderBy('created_at', 'desc')
-                            ->take(5)
-                            ->get();
+        $relatedCourses = Course::where('instruktur_id', $id)
+                                ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
+                                ->orderBy('created_at', 'desc')
+                                ->take(5)
+                                ->get();
 
-    // Pastikan sosial_media berupa JSON
-    $instrukturs->sosial_media = json_decode($instrukturs->sosial_media, true);
+        // Pastikan sosial_media berupa JSON
+        $instrukturs->sosial_media = json_decode($instrukturs->sosial_media, true);
 
-    // Kirim data instruktur ke view
-    return view('landing.pages.instructor.instructor-detail', compact('instrukturs', 'relatedCourses'));
-}
+        // Kirim data instruktur ke view
+        return view('landing.pages.instructor.instructor-detail', compact('instrukturs', 'relatedCourses'));
+    }
 
-
-
-
-
-
-    
     private function loadCommonData()
     {
         $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
@@ -238,7 +234,102 @@ public function showinstructor($id)
             ->sortDesc()
             ->take(10);
         
-        // Kembalikan data kategori dan tag populer
         return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
+    }
+
+    public function getContactsLogo()
+    {
+        // Ambil data kontak dari konfigurasi website
+        $websiteConfig = WebsiteConfiguration::first();
+        $contacts = json_decode($websiteConfig->informasi_kontak, true);
+        $socialMedia = json_decode($websiteConfig->informasi_sosial_media, true);
+        $pagesDeskripsi = Page::with('users')->find(3);
+
+        // Ambil logo dan favicon
+        $favicon = Logo::where('type', 'favicon')->first();
+        $logoDark = Logo::where('type', 'gelap')->first();
+        $logoBright = Logo::where('type', 'terang')->first();
+
+        $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
+        $configuration = WebsiteConfiguration::first();
+
+        return [
+            'contacts' => $contacts,
+            'socialMedia' => $socialMedia,
+            'websiteConfig' => $websiteConfig,
+            'pagesDeskripsi' => $pagesDeskripsi,
+            'latestArticles' => $latestArticles,
+            'configuration' => $configuration,
+            'favicon' => $favicon,
+            'logoDark' => $logoDark,
+            'logoBright' => $logoBright,
+        ];
+    }
+
+    public function indexMenu(Request $request)
+    {
+        $headerMenus = MenuList::where('menutype_id', 2)
+            ->with([
+                'children' => function ($query) {
+                    $query->orderBy('order');
+                }
+            ])
+            ->whereNull('parent_id')
+            ->orderBy('order')
+            ->get();
+
+        $footerMenus = MenuList::where('menutype_id', 3)
+            ->with([
+                'children' => function ($query) {
+                    $query->orderBy('order');
+                }
+            ])
+            ->whereNull('parent_id')
+            ->orderBy('order')
+            ->get();
+
+        $sidebarMenus = MenuList::where('menutype_id', 4)
+            ->with([
+                'children' => function ($query) {
+                    $query->orderBy('order');
+                }
+            ])
+            ->whereNull('parent_id')
+            ->orderBy('order')
+            ->get();
+
+        if ($request->ajax()) {
+            if ($request->menu_type == 'header') {
+                return response()->json($this->buildNestedMenu($headerMenus));
+            } elseif ($request->menu_type == 'footer') {
+                return response()->json($this->buildNestedMenu($footerMenus));
+            } elseif ($request->menu_type == 'sidebar') {
+                return response()->json($this->buildNestedMenu($sidebarMenus));
+            }
+        }
+
+        $nestedHeaderMenus = $this->buildNestedMenu($headerMenus);
+        $nestedFooterMenus = $this->buildNestedMenu($footerMenus);
+        $nestedSidebarMenus = $this->buildNestedMenu($sidebarMenus);
+
+        return view('landing.layouts.landing-layouts', compact('nestedHeaderMenus', 'nestedFooterMenus', 'nestedSidebarMenus'));
+    }
+
+    private function buildNestedMenu($menus)
+    {
+        $menuArray = [];
+        foreach ($menus as $menu) {
+            $children = $this->buildNestedMenu($menu->children);
+
+            $menuArray[] = [
+                'id' => $menu->id,
+                'content' => $menu->name,
+                'link' => $menu->url,
+                'icon' => $menu->ikon,
+                'hasChildren' => count($children) > 0,
+                'children' => $children,
+            ];
+        }
+        return $menuArray;
     }
 }

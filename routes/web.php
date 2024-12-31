@@ -76,17 +76,17 @@ Route::get('/visitor-count', [DashboardController::class, 'visitor']);
 // Landing Page
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::get('/tentang-kami', 'about')->name('about');
+    Route::get('/about', 'about')->name('about');
     Route::get('/course', 'course')->name('course');
     Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
     Route::get('/event', 'event')->name('event');
 
-    Route::prefix('artikel')->group(function () {
-        Route::get('/', 'artikel')->name('artikel');
-        Route::get('/{slug}', 'showSlug')->name('artikel.showSlug');
-        Route::get('/cari', 'search')->name('artikel.search');
-        Route::get('/kategori/{name}', 'showCategory')->name('artikel.category');
-        Route::get('/tag/{tag}', 'showTag')->name('artikel.tag');
+    Route::prefix('blog')->group(function () {
+        Route::get('/', 'blog')->name('blog');
+        Route::get('/{slug}', 'showSlug')->name('blog.showSlug');
+        Route::get('/cari', 'search')->name('blog.search');
+        Route::get('/kategori/{name}', 'showCategory')->name('blog.category');
+        Route::get('/tag/{tag}', 'showTag')->name('blog.tag');
     });
 
     Route::get('/kontak', 'contact')->name('contact');
