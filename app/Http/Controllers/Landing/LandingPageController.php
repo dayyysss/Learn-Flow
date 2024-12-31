@@ -119,7 +119,7 @@ class LandingPageController extends Controller
 
     public function blog()
     {
-        $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->paginate(3);
+        $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->paginate(5);
         $category = CategoryArtikel::all();
         $commonData = $this->loadCommonData();
     
@@ -130,10 +130,11 @@ class LandingPageController extends Controller
     {
         $articles = Artikel::where('slug', $slug)->firstOrFail();
         $articles->increment('visitor');
+        $category = CategoryArtikel::all();
         $moreArticle = Artikel::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $commonData = $this->loadCommonData();
 
-        return view('landing.pages.blog.blog-detail', array_merge(compact('articles', 'moreArticle'), $commonData));
+        return view('landing.pages.blog.blog-detail', array_merge(compact('articles', 'moreArticle', 'category'), $commonData));
     }
     
     public function showCategory($name)
@@ -146,6 +147,19 @@ class LandingPageController extends Controller
             ->paginate(3);
 
         return view('landing.pages.blog.blog', array_merge(compact('artikel', 'categories', 'category'),$commonData));
+    }
+
+    public function showTag($tag)
+    {
+        $artikel = Artikel::where('status', '1') 
+            ->where('tags', 'LIKE', "%{$tag}%")
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        $category = CategoryArtikel::all();
+        $commonData = $this->loadCommonData();
+
+        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'), $commonData));
     }
     
     public function search(Request $request)

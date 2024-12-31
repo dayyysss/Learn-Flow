@@ -83,10 +83,10 @@ Route::controller(LandingPageController::class)->group(function () {
 
     Route::prefix('blog')->group(function () {
         Route::get('/', 'blog')->name('blog');
-        Route::get('/{slug}', 'showSlug')->name('blog.showSlug');
-        Route::get('/cari', 'search')->name('blog.search');
+        Route::get('/cari', 'search')->name('blog.search');         
         Route::get('/kategori/{name}', 'showCategory')->name('blog.category');
         Route::get('/tag/{tag}', 'showTag')->name('blog.tag');
+        Route::get('/{slug}', 'showSlug')->name('blog.showSlug'); 
     });
 
     Route::get('/kontak', 'contact')->name('contact');
