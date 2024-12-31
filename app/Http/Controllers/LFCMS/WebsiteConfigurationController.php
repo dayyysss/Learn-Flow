@@ -22,18 +22,12 @@ class WebsiteConfigurationController extends Controller
             'judul_website' => 'required|string|max:255',
             'meta_deskripsi' => 'required|string',
             'meta_kata_kunci' => 'required|string',
-            'alamat_judul' => 'required|array',
-            'alamat' => 'required|array',
-            'embed_map' => 'nullable|array',
+            'alamat' => 'required',
             'contact_name' => 'nullable|array',
             'contact_value' => 'nullable|array',
             'social_media_platform' => 'nullable|array',
             'social_media_value' => 'nullable|array',
         ]);
-
-        $alamat_judul = json_encode($request->alamat_judul);
-        $alamat = json_encode($request->alamat);
-        $embed_map = json_encode($request->embed_map);
 
         $informasi_kontak = [];
         if ($request->contact_name && $request->contact_value) {
@@ -65,9 +59,7 @@ class WebsiteConfigurationController extends Controller
                 'judul_website' => $request->judul_website,
                 'meta_deskripsi' => $request->meta_deskripsi,
                 'meta_kata_kunci' => json_encode(array_map('trim', explode(',', $request->meta_kata_kunci))), // Simpan sebagai JSON
-                'alamat_judul' => $alamat_judul,
-                'alamat' => $alamat,
-                'embed_map' => $embed_map,
+                'alamat' => $request->alamat,
                 'informasi_kontak' => $informasi_kontak_json,
                 'informasi_sosial_media' => $informasi_sosial_media_json,
             ]);
@@ -78,9 +70,7 @@ class WebsiteConfigurationController extends Controller
                 'judul_website' => $request->judul_website,
                 'meta_deskripsi' => $request->meta_deskripsi,
                 'meta_kata_kunci' => json_encode(array_map('trim', explode(',', $request->meta_kata_kunci))), // Simpan sebagai JSON
-                'alamat_judul' => $alamat_judul,
-                'alamat' => $alamat,
-                'embed_map' => $embed_map,
+                'alamat' => $request->alamat,
                 'informasi_kontak' => $informasi_kontak_json,
                 'informasi_sosial_media' => $informasi_sosial_media_json,
             ]);
