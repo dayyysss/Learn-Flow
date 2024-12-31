@@ -11,6 +11,7 @@ use App\Models\Page;
 use App\Models\Artikel;
 use App\Models\Client;
 use App\Models\Testimonial;
+use App\Models\WebsiteConfiguration;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -204,7 +205,102 @@ class LandingPageController extends Controller
             ->sortDesc()
             ->take(10);
         
-        // Kembalikan data kategori dan tag populer
         return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
+    }
+
+    public function getContactsLogo()
+    {
+        // Ambil data kontak dari konfigurasi website
+        $websiteConfig = WebsiteConfiguration::first();
+        $contacts = json_decode($websiteConfig->informasi_kontak, true);
+        $socialMedia = json_decode($websiteConfig->informasi_sosial_media, true);
+        $pagesDeskripsi = Page::with('users')->find(3);
+
+        // Ambil logo dan favicon
+        $favicon = Logo::where('type', 'favicon')->first();
+        $logoDark = Logo::where('type', 'gelap')->first();
+        $logoBright = Logo::where('type', 'terang')->first();
+
+        $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
+        $configuration = WebsiteConfiguration::first();
+
+        return [
+            'contacts' => $contacts,
+            'socialMedia' => $socialMedia,
+            'websiteConfig' => $websiteConfig,
+            'pagesDeskripsi' => $pagesDeskripsi,
+            'latestArticles' => $latestArticles,
+            'configuration' => $configuration,
+            'favicon' => $favicon,
+            'logoDark' => $logoDark,
+            'logoBright' => $logoBright,
+        ];
+    }
+
+    public function indexMenu(Request $request)
+    {
+        $headerMenus = MenuList::where('menutype_id', 2)
+            ->with([
+                'children' => function ($query) {
+                    $query->orderBy('order');
+                }
+            ])
+            ->whereNull('parent_id')
+            ->orderBy('order')
+            ->get();
+
+        $footerMenus = MenuList::where('menutype_id', 3)
+            ->with([
+                'children' => function ($query) {
+                    $query->orderBy('order');
+                }
+            ])
+            ->whereNull('parent_id')
+            ->orderBy('order')
+            ->get();
+
+        $sidebarMenus = MenuList::where('menutype_id', 4)
+            ->with([
+                'children' => function ($query) {
+                    $query->orderBy('order');
+                }
+            ])
+            ->whereNull('parent_id')
+            ->orderBy('order')
+            ->get();
+
+        if ($request->ajax()) {
+            if ($request->menu_type == 'header') {
+                return response()->json($this->buildNestedMenu($headerMenus));
+            } elseif ($request->menu_type == 'footer') {
+                return response()->json($this->buildNestedMenu($footerMenus));
+            } elseif ($request->menu_type == 'sidebar') {
+                return response()->json($this->buildNestedMenu($sidebarMenus));
+            }
+        }
+
+        $nestedHeaderMenus = $this->buildNestedMenu($headerMenus);
+        $nestedFooterMenus = $this->buildNestedMenu($footerMenus);
+        $nestedSidebarMenus = $this->buildNestedMenu($sidebarMenus);
+
+        return view('landing.layouts.landing-layouts', compact('nestedHeaderMenus', 'nestedFooterMenus', 'nestedSidebarMenus'));
+    }
+
+    private function buildNestedMenu($menus)
+    {
+        $menuArray = [];
+        foreach ($menus as $menu) {
+            $children = $this->buildNestedMenu($menu->children);
+
+            $menuArray[] = [
+                'id' => $menu->id,
+                'content' => $menu->name,
+                'link' => $menu->url,
+                'icon' => $menu->ikon,
+                'hasChildren' => count($children) > 0,
+                'children' => $children,
+            ];
+        }
+        return $menuArray;
     }
 }
