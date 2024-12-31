@@ -125,6 +125,16 @@ class LandingPageController extends Controller
     
         return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'),$commonData));
     }
+
+    public function showSlug($slug)
+    {
+        $articles = Artikel::where('slug', $slug)->firstOrFail();
+        $articles->increment('visitor');
+        $moreArticle = Artikel::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
+        $commonData = $this->loadCommonData();
+
+        return view('landing.pages.blog.blog-detail', array_merge(compact('articles', 'moreArticle'), $commonData));
+    }
     
     public function showCategory($name)
     {
