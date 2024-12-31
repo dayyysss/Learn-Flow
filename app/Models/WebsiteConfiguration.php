@@ -12,9 +12,7 @@ class WebsiteConfiguration extends Model
         'judul_website',
         'meta_deskripsi',
         'meta_kata_kunci',
-        'alamat_judul',
         'alamat',
-        'embed_map',
         'informasi_kontak',
         'informasi_sosial_media',
     ];

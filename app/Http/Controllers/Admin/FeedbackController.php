@@ -24,7 +24,8 @@ class FeedbackController extends Controller
             // Fetch courses purchased by the student with 'confirmed' registration status
             $courses = Course::whereHas('courseRegistrations', function ($query) {
                 $query->where('user_id', auth()->id())  // Filter by the logged-in user
-                    ->where('registration_status', 'confirmed'); // Only confirmed courses
+                    ->where('registration_status', 'confirmed') // Only confirmed courses
+                    ->where('progress', 100);
             })->get();
 
             // Fetch reviews given by the student
