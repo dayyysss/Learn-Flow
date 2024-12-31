@@ -10,15 +10,18 @@ class WebsiteConfigurationController extends Controller
 {
     public function index()
 {
-    $existingKeywords = WebsiteConfiguration::all()->pluck('meta_kata_kunci')->toArray();
-
-    // Pisahkan setiap meta_kata_kunci yang berbentuk string CSV menjadi array
-    $existingKeywords = array_map(function($keywords) {
-        return array_map('trim', explode(',', $keywords));
-    }, $existingKeywords);
 
     $configuration = WebsiteConfiguration::first();
-    return view('lfcms.pages.website.index', compact('configuration', 'existingKeywords'));
+
+
+    $existingKeywords = $configuration ? json_decode($configuration->meta_kata_kunci, true) : [];
+    $informasiKontak = $configuration ? json_decode($configuration->informasi_kontak, true) : [];
+    $informasiSosmed = $configuration ? json_decode($configuration->informasi_sosial_media, true) : [];
+
+
+
+    
+    return view('lfcms.pages.website.index', compact('configuration', 'existingKeywords', 'informasiKontak','informasiSosmed'));
 }
 
     
