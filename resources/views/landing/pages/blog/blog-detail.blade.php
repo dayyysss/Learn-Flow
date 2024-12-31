@@ -34,9 +34,9 @@
                                         </li>
                                         @foreach (explode(',', $articles->tag) as $tag)
                                             <li>
-                                               <a href="{{ route('blog.tag', ['tag' => $tag]) }}"
-                                                    class="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded">
-                                                    {{ trim($tag) }}
+                                                <a href="{{ route('blog.tag', ['tag' => urlencode($tag)]) }}"
+                                                    class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">
+                                                    {{ $tag }}
                                                 </a>
                                             </li>
                                         @endforeach
@@ -194,8 +194,10 @@
                                 <ul class="flex flex-wrap gap-x-5px">
                                     @foreach ($popularTagsArtikel as $tag => $count)
                                         <li>
-                                            <a href="{{ route('blog.tag', ['tag' => $tag]) }}"
-                                                class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">{{ $tag }}</a>
+                                            <a href="{{ route('blog.tag', ['tag' => urlencode($tag)]) }}"
+                                                class="m-5px px-19px py-3px text-contentColor text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor leading-30px dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor">
+                                                {{ $tag }}
+                                            </a>
                                         </li>
                                     @endforeach
                                 </ul>

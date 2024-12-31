@@ -23,7 +23,7 @@
             class="w-90px h-90px border-5px border-t-blue border-r-blue border-b-blue-light border-l-blue-light rounded-full animate-spin-infinit">
         </div>
         <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-            <img src="assets/images/pre.png" alt="Preloader" class="h-10 w-10 block">
+            <img src="{{ asset('assets/images/pre.png') }}" alt="Preloader" class="h-10 w-10 block">
         </div>
     </div>
     <!-- theme fixed shadow -->
@@ -67,7 +67,7 @@
     <section>
         <div class="container py-100px">
             <div class="w-full lg:max-w-770px lg:mx-auto text-center">
-                <img src="assets/images/icon/error__1.png" alt="" class="w-full mb-60px">
+                <img src="{{ asset('assets/images/icon/error__1.png') }}" alt="" class="w-full mb-60px">
                 <h3
                     class="text-size-35 md:text-size-40 lg:text-size-50 leading-10 md:leading-14.5 lg:leading-20 text-blackColor dark:text-blackColor-dark font-bold">
                     Oops... It looks like you ‘re lost !
