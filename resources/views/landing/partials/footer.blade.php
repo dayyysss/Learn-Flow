@@ -60,32 +60,13 @@
                         </div>
                     </div>
                     <!-- middle 1 -->
-                    <div class="col-start-1 col-span-12 md:col-start-7 lg:col-start-5 md:col-span-6 lg:col-span-2"
+                    <div class="single-footer-items col-start-1 col-span-12 md:col-start-7 lg:col-start-5 md:col-span-6 lg:col-span-2"
                         data-aos="fade-up">
                         <h4 class="text-size-22 font-bold text-whiteColor mb-3">
                             Menu
                         </h4>
-                        <ul class="flex flex-col gap-y-3">
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Beranda</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Tentang</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Kursus</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Artikel</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Kontak</a>
-                            </li>
+                        <ul class="menu-list flex flex-col gap-y-3">
+                            {{-- FOOTER MENU --}}
                         </ul>
                     </div>
                     <!-- middle 2 -->
@@ -129,22 +110,23 @@
                             Artikel Terbaru
                         </h4>
                         <ul class="flex flex-col gap-y-5">
-                            @foreach ($latestArticles as $article)         
-                            <li>
-                                <a class="flex items-center gap-3 group cursor-pointer">
-                                    <div>
-                                        <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul }}"
-                                            class="w-61px h-54px">
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-darkgray mb-7px"> {{ $article->created_at->format('d F Y') }}</p>
-                                        <h6
-                                            class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
-                                            {!! Str::limit($article->judul, 15) !!}
-                                        </h6>
-                                    </div>
-                                </a>
-                            </li>
+                            @foreach ($latestArticles as $article)
+                                <li>
+                                    <a class="flex items-center gap-3 group cursor-pointer">
+                                        <div>
+                                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul }}"
+                                                class="w-61px h-54px">
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-darkgray mb-7px">
+                                                {{ $article->created_at->format('d F Y') }}</p>
+                                            <h6
+                                                class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
+                                                {!! Str::limit($article->judul, 15) !!}
+                                            </h6>
+                                        </div>
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -200,7 +182,7 @@
             </div>
         </div>
     </footer>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -213,11 +195,12 @@
                 },
                 success: function(data) {
                     let footerMenu = '';
-    
+
                     $.each(data, function(index, menu) {
-                        footerMenu += `<li><a href="${menu.link}">${menu.content}</a></li>`;
+                        footerMenu +=
+                            `<li> <a href="${menu.link}" class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">${menu.content}</a></li>`;
                     });
-    
+
                     // Tambahkan ke elemen <ul> yang ada di bagian "Menu"
                     $('.single-footer-items .menu-list').html(footerMenu);
                 },
@@ -226,5 +209,5 @@
                 }
             });
         });
-    </script>    
+    </script>
 @show
