@@ -255,7 +255,7 @@
                                                                         class="block text-lg font-medium text-gray-700 dark:text-gray-300">
                                                                         Instruktur
                                                                     </label>
-                                                                    <select id="instructorName" name="instructor_id"
+                                                                    <select id="instructorName" name="instruktur_id"
                                                                         class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-400">
                                                                         <option value="">Pilih Instruktur</option>
                                                                         @foreach ($instructors as $instructor)
@@ -444,7 +444,7 @@
 
                     // Tambahkan data instruktur jika diisi
                     if (instructorName && instructorRating && instructorKomentar) {
-                        requestData.instructor_id = instructorName;
+                        requestData.instruktur_id = instructorName;
                         requestData.instructor_rating = instructorRating;
                         requestData.instructor_komentar = instructorKomentar;
                     }
