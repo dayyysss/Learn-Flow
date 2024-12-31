@@ -39,9 +39,7 @@
                             Sekilas Tentang Kami
                         </h4>
                         <p class="text-base lg:text-sm 2xl:text-base text-darkgray mb-30px leading-1.8 2xl:leading-1.8">
-                            orporate clients and leisure travelers has been relying on
-                            Groundlink for dependable safe, and professional chauffeured car
-                            end service in major cities across World.
+                            {!! $pagesDeskripsi->deskripsi !!}
                         </p>
                         <div class="flex items-center">
                             <div>
@@ -135,11 +133,11 @@
                             <li>
                                 <a class="flex items-center gap-3 group cursor-pointer">
                                     <div>
-                                        <img src="{{ asset('assets/images/footer/footer__1.png') }}" alt=""
+                                        <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul }}"
                                             class="w-61px h-54px">
                                     </div>
                                     <div>
-                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
+                                        <p class="text-xs text-darkgray mb-7px"> {{ $article->created_at->format('d F Y') }}</p>
                                         <h6
                                             class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
                                             {!! Str::limit($article->judul, 15) !!}
@@ -202,4 +200,31 @@
             </div>
         </div>
     </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "{{ route('menu.landing') }}",
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    menu_type: 'footer'
+                },
+                success: function(data) {
+                    let footerMenu = '';
+    
+                    $.each(data, function(index, menu) {
+                        footerMenu += `<li><a href="${menu.link}">${menu.content}</a></li>`;
+                    });
+    
+                    // Tambahkan ke elemen <ul> yang ada di bagian "Menu"
+                    $('.single-footer-items .menu-list').html(footerMenu);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error fetching footer menu:', textStatus, errorThrown);
+                }
+            });
+        });
+    </script>    
 @show
