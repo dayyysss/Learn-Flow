@@ -1,5 +1,5 @@
 @extends('landing.layouts.landing-layouts')
-@section('page_title', $articles->judul . ' | Learn Flow') 
+@section('page_title', $articles->judul . ' | Learn Flow')
 @section('content')
 
     @include('landing.components.breadcrumb', ['title' => 'Detail Artikel'])
@@ -40,7 +40,7 @@
                                                 </a>
                                             </li>
                                         @endforeach
-                                    </ul>                                    
+                                    </ul>
                                 </div>
                                 <div>
                                     <!-- social -->
