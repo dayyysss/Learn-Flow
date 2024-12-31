@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Course;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class FeedbackController extends Controller
         $receivedReviews = collect();
         $givenReviews = collect();
         $courses = collect();
+        $instructors = User::where('role_id', 3)->get();
 
         // If the user is a student (role_id == 2)
         if ($userRole == 2) {
@@ -48,7 +50,7 @@ class FeedbackController extends Controller
         }
 
         // Return the view with the filtered reviews and course list
-        return view('dashboard.pages.reviews.index', compact('receivedReviews', 'givenReviews', 'courses'));
+        return view('dashboard.pages.reviews.index', compact('receivedReviews', 'givenReviews', 'courses', 'instructors'));
     }
 
     // Controller
@@ -57,6 +59,8 @@ class FeedbackController extends Controller
         $request->validate([
             'rating' => 'required|numeric|min:1|max:5',
             'komentar' => 'required|string|max:100',
+            'instructor_rating' => 'nullable|numeric|min:1|max:5',
+            'instructor_komentar' => 'nullable|string|string|max:100',
             'course_id' => 'required|exists:courses,id',
         ]);
 
@@ -66,6 +70,8 @@ class FeedbackController extends Controller
         $feedback->course_id = $request->input('course_id'); // Pastikan Anda mengirimkan course_id
         $feedback->rating = $request->input('rating');
         $feedback->komentar = $request->input('komentar');
+        $feedback->instructor_rating = $request->input('instructor_rating');
+        $feedback->instructor_komentar = $request->input('instructor_komentar');
         $feedback->save();
 
         return redirect()->route('dashboard.reviews')->with('success', 'Review berhasil ditambahkan.');
