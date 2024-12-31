@@ -162,6 +162,9 @@ Route::prefix('lfcms')
         Route::get('frontend/hak-akses/{roleId}', [HakAksesFrontendController::class, 'indexbyRole'])->name('HakAkses.index.frontend');
         Route::delete('frontend/role/{id}', [HakAksesFrontendController::class, 'destroy'])->name('role.destroy.frontend');
 
+        Route::post('/website/kata-kunci', [WebsiteConfigurationController::class, 'storeKeyword'])->name('konfigurasi.kataKunci');
+        Route::post('/website/kontak', [WebsiteConfigurationController::class, 'storeKontak'])->name('konfigurasi.kataKontak');
+        Route::post('/website/Sosial-media', [WebsiteConfigurationController::class, 'storeSosial'])->name('konfigurasi.sosialMedia');
 
 
 

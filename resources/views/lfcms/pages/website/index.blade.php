@@ -10,32 +10,38 @@
         <div class="col-span-full sm:col-span-6 xl:col-span-8">
             <div class="card p-0 overflow-hidden">
                 <div class="px-4 py-5 sm:p-7 bg-gray-200/30 dark:bg-dark-card-two">
-                    <h6 class="card-title">Configurasi Website</h6>
+                    <h6 class="card-title">Konfigurasi Website</h6>
                 </div>
                 <div class="p-3 sm:p-7">
-                    <form action="#" method="post">
+                    <form action="{{ route('website.store') }}" method="POST">
+                        @csrf <!-- Token CSRF -->
                         <div class="grid gap-x-4 gap-y-5">
                             <div class="col-span-full xl:col-auto leading-none">
-                                <label for="firstName" class="form-label">Nama Instansi</label>
-                                <input type="text" id="firstName" value="Jonathon" class="form-input">
+                                <label for="nama_perusahaan" class="form-label">Nama Instansi</label>
+                                <input type="text" id="nama_perusahaan" name="nama_perusahaan" value="{{$configuration->nama_perusahaan ?? '-'}}" class="form-input">
                             </div>
                             <div class="grid grid-cols-2 gap-x-4 gap-y-5">
-                            
+                                <div class="col-span-full xl:col-auto leading-none">
+                                    <label for="judul_website" class="form-label">Nama Website</label>
+                                    <input type="text" id="judul_website" name="judul_website" value="{{$configuration->judul_website ?? '-'}}" class="form-input">
+                                </div>
+                                <div class="col-span-full xl:col-auto leading-none">
+                                    <label for="nama_domain" class="form-label">Nama Domain</label>
+                                    <input type="text" id="nama_domain" name="nama_domain" value="{{$configuration->nama_domain ?? '-'}}" class="form-input">
+                                </div>
+                            </div>
+                    
                             <div class="col-span-full xl:col-auto leading-none">
-                                <label for="email" class="form-label">Nama Website</label>
-                                <input type="email" id="email" value="debra.holt@example.com" class="form-input">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <input type="text" id="alamat" name="alamat" value="{{$configuration->alamat ?? '-'}}" class="form-input">
                             </div>
-
-                            <div class="col-span-full xl:col-auto leading-none">
-                                <label for="lastName" class="form-label">Nama Domain</label>
-                                <input type="text" id="lastName" value="Smith" class="form-input">
-                            </div>
-                            </div>
+                    
                             <div class="col-span-full">
-                                <label for="email" class="form-label">Meta Deskripsi</label>
-                                <textarea class="summernote"></textarea> 
+                                <label for="meta_deskripsi" class="form-label">Meta Deskripsi</label>
+                                <textarea id="meta_deskripsi" name="meta_deskripsi" class="summernote">{{$configuration->meta_deskripsi ?? '-'}}</textarea> 
                             </div>
                         </div>
+                        
                         <div class="flex gap-3 mt-5">
                             <button type="submit" class="btn b-solid btn-primary-solid dk-theme-card-square">
                                 <i class="ri-checkbox-circle-line text-inherit hidden sm:block"></i>
@@ -46,7 +52,8 @@
                                 <span>Cancel</span>
                             </button>
                         </div>
-                    </form>        
+                    </form>
+                       
                 </div>
             </div>
         </div>
@@ -56,7 +63,7 @@
         <div class="col-span-full sm:col-span-6 xl:col-span-4 card p-0">
             <div class="bg-white dark:bg-dark-card rounded-15 overflow-hidden dk-theme-card-square">
                 <div class="relative w-full h-[150px]">
-                    <img src="assets/images/profile/cover.png" alt="cover-image" class="w-full h-full">
+                    <img src="{{asset('assets/lfcms/images/profile/cover.png')}}" alt="cover-image" class="w-full h-full">
                     <label for="thumbnailsrc" class="file-container bg-[url('../../assets/images/profile/profile.html')] bg-no-repeat bg-cover absolute left-1/2 -translate-x-1/2 -bottom-[calc(theme('spacing.ins-pro-img')_/_2)] w-[calc(theme('spacing.ins-pro-img')_+_5px)] h-[theme('spacing.ins-pro-img')] border-2 border-white dark:border-dark-border-two rounded-20 dk-theme-card-square">
                         <input type="file" id="thumbnailsrc" hidden="" class="img-src peer/file">
                         <span class="absolute bottom-0 right-0 border-2 border-white dark:border-dark-border-two rounded-full dk-theme-card-square">
@@ -80,18 +87,21 @@
                     </div>
                     <div class="py-5 border-t border-gray-200 dark:border-dark-border text-left">
                         <div class="flex-center-between">
-                            <h6 class="text-gray-500 dark:text-dark-text leading-none font-semibold">Skill</h6>
-                            <button class="size-7 hover:bg-gray-200 dark:hover:bg-dark-icon rounded-md" data-modal-target="addBioModal" data-modal-toggle="addBioModal">
+                            <h6 class="text-gray-500 dark:text-dark-text leading-none font-semibold">Meta Keyword</h6>
+                            <button class="size-7 hover:bg-gray-200 dark:hover:bg-dark-icon rounded-md" data-modal-target="addKeyword" data-modal-toggle="addKeyword">
                                 <i class="ri-edit-2-line"></i>
                             </button>
                         </div>
-                        <ul class="flex items-center flex-wrap gap-2.5 *:rounded-full *:px-2.5 *:py-1.5 mt-4">
-                            <li class="badge badge-primary-light">UI Design</li>
-                            <li class="badge badge-primary-light">Research</li>
-                            <li class="badge badge-primary-light">Figma</li>
-                            <li class="badge badge-primary-light">Creative Idea</li>
-                            <li class="badge badge-primary-light">Animation</li>
+                        <ul class="flex items-center flex-wrap gap-2.5 mt-4">
+                            @if($configuration && isset($configuration->meta_kata_kunci))
+                                @foreach(json_decode($configuration->meta_kata_kunci) as $keyword)
+                                    <li class="badge badge-primary-light">{{ $keyword }}</li>
+                                @endforeach
+                            @else
+                                <li class="badge badge-secondary-light">Tidak ada kata kunci</li>
+                            @endif
                         </ul>
+                        
                     </div>
                     <div class="py-5 border-t border-gray-200 dark:border-dark-border text-left">
                         <div class="flex-center-between">
@@ -149,20 +159,10 @@
 </div>
 <!-- End Main Content -->
 
-<!-- Start Add Bio Modal -->
-<div id="addBioModal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-modal w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="p-4 w-full max-w-md max-h-full">
-        <div class="relative bg-white dark:bg-dark-card-shade rounded-lg shadow">
-            <button type="button" data-modal-hide="addBioModal" class="absolute top-3 end-2.5 hover:bg-gray-200 dark:hover:bg-dark-icon rounded-lg size-8 flex-center">
-                <i class="ri-close-line text-gray-500 dark:text-dark-text text-xl leading-none"></i>
-            </button>
-            <div class="p-4 md:p-5 text-center">
-                <h2 class="py-20 text-center">Add Bio...</h2>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Add Bio Modal -->
+<!-- Start Add Modal -->
+@include('lfcms.pages.website.modal')
+
+<!-- End Add Modal -->
 
 <!-- Start Cancel Account Settng Modal -->
 <div id="cancelAcSettingModal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-modal w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -198,4 +198,100 @@
 <script src="assets/js/layout.js"></script>
 <script src="assets/js/main.js"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const keywordInput = document.getElementById('keywordInput');
+    const tagContainer = document.getElementById('tagContainer');
+    const form = document.getElementById('keywordForm');
+
+    let tags = [];
+
+    // Tambah tag baru
+    const addTag = (tag) => {
+        if (tag && !tags.includes(tag)) {
+            tags.push(tag);
+            renderTags();
+        }
+    };
+
+    // Hapus tag
+    const removeTag = (tag) => {
+        tags = tags.filter(t => t !== tag);
+        renderTags();
+    };
+
+    // Render tag di container
+    const renderTags = () => {
+        tagContainer.innerHTML = '';
+        tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm flex items-center gap-2';
+            tagElement.innerHTML = `
+                ${tag}
+                <button type="button" class="text-red-500 hover:text-red-700" data-tag="${tag}">&times;</button>
+            `;
+            tagContainer.appendChild(tagElement);
+        });
+
+        // Event listener untuk hapus tag
+        tagContainer.querySelectorAll('button[data-tag]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                removeTag(e.target.getAttribute('data-tag'));
+            });
+        });
+    };
+
+    // Event listener untuk input keyword
+    keywordInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ',' || e.key === ' ' || e.key === 'Tab') {
+            e.preventDefault();
+            const value = keywordInput.value.trim();
+            if (value) {
+                addTag(value);
+                keywordInput.value = '';
+            }
+        }
+    });
+
+    // Event listener untuk paste
+    keywordInput.addEventListener('paste', (e) => {
+        e.preventDefault();
+
+        const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+        const keywords = pasteData.split(',').map(tag => tag.trim());
+
+        keywords.forEach(addTag);
+        keywordInput.value = '';
+    });
+
+    // Kirim data ke backend
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('/lfcms/website/kata-kunci', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                },
+                body: JSON.stringify({ meta_kata_kunci: tags }),
+            });
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                alert(result.message);
+                location.reload();
+            } else {
+                alert('Gagal menyimpan kata kunci.');
+            }
+        } catch (error) {
+            console.error('Error saving keywords:', error);
+        }
+    });
+});
+
+
+</script>
 @endsection
