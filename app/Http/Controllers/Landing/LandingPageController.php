@@ -41,8 +41,9 @@ class LandingPageController extends Controller
         $halamanTentang = Page::with('users')->where('slug', 'halaman-tentang')->where('status', 'publik') ->first();
         $testimonial = Testimonial::where('status', 'publik')->get();
         $klien = Client::where('status', 'publik')->orderBy('created_at', 'desc')->take(9)->get();
+        $contactData = $this->getContactsLogo();
 
-        return view('landing.pages.about.about', compact('testimonial', 'klien', 'tentang', 'halamanTentang'));
+        return view('landing.pages.about.about', array_merge(compact('testimonial', 'klien', 'tentang', 'halamanTentang'), $contactData));
     }
 
     public function course(Request $request)
@@ -50,6 +51,7 @@ class LandingPageController extends Controller
         // Mengambil semua kategori dengan jumlah kursus terkait
         $categories = CategoryCourse::withCount('courses')->get();
         $instrukturs = CategoryCourse::all();
+        $contactData = $this->getContactsLogo();
         
         // Ambil parameter kategori, tag, skill_level, dan search dari permintaan
         $selectedCategory = $request->get('category');
@@ -104,9 +106,9 @@ class LandingPageController extends Controller
                 'selectedCategory' => $selectedCategory,
                 'selectedTag' => $selectedTag,
                 'selectedSkillLevel' => $selectedSkillLevel,
-                'searchQuery' => $searchQuery, // Menyertakan query pencarian
+                'searchQuery' => $searchQuery, 
             ],
-            $commonData
+            $commonData, $contactData
         ));
     }
     
@@ -125,8 +127,9 @@ class LandingPageController extends Controller
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->paginate(5);
         $category = CategoryArtikel::all();
         $commonData = $this->loadCommonData();
+        $contactData = $this->getContactsLogo();
     
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'),$commonData));
+        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'),$commonData, $contactData));
     }
 
     public function showSlug($slug)
@@ -184,7 +187,10 @@ class LandingPageController extends Controller
 
     public function contact()
     {
-        return view('landing.pages.contact.contact');
+        $category = CategoryArtikel::all();
+        $contactData = $this->getContactsLogo();
+
+        return view('landing.pages.contact.contact', array_merge(compact('category'), $contactData));
     }
 
     public function instructor()
