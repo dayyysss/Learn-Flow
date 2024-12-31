@@ -61,21 +61,33 @@ class FeedbackController extends Controller
             'rating' => 'required|numeric|min:1|max:5',
             'komentar' => 'required|string|max:100',
             'instructor_rating' => 'nullable|numeric|min:1|max:5',
-            'instructor_komentar' => 'nullable|string|string|max:100',
+            'instructor_komentar' => 'nullable|string|max:100',
             'course_id' => 'required|exists:courses,id',
         ]);
 
-        // Menyimpan review baru
-        $feedback = new Feedback();
-        $feedback->user_id = auth()->id();
-        $feedback->course_id = $request->input('course_id'); // Pastikan Anda mengirimkan course_id
-        $feedback->rating = $request->input('rating');
-        $feedback->komentar = $request->input('komentar');
-        $feedback->instructor_rating = $request->input('instructor_rating');
-        $feedback->instructor_komentar = $request->input('instructor_komentar');
-        $feedback->save();
+        try {
+            // Menyimpan review baru
+            $feedback = new Feedback();
+            $feedback->user_id = auth()->id();
+            $feedback->course_id = $request->input('course_id');
+            $feedback->rating = $request->input('rating');
+            $feedback->komentar = $request->input('komentar');
+            $feedback->instructor_rating = $request->input('instructor_rating');
+            $feedback->instructor_komentar = $request->input('instructor_komentar');
+            $feedback->save();
 
-        return redirect()->route('dashboard.reviews')->with('success', 'Review berhasil ditambahkan.');
+            // Mengirimkan respon JSON dengan status sukses
+            return response()->json([
+                'success' => true,
+                'message' => 'Ulasan berhasil ditambahkan!'
+            ]);
+        } catch (\Exception $e) {
+            // Jika terjadi error, mengirimkan respon JSON dengan status gagal
+            return response()->json([
+                'success' => false,
+                'message' => 'Ulasan gagal ditambahkan.'
+            ]);
+        }
     }
 
 

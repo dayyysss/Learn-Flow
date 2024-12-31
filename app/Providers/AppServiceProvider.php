@@ -52,7 +52,10 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('dashboard.partials.header', function ($view) {
             $user = Auth::user();
-            $registeredCoursesCount = Course::where('user_id', $user->id)->count();
+            $registeredCoursesCount = Course::join('course_registrations', 'courses.id', '=', 'course_registrations.course_id')
+                ->where('course_registrations.user_id', $user->id)
+                ->where('course_registrations.registration_status', 'confirmed')
+                ->count();
             $certificatesCount = Course::where('user_id', $user->id)->count();
        
             $view->with('registeredCoursesCount', $registeredCoursesCount, 'certificatesCount', $certificatesCount);
