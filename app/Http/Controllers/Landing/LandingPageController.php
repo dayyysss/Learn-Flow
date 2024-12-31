@@ -14,6 +14,7 @@ use App\Models\LFCMS\Administrator;
 use App\Models\Testimonial;
 use App\Models\WebsiteConfiguration;
 use App\Models\User;
+use App\Models\LFCMS\MenuList;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -28,8 +29,10 @@ class LandingPageController extends Controller
         $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $klien = Client::where('status', 'publik')->take(5)->get();
         $commonData = $this->loadCommonData();
+        $contactData = $this->getContactsLogo();
 
-        return view('landing-page', array_merge(compact('hero', 'about', 'artikel', 'klien', 'testimonial'), $commonData));
+        return view('landing-page', array_merge($contactData, compact('hero', 'about', 'artikel', 'klien', 'testimonial'), $commonData));
+        // return view('landing-page', array_merge($contactData, compact('artikel', 'pages4K', 'pagesTentangK', 'pages18TH', 'pages', 'pagesHero', 'pagesGambar', 'pagesGambar2', 'testimonial', 'superiority', 'services', 'portfolios', 'sliders', 'pagesCta') + $commonData));
     }
 
     public function about()
@@ -266,28 +269,28 @@ class LandingPageController extends Controller
     {
         // Ambil data kontak dari konfigurasi website
         $websiteConfig = WebsiteConfiguration::first();
-        $contacts = json_decode($websiteConfig->informasi_kontak, true);
-        $socialMedia = json_decode($websiteConfig->informasi_sosial_media, true);
+        // $contacts = json_decode($websiteConfig->informasi_kontak, true);
+        // $socialMedia = json_decode($websiteConfig->informasi_sosial_media, true);
         $pagesDeskripsi = Page::with('users')->find(3);
 
         // Ambil logo dan favicon
-        $favicon = Logo::where('type', 'favicon')->first();
-        $logoDark = Logo::where('type', 'gelap')->first();
-        $logoBright = Logo::where('type', 'terang')->first();
+        // $favicon = Logo::where('type', 'favicon')->first();
+        // $logoDark = Logo::where('type', 'gelap')->first();
+        // $logoBright = Logo::where('type', 'terang')->first();
 
         $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
         $configuration = WebsiteConfiguration::first();
 
         return [
-            'contacts' => $contacts,
-            'socialMedia' => $socialMedia,
+            // 'contacts' => $contacts,
+            // 'socialMedia' => $socialMedia,
             'websiteConfig' => $websiteConfig,
             'pagesDeskripsi' => $pagesDeskripsi,
             'latestArticles' => $latestArticles,
             'configuration' => $configuration,
-            'favicon' => $favicon,
-            'logoDark' => $logoDark,
-            'logoBright' => $logoBright,
+            // 'favicon' => $favicon,
+            // 'logoDark' => $logoDark,
+            // 'logoBright' => $logoBright,
         ];
     }
 

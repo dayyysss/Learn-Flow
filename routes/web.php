@@ -80,6 +80,7 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/course', 'course')->name('course');
     Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
     Route::get('/event', 'event')->name('event');
+    Route::get('/menu-landing', 'indexMenu')->name('menu.landing');
 
     Route::prefix('blog')->group(function () {
         Route::get('/', 'blog')->name('blog');
