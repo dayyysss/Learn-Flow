@@ -80,7 +80,9 @@
                                                                 $fullStar = $i <= floor($review->instructor_rating); // Bintang penuh
                                                                 $halfStar =
                                                                     $i == ceil($review->instructor_rating) &&
-                                                                    $review->instructor_rating - floor($review->instructor_rating) >= 0.5; // Bintang setengah
+                                                                    $review->instructor_rating -
+                                                                        floor($review->instructor_rating) >=
+                                                                        0.5; // Bintang setengah
                                                             @endphp
 
                                                             @if ($fullStar)
@@ -315,16 +317,29 @@
                     const toggleButton = document.getElementById('toggleInstructorReviewBtn');
                     const hideButton = document.getElementById('hideInstructorReviewBtn');
 
+                    // Ambil nilai input dari ulasan kursus
+                    const courseName = document.getElementById('courseName').value.trim();
+                    const rating = document.getElementById('rating').value.trim();
+                    const komentar = document.getElementById('komentar').value.trim();
+
+                    // Validasi apakah ulasan kursus sudah diisi
+                    if (!courseName || !rating || !komentar) {
+                        alert('Harap berikan ulasan untuk kursus terlebih dahulu.');
+                        return; 
+                    }
+
+                    // Jika ulasan kursus sudah lengkap, toggle bagian ulasan instruktur
                     if (reviewSection.classList.contains('hidden')) {
                         // Tampilkan ulasan instruktur
                         reviewSection.classList.remove('hidden');
-                        toggleButton.classList.add('hidden'); // Sembunyikan tombol 'Ulas Instruktur'
+                        toggleButton.classList.add('hidden'); 
                     } else {
                         // Sembunyikan ulasan instruktur
                         reviewSection.classList.add('hidden');
-                        toggleButton.classList.remove('hidden'); // Tampilkan kembali tombol 'Ulas Instruktur'
+                        toggleButton.classList.remove('hidden');
                     }
                 }
+
 
                 function closeModal() {
                     const modal = document.getElementById("addReviewModal");
