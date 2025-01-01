@@ -39,7 +39,7 @@
                             Sekilas Tentang Kami
                         </h4>
                         <p class="text-base lg:text-sm 2xl:text-base text-darkgray mb-30px leading-1.8 2xl:leading-1.8">
-                            {!! $pagesDeskripsi->deskripsi !!}
+                            {!! $pagesDeskripsi->deskripsi ?? '' !!}
                         </p>
                         <div class="flex items-center">
                             <div>

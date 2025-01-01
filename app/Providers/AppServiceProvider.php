@@ -39,6 +39,17 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('permission', function ($permission) {
             return auth()->check() && auth()->user()->hasPermissionTo($permission);
         });
+        
+        Blade::if('roles', function ($roles) {
+            if (!auth()->check()) {
+                \Log::info('User not authenticated.');
+                return false;
+            }
+            $hasRoles = auth()->user()->hasRolesTo($roles);
+            \Log::info('User has roles: ' . json_encode($hasRoles));
+            return $hasRoles;
+        });
+        
 
         View::composer('dashboard.partials.header', function ($view) {
             $user = auth()->user();

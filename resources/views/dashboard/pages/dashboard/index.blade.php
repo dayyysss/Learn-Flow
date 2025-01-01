@@ -17,6 +17,7 @@
 
                     <!-- counter area -->
                     <div class="counter grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-30px gap-y-5 pb-5">
+
                         <div
                             class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
@@ -35,6 +36,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div
                             class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
