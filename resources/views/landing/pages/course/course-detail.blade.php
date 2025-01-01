@@ -1,5 +1,5 @@
 @extends('landing.layouts.landing-layouts')
-@section('page_title', 'Detail Kursus | Learn Flow')
+@section('page_title', $course->name . ' | Learn Flow')
 @section('content')
 
     @include('landing.components.breadcrumb', ['title' => 'Detail Kursus'])
