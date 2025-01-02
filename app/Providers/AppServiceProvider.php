@@ -7,6 +7,15 @@ use App\Models\Course;
 use App\Models\Feedback;
 use App\Models\Certificate;
 use App\Models\LFCMS\MenuList;
+
+use App\Models\Artikel;
+use App\Models\CategoryArtikel;
+use App\Models\CategoryCourse;
+use App\Models\WebsiteConfiguration;
+use App\Models\Page;
+use App\Models\Logo;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -107,8 +116,69 @@ class AppServiceProvider extends ServiceProvider
             $view->with('menus', $menus);
         });
 
-
+        View::composer(['*'], function ($view) {
+            $commonData = $this->loadCommonData();
+            $contactsLogo = $this->getContactsLogo();
+            
+            $view->with(array_merge($commonData, $contactsLogo));
+        });
     }
 
+    private function loadCommonData()
+{
+    $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
+    $categoriesArtikel = CategoryArtikel::orderBy('created_at', 'desc')->get();
+    $recentPosts = Artikel::where('status', '1')
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
+        
+    $categories = CategoryCourse::withCount(['courses' => function ($query) {
+        $query->where('publish_date', '<=', now());
+    }])
+    ->orderBy('courses_count', 'desc')
+    ->get();
 
+    $popularTags = DB::table('courses')
+        ->whereNotNull('tags')
+        ->where('publish_date', '<=', now())
+        ->pluck('tags')
+        ->flatMap(function ($tagsString) {
+            return explode(',', $tagsString);
+        })
+        ->map(fn($tag) => trim($tag))
+        ->filter()
+        ->countBy()
+        ->sortDesc()
+        ->take(10);
+
+    $popularTagsArtikel = DB::table('artikel')
+        ->whereNotNull('tag')
+        ->pluck('tag')
+        ->flatMap(function ($tagsString) {
+            return explode(',', $tagsString);
+        })
+        ->map(fn($tag) => trim($tag))
+        ->filter()
+        ->countBy()
+        ->sortDesc()
+        ->take(10);
+    
+    return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
 }
+
+private function getContactsLogo()
+{
+    $websiteConfig = WebsiteConfiguration::first();
+    $pagesDeskripsi = Page::with('users')->find(3);
+    $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
+    $configuration = WebsiteConfiguration::first();
+
+    return [
+        'websiteConfig' => $websiteConfig,
+        'pagesDeskripsi' => $pagesDeskripsi,
+        'latestArticles' => $latestArticles,
+        'configuration' => $configuration,
+    ];
+}
+}  

@@ -302,13 +302,9 @@ $relatedCourses = Course::where('instruktur_id', $course->instruktur_id)
                             ->take(5) // Misalnya tampilkan 5 course terkait
                             ->get();
 
-$commonData = $this->loadCommonData();
-$contactData = $this->getContactsLogo();
-
 // Kirimkan data course ke tampilan show bersama dengan data umum
 return view('landing.pages.course.course-detail', array_merge(
-    ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,],
-    $commonData, $contactData
+    ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,]
 ));
 }
 
@@ -379,10 +375,9 @@ public function showBab($slug)
     
     // Mengambil semua Bab yang terkait dengan Course ini beserta Modul dan Quiznya
     $bab = $course->babs()->with(['moduls', 'quiz'])->get();
-    $contactData = $this->getContactsLogo();
     
     // Mengirim data course dan bab ke view
-    return view('dashboard.pages.lesson.lesson', array_merge(compact('course', 'bab'), $contactData));
+    return view('dashboard.pages.lesson.lesson', compact('course', 'bab'));
 }
 
 

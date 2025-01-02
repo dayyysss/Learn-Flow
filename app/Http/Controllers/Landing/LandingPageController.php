@@ -28,10 +28,8 @@ class LandingPageController extends Controller
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
         $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $klien = Client::where('status', 'publik')->take(5)->get();
-        $commonData = $this->loadCommonData();
-        $contactData = $this->getContactsLogo();
-
-        return view('landing-page', array_merge($contactData, compact('hero', 'about', 'artikel', 'klien', 'testimonial'), $commonData));
+    
+        return view('landing-page', compact('hero', 'about', 'artikel', 'klien', 'testimonial'));
     }
 
     public function about()
@@ -40,9 +38,8 @@ class LandingPageController extends Controller
         $halamanTentang = Page::with('users')->where('slug', 'halaman-tentang')->where('status', 'publik') ->first();
         $testimonial = Testimonial::where('status', 'publik')->get();
         $klien = Client::where('status', 'publik')->orderBy('created_at', 'desc')->take(9)->get();
-        $contactData = $this->getContactsLogo();
 
-        return view('landing.pages.about.about', array_merge(compact('testimonial', 'klien', 'tentang', 'halamanTentang'), $contactData));
+        return view('landing.pages.about.about', compact('testimonial', 'klien', 'tentang', 'halamanTentang'));
     }
 
     public function course(Request $request)
@@ -92,10 +89,6 @@ class LandingPageController extends Controller
             'tag' => $selectedTag,
             'skill_level' => $selectedSkillLevel,
         ]);
-    
-        // Data umum lainnya
-        $commonData = $this->loadCommonData();
-        $contactData = $this->getContactsLogo();
         
         return view('landing.pages.course.course', array_merge(
             [
@@ -107,34 +100,29 @@ class LandingPageController extends Controller
                 'selectedSkillLevel' => $selectedSkillLevel,
                 'searchQuery' => $searchQuery, 
             ],
-            $commonData, $contactData
         ));
     }
     
     public function zoomWebinar()
     {
         $category = CategoryArtikel::all();
-        $contactData = $this->getContactsLogo();
 
-        return view('landing.pages.zoom-webinars.zoom', array_merge(compact('category'), $contactData));
+        return view('landing.pages.zoom-webinars.zoom', compact('category'));
     }
 
     public function event()
     {
         $category = CategoryArtikel::all();
-        $contactData = $this->getContactsLogo();
 
-        return view('landing.pages.events.event', array_merge(compact('category'), $contactData));
+        return view('landing.pages.events.event', compact('category'));
     }
 
     public function blog()
     {
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->paginate(5);
         $category = CategoryArtikel::all();
-        $commonData = $this->loadCommonData();
-        $contactData = $this->getContactsLogo();
     
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'),$commonData, $contactData));
+        return view('landing.pages.blog.blog', compact('artikel', 'category'));
     }
 
     public function showSlug($slug)
@@ -142,46 +130,38 @@ class LandingPageController extends Controller
         $articles = Artikel::where('slug', $slug)->firstOrFail();
         $articles->increment('visitor');
         $category = CategoryArtikel::all();
-        $commonData = $this->loadCommonData();
-        $contactData = $this->getContactsLogo();
 
-        return view('landing.pages.blog.blog-detail', array_merge(compact('articles', 'category'), $commonData, $contactData));
+        return view('landing.pages.blog.blog-detail', compact('articles', 'category'));
     }
     
     public function showCategory($name)
     {
         $category = CategoryArtikel::all();
         $categories = CategoryArtikel::where('name', $name)->firstOrFail();
-        $commonData = $this->loadCommonData();
-        $contactData = $this->getContactsLogo();
         $artikel = Artikel::where('category_id', $categories->id)
             ->orderBy('created_at', 'desc')
             ->paginate(3);
 
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'categories', 'category'),$commonData), $contactData);
+        return view('landing.pages.blog.blog', compact('artikel', 'categories', 'category'));
     }
 
     public function showTag($tag)
     {
         $tag = urldecode($tag);  
-        $contactData = $this->getContactsLogo();
         $artikel = Artikel::where('status', '1') 
             ->where('tag', 'LIKE', "%{$tag}%")
             ->orderBy('created_at', 'desc')
             ->paginate(5);
     
         $category = CategoryArtikel::all();
-        $commonData = $this->loadCommonData();
     
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'category'), $commonData, $contactData));
+        return view('landing.pages.blog.blog', compact('artikel', 'category'));
     }
     
     public function search(Request $request)
     {
         $search = $request->input('search');
         $category = CategoryArtikel::all();
-        $commonData = $this->loadCommonData();
-        $contactData = $this->getContactsLogo();
         $artikel = Artikel::where('status', '1')
             ->where(function ($query) use ($search) {
                 $query->where('keyword', 'LIKE', "%{$search}%")
@@ -190,21 +170,18 @@ class LandingPageController extends Controller
             })
             ->paginate(3);
         
-        return view('landing.pages.blog.blog', array_merge(compact('artikel', 'search', 'category'), $commonData, $contactData));
+        return view('landing.pages.blog.blog', compact('artikel', 'search', 'category'));
     }
 
     public function contact()
     {
         $category = CategoryArtikel::all();
-        $contactData = $this->getContactsLogo();
 
-        return view('landing.pages.contact.contact', array_merge(compact('category'), $contactData));
+        return view('landing.pages.contact.contact', compact('category'));
     }
 
     public function instructor()
     {
-        $contactData = $this->getContactsLogo();
-        // Ambil semua instruktur dengan role_id = 3
         $instrukturs = User::where('role_id', '3')->get();
 
         // Pastikan data sosial media berupa JSON
@@ -213,12 +190,11 @@ class LandingPageController extends Controller
         }
 
         // Kirim data instruktur ke view
-        return view('landing.pages.instructor.instructor', array_merge(compact('instrukturs'), $contactData));
+        return view('landing.pages.instructor.instructor', compact('instrukturs'));
     }
 
     public function showinstructor($id)
     {
-        $contactData = $this->getContactsLogo();
         // Ambil instruktur dengan id tertentu
         $instrukturs = User::findOrFail($id);  // Ambil instruktur tunggal
 
@@ -232,83 +208,83 @@ class LandingPageController extends Controller
         $instrukturs->sosial_media = json_decode($instrukturs->sosial_media, true);
 
         // Kirim data instruktur ke view
-        return view('landing.pages.instructor.instructor-detail', array_merge(compact('instrukturs', 'relatedCourses'), $contactData));
+        return view('landing.pages.instructor.instructor-detail', compact('instrukturs', 'relatedCourses'));
     }
 
-    private function loadCommonData()
-    {
-        $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
-        $categoriesArtikel = CategoryArtikel::orderBy('created_at', 'desc')->get();
-        $recentPosts = Artikel::where('status', '1')
-        ->orderBy('created_at', 'desc')
-        ->take(5)
-        ->get();
-        // Ambil kategori dan hitung jumlah kursus yang terkait
-        $categories = CategoryCourse::withCount(['courses' => function ($query) {
-            // Filter kursus dengan publish_date yang sudah terlewat
-            $query->where('publish_date', '<=', now());
-        }])
-        ->orderBy('courses_count', 'desc') // Urutkan berdasarkan jumlah kursus
-        ->get();
+    // private function loadCommonData()
+    // {
+    //     $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
+    //     $categoriesArtikel = CategoryArtikel::orderBy('created_at', 'desc')->get();
+    //     $recentPosts = Artikel::where('status', '1')
+    //     ->orderBy('created_at', 'desc')
+    //     ->take(5)
+    //     ->get();
+    //     // Ambil kategori dan hitung jumlah kursus yang terkait
+    //     $categories = CategoryCourse::withCount(['courses' => function ($query) {
+    //         // Filter kursus dengan publish_date yang sudah terlewat
+    //         $query->where('publish_date', '<=', now());
+    //     }])
+    //     ->orderBy('courses_count', 'desc') // Urutkan berdasarkan jumlah kursus
+    //     ->get();
     
-        // Ambil tag populer berdasarkan kursus dengan publish_date yang sudah terlewat
-        $popularTags = DB::table('courses')
-            ->whereNotNull('tags') // Pastikan tags tidak null
-            ->where('publish_date', '<=', now()) // Filter kursus dengan publish_date yang sudah terlewat
-            ->pluck('tags') // Ambil kolom tags
-            ->flatMap(function ($tagsString) {
-                // Pecah string tags menjadi array
-                return explode(',', $tagsString);
-            })
-            ->map(fn($tag) => trim($tag)) // Hilangkan spasi pada setiap tag
-            ->filter() // Hilangkan nilai kosong
-            ->countBy() // Hitung jumlah kemunculan setiap tag
-            ->sortDesc() // Urutkan berdasarkan jumlah kemunculan
-            ->take(10); // Ambil 10 tag teratas
+    //     // Ambil tag populer berdasarkan kursus dengan publish_date yang sudah terlewat
+    //     $popularTags = DB::table('courses')
+    //         ->whereNotNull('tags') // Pastikan tags tidak null
+    //         ->where('publish_date', '<=', now()) // Filter kursus dengan publish_date yang sudah terlewat
+    //         ->pluck('tags') // Ambil kolom tags
+    //         ->flatMap(function ($tagsString) {
+    //             // Pecah string tags menjadi array
+    //             return explode(',', $tagsString);
+    //         })
+    //         ->map(fn($tag) => trim($tag)) // Hilangkan spasi pada setiap tag
+    //         ->filter() // Hilangkan nilai kosong
+    //         ->countBy() // Hitung jumlah kemunculan setiap tag
+    //         ->sortDesc() // Urutkan berdasarkan jumlah kemunculan
+    //         ->take(10); // Ambil 10 tag teratas
 
-        $popularTagsArtikel = DB::table('artikel')
-            ->whereNotNull('tag')
-            ->pluck('tag')
-            ->flatMap(function ($tagsString) {
-                return explode(',', $tagsString);
-            })
-            ->map(fn($tag) => trim($tag))
-            ->filter()
-            ->countBy()
-            ->sortDesc()
-            ->take(10);
+    //     $popularTagsArtikel = DB::table('artikel')
+    //         ->whereNotNull('tag')
+    //         ->pluck('tag')
+    //         ->flatMap(function ($tagsString) {
+    //             return explode(',', $tagsString);
+    //         })
+    //         ->map(fn($tag) => trim($tag))
+    //         ->filter()
+    //         ->countBy()
+    //         ->sortDesc()
+    //         ->take(10);
         
-        return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
-    }
+    //     return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
+    // }
 
-    public function getContactsLogo()
-    {
-        // Ambil data kontak dari konfigurasi website
-        $websiteConfig = WebsiteConfiguration::first();
-        // $contacts = json_decode($websiteConfig->informasi_kontak, true);
-        // $socialMedia = json_decode($websiteConfig->informasi_sosial_media, true);
-        $pagesDeskripsi = Page::with('users')->find(3);
+    // public function getContactsLogo()
+    // {
+    //     // Ambil data kontak dari konfigurasi website
+    //     $websiteConfig = WebsiteConfiguration::first();
+    //     // $contacts = json_decode($websiteConfig->informasi_kontak, true);
+    //     // $socialMedia = json_decode($websiteConfig->informasi_sosial_media, true);
+    //     $pagesDeskripsi = Page::with('users')->find(3);
 
-        // Ambil logo dan favicon
-        // $favicon = Logo::where('type', 'favicon')->first();
-        // $logoDark = Logo::where('type', 'gelap')->first();
-        // $logoBright = Logo::where('type', 'terang')->first();
+    //     // Ambil logo dan favicon
+    //     // $favicon = Logo::where('type', 'favicon')->first();
+    //     // $logoDark = Logo::where('type', 'gelap')->first();
+    //     // $logoBright = Logo::where('type', 'terang')->first();
 
-        $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
-        $configuration = WebsiteConfiguration::first();
+    //     $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
+    //     $configuration = WebsiteConfiguration::first();
 
-        return [
-            // 'contacts' => $contacts,
-            // 'socialMedia' => $socialMedia,
-            'websiteConfig' => $websiteConfig,
-            'pagesDeskripsi' => $pagesDeskripsi,
-            'latestArticles' => $latestArticles,
-            'configuration' => $configuration,
-            // 'favicon' => $favicon,
-            // 'logoDark' => $logoDark,
-            // 'logoBright' => $logoBright,
-        ];
-    }
+    //     return [
+    //         // 'contacts' => $contacts,
+    //         // 'socialMedia' => $socialMedia,
+    //         'websiteConfig' => $websiteConfig,
+    //         'pagesDeskripsi' => $pagesDeskripsi,
+    //         'latestArticles' => $latestArticles,
+    //         'configuration' => $configuration,
+    //         // 'favicon' => $favicon,
+    //         // 'logoDark' => $logoDark,
+    //         // 'logoBright' => $logoBright,
+    //     ];
+    // }
 
     public function indexMenu(Request $request)
     {
@@ -355,9 +331,8 @@ class LandingPageController extends Controller
         $nestedHeaderMenus = $this->buildNestedMenu($headerMenus);
         $nestedFooterMenus = $this->buildNestedMenu($footerMenus);
         $nestedSidebarMenus = $this->buildNestedMenu($sidebarMenus);
-        $contactData = $this->getContactsLogo();
 
-        return view('landing.layouts.landing-layouts', array_merge(compact('nestedHeaderMenus', 'nestedFooterMenus', 'nestedSidebarMenus'), $contactData));
+        return view('landing.layouts.landing-layouts', compact('nestedHeaderMenus', 'nestedFooterMenus', 'nestedSidebarMenus'));
     }
 
     private function buildNestedMenu($menus)
