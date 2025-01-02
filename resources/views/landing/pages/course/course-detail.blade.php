@@ -261,21 +261,28 @@
                                                                 <ul>
                                                                     <!-- Loop untuk menampilkan modul-modul di dalam bab -->
                                                                     @foreach ($bab->moduls as $modul)
-                                                                        <li class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
+                                                                        <li
+                                                                            class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
                                                                             <div>
-                                                                                <h4 class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
+                                                                                <h4
+                                                                                    class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
                                                                                     @if ($modul->video)
-                                                                                        <i class="icofont-video-alt mr-10px"></i>
-                                                                                        <span class="font-medium">Video:</span>
+                                                                                        <i
+                                                                                            class="icofont-video-alt mr-10px"></i>
+                                                                                        <span
+                                                                                            class="font-medium">Video:</span>
                                                                                     @endif
                                                                                     {{ $modul->name }}
                                                                                 </h4>
                                                                             </div>
-                                                                            <div class="text-blackColor dark:text-blackColor-dark text-sm flex items-center">
+                                                                            <div
+                                                                                class="text-blackColor dark:text-blackColor-dark text-sm flex items-center">
                                                                                 <p>
-                                                                                    <i class="icofont-clock-time"></i> 22 minutes
+                                                                                    <i class="icofont-clock-time"></i> 22
+                                                                                    minutes
                                                                                 </p>
-                                                                                <a href="{{ route('babCourse.index', $course->slug) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
+                                                                                <a href="{{ route('babCourse.index', $course->slug) }}"
+                                                                                    class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
                                                                                     <p class="px-10px">
                                                                                         <i class="icofont-eye"></i> Preview
                                                                                     </p>
@@ -283,22 +290,35 @@
                                                                             </div>
                                                                         </li>
                                                                     @endforeach
-                                                        
+
                                                                     <!-- Loop untuk menampilkan quiz di dalam bab -->
                                                                     @foreach ($bab->quiz as $quiz)
-                                                                        <li class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
+                                                                        <li
+                                                                            class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
                                                                             <div>
-                                                                                <h4 class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
-                                                                                    <i class="icofont-question-circle mr-10px"></i>
-                                                                                    <span class="font-medium">Quiz:</span> {{ $quiz->title }}
+                                                                                <h4
+                                                                                    class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
+                                                                                    <i
+                                                                                        class="icofont-question-circle mr-10px"></i>
+                                                                                    <span class="font-medium">Quiz:</span>
+                                                                                    {{ $quiz->title }}
                                                                                 </h4>
                                                                             </div>
-                                                                            <div class="text-blackColor dark:text-blackColor-dark text-sm flex items-center">
+                                                                            <div
+                                                                                class="text-blackColor dark:text-blackColor-dark text-sm flex items-center">
                                                                                 @php
-                                                                                    $startTime = \Carbon\Carbon::createFromFormat('H:i:s', $quiz->start_time);
-                                                                                    $endTime = \Carbon\Carbon::createFromFormat('H:i:s', $quiz->end_time);
+                                                                                    $startTime = \Carbon\Carbon::createFromFormat(
+                                                                                        'H:i:s',
+                                                                                        $quiz->start_time,
+                                                                                    );
+                                                                                    $endTime = \Carbon\Carbon::createFromFormat(
+                                                                                        'H:i:s',
+                                                                                        $quiz->end_time,
+                                                                                    );
 
-                                                                                    if ($endTime->lessThan($startTime)) {
+                                                                                    if (
+                                                                                        $endTime->lessThan($startTime)
+                                                                                    ) {
                                                                                         $endTime->addDay();
                                                                                     }
 
@@ -308,14 +328,17 @@
                                                                                 @endphp
 
                                                                                 <p>
-                                                                                    <i class="icofont-clock-time"></i> 
-                                                                                    {{ $hours > 0 ? $hours . ' jam ' : '' }}{{ $minutes }} menit
+                                                                                    <i class="icofont-clock-time"></i>
+                                                                                    {{ $hours > 0 ? $hours . ' jam ' : '' }}{{ $minutes }}
+                                                                                    menit
                                                                                 </p>
-                                                                                
-                                                                                
-                                                                                <a href="{{ route('quiz.detail', $quiz->slug) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
+
+
+                                                                                <a href="{{ route('quiz.detail', $quiz->slug) }}"
+                                                                                    class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
                                                                                     <p class="px-10px">
-                                                                                        <i class="icofont-eye"></i> Take Quiz
+                                                                                        <i class="icofont-eye"></i> Take
+                                                                                        Quiz
                                                                                     </p>
                                                                                 </a>
                                                                             </div>
@@ -324,7 +347,7 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </li>
                                             @endforeach
@@ -1218,35 +1241,38 @@
                                 </div>
                             </div>
                             <div class="mb-5" data-aos="fade-up">
-                                @if (auth()->user() && !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
+                                @if (auth()->user() &&
+                                        !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
                                     <!-- Tombol Add to Cart dan Buy Now jika pengguna belum terdaftar -->
                                     <button type="submit"
                                         class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                         Add To Cart
                                     </button>
-                                    <form id="course-registration-form" action="{{ route('course-registrations.store') }}" method="POST" style="display: inline;">
+                                    <form id="course-registration-form"
+                                        action="{{ route('course-registrations.store') }}" method="POST"
+                                        style="display: inline;">
                                         @csrf
-                                        <input type="hidden" name="course_id" id="course-id-input">
-                            
+                                        <input type="hidden" name="course_id" id="course-id-input" value="">
+
                                         <!-- Tombol Buy Now -->
-                                        <a href="javascript:void(0)" onclick="submitCourseRegistration({{ $course->id }})"
+                                        <button type="button" onclick="submitCourseRegistration({{ $course->id }})"
                                             class="w-full text-center text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark">
                                             Buy Now
-                                        </a>
+                                        </button>
                                     </form>
                                 @else
                                     <!-- Tombol Mulai Belajar jika pengguna sudah terdaftar -->
-                                    <a href="{{ route('babCourse.index', $course->slug) }}" 
+                                    <a href="{{ route('babCourse.index', $course->slug) }}"
                                         class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                         Mulai Belajar
                                     </a>
                                 @endif
-                            
+
                                 <span class="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
                                     <i class="icofont-ui-rotation"></i> 45-Days Money-Back Guarantee
                                 </span>
                             </div>
-                            
+
                             <ul>
                                 <li
                                     class="flex items-center justify-between py-10px border-b border-borderColor dark:border-borderColor-dark">
@@ -1433,7 +1459,7 @@
                         </div>
 
                         <!-- tags
-                           -->
+                               -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4
@@ -1462,8 +1488,26 @@
         function submitCourseRegistration(courseId) {
             document.getElementById('course-id-input').value = courseId;
 
-            // Mengirimkan form
-            document.getElementById('course-registration-form').submit();
+            var formData = new FormData(document.getElementById('course-registration-form'));
+
+            fetch('{{ route('course-registrations.store') }}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        window.location.href = data.redirect_url; 
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Terjadi kesalahan, silakan coba lagi.');
+                });
         }
     </script>
 
