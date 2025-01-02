@@ -42,10 +42,10 @@
                                 @method('DELETE')
                                 <div id="deleteContainer-{{ $type->id }}" style="display:inline;">
                                     <button type="button" class="btn-sm btn-danger delete-button"
-                                        onclick="confirmDelete({{ $type->id }})">
-                                        <i class="ri-delete-bin-line text-inherit text-[13px] {{ $type->id == '1' ? 'hidden' : 'block' }}"></i>
-                                       
-                                    </button>
+                                    onclick="confirmDelete({{ $type->id }})">
+                                    <i class="ri-delete-bin-line text-inherit text-[13px] {{ in_array($type->id, [1, 2]) ? 'hidden' : 'block' }}"></i>
+                                </button>
+                                
                                 </div>
                             </form>
                         </div>

@@ -12,6 +12,14 @@ use App\Models\CourseRegistration;
 use App\Models\Modul;
 use App\Models\Quiz;
 use App\Models\User;
+use App\Models\CategoryArtikel;
+use App\Models\Page;
+use App\Models\Artikel;
+use App\Models\Client;
+use App\Models\LFCMS\Administrator;
+use App\Models\Testimonial;
+use App\Models\WebsiteConfiguration;
+use App\Models\LFCMS\MenuList;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Container\Attributes\Auth;
@@ -295,11 +303,12 @@ $relatedCourses = Course::where('instruktur_id', $course->instruktur_id)
                             ->get();
 
 $commonData = $this->loadCommonData();
+$contactData = $this->getContactsLogo();
 
 // Kirimkan data course ke tampilan show bersama dengan data umum
 return view('landing.pages.course.course-detail', array_merge(
     ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,],
-    $commonData, 
+    $commonData, $contactData
 ));
 }
 
@@ -454,6 +463,35 @@ public function myEnrolledCourses()
 
     // Kembalikan ke tampilan atau API response
     return view('dashboard.pages.enrolled-courses.index', compact('enrolledCourses'));
+}
+
+public function getContactsLogo()
+{
+    // Ambil data kontak dari konfigurasi website
+    $websiteConfig = WebsiteConfiguration::first();
+    // $contacts = json_decode($websiteConfig->informasi_kontak, true);
+    // $socialMedia = json_decode($websiteConfig->informasi_sosial_media, true);
+    $pagesDeskripsi = Page::with('users')->find(3);
+
+    // Ambil logo dan favicon
+    // $favicon = Logo::where('type', 'favicon')->first();
+    // $logoDark = Logo::where('type', 'gelap')->first();
+    // $logoBright = Logo::where('type', 'terang')->first();
+
+    $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
+    $configuration = WebsiteConfiguration::first();
+
+    return [
+        // 'contacts' => $contacts,
+        // 'socialMedia' => $socialMedia,
+        'websiteConfig' => $websiteConfig,
+        'pagesDeskripsi' => $pagesDeskripsi,
+        'latestArticles' => $latestArticles,
+        'configuration' => $configuration,
+        // 'favicon' => $favicon,
+        // 'logoDark' => $logoDark,
+        // 'logoBright' => $logoBright,
+    ];
 }
 
 }

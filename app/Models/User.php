@@ -92,4 +92,13 @@ class User extends Authenticatable
         return $this->hasMany(Feedback::class, 'user_id');
     }
 
+    public function hasRolesTo($roles)
+    {
+        // Pastikan $roles adalah array
+        $roles = is_array($roles) ? $roles : [$roles];
+
+        // Periksa apakah pengguna memiliki salah satu dari peran tersebut
+        return $this->role()->whereIn('name', $roles)->exists();
+    }
+
 }

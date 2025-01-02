@@ -39,9 +39,7 @@
                             Sekilas Tentang Kami
                         </h4>
                         <p class="text-base lg:text-sm 2xl:text-base text-darkgray mb-30px leading-1.8 2xl:leading-1.8">
-                            orporate clients and leisure travelers has been relying on
-                            Groundlink for dependable safe, and professional chauffeured car
-                            end service in major cities across World.
+                            {!! $pagesDeskripsi->deskripsi ?? '' !!}
                         </p>
                         <div class="flex items-center">
                             <div>
@@ -62,32 +60,13 @@
                         </div>
                     </div>
                     <!-- middle 1 -->
-                    <div class="col-start-1 col-span-12 md:col-start-7 lg:col-start-5 md:col-span-6 lg:col-span-2"
+                    <div class="single-footer-items col-start-1 col-span-12 md:col-start-7 lg:col-start-5 md:col-span-6 lg:col-span-2"
                         data-aos="fade-up">
                         <h4 class="text-size-22 font-bold text-whiteColor mb-3">
                             Menu
                         </h4>
-                        <ul class="flex flex-col gap-y-3">
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Beranda</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Tentang</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Kursus</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Artikel</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">Kontak</a>
-                            </li>
+                        <ul class="menu-list flex flex-col gap-y-3">
+                            {{-- FOOTER MENU --}}
                         </ul>
                     </div>
                     <!-- middle 2 -->
@@ -131,52 +110,24 @@
                             Artikel Terbaru
                         </h4>
                         <ul class="flex flex-col gap-y-5">
-                            <li>
-                                <a class="flex items-center gap-3 group cursor-pointer">
-                                    <div>
-                                        <img src="{{ asset('assets/images/footer/footer__1.png') }}" alt=""
-                                            class="w-61px h-54px">
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
-                                        <h6
-                                            class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
-                                            Best Your Business
-                                        </h6>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="flex items-center gap-3 group cursor-pointer">
-                                    <div>
-                                        <img src="{{ asset('assets/images/footer/footer__2.png') }}" alt=""
-                                            class="w-61px h-54px">
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
-                                        <h6
-                                            class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
-                                            Keep Your Business
-                                        </h6>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="flex items-center gap-3 group cursor-pointer">
-                                    <div>
-                                        <img src="{{ asset('assets/images/footer/footer__3.png') }}" alt=""
-                                            class="w-61px h-54px">
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-darkgray mb-7px">02 Apr 2024</p>
-                                        <h6
-                                            class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
-                                            Nice Your Business
-                                        </h6>
-                                    </div>
-                                </a>
-                            </li>
+                            @foreach ($latestArticles as $article)
+                                <li>
+                                    <a class="flex items-center gap-3 group cursor-pointer">
+                                        <div>
+                                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->judul }}"
+                                                class="w-61px h-54px">
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-darkgray mb-7px">
+                                                {{ $article->created_at->format('d F Y') }}</p>
+                                            <h6
+                                                class="text-size-15 text-whiteColor font-bold group-hover:text-primaryColor transition-all duration-300">
+                                                {!! Str::limit($article->judul, 15) !!}
+                                            </h6>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -231,4 +182,32 @@
             </div>
         </div>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "{{ route('menu.landing') }}",
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    menu_type: 'footer'
+                },
+                success: function(data) {
+                    let footerMenu = '';
+
+                    $.each(data, function(index, menu) {
+                        footerMenu +=
+                            `<li> <a href="${menu.link}" class="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0">${menu.content}</a></li>`;
+                    });
+
+                    // Tambahkan ke elemen <ul> yang ada di bagian "Menu"
+                    $('.single-footer-items .menu-list').html(footerMenu);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error fetching footer menu:', textStatus, errorThrown);
+                }
+            });
+        });
+    </script>
 @show

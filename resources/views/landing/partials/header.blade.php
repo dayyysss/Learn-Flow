@@ -54,8 +54,6 @@
         </div>
         <!-- header top end -->
 
-        <!-- header top end -->
-
         <!-- navbar start -->
         <div class="transition-all duration-500 sticky-header z-medium dark:bg-whiteColor-dark">
             <nav>
@@ -71,61 +69,8 @@
 
                         <!-- Main menu -->
                         <div class="hidden lg:block lg:col-start-3 lg:col-span-7">
-                            <ul class="nav-list flex justify-center">
-                                <li class="nav-item group">
-                                    <a href="{{ route('index') }}"
-                                        class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Beranda
-                                    </a>
-                                </li>
-                                <li class="nav-item group">
-                                    <a href="{{ route('about') }}"
-                                        class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Tentang
-                                    </a>
-                                </li>
-                                <li class="nav-item group relative">
-                                    <a href="{{ route('course') }}"
-                                        class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Kursus
-                                        <i class="icofont-rounded-down"></i>
-                                    </a>
-                                    <!-- dropdown menu -->
-                                    <div class="dropdown absolute left-0 translate-y-10 z-medium hidden opacity-0"
-                                        style="transition: 0.3s">
-                                        <div
-                                            class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ route('course') }}"
-                                                        class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
-                                                        Kursus
-                                                        <span
-                                                            class="text-size-12 font-semibold text-primaryColor bg-whitegrey3 px-15px py-5px rounded">Trending</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ route('zoomWebinar') }}"
-                                                        class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
-                                                        Zoom & Webinars
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="nav-item group relative">
-                                    <a href="{{ route('artikel') }}"
-                                        class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Artikel
-                                    </a>
-                                </li>
-                                <li class="nav-item group relative">
-                                    <a href="{{ route('contact') }}"
-                                        class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                        Kontak
-                                    </a>
-                                </li>
+                            <ul id="mainmenu" class="nav-list flex justify-center">
+                                {{-- MENU DATA --}}
                             </ul>
                         </div>
                         <!-- navbar right -->
@@ -146,8 +91,8 @@
                                                     class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
                                                     <li class="relative flex gap-x-15px items-center">
                                                         <a href="course-details.html"><img
-                                                                src="{{ asset('assets/images/grid/cart1.jpg') }}"
-                                                                alt="photo" class="w-card-img py-[3px]"></a>
+                                                                src="{{ asset('assets/images/grid/cart1.jpg') }}" alt="photo"
+                                                                class="w-card-img py-[3px]"></a>
                                                         <div>
                                                             <a href="course-details.html"
                                                                 class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">web
@@ -450,5 +395,53 @@
     document.getElementById('logout-link').addEventListener('click', function(event) {
         event.preventDefault();
         document.getElementById('logout-form').submit();
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('menu.landing') }}",
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                menu_type: 'header'
+            },
+            success: function(data) {
+                let mainMenu = '';
+                $.each(data, function(index, menu) {
+                    if (menu.hasChildren) {
+                        mainMenu += `<li class="nav-item group relative">
+                            <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
+                                ${menu.content} <i class="icofont-rounded-down"></i>
+                            </a>
+                              <div class="dropdown absolute left-0 translate-y-10 z-medium hidden opacity-0"
+                                        style="transition: 0.3s">
+                                        <div
+                                            class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
+                                    <ul>`;
+                        $.each(menu.children, function(childIndex, child) {
+                            mainMenu += `<li>
+                                <a href="${child.link}" class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
+                                    ${child.content}
+                                </a>
+                            </li>`;
+                        });
+                        mainMenu += `</ul></div></div></li>`;
+                    } else {
+                        mainMenu += `<li class="nav-item group">
+                            <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
+                                ${menu.content}
+                            </a>
+                        </li>`;
+                    }
+                });
+                $('#mainmenu').html(mainMenu);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching menu:', textStatus, errorThrown);
+            }
+        });
     });
 </script>
