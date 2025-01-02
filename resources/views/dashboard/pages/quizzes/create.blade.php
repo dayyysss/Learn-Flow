@@ -2,7 +2,8 @@
 @section('page_title', 'LearnFlow | Quiz')
 
 @section('content')
-    <div class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
+    <div
+        class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
         <!-- heading -->
         <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
             <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Create Quiz</h2>
@@ -14,7 +15,7 @@
                 <label for="name" class="block mb-2 text-sm font-medium text-blackColor dark:text-blackColor-dark">Nama
                     Quiz</label>
                 <input type="text" id="name" name="name"
-                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-lightGrey5 dark:bg-darkGrey5 text-blackColor dark:text-whiteColor placeholder:text-placeholder placeholder:dark:text-placeholder-dark focus:ring-primaryColor focus:border-primaryColor"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark placeholder:text-placeholder placeholder:dark:text-placeholder-dark focus:ring-primaryColor focus:border-primaryColor"
                     required oninput="updateSlug()" />
             </div>
 
@@ -22,7 +23,7 @@
                 <label for="slug"
                     class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">Slug</label>
                 <input type="text" id="slug" name="slug"
-                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-lightGrey5 dark:bg-darkGrey5 text-blackColor dark:text-whiteColor placeholder:text-placeholder placeholder:dark:text-placeholder-dark focus:ring-primaryColor focus:border-primaryColor"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark placeholder:text-placeholder placeholder:dark:text-placeholder-dark focus:ring-primaryColor focus:border-primaryColor"
                     readonly />
             </div>
 
@@ -30,7 +31,7 @@
                 <label for="bab_id"
                     class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">Bab</label>
                 <select name="bab_id"
-                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-lightGrey5 dark:bg-darkGrey5 text-blackColor dark:text-whiteColor focus:ring-primaryColor focus:border-primaryColor"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
                     required>
                     @foreach ($babs as $bab)
                         <option value="{{ $bab->id }}">{{ $bab->name }}</option>
@@ -40,19 +41,20 @@
 
             <div>
                 <label for="start_time"
-                    class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">Waktu
-                    Mulai</label>
-                <input type="time" id="start_time" name="start_time"
-                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-lightGrey5 dark:bg-darkGrey5 text-blackColor dark:text-whiteColor focus:ring-primaryColor focus:border-primaryColor"
+                    class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Waktu Mulai
+                </label>
+                <input type="text" id="start_time" name="start_time"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
                     required />
             </div>
 
             <div>
-                <label for="end_time"
-                    class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">Waktu
-                    Selesai</label>
-                <input type="time" id="end_time" name="end_time"
-                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-lightGrey5 dark:bg-darkGrey5 text-blackColor dark:text-whiteColor focus:ring-primaryColor focus:border-primaryColor"
+                <label for="end_time" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Waktu Selesai
+                </label>
+                <input type="text" id="end_time" name="end_time"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
                     required />
             </div>
 
@@ -60,7 +62,7 @@
                 <label for="deskripsi"
                     class="mb-2 pt-5 block font-semibold text-blackColor dark:text-blackColor-dark">Deskripsi</label>
                 <textarea name="deskripsi" id="deskripsi"
-                    class="form-control w-full py-10px px-5 text-sm bg-lightGrey5 dark:bg-darkGrey5 text-blackColor dark:text-whiteColor placeholder:text-placeholder placeholder:dark:text-placeholder-dark border-2 border-borderColor dark:border-borderColor-dark leading-23px rounded-md"
+                    class="form-control w-full py-10px px-5 text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark placeholder:text-placeholder placeholder:dark:text-placeholder-dark border-2 border-borderColor dark:border-borderColor-dark leading-23px rounded-md"
                     cols="50" rows="10"></textarea>
             </div>
 
@@ -95,5 +97,22 @@
             // Update the slug input field
             slugInput.value = slug;
         }
+
+        // Inisialisasi Flatpickr untuk input waktu
+        flatpickr("#start_time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i", // Format jam:menit (24 jam)
+            time_24hr: true,
+            locale: "id", // Bahasa Indonesia
+        });
+
+        flatpickr("#end_time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i", // Format jam:menit (24 jam)
+            time_24hr: true,
+            locale: "id", // Bahasa Indonesia
+        });
     </script>
 @endsection
