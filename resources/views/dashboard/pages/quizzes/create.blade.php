@@ -9,7 +9,7 @@
             <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Create Quiz</h2>
         </div>
         <!-- form content -->
-        <form action="{{ route('quiz.store') }}" method="POST" class="space-y-4">
+        <form method="POST" action="{{ route('quiz.store') }}" class="space-y-4">
             @csrf
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-blackColor dark:text-blackColor-dark">Nama
@@ -69,11 +69,11 @@
             <div class="flex gap-2 pt-8">
                 <button type="submit"
                     class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-darkGrey5 border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer">
-                    Create Quiz
+                    Buat Quiz
                 </button>
                 <a href="{{ route('quiz.index') }}"
                     class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-secondaryColor bg-secondaryColor hover:bg-whiteColor dark:hover:bg-darkGrey5 border border-secondaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer">
-                    Cancel
+                    Batal
                 </a>
             </div>
         </form>

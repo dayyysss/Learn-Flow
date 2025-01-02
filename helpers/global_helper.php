@@ -25,3 +25,44 @@ function tracking_visitor()
         ]);
     }
 }
+
+if (!function_exists('formatTanggalIndonesia')) {
+    /**
+     * Format tanggal ke dalam format Indonesia
+     *
+     * @param string $tanggal
+     * @return string
+     */
+    function formatTanggalIndonesia($tanggal)
+    {
+        // Cek apakah tanggal valid
+        if (!$tanggal || !strtotime($tanggal)) {
+            return 'Tanggal tidak valid';
+        }
+
+        // Daftar nama bulan
+        $bulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ];
+
+        // Pecah tanggal
+        $tanggalObj = strtotime($tanggal);
+        $tgl = date('j', $tanggalObj);
+        $bln = date('n', $tanggalObj);
+        $thn = date('Y', $tanggalObj);
+
+        // Format
+        return "{$tgl} {$bulan[$bln]} {$thn}";
+    }
+}
