@@ -302,6 +302,7 @@ class CourseController extends Controller
 
 
         $thumbnailUrl = $this->getVideoThumbnail($course->video);
+        $commonData = $this->loadCommonData();
 
         // Perhitungan diskon
         $hargaAsli = $course->harga;
@@ -323,7 +324,7 @@ class CourseController extends Controller
 
         // Kirimkan data course ke tampilan show bersama dengan data umum
         return view('landing.pages.course.course-detail', array_merge(
-            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,]
+            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,], $commonData
         ));
     }
 
