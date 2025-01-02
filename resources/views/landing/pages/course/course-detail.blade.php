@@ -736,7 +736,7 @@
                                         </li>
                                         @foreach (explode(',', $course->tags) as $tag)
                                             <li>
-                                                <a href="blog-details.html"
+                                                <a href="{{ route('course', ['tag' => $tag]) }}"
                                                     class="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded">{{ trim($tag) }}</a>
                                             </li>
                                         @endforeach

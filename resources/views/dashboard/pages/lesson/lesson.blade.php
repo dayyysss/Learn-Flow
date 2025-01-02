@@ -84,7 +84,7 @@
 
         // Fungsi untuk Memuat Konten Modul atau Quiz
         function loadContent(type, slug) {
-            fetch(`/${type}/${slug}`)
+            fetch(`/${type}/course/${slug}`)
                 .then(response => response.text())
                 .then(data => {
                     contentContainer.innerHTML = data;
