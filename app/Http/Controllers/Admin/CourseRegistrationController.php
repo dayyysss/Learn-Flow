@@ -154,14 +154,22 @@ class CourseRegistrationController extends Controller
                     ? ($status['transaction_status'] ?? 'unknown')
                     : ($status->transaction_status ?? 'unknown');
 
+                // Jika status tidak valid atau tidak sesuai, hentikan proses
+                if ($transactionStatus == 'unknown') {
+                    return response()->json(['status' => 'error', 'message' => 'Status transaksi tidak diketahui']);
+                }
+
                 // Konversi status Midtrans ke status registrasi
                 $registration_status = $this->mapMidtransStatusToRegistrationStatus($transactionStatus);
 
-                // Update data pendaftaran
-                $registration->update([
-                    'method_pembayaran' => ucfirst($request->method_pembayaran),
-                    'registration_status' => $registration_status,
-                ]);
+                // Pastikan hanya status yang valid yang dapat mengubah status registrasi
+                if ($registration_status === 'confirmed' && $registration->registration_status !== 'confirmed') {
+                    // Update data pendaftaran dengan status baru
+                    $registration->update([
+                        'method_pembayaran' => ucfirst($request->method_pembayaran),
+                        'registration_status' => $registration_status,
+                    ]);
+                }
 
                 // Jika sudah confirmed, redirect langsung ke halaman kursus
                 if ($registration_status === 'confirmed') {
