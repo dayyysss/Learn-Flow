@@ -376,12 +376,13 @@ public function showBab($slug)
 {
     // Mencari Course berdasarkan slug
     $course = Course::where('slug', $slug)->firstOrFail();
-
+    
     // Mengambil semua Bab yang terkait dengan Course ini beserta Modul dan Quiznya
     $bab = $course->babs()->with(['moduls', 'quiz'])->get();
+    $contactData = $this->getContactsLogo();
     
     // Mengirim data course dan bab ke view
-    return view('dashboard.pages.lesson.lesson', compact('course', 'bab'));
+    return view('dashboard.pages.lesson.lesson', array_merge(compact('course', 'bab'), $contactData));
 }
 
 
