@@ -247,8 +247,8 @@
                 </div>
 
                 <!-- mobile menu accordions -->
-                <div class="pt-8 pb-6 border-b border-borderColor dark:border-borderColor-dark">
-                    <ul class="accordion-container">
+                <div id="sidebar-menu" class="pt-8 pb-6 border-b border-borderColor dark:border-borderColor-dark">
+                    {{-- <ul class="accordion-container">
                         <li class="accordion">
                             <!-- accordion header -->
                             <div class="flex items-center justify-between">
@@ -256,13 +256,6 @@
                                     href="index.html">Home</a>
                             </div>
 
-                        </li>
-                        <li class="accordion">
-                            <!-- accordion header -->
-                            <div class="flex items-center justify-between">
-                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                    href="#">About</a>
-                            </div>
                         </li>
                         <li class="accordion">
                             <!-- accordion header -->
@@ -298,21 +291,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="accordion">
-                            <!-- accordion header -->
-                            <div class="flex items-center justify-between">
-                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                    href="#">Blog</a>
-                            </div>
-                        </li>
-                        <li class="accordion">
-                            <!-- accordion header -->
-                            <div class="flex items-center justify-between">
-                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                    href="#">Contact</a>
-                            </div>
-                        </li>
-                    </ul>
+                    </ul> --}}
                 </div>
 
                 <!-- my account accordion -->
@@ -323,7 +302,7 @@
                             <!-- accordion header -->
                             <div class="accordion-controller flex items-center justify-between">
                                 <a class="leading-1 text-darkdeep1 font-medium group-hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                    href="#">My Account</a>
+                                    href="#">Akun Saya</a>
                                 <button class="px-3 py-1">
                                     <i
                                         class="icofont-thin-down text-size-15 text-darkdeep1 group-hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"></i>
@@ -336,22 +315,22 @@
                                         <li>
                                             <!-- accordion header -->
                                             <div class="flex items-center gap-1">
-                                                <a href="login.html"
-                                                    class="leading-1 text-darkdeep1 text-sm pl-30px pt-7 pb-3 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">Login
+                                                <a href="{{ url('/login') }}"
+                                                    class="leading-1 text-darkdeep1 text-sm pl-30px pt-7 pb-3 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">Masuk
                                                 </a>
 
-                                                <a href="login.html"
+                                                <a href="{{ url('/login') }}"
                                                     class="leading-1 text-darkdeep1 text-sm pr-30px pt-7 pb-4 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
-                                                    <span>/</span> Create Account
+                                                    <span>/</span> Daftar
                                                 </a>
                                             </div>
                                         </li>
                                         <li>
                                             <!-- accordion header -->
                                             <div class="flex items-center justify-between">
-                                                <a href="login.html"
-                                                    class="leading-1 text-darkdeep1 text-sm pl-30px pt-3 pb-7 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">My
-                                                    Account</a>
+                                                <a href="{{ url('/login') }}"
+                                                    class="leading-1 text-darkdeep1 text-sm pl-30px pt-3 pb-7 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">Akun
+                                                    Saya</a>
                                             </div>
                                             <!-- accordion content -->
                                         </li>
@@ -398,6 +377,7 @@
     });
 </script>
 
+{{-- HEADER --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -444,4 +424,76 @@
             }
         });
     });
+</script>
+
+{{-- HEADER MOBILE --}}
+<script>
+  $(document).ready(function() {
+    $.ajax({
+        url: "{{ route('menu.landing') }}",
+        method: 'GET',
+        dataType: 'json',
+        data: {
+            menu_type: 'sidebar'
+        },
+        success: function(data) {
+            let menuHTML = '<ul class="accordion-container">';
+
+            $.each(data, function(index, menu) {
+                if (menu.hasChildren) {
+                    // Menu dengan submenu
+                    menuHTML += `
+                        <li class="accordion">
+                            <div class="flex items-center justify-between">
+                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                                    href="${menu.link}">${menu.content}</a>
+                                <button class="accordion-controller px-3 py-4">
+                                    <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
+                                    <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
+                                </button>
+                            </div>
+                            <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
+                                <div class="content-wrapper">
+                                    <ul class="accordion-container">
+                                        <li class="accordion">`;
+                    
+                    // Loop through children
+                    $.each(menu.children, function(childIndex, child) {
+                        menuHTML += `
+                            <div class="flex items-center justify-between">
+                                <a href="${child.link}"
+                                    class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">${child.content}</a>
+                            </div>`;
+                    });
+
+                    menuHTML += `
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>`;
+                } else {
+                    // Menu tanpa submenu
+                    menuHTML += `
+                        <li class="accordion">
+                            <div class="flex items-center justify-between">
+                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                                    href="${menu.link}">${menu.content}</a>
+                            </div>
+                        </li>`;
+                }
+            });
+
+            menuHTML += '</ul>';
+            
+            // Debug: Cek output HTML
+            console.log('Generated HTML:', menuHTML);
+            
+            $('#sidebar-menu').html(menuHTML);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching menu:', textStatus, errorThrown);
+        }
+    });
+});
 </script>
