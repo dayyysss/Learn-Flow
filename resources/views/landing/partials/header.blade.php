@@ -337,27 +337,27 @@
 {{-- MENU HEADER --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $.ajax({
-            url: "{{ route('menu.landing') }}",
-            method: 'GET',
-            dataType: 'json',
-            data: {
-                menu_type: 'header'
-            },
-            success: function(data) {
-                let mainMenu = '';
-                $.each(data, function(index, menu) {
-                    if (menu.hasChildren) {
-                        mainMenu += `<li class="nav-item group relative">
-                            <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                ${menu.content} <i class="icofont-rounded-down"></i>
-                            </a>
-                              <div class="dropdown absolute left-0 translate-y-10 z-medium hidden opacity-0"
-                                        style="transition: 0.3s">
-                                        <div
-                                            class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
-                                    <ul>`;
+$(document).ready(function() {
+    $.ajax({
+        url: "{{ route('menu.landing') }}",
+        method: 'GET',
+        dataType: 'json',
+        data: {
+            menu_type: 'header'
+        },
+        success: function(data) {
+            let mainMenu = '';
+            $.each(data, function(index, menu) {
+                if (menu.hasChildren) {
+                    mainMenu += `<li class="nav-item group relative">
+                        <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
+                            ${menu.content} <i class="icofont-rounded-down"></i>
+                        </a>
+                        <div class="dropdown absolute left-0 translate-y-10 z-50 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
+                                <ul class="py-1">`;
+                    
+                    if (menu.children && menu.children.length > 0) {
                         $.each(menu.children, function(childIndex, child) {
                             mainMenu += `<li>
                                 <a href="${child.link}" class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
@@ -365,22 +365,37 @@
                                 </a>
                             </li>`;
                         });
-                        mainMenu += `</ul></div></div></li>`;
-                    } else {
-                        mainMenu += `<li class="nav-item group">
-                            <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                ${menu.content}
-                            </a>
-                        </li>`;
                     }
-                });
-                $('#mainmenu').html(mainMenu);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error fetching menu:', textStatus, errorThrown);
-            }
-        });
+                    
+                    mainMenu += `</ul></div></div></li>`;
+                } else {
+                    mainMenu += `<li class="nav-item group">
+                        <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
+                            ${menu.content}
+                        </a>
+                    </li>`;
+                }
+            });
+            
+            $('#mainmenu').html(mainMenu);
+
+            // Tambahkan CSS tambahan jika diperlukan
+            const style = `
+                <style>
+                    .nav-item.group:hover .dropdown {
+                        visibility: visible;
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                </style>
+            `;
+            $('head').append(style);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching menu:', textStatus, errorThrown);
+        }
     });
+});
 </script>
 
 {{-- HEADER MOBILE --}}

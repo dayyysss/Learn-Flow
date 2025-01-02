@@ -19,7 +19,7 @@
                         </div>
 
                         <!-- course content -->
-                        <div>z
+                        <div>
                             <div class="flex items-center justify-between flex-wrap gap-6 mb-30px" data-aos="fade-up">
                                 <div class="flex items-center gap-6">
                                     <button
@@ -1310,11 +1310,5 @@
                 });
         }
     </script>
-
-    <script>
-        <script id = "dsq-count-scr"
-            src = "//learnflow-1.disqus.com/count.js" async>
-        </script>
-    </script>
-
+<script id="dsq-count-scr" src="//learnflow-1.disqus.com/count.js" async></script>
 @endsection
