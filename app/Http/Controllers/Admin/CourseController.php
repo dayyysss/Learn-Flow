@@ -281,7 +281,7 @@ $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs', 'ce
 
                 
 
-
+                $commonData = $this->loadCommonData();
 $thumbnailUrl = $this->getVideoThumbnail($course->video);
 
 // Perhitungan diskon
@@ -304,7 +304,7 @@ $relatedCourses = Course::where('instruktur_id', $course->instruktur_id)
 
 // Kirimkan data course ke tampilan show bersama dengan data umum
 return view('landing.pages.course.course-detail', array_merge(
-    ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,]
+    ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,], $commonData
 ));
 }
 
