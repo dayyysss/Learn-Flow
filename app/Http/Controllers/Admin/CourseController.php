@@ -361,7 +361,7 @@ public function showQuiz($slug)
                           ->where('id', '<', $modul->id)
                           ->orderBy('id', 'desc')
                           ->first();
-
+                        
     // Cari modul berikutnya
     $nextModul = Modul::where('bab_id', $modul->bab_id)
                      ->where('id', '>', $modul->id)
