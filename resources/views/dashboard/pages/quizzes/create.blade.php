@@ -61,7 +61,7 @@
             <div class="form-group mb-15px">
                 <label for="deskripsi"
                     class="mb-2 pt-5 block font-semibold text-blackColor dark:text-blackColor-dark">Deskripsi</label>
-                <textarea name="deskripsi" id="deskripsi"
+                <textarea name="description" id="deskripsi"
                     class="form-control w-full py-10px px-5 text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark placeholder:text-placeholder placeholder:dark:text-placeholder-dark border-2 border-borderColor dark:border-borderColor-dark leading-23px rounded-md"
                     cols="50" rows="10"></textarea>
             </div>

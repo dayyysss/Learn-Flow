@@ -38,7 +38,7 @@ class QuizController extends Controller
     //     return view('dashboard.pages.quizzes.create', compact('babs'));
     // }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required',
@@ -48,6 +48,9 @@ class QuizController extends Controller
             'description' => 'required', // Perbaikan aturan validasi
         ]);
 
+        // Bersihkan tag HTML dari input description
+        $cleanDescription = strip_tags($request->description);
+
         // Generate slug
         $slug = Str::slug($request->name);
         $count = Quiz::where('slug', 'like', $slug . '%')->where('id', '!=', $id ?? 0)->count();
@@ -55,12 +58,12 @@ class QuizController extends Controller
 
         try {
             Quiz::create([
-                'name' => $validated['name'],
+                'name' => $request->name,
                 'slug' => $slug,
-                'bab_id' => $validated['bab_id'],
-                'start_time' => $validated['start_time'],
-                'end_time' => $validated['end_time'],
-                'description' => $validated['description'],
+                'bab_id' => $request->bab_id,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'description' => $cleanDescription,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()
@@ -78,7 +81,7 @@ class QuizController extends Controller
         return view('dashboard.pages.quizzes.edit', compact('quiz', 'babs'));
     }
 
-    public function update(Request $request, int $id): RedirectResponse
+    public function update(Request $request, int $id)
     {
         $quiz = Quiz::findOrFail($id);
 
@@ -90,6 +93,9 @@ class QuizController extends Controller
             'description' => 'required', // Perbaikan aturan validasi
         ]);
 
+        // Bersihkan tag HTML dari input description
+        $cleanDescription = strip_tags($request->description);
+
         // Generate slug
         $slug = Str::slug($request->name);
         $count = Quiz::where('slug', 'like', $slug . '%')->where('id', '!=', $id ?? 0)->count();
@@ -98,12 +104,12 @@ class QuizController extends Controller
 
         try {
             $quiz->update([
-                'name' => $validated['name'],
+                'name' => $request->name,
                 'slug' => $slug,
-                'bab_id' => $validated['bab_id'],
-                'start_time' => $validated['start_time'],
-                'end_time' => $validated['end_time'],
-                'description' => $validated['description'],
+                'bab_id' => $request->bab_id,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'description' => $cleanDescription,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()
@@ -117,7 +123,7 @@ class QuizController extends Controller
     // Hanya superadmin dan instructor yang bisa menghapus quiz
     public function destroy($id)
     {
-        if (!auth()->user()->hasRole(['superadmin', 'instructor'])) {
+        if (!auth()->user()->hasRole(['superadmin', 'instructor', 'admin'])) {
             abort(403, 'Unauthorized action.');
         }
 
