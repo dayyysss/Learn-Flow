@@ -6,7 +6,7 @@
             <!-- banner Left -->
             <div data-aos="fade-up">
                 <p class="text-size-15md:text-lg text-white font-medium mb-45px">
-                    {!! $hero->deskripsi !!}
+                    {!! $hero->deskripsi ?? '' !!}
                 </p>
                 <div>
                     <a href=" {{ route('course') }} "
@@ -22,9 +22,16 @@
             <!-- banner right -->
             <div data-aos="fade-up">
                 <div class="tilt relative">
-                    <img class="w-full" src="assets/images/about/about_8.png" alt=""><img
-                        class="absolute left-0 top-0 lg:top-4 right-0 mx-auto" src="{{ asset('storage/' . $hero->image) }}" alt="{{ $hero->judul }}">
+                    <img class="w-full" src="assets/images/about/about_8.png" alt="">
+                    @if(isset($hero->image) && $hero->image)
+                        <img 
+                            class="absolute left-0 top-0 lg:top-4 right-0 mx-auto" 
+                            src="{{ asset('storage/' . $hero->image) }}" 
+                            alt="{{ $hero->judul ?? 'Hero Image' }}"
+                        >
+                    @endif
                 </div>
+                
             </div>
         </div>
 

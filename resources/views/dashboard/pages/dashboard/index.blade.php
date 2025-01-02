@@ -17,6 +17,7 @@
 
                     <!-- counter area -->
                     <div class="counter grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-30px gap-y-5 pb-5">
+
                         <div
                             class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
@@ -35,6 +36,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div
                             class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
@@ -139,79 +141,67 @@
                                     class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark justify-between items-start md:items-center gap-4">
                                     <!-- Title Dashboard -->
                                     <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
-                                        Dashboard
+                                        Statistik Pengunjung
                                     </h2>
 
                                     <h4 id="statistikTitle"
-                                        class="text-sm font-semibold text-blackColor dark:text-blackColor-dark">
-                                        <!-- Dropdown Tipe Filter -->
-                                        <div class="mb-6">
+                                        class="pt-3 text-sm font-semibold text-blackColor dark:text-blackColor-dark">
 
-                                            <select id="filterType"
-                                                class="w-full mt-2 border border-lightGrey dark:border-darkGrey rounded-md text-sm bg-transparant py-2 px-2 dark:bg-transparant-dark text-blackColor dark:text-lightGrey2 focus:ring-2 focus:ring-primaryColor focus:outline-none">
-                                                <option value="" selected disabled>Pilih Tipe Filter</option>
-                                                <option value="bulan-tahun">Bulan dan Tahun</option>
-                                                <option value="range-tanggal">Range Tanggal</option>
-                                            </select>
-                                        </div>
+                                        <!-- Container Utama -->
+                                        <div class="py-3 flex flex-col gap-4 md:flex-row">
+                                            <!-- Dropdown Tipe Filter -->
+                                            <div class="w-full md:w-40">
+                                                <select id="filterType"
+                                                    class="w-full md:w-40 border border-lightGrey dark:border-darkGrey rounded-md text-sm bg-transparent py-2 px-2 dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-2 focus:ring-primaryColor focus:outline-none">
+                                                    <option value="" selected disabled>Pilih Tipe Filter</option>
+                                                    <option value="bulan-tahun">Bulan dan Tahun</option>
+                                                    <option value="range-tanggal">Range Tanggal</option>
+                                                </select>
+                                            </div>
 
-                                        <!-- Filter Bulan dan Tahun -->
-                                        <div id="bulanTahunFilter" class="hidden flex flex-col gap-4">
-                                            <div class="flex flex-wrap items-center gap-6">
-                                                <div class="w-full md:w-auto flex items-center gap-3">
-                                                    <label for="bulan"
-                                                        class="text-sm font-medium text-blackColor dark:text-blackColor-dark">
-                                                        Bulan
-                                                    </label>
-                                                    <select id="bulan"
-                                                        class="border border-lightGrey dark:border-darkGrey rounded-md p-3 text-sm bg-lightGrey5 dark:bg-lightGrey5-dark text-blackColor dark:text-lightGrey2 focus:ring-2 focus:ring-primaryColor focus:outline-none">
-                                                        @for ($i = 1; $i <= 12; $i++)
-                                                            <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}"
-                                                                {{ date('m') == $i ? 'selected' : '' }}>
-                                                                {{ \Carbon\Carbon::createFromDate(null, $i, 1)->translatedFormat('F') }}
-                                                            </option>
-                                                        @endfor
-                                                    </select>
+                                            <!-- Box Filter -->
+                                            <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-4 flex-1">
+                                                <!-- Filter Bulan dan Tahun -->
+                                                <div id="bulanTahunFilter"
+                                                    class="hidden flex flex-col gap-4 md:flex-row md:gap-4">
+                                                    <div class="flex flex-col md:flex-row items-center gap-3">
+                                                        <select id="bulan"
+                                                            class="w-full md:w-40 border border-lightGrey dark:border-darkGrey rounded-md p-3 text-sm bg-transparent py-2 px-2 dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-2 focus:ring-primaryColor focus:outline-none">
+                                                            @for ($i = 1; $i <= 12; $i++)
+                                                                <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}"
+                                                                    {{ date('m') == $i ? 'selected' : '' }}>
+                                                                    {{ \Carbon\Carbon::createFromDate(null, $i, 1)->translatedFormat('F') }}
+                                                                </option>
+                                                            @endfor
+                                                        </select>
+
+                                                        <select id="tahun"
+                                                            class="w-full md:w-40 border border-lightGrey dark:border-darkGrey rounded-md p-3 text-sm bg-transparent py-2 px-2 dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-2 focus:ring-primaryColor focus:outline-none">
+                                                            @php
+                                                                $startYear = 2024; // Tahun awal pembuatan
+                                                                $currentYear = date('Y'); // Tahun saat ini
+                                                            @endphp
+
+                                                            @for ($year = $startYear; $year <= $currentYear; $year++)
+                                                                <option value="{{ $year }}"
+                                                                    {{ $currentYear == $year ? 'selected' : '' }}>
+                                                                    {{ $year }}
+                                                                </option>
+                                                            @endfor
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="w-full md:w-auto flex items-center gap-3">
-                                                    <label for="tahun"
-                                                        class="text-sm font-medium text-blackColor dark:text-blackColor-dark">
-                                                        Tahun
-                                                    </label>
-                                                    <select id="tahun"
-                                                        class="border border-lightGrey dark:border-darkGrey rounded-md p-3 text-sm bg-lightGrey5 dark:bg-lightGrey5-dark text-blackColor dark:text-lightGrey2 focus:ring-2 focus:ring-primaryColor focus:outline-none">
-                                                        @for ($year = date('Y') - 0; $year <= date('Y'); $year++)
-                                                            <option value="{{ $year }}"
-                                                                {{ date('Y') == $year ? 'selected' : '' }}>
-                                                                {{ $year }}
-                                                            </option>
-                                                        @endfor
-                                                    </select>
+
+                                                <!-- Filter Range Tanggal -->
+                                                <div id="rangeTanggalFilter" class="hidden flex flex-col gap-4">
+                                                    <input type="text" id="date_range" placeholder="Range Tanggal"
+                                                        class="w-full md:w-60 border border-lightGrey dark:border-darkGrey rounded-md p-3 text-sm bg-transparent py-2 px-2 dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-2 focus:ring-primaryColor focus:outline-none">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <!-- Filter Range Tanggal -->
-                                        <div id="rangeTanggalFilter" class="hidden flex flex-col gap-4">
-                                            <div>
-                                                <label
-                                                    class="text-sm font-medium text-blackColor dark:text-blackColor-dark">
-                                                    Tanggal Awal - Tanggal Akhir
-                                                </label>
-                                                <input type="text" id="date_range"
-                                                    class="w-full mt-2 border border-lightGrey dark:border-darkGrey rounded-md p-3 text-sm bg-lightGrey5 dark:bg-lightGrey5-dark text-blackColor dark:text-lightGrey2 focus:ring-2 focus:ring-primaryColor focus:outline-none">
-                                            </div>
-                                        </div>
-
-                                        <!-- Apply Filter -->
-                                        <div class="text-right mt-6 mb-5">
-                                            <button id="applyFilter"
-                                                class="px-6 py-2 text-sm font-medium text-white bg-primaryColor rounded-md hover:bg-primaryColor-dark focus:ring-2 focus:ring-primaryColor focus:outline-none">
-                                                Terapkan
-                                            </button>
-                                        </div>
-
-                                        Statistik Pengunjung - {{ \Carbon\Carbon::now()->translatedFormat('F Y') }}
+                                        Statistik Pengunjung - <span
+                                            id="statistikValue">{{ \Carbon\Carbon::now()->translatedFormat('F Y') }}</span>
                                     </h4>
                                 </div>
                             </div>
@@ -262,7 +252,7 @@
                         },
                         toolbar: {
                             show: true
-                        }
+                        },
                     },
                     series: [{
                         name: 'Total Pengunjung',
@@ -271,7 +261,7 @@
                     stroke: {
                         curve: 'smooth',
                         width: 2,
-                        colors: ['#602EED']
+                        colors: ['#602EED'],
                     },
                     markers: {
                         size: 4,
@@ -279,33 +269,33 @@
                         strokeWidth: 2,
                         hover: {
                             size: 7
-                        }
+                        },
                     },
                     xaxis: {
                         labels: {
                             rotate: -45,
                             style: {
-                                color: 'var(--text-color)', // Ganti dengan variabel CSS sesuai mode
+                                color: 'var(--text-color)'
                             }
                         },
                         axisBorder: {
-                            colors: 'var(--border-color)', // Ganti dengan warna sesuai mode
-                        }
+                            colors: 'var(--border-color)'
+                        },
                     },
                     yaxis: {
                         axisBorder: {
                             show: true,
-                            colors: 'var(--border-color)', // Ganti dengan warna sesuai mode
+                            colors: 'var(--border-color)'
                         },
                         labels: {
                             style: {
-                                color: 'var(--text-color)', // Ganti dengan variabel CSS sesuai mode
+                                color: 'var(--text-color)'
                             },
                             stepSize: 50
-                        }
+                        },
                     },
                     grid: {
-                        borderColor: 'var(--border-color)', // Ganti dengan warna sesuai mode
+                        borderColor: 'var(--border-color)'
                     },
                     tooltip: {
                         shared: true
@@ -316,26 +306,68 @@
                 chart.render();
             }
 
-            // Fungsi untuk menangani filter
-            $('#applyFilter').on('click', function() {
-                const tipe_filter = $('#filterType').val();
+            // Menampilkan filter berdasarkan pilihan
+            $('#filterType').on('change', function() {
+                const selectedFilter = $(this).val();
+                $('#bulanTahunFilter, #rangeTanggalFilter').addClass('hidden');
+
+                if (selectedFilter === 'bulan-tahun') {
+                    $('#bulanTahunFilter').removeClass('hidden');
+                    fetchData(); // Memuat data dengan filter bulan dan tahun
+                } else if (selectedFilter === 'range-tanggal') {
+                    $('#rangeTanggalFilter').removeClass('hidden');
+                }
+            });
+
+            // Fetch data untuk "Bulan dan Tahun"
+            $('#bulan, #tahun').on('change', function() {
+                if ($('#filterType').val() === 'bulan-tahun') {
+                    fetchData();
+                }
+            });
+
+            // Fetch data untuk "Range Tanggal"
+            $('#date_range').on('change', function() {
+                if ($('#filterType').val() === 'range-tanggal') {
+                    fetchData();
+                }
+            });
+
+            // Fungsi Fetch Data
+            function fetchData() {
+                const filterType = $('#filterType').val();
                 let data = {};
 
-                if (tipe_filter === 'bulan-tahun') {
-                    data.bulan = $('#bulan').val();
-                    data.tahun = $('#tahun').val();
-                } else if (tipe_filter === 'range-tanggal') {
-                    // Mengambil nilai dari rentang tanggal
-                    data.range_tanggal = $('#date_range').val();
+                if (filterType === 'bulan-tahun') {
+                    const bulan = $('#bulan').val();
+                    const tahun = $('#tahun').val();
+                    if (bulan && tahun) {
+                        const bulanNama = new Date(`${tahun}-${bulan}-01`).toLocaleString('id', {
+                            month: 'long',
+                        });
+                        $('#statistikValue').text(`${bulanNama} ${tahun}`);
+                        data = {
+                            bulan,
+                            tahun,
+                        };
+                    }
+                } else if (filterType === 'range-tanggal') {
+                    const dateRange = $('#date_range').val();
+                    if (dateRange) {
+                        $('#statistikValue').text(dateRange);
+                        data = {
+                            range_tanggal: dateRange,
+                        };
+                    }
                 }
-                // console.log($('#date_range').val());
 
+                // AJAX Call
                 $.ajax({
                     url: '/visitor-count',
                     method: 'GET',
                     data: {
-                        tipe_filter,
-                        ...data
+                        tipe_filter: filterType,
+                        ...data,
                     },
                     success: function(response) {
                         if (response.status === 'success') {
@@ -346,71 +378,22 @@
                     },
                     error: function(error) {
                         console.error('Error fetching visitor count:', error);
-                    }
+                    },
                 });
-            });
-
-            // Event listener untuk dropdown tipe filter
-            $('#filterType').on('change', function() {
-                const selectedFilter = $(this).val();
-                $('#bulanTahunFilter, #rangeTanggalFilter').addClass('hidden');
-                if (selectedFilter === 'bulan-tahun') $('#bulanTahunFilter').removeClass('hidden');
-                else if (selectedFilter === 'range-tanggal') $('#rangeTanggalFilter').removeClass('hidden');
-
-                // Menyembunyikan tombol "Terapkan" saat filter belum dipilih
-                if (selectedFilter === '' || selectedFilter === null) {
-                    $('#applyFilter').addClass('hidden');
-                } else {
-                    $('#applyFilter').removeClass('hidden');
-                }
-            });
+            }
 
             // Inisialisasi Flatpickr untuk rentang tanggal
-            flatpickr("#date_range", {
-                mode: "range", // Memungkinkan pemilihan rentang tanggal
-                dateFormat: "d-m-Y", // Format tanggal yang digunakan adalah Y-m-d (contoh: 2024-10-19)
-                "locale": "id"
+            flatpickr('#date_range', {
+                mode: 'range',
+                altInput: true,
+                altFormat: 'j F Y',
+                dateFormat: 'j F Y',
+                locale: 'id',
             });
 
-            // Inisialisasi chart dengan data default
-            $.ajax({
-                url: '/visitor-count',
-                method: 'GET',
-                success: function(response) {
-                    if (response.status === 'success') {
-                        updateChart(response.data);
-                    } else {
-                        console.error('Gagal memuat data pengunjung.');
-                    }
-                },
-                error: function(error) {
-                    console.error('Error fetching visitor count:', error);
-                }
-            });
-
-            // Inisialisasi untuk menyembunyikan tombol "Terapkan" ketika halaman pertama kali dimuat
-            if ($('#filterType').val() === '' || $('#filterType').val() === null) {
-                $('#applyFilter').addClass('hidden');
-            }
-
-            // Update warna teks berdasarkan mode gelap
-            function updateTextColorsBasedOnDarkMode() {
-                const isDarkMode = $('body').hasClass('dark');
-                const textColor = isDarkMode ? 'blackColor-dark' : 'blackColor';
-                const borderColor = isDarkMode ? '#3E3E3E' :
-                    '#e7e7e7'; // Contoh perubahan warna border untuk dark mode
-
-                // Mengubah warna teks sumbu X dan Y
-                $(':root').css({
-                    '--text-color': textColor,
-                    '--border-color': borderColor,
-                });
-            }
-
-            // Menyimulasikan perubahan saat mode gelap aktif atau tidak
-            updateTextColorsBasedOnDarkMode();
-            $(document).on('classChange', function() {
-                updateTextColorsBasedOnDarkMode();
+            // Panggil data default pada awal pemuatan
+            $(document).ready(function() {
+                fetchData(); // Memuat data default saat halaman pertama kali diakses
             });
         });
     </script>
