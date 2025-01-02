@@ -247,8 +247,8 @@
                 </div>
 
                 <!-- mobile menu accordions -->
-                {{-- <div class="pt-8 pb-6 border-b border-borderColor dark:border-borderColor-dark">
-                    <ul class="accordion-container">
+                <div id="sidebar-menu" class="pt-8 pb-6 border-b border-borderColor dark:border-borderColor-dark">
+                    {{-- <ul class="accordion-container">
                         <li class="accordion">
                             <!-- accordion header -->
                             <div class="flex items-center justify-between">
@@ -291,8 +291,8 @@
                                 </div>
                             </div>
                         </li>
-                    </ul>
-                </div> --}}
+                    </ul> --}}
+                </div>
 
                 <!-- my account accordion -->
                 <div>
@@ -428,21 +428,21 @@
 
 {{-- HEADER MOBILE --}}
 <script>
-    $(document).ready(function() {
-        $.ajax({
-            url: "{{ route('menu.landing') }}",
-            method: 'GET',
-            dataType: 'json',
-            data: {
-                menu_type: 'sidebar'
-            },
-            success: function(data) {
-                let menuHTML = '<ul class="accordion-container">';
+  $(document).ready(function() {
+    $.ajax({
+        url: "{{ route('menu.landing') }}",
+        method: 'GET',
+        dataType: 'json',
+        data: {
+            menu_type: 'sidebar'
+        },
+        success: function(data) {
+            let menuHTML = '<ul class="accordion-container">';
 
-                $.each(data, function(index, menu) {
-                    if (menu.hasChildren) {
-                        // Menu dengan submenu
-                        menuHTML += `
+            $.each(data, function(index, menu) {
+                if (menu.hasChildren) {
+                    // Menu dengan submenu
+                    menuHTML += `
                         <li class="accordion">
                             <div class="flex items-center justify-between">
                                 <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
@@ -456,44 +456,44 @@
                                 <div class="content-wrapper">
                                     <ul class="accordion-container">
                                         <li class="accordion">`;
-
-                        // Loop through children
-                        $.each(menu.children, function(childIndex, child) {
-                            menuHTML += `
+                    
+                    // Loop through children
+                    $.each(menu.children, function(childIndex, child) {
+                        menuHTML += `
                             <div class="flex items-center justify-between">
                                 <a href="${child.link}"
                                     class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">${child.content}</a>
                             </div>`;
-                        });
+                    });
 
-                        menuHTML += `
+                    menuHTML += `
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </li>`;
-                    } else {
-                        // Menu tanpa submenu
-                        menuHTML += `
+                } else {
+                    // Menu tanpa submenu
+                    menuHTML += `
                         <li class="accordion">
                             <div class="flex items-center justify-between">
                                 <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
                                     href="${menu.link}">${menu.content}</a>
                             </div>
                         </li>`;
-                    }
-                });
+                }
+            });
 
-                menuHTML += '</ul>';
-
-                // Debug: Cek output HTML
-                console.log('Generated HTML:', menuHTML);
-
-                $('#sidebar-menu').html(menuHTML);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error fetching menu:', textStatus, errorThrown);
-            }
-        });
+            menuHTML += '</ul>';
+            
+            // Debug: Cek output HTML
+            console.log('Generated HTML:', menuHTML);
+            
+            $('#sidebar-menu').html(menuHTML);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching menu:', textStatus, errorThrown);
+        }
     });
+});
 </script>
