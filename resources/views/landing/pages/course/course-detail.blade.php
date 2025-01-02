@@ -19,7 +19,7 @@
                         </div>
 
                         <!-- course content -->
-                        <div>z
+                        <div>
                             <div class="flex items-center justify-between flex-wrap gap-6 mb-30px" data-aos="fade-up">
                                 <div class="flex items-center gap-6">
                                     <button
