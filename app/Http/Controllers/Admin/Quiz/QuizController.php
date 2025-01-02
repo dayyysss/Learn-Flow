@@ -29,7 +29,7 @@ class QuizController extends Controller
     public function create()
     {
         $babs = Bab::all(); // Mengambil semua bab yang ada
-       return view('dashboard.pages.quizzes.create', compact('babs'));
+        return view('dashboard.pages.quizzes.create', compact('babs'));
     }
 
     // public function create(): View
@@ -40,30 +40,32 @@ class QuizController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
+        $validated = $request->validate([
+            'name' => 'required',
             'bab_id' => 'required|exists:babs,id',
-            'start_time' => 'required', // Updated for AM/PM format
-            'end_time' => 'required|after:start_time', // Updated for AM/PM format
-            'description' => 'require|text',
+            'start_time' => 'required', // Validasi format waktu
+            'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
+            'description' => 'required', // Perbaikan aturan validasi
         ]);
 
         // Generate slug
         $slug = Str::slug($request->name);
-        $count = Quiz::where('slug', 'like', $slug . '%')->count();
+        $count = Quiz::where('slug', 'like', $slug . '%')->where('id', '!=', $id ?? 0)->count();
         $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
 
         try {
             Quiz::create([
-                'name' => $request->name,
+                'name' => $validated['name'],
                 'slug' => $slug,
-                'bab_id' => $request->bab_id,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-                'description' => $request->description,
+                'bab_id' => $validated['bab_id'],
+                'start_time' => $validated['start_time'],
+                'end_time' => $validated['end_time'],
+                'description' => $validated['description'],
             ]);
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Could not insert data: ' . $e->getMessage()])->withInput();
+            return redirect()->back()
+                ->withErrors(['error' => 'Could not insert data: ' . $e->getMessage()])
+                ->withInput();
         }
 
         return redirect()->route('quiz.index')->with('success', 'Quiz created successfully.');
@@ -80,31 +82,33 @@ class QuizController extends Controller
     {
         $quiz = Quiz::findOrFail($id);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
+        $validated = $request->validate([
+            'name' => 'required',
             'bab_id' => 'required|exists:babs,id',
-            'start_time' => 'nullable', // Adjusted for time format
-            'end_time' => 'nullable|after:start_time', // Adjusted for time format
-            'description' => 'require|text',
+            'start_time' => 'required', // Format waktu
+            'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
+            'description' => 'required', // Perbaikan aturan validasi
         ]);
 
         // Generate slug
         $slug = Str::slug($request->name);
-        $count = Quiz::where('slug', 'like', $slug . '%')->where('id', '!=', $id)->count(); // Avoid conflict with current quiz
+        $count = Quiz::where('slug', 'like', $slug . '%')->where('id', '!=', $id ?? 0)->count();
         $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
 
+
         try {
-            // Update the quiz
             $quiz->update([
-                'name' => $request->name,
-                'slug' => $slug, // Use the generated slug here
-                'bab_id' => $request->bab_id,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-                'description' => $request->description,
+                'name' => $validated['name'],
+                'slug' => $slug,
+                'bab_id' => $validated['bab_id'],
+                'start_time' => $validated['start_time'],
+                'end_time' => $validated['end_time'],
+                'description' => $validated['description'],
             ]);
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Could not update data: ' . $e->getMessage()])->withInput();
+            return redirect()->back()
+                ->withErrors(['error' => 'Could not update data: ' . $e->getMessage()])
+                ->withInput();
         }
 
         return redirect()->route('quiz.index')->with('success', 'Quiz updated successfully.');

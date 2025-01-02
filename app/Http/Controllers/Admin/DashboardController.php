@@ -136,10 +136,13 @@ class DashboardController extends Controller
                 ];
             }
         }
+        $tanggalAwalIndo = formatTanggalIndonesia($tanggal_awal);
+        $tanggalAkhirIndo = formatTanggalIndonesia($tanggal_akhir);
 
         return response()->json([
             'status' => 'success',
             'data' => $data, // Data dalam format {x, y}
+            'range_tanggal' => "{$tanggalAwalIndo} - {$tanggalAkhirIndo}"
         ]);
     }
 

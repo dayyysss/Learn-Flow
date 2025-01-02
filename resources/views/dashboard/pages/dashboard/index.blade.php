@@ -354,7 +354,6 @@
                 } else if (filterType === 'range-tanggal') {
                     const dateRange = $('#date_range').val();
                     if (dateRange) {
-                        $('#statistikValue').text(dateRange);
                         data = {
                             range_tanggal: dateRange,
                         };
@@ -372,8 +371,10 @@
                     success: function(response) {
                         if (response.status === 'success') {
                             updateChart(response.data);
-                        } else {
-                            console.error('Gagal memuat data pengunjung.');
+                            const filterType = $('#filterType').val();
+                            if (filterType === 'range-tanggal') {
+                                $('#statistikValue').text(response.range_tanggal);
+                            }
                         }
                     },
                     error: function(error) {
@@ -387,7 +388,7 @@
                 mode: 'range',
                 altInput: true,
                 altFormat: 'j F Y',
-                dateFormat: 'j F Y',
+                dateFormat: 'd-m-Y',
                 locale: 'id',
             });
 
