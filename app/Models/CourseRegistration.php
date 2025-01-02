@@ -21,7 +21,7 @@ class CourseRegistration extends Model
         'order_id',
         'snap_token',
         'progress',
-        'certificate_id'
+        // 'certificate_id'
     ];
 
     public function user()
@@ -50,18 +50,18 @@ class CourseRegistration extends Model
         $this->update(['progress' => $progress]);
     }
 
-    protected static function booted()
-    {
-        static::creating(function ($courseRegistration) {
-            // Ambil kode_seri dari relasi course
-            $kodeSeri = $courseRegistration->course->kode_seri;
+    // protected static function booted()
+    // {
+    //     static::creating(function ($courseRegistration) {
+    //         // Ambil kode_seri dari relasi course
+    //         $kodeSeri = $courseRegistration->course->kode_seri;
 
-            // Buat kode acak (6 karakter alfanumerik)
-            $randomCode = strtoupper(substr(md5(uniqid()), 0, 6));
+    //         // Buat kode acak (6 karakter alfanumerik)
+    //         $randomCode = strtoupper(substr(md5(uniqid()), 0, 6));
 
-            // Gabungkan kode_seri dan kode acak untuk certificate_id
-            $courseRegistration->certificate_id = "{$kodeSeri}{$randomCode}";
-        });
-    }
+    //         // Gabungkan kode_seri dan kode acak untuk certificate_id
+    //         $courseRegistration->certificate_id = "{$kodeSeri}{$randomCode}";
+    //     });
+    // }
 
 }

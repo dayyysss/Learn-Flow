@@ -65,6 +65,10 @@ class CourseRegistrationController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login atau daftar terlebih dahulu untuk melanjutkan.');
         }
 
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+        ]);
+
         // Ambil data kursus
         $course = Course::findOrFail($request->course_id);
 
@@ -118,7 +122,10 @@ class CourseRegistrationController extends Controller
         ]);
 
         // Redirect ke halaman pembayaran
-        return redirect()->route('payment.page', ['snapToken' => $snapToken]);
+        return response()->json([
+            'status' => 'success',
+            'redirect_url' => route('payment.page', ['snapToken' => $snapToken]),
+        ]);
     }
 
 
