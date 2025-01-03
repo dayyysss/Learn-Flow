@@ -23,15 +23,12 @@
             <div data-aos="fade-up">
                 <div class="tilt relative">
                     <img class="w-full" src="assets/images/about/about_8.png" alt="">
-                    @if(isset($hero->image) && $hero->image)
-                        <img 
-                            class="absolute left-0 top-0 lg:top-4 right-0 mx-auto" 
-                            src="{{ asset('storage/' . $hero->image) }}" 
-                            alt="{{ $hero->judul ?? 'Hero Image' }}"
-                        >
+                    @if (isset($hero->image) && $hero->image)
+                        <img class="absolute left-0 top-0 lg:top-4 right-0 mx-auto"
+                            src="{{ asset('storage/' . $hero->image) }}" alt="{{ $hero->judul ?? 'Hero Image' }}">
                     @endif
                 </div>
-                
+
             </div>
         </div>
 
