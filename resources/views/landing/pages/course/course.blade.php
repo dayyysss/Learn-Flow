@@ -303,7 +303,7 @@
                                                             <div>
                                                                 <!-- Menampilkan bintang berdasarkan rata-rata rating -->
                                                                 @for ($i = 1; $i <= 5; $i++)
-                                                                    <i class="icofont-star text-size-10 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
+                                                                    <i class="icofont-star text-size-15 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
                                                                 @endfor
                                                             </div>
                                                             <span class="text-xs text-lightGrey6">
