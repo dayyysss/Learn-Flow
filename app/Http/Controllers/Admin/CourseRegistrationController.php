@@ -138,9 +138,9 @@ class CourseRegistrationController extends Controller
         ]);
 
         // Konfigurasi Midtrans
-        Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        Config::$clientKey = env('MIDTRANS_CLIENT_KEY');
-        Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
+        Config::$serverKey = config('services.midtrans.server_key');
+        Config::$isProduction = config('services.midtrans.is_production');
+        Config::$clientKey = config('services.midtrans.client_key');
 
         $registration = CourseRegistration::where('order_id', $request->order_id)->first();
 
