@@ -28,14 +28,27 @@
             </div>
 
             <div>
-                <label for="bab_id"
-                    class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">Bab</label>
-                <select name="bab_id"
+                <label for="course_id" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Course
+                </label>
+                <select id="course_id" name="course_id"
                     class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
                     required>
-                    @foreach ($babs as $bab)
-                        <option value="{{ $bab->id }}">{{ $bab->name }}</option>
+                    <option value="" disabled selected>Pilih Course</option>
+                    @foreach ($courses as $course)
+                        <option value="{{ $course->id }}">{{ $course->name }}</option>
                     @endforeach
+                </select>
+            </div>
+            
+            <div class="mt-4">
+                <label for="bab_id" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Bab
+                </label>
+                <select id="bab_id" name="bab_id"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
+                    disabled required>
+                    <option value="" disabled selected>Pilih Bab terlebih dahulu</option>
                 </select>
             </div>
 
@@ -61,7 +74,7 @@
             <div class="form-group mb-15px">
                 <label for="deskripsi"
                     class="mb-2 pt-5 block font-semibold text-blackColor dark:text-blackColor-dark">Deskripsi</label>
-                <textarea name="deskripsi" id="deskripsi"
+                <textarea name="description" id="deskripsi"
                     class="form-control w-full py-10px px-5 text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark placeholder:text-placeholder placeholder:dark:text-placeholder-dark border-2 border-borderColor dark:border-borderColor-dark leading-23px rounded-md"
                     cols="50" rows="10"></textarea>
             </div>
@@ -113,6 +126,35 @@
             dateFormat: "H:i", // Format jam:menit (24 jam)
             time_24hr: true,
             locale: "id", // Bahasa Indonesia
+        });
+
+        // Menangani perubahan course_id dan mengambil babs terkait
+        document.getElementById('course_id').addEventListener('change', function() {
+            const courseId = this.value;
+            const babSelect = document.getElementById('bab_id');
+
+            // Kosongkan dropdown bab
+            babSelect.innerHTML = '<option value="" disabled selected>Loading...</option>';
+            babSelect.disabled = true; // Nonaktifkan dropdown bab sementara
+
+            // Kirim permintaan untuk mengambil bab terkait course_id
+            fetch(`/get-babs/${courseId}`)
+                .then(response => response.json())
+                .then(data => {
+                    babSelect.innerHTML =
+                    '<option value="" disabled selected>Pilih Bab</option>'; // Reset dropdown bab
+                    data.forEach(bab => {
+                        const option = document.createElement('option');
+                        option.value = bab.id;
+                        option.textContent = bab.name;
+                        babSelect.appendChild(option);
+                    });
+                    babSelect.disabled = false; // Aktifkan dropdown bab
+                })
+                .catch(error => {
+                    console.error('Error fetching babs:', error);
+                    babSelect.innerHTML = '<option value="" disabled selected>Error memuat bab</option>';
+                });
         });
     </script>
 @endsection

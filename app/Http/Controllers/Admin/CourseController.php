@@ -298,7 +298,17 @@ class CourseController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
+        // Ambil data feedback
+        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
+            ->groupBy('course_id')
+            ->get();
 
+        // Hitung feedback dan rating menggunakan service
+        $calculatedCourse = $this->courseFeedbackService->calculateFeedbacks(collect([$course]), $feedbacks)->first();
+
+        // Set hasil yang dihitung ke dalam objek course
+        $course->average_rating = $calculatedCourse->average_rating;
+        $course->total_feedbacks = $calculatedCourse->total_feedbacks;
 
 
         $thumbnailUrl = $this->getVideoThumbnail($course->video);
@@ -324,7 +334,8 @@ class CourseController extends Controller
 
         // Kirimkan data course ke tampilan show bersama dengan data umum
         return view('landing.pages.course.course-detail', array_merge(
-            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,], $commonData
+            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,],
+            $commonData
         ));
     }
 
