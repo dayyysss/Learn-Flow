@@ -301,13 +301,14 @@
                                                         </div>
                                                         <div class="text-start md:text-end">
                                                             <div>
-                                                                <i class="icofont-star text-size-10 text-yellow"></i>
-                                                                <i class="icofont-star text-size-10 text-yellow"></i>
-                                                                <i class="icofont-star text-size-10 text-yellow"></i>
-                                                                <i class="icofont-star text-size-10 text-yellow"></i>
-                                                                <i class="icofont-star text-size-10 text-yellow"></i>
+                                                                <!-- Menampilkan bintang berdasarkan rata-rata rating -->
+                                                                @for ($i = 1; $i <= 5; $i++)
+                                                                    <i class="icofont-star text-size-10 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
+                                                                @endfor
                                                             </div>
-                                                            <span class="text-xs text-lightGrey6">(44)</span>
+                                                            <span class="text-xs text-lightGrey6">
+                                                                ({{ $item->total_feedbacks }} reviews)
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
