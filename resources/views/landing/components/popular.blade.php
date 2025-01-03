@@ -15,7 +15,7 @@
                     </span>
                     <p
                         class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark pl-3 border-l-[3px] border-secondaryColor">
-                        {!! $categoryCourse->deskripsi !!}
+                        {!! $categorySection->deskripsi !!}
                     </p>
                     <div>
                         <a class="text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor"

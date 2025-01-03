@@ -31,14 +31,15 @@ class LandingPageController extends Controller
     }
     public function index()
     {
-        $hero = Page::with('users')->where('status', 'publik')->find(1);
-        $about = Page::with('users')->where('status', 'publik')->find(2);
-        $categoryCourse = Page::with('users')->where('status', 'publik')->find(6);
+        $heroSection = Page::with('users')->where('status', 'publik')->find(1);
+        $aboutSection = Page::with('users')->where('status', 'publik')->find(2);
+        $categorySection = Page::with('users')->where('status', 'publik')->find(6);
+        $testiSection = Page::with('users')->where('status', 'publik')->find(7);
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
         $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $klien = Client::where('status', 'publik')->take(5)->get();
     
-        return view('landing-page', compact('hero', 'about', 'artikel', 'klien', 'testimonial', 'categoryCourse'));
+        return view('landing-page', compact('heroSection', 'aboutSection', 'artikel', 'klien', 'testimonial', 'categorySection', 'testiSection'));
     }
 
     public function about()
