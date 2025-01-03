@@ -70,14 +70,17 @@
                                             Modul</span>
                                     </div>
                                 </div>
-                                <div class="text-start md:text-end">
-                                    <i class="icofont-star text-size-15 text-yellow"></i>
-                                    <i class="icofont-star text-size-15 text-yellow"></i>
-                                    <i class="icofont-star text-size-15 text-yellow"></i>
-                                    <i class="icofont-star text-size-15 text-yellow"></i>
-
-                                    <span class="text-xs text-lightGrey6">(44)</span>
-                                </div>
+                                <div class="flex items-center justify-start md:justify-end space-x-2 gap-1">
+                                    <div class="flex items-center">
+                                        <!-- Menampilkan bintang berdasarkan rata-rata rating -->
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="icofont-star text-size-15 {{ $i <= min($course->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
+                                        @endfor
+                                    </div>
+                                    <span class="text-xs text-lightGrey6">
+                                        ({{ $course->total_feedbacks }} reviews)
+                                    </span>
+                                </div>                                
                             </div>
                             <p class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                                 data-aos="fade-up">
