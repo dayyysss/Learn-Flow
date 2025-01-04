@@ -2,28 +2,42 @@
 @section('page_title', 'LearnFlow | Quiz')
 
 @section('content')
-    <div class="container">
-        <h1>Edit Quiz</h1>
+    <div
+        class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
+        <!-- heading -->
+        <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Edit Quiz</h2>
+        </div>
 
         <form action="{{ route('quiz.update', $quiz->id) }}" method="POST">
             @csrf
-            @method('PATCH') <!-- Specify the HTTP method as PUT for updates -->
+            @method('PUT') <!-- Specify the HTTP method as PUT for updates -->
 
-            <div class="mb-3">
-                <label for="name" class="form-label">Nama Quiz</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $quiz->name) }}"
-                    required oninput="updateSlug()" />
+            <div>
+                <label for="name" class="block mb-2 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Nama Quiz
+                </label>
+                <input type="text" id="name" name="name"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark placeholder:text-placeholder placeholder:dark:text-placeholder-dark focus:ring-primaryColor focus:border-primaryColor"
+                    value="{{ old('name', $quiz->name) }}" required oninput="updateSlug()" />
             </div>
 
-            <div class="mb-3">
-                <label for="slug" class="form-label">Slug</label>
-                <input type="text" id="slug" name="slug" class="form-control"
+            <div>
+                <label for="slug" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Slug
+                </label>
+                <input type="text" id="slug" name="slug"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark placeholder:text-placeholder placeholder:dark:text-placeholder-dark focus:ring-primaryColor focus:border-primaryColor"
                     value="{{ old('slug', $quiz->slug) }}" readonly />
             </div>
 
-            <div class="mb-3">
-                <label for="bab_id" class="form-label">Bab</label>
-                <select name="bab_id" class="form-control" required>
+            <div>
+                <label for="bab_id" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Bab
+                </label>
+                <select name="bab_id"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
+                    required>
                     @foreach ($babs as $bab)
                         <option value="{{ $bab->id }}" {{ $quiz->bab_id == $bab->id ? 'selected' : '' }}>
                             {{ $bab->name }}
@@ -32,26 +46,44 @@
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label for="start_time" class="form-label">Waktu Mulai</label>
-                <input type="time" id="start_time" name="start_time" class="form-control"
-                    value="{{ old('start_time', $quiz->start_time) }}" />
+            <div>
+                <label for="start_time"
+                    class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Waktu Mulai
+                </label>
+                <input type="text" id="start_time" name="start_time"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
+                    value="{{ old('start_time', $quiz->start_time) }}" required />
             </div>
 
-            <div class="mb-3">
-                <label for="end_time" class="form-label">Waktu Selesai</label>
-                <input type="time" id="end_time" name="end_time" class="form-control"
-                    value="{{ old('end_time', $quiz->end_time) }}" />
+            <div>
+                <label for="end_time" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Waktu Selesai
+                </label>
+                <input type="text" id="end_time" name="end_time"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
+                    value="{{ old('end_time', $quiz->end_time) }}" required />
             </div>
 
-            <div class="mb-3">
-                <label for="description" class="form-label">Deskripsi</label>
-                <input type="text" id="description" name="description" class="form-control"
-                    value="{{ old('description', $quiz->description) }}" />
+            <div class="form-group mb-15px">
+                <label for="deskripsi" class="mb-2 pt-5 block font-semibold text-blackColor dark:text-blackColor-dark">
+                    Deskripsi
+                </label>
+                <textarea name="description" id="deskripsi"
+                    class="form-control w-full py-10px px-5 text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark placeholder:text-placeholder placeholder:dark:text-placeholder-dark border-2 border-borderColor dark:border-borderColor-dark leading-23px rounded-md"
+                    cols="50" rows="10">{{ old('description', $quiz->description) }}</textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Update Quiz</button>
-            <a href="{{ route('quiz.index') }}" class="btn btn-secondary">Cancel</a>
+            <div class="flex gap-2 pt-8">
+                <button type="submit"
+                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-darkGrey5 border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer">
+                    Perbarui Quiz
+                </button>
+                <a href="{{ route('quiz.index') }}"
+                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-secondaryColor bg-secondaryColor hover:bg-whiteColor dark:hover:bg-darkGrey5 border border-secondaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer">
+                    Batal
+                </a>
+            </div>
         </form>
     </div>
 
@@ -71,5 +103,22 @@
 
             slugInput.value = slug; // Set the updated slug value
         }
+
+        // Inisialisasi Flatpickr untuk input waktu
+        flatpickr("#start_time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i", // Format jam:menit (24 jam)
+            time_24hr: true,
+            locale: "id", // Bahasa Indonesia
+        });
+
+        flatpickr("#end_time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i", // Format jam:menit (24 jam)
+            time_24hr: true,
+            locale: "id", // Bahasa Indonesia
+        });
     </script>
 @endsection

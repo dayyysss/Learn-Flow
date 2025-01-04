@@ -65,6 +65,10 @@ class CourseRegistrationController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login atau daftar terlebih dahulu untuk melanjutkan.');
         }
 
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+        ]);
+
         // Ambil data kursus
         $course = Course::findOrFail($request->course_id);
 
@@ -118,7 +122,10 @@ class CourseRegistrationController extends Controller
         ]);
 
         // Redirect ke halaman pembayaran
-        return redirect()->route('payment.page', ['snapToken' => $snapToken]);
+        return response()->json([
+            'status' => 'success',
+            'redirect_url' => route('payment.page', ['snapToken' => $snapToken]),
+        ]);
     }
 
 
@@ -131,9 +138,9 @@ class CourseRegistrationController extends Controller
         ]);
 
         // Konfigurasi Midtrans
-        Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        Config::$clientKey = env('MIDTRANS_CLIENT_KEY');
-        Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
+        Config::$serverKey = config('services.midtrans.server_key');
+        Config::$isProduction = config('services.midtrans.is_production');
+        Config::$clientKey = config('services.midtrans.client_key');
 
         $registration = CourseRegistration::where('order_id', $request->order_id)->first();
 
@@ -147,14 +154,22 @@ class CourseRegistrationController extends Controller
                     ? ($status['transaction_status'] ?? 'unknown')
                     : ($status->transaction_status ?? 'unknown');
 
+                // Jika status tidak valid atau tidak sesuai, hentikan proses
+                if ($transactionStatus == 'unknown') {
+                    return response()->json(['status' => 'error', 'message' => 'Status transaksi tidak diketahui']);
+                }
+
                 // Konversi status Midtrans ke status registrasi
                 $registration_status = $this->mapMidtransStatusToRegistrationStatus($transactionStatus);
 
-                // Update data pendaftaran
-                $registration->update([
-                    'method_pembayaran' => ucfirst($request->method_pembayaran),
-                    'registration_status' => $registration_status,
-                ]);
+                // Pastikan hanya status yang valid yang dapat mengubah status registrasi
+                if ($registration_status === 'confirmed' && $registration->registration_status !== 'confirmed') {
+                    // Update data pendaftaran dengan status baru
+                    $registration->update([
+                        'method_pembayaran' => ucfirst($request->method_pembayaran),
+                        'registration_status' => $registration_status,
+                    ]);
+                }
 
                 // Jika sudah confirmed, redirect langsung ke halaman kursus
                 if ($registration_status === 'confirmed') {

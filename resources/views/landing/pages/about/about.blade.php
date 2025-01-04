@@ -11,7 +11,7 @@
                 <div data-aos="fade-up">
                     <div class="tilt relative overflow-hidden z-0">
                         <img class="absolute left-0 top-0 lg:top-4 right-0 mx-auto -z-1" src="assets/images/about/about_8.png"
-                            alt=""><img class="w-full" src="assets/images/about/about_14.png" alt="">
+                            alt=""><img class="w-full" src="{{ asset('storage/' . $halamanTentang->image) }}" alt="">
                     </div>
                 </div>
                 <!-- about right -->
@@ -20,27 +20,9 @@
                         class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
                         Tentang Kami
                     </span>
-                    <h3
-                        class="text-3xl md:text-size-45 leading-10 md:leading-2xl font-bold text-blackColor dark:text-blackColor-dark pb-25px">
-                        Selamat datang di Pusat Pembelajaran online
-                    </h3>
                     <p class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark mb-25px">
-                        Meet my startup design agency Shape Rex Currently I am working
-                        at CodeNext as Product Designer.
+                       {!! $halamanTentang->deskripsi !!}
                     </p>
-                    <p class="flex items-center gap-x-4 text-lg text-blackColor dark:text-blackColor-dark mb-25px">
-                        <img loading="lazy" src="assets/images/about/about_15.png" alt="about">
-                        <span><b>10+ Years ExperienceIn</b> this game, Means Product
-                            Designing</span>
-                    </p>
-                    <p class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark">
-                        I love to work in User Experience & User Interface designing.
-                        Because I love to solve the design problem and find easy and
-                        better solutions to solve it. I always try my best to make good
-                        user interface with the best user experience. I have been
-                        working as a UX Designer
-                    </p>
-
                     <div class="mt-30px">
                         <a href="#"
                             class="text-sm md:text-size-15 text-whiteColor bg-primaryColor border border-primaryColor px-25px py-15px hover:text-primaryColor hover:bg-whiteColor rounded inline-block mr-6px md:mr-30px dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
@@ -81,49 +63,7 @@
                 <div class="tab-contents">
                     <div>
                         <p class="text-contentColor dark:text-contentColor-dark mb-25px">
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered alteration in some
-                            form, by injected humour, or randomised words look even
-                            slightly believable. If you are going to use a passage of
-                            Lorem Ipsum, you need to be sure there isn't anything
-                            embarrassing hidden in the middle of text. Ipsum generators on
-                            the Internet tend to repeat predefined chunks as necessary,
-                            making this the first true generator on the Internet. It uses
-                            a dictionary of over 200 combined with a handful of model
-                            sentence structures, to generate Lorem Ipsum which looks
-                            reasonable. The generated Lorem Ipsum is therefore always free
-                            from characteristic words etc.
-                        </p>
-                        <h4
-                            class="text-xl font-medium text-blackColor dark:text-blackCol font-thinor-dark dark:text-blackColor-dark">
-                            World best education site - (Computer engeenering)
-                        </h4>
-                        <p class="text-contentColor dark:text-contentColor-dark mb-25px">
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered alteration in some
-                            form, by injected humour, or randomised words which dont look
-                            even slightly believable. If you are going to useery
-                        </p>
-                        <h4
-                            class="text-xl font-medium text-blackColor dark:text-blackCol font-thinor-dark dark:text-blackColor-dark">
-                            Web and user interface design - Development
-                        </h4>
-                        <p class="text-contentColor dark:text-contentColor-dark mb-30px">
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered alteration in some
-                            form, by injected humour, or randomised words which dont look
-                            even slightly believable. If you are going to useery
-                        </p>
-
-                        <h4
-                            class="text-xl font-medium text-blackColor dark:text-blackCol font-thinor-dark dark:text-blackColor-dark">
-                            Interaction design - Animation
-                        </h4>
-                        <p class="text-contentColor dark:text-contentColor-dark mb-30px">
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered alteration in some
-                            form, by injected humour, or randomised words which dont look
-                            even slightly believable. If you are going to useery
+                            {!! $tentang->deskripsi !!}
                         </p>
                     </div>
 
@@ -242,8 +182,7 @@
                                                     </p>
                                                 </div>
                                                 <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                                    href="#"><i
-                                                        class="icofont-heart-alt text-base py-1 px-2"></i></a>
+                                                    href="#"><i class="icofont-heart-alt text-base py-1 px-2"></i></a>
                                             </div>
                                         </div>
                                         <!-- card content -->
@@ -553,8 +492,9 @@
                     </span>
                     <h3 class="text-3xl md:text-[35px] lg:text-size-42 leading-[45px] 2xl:leading-[45px] md:leading-[50px] font-bold mb-5 md:mb-10 text-blackColor dark:text-blackColor-dark"
                         data-aos="fade-up">
-                        Choose The Best Package <br>
-                        For your Learning
+                        Pilih Paket Terbaik
+                        <br>
+                        Untuk Pembelajaran Anda
                     </h3>
                 </div>
 
@@ -1528,35 +1468,36 @@
             <!-- testimonial slider -->
             <div class="testimonial -mx-15px relative bg-lightGrey10 dark:bg-lightGrey10-dark" data-aos="fade-up">
                 <!-- Swiper -->
-                <div class="swiper mySwiper">   
+                <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <!-- testimonial 1 -->
                         @foreach ($testimonial as $testimoni)
-                        <div class="swiper-slide px-15px">
-                            <div class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
-                                <div class="flex justify-between items-center mb-15px lg:mb-30px">
-                                    <div class="flex items-center gap-5">
-                                        <div>
-                                            <img src="{{ asset('storage/' . $testimoni->image) }}" alt="{{ $testimoni->name }}"
-                                                class="w-58px h-58px rounded-full">
-                                        </div>
+                            <div class="swiper-slide px-15px">
+                                <div
+                                    class="p-5 md:p-10 md:pr-50px md:pb-50px bg-whiteColor dark:bg-whiteColor-dark rounded">
+                                    <div class="flex justify-between items-center mb-15px lg:mb-30px">
+                                        <div class="flex items-center gap-5">
+                                            <div>
+                                                <img src="{{ asset('storage/' . $testimoni->image) }}"
+                                                    alt="{{ $testimoni->name }}" class="w-58px h-58px rounded-full">
+                                            </div>
 
-                                        <div>
-                                            <h5
-                                                class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
-                                                {{ $testimoni->name }}
-                                            </h5>
-                                            <p class="text-sm text-lightGrey9">{{ $testimoni->profession }}</p>
+                                            <div>
+                                                <h5
+                                                    class="text-lg md:text-size-22 text-blackColor dark:text-blackColor-dark font-semibold pb-1">
+                                                    {{ $testimoni->name }}
+                                                </h5>
+                                                <p class="text-sm text-lightGrey9">{{ $testimoni->profession }}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <p class="text-contentColor dark:text-contentColor-dark">
-                                    {!! $testimoni->description !!}
-                                    </p>
+                                    <div>
+                                        <p class="text-contentColor dark:text-contentColor-dark">
+                                            {!! $testimoni->description !!}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     <div class="swiper-button-next translate-x-2 md:translate-x-8 3xl:translate-x-12"></div>
@@ -1572,68 +1513,20 @@
             <div class="mb-5 md:mb-10" data-aos="fade-up">
                 <h3
                     class="text-3xl md:text-[35px] lg:text-size-38 3xl:text-size-42 leading-10 mf:leading-45px 2xl:leading-50px 3xl:leading-2xl font-bold text-blackColor dark:text-blackColor-dark text-center">
-                    Relied on marketers trusted by engineers and <br>
-                    Beloved by
+                    Telah dipercaya 
                     <span
-                        class="relative after:w-full after:h-[7px] z-0 after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5 after:z-[-1]">Executives</span>
+                        class="relative after:w-full after:h-[7px] z-0 after:bg-secondaryColor after:absolute after:left-0 after:bottom-3 md:after:bottom-5 after:z-[-1]">oleh</span>
                 </h3>
             </div>
             <!-- brands -->
             <div class="flex flex-wrap justify-center">
-                <!-- brand 1 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_1.png" alt="">
-                    </a>
-                </div>
-                <!-- brand  -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_2.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 3 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_3.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 4 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_4.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 5 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_5.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 6 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_6.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 7 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_7.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 8 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_8.png" alt="">
-                    </a>
-                </div>
-                <!-- brand 9 -->
-                <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
-                    <a href="#" class="pt-25px pb-45px text-center w-full flex justify-center">
-                        <img src="assets/images/brand/brand_9.png" alt="">
-                    </a>
-                </div>
+                @foreach ($klien as $client)
+                    <div class="basis-1/2 md:basis-1/4 lg:basis-1/5" data-aos="fade-up">
+                        <a href="{{ $client->url }}" class="pt-25px pb-45px text-center w-full flex justify-center">
+                            <img src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name }}">
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

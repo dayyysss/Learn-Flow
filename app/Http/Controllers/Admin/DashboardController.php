@@ -103,13 +103,18 @@ class DashboardController extends Controller
 
     public function visitor(Request $request)
     {
-        $tipeFilter = empty($request->tipe_filter) ? 'bulan tahun' : 'range tanggal';
+        $tipeFilter = $request->tipe_filter ?? 'bulan tahun';
         $tahun = $request->tahun ?? date('Y');
         $bulan = $request->bulan ?? date('m');
-        $rangeTanggal = explode(' - ', $request->range_tanggal);
+        $rangeTanggal = explode(' - ', $request->range_tanggal ?? '');
 
-        $tanggal_awal = $rangeTanggal[0];
-        $tanggal_akhir = isset($rangeTanggal[1]) ? $rangeTanggal[1] : $rangeTanggal[0];
+        if ($tipeFilter == 'range-tanggal' && count($rangeTanggal) == 2) {
+            $tanggal_awal = $rangeTanggal[0];
+            $tanggal_akhir = $rangeTanggal[1];
+        } else {
+            $tanggal_awal = Carbon::createFromDate($tahun, $bulan, 1)->toDateString();
+            $tanggal_akhir = Carbon::createFromDate($tahun, $bulan, Carbon::createFromDate($tahun, $bulan, 1)->daysInMonth)->toDateString();
+        }
 
         $tanggalList = $this->loopTanggal($tipeFilter, $bulan, $tahun, $tanggal_awal, $tanggal_akhir);
         $data = [];
@@ -131,9 +136,13 @@ class DashboardController extends Controller
                 ];
             }
         }
+        $tanggalAwalIndo = formatTanggalIndonesia($tanggal_awal);
+        $tanggalAkhirIndo = formatTanggalIndonesia($tanggal_akhir);
+
         return response()->json([
             'status' => 'success',
             'data' => $data, // Data dalam format {x, y}
+            'range_tanggal' => "{$tanggalAwalIndo} - {$tanggalAkhirIndo}"
         ]);
     }
 

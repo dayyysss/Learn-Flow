@@ -47,6 +47,7 @@ use App\Http\Controllers\Admin\CourseRegistrationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 
 // Auth
 Route::get('/login', function () { return view('auth.login'); })->name('login');
@@ -75,21 +76,23 @@ Route::get('/visitor-count', [DashboardController::class, 'visitor']);
 // Landing Page
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::get('/tentang-kami', 'about')->name('about');
+    Route::get('/about', 'about')->name('about');
     Route::get('/course', 'course')->name('course');
     Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
     Route::get('/event', 'event')->name('event');
+    Route::get('/menu-landing', 'indexMenu')->name('menu.landing');
 
-    Route::prefix('artikel')->group(function () {
-        Route::get('/', 'artikel')->name('artikel');
-        Route::get('/{slug}', 'showSlug')->name('artikel.showSlug');
-        Route::get('/cari', 'search')->name('artikel.search');
-        Route::get('/kategori/{name}', 'showCategory')->name('artikel.category');
-        Route::get('/tag/{tag}', 'showTag')->name('artikel.tag');
+    Route::prefix('blog')->group(function () {
+        Route::get('/', 'blog')->name('blog');
+        Route::get('/cari', 'search')->name('blog.search');         
+        Route::get('/kategori/{name}', 'showCategory')->name('blog.category');
+        Route::get('/tag/{tag}', 'showTag')->name('blog.tag');
+        Route::get('/{slug}', 'showSlug')->name('blog.showSlug'); 
     });
 
     Route::get('/kontak', 'contact')->name('contact');
     Route::get('/instruktur', 'instructor')->name('instructor');
+    Route::get('/instruktur/{id}', [LandingPageController::class, 'showinstructor'])->name('showinstructor');
 });
 
 // Dashboard CMS
@@ -118,6 +121,8 @@ Route::prefix('lfcms')
         //  Route::post('/modul/{slug}/progress', [ModulProgressController::class, 'updateProgress']);
 
 
+        //website
+        Route::resource('/website', WebsiteConfigurationController::class);
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
@@ -157,6 +162,9 @@ Route::prefix('lfcms')
         Route::get('frontend/hak-akses/{roleId}', [HakAksesFrontendController::class, 'indexbyRole'])->name('HakAkses.index.frontend');
         Route::delete('frontend/role/{id}', [HakAksesFrontendController::class, 'destroy'])->name('role.destroy.frontend');
 
+        Route::post('/website/kata-kunci', [WebsiteConfigurationController::class, 'storeKeyword'])->name('konfigurasi.kataKunci');
+        Route::post('/website/kontak', [WebsiteConfigurationController::class, 'storeKontak'])->name('konfigurasi.kontak');
+        Route::post('/website/Sosial-media', [WebsiteConfigurationController::class, 'storeSosial'])->name('konfigurasi.sosialMedia');
 
 
 
@@ -190,7 +198,7 @@ Route::get('/certificate/print/{registrationId}', [CourseController::class, 'pri
 Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
-Route::get('/modul/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::get('/modul/course/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
 Route::get('/quiz/course/{slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 Route::resource('/certificate', CertificateController::class);
@@ -219,8 +227,9 @@ Route::patch('/cart', [CartController::class, 'updateCart']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
-Route::resource('quiz', App\Http\Controllers\Admin\Quiz\QuizController::class);
-
+//quiz
+Route::resource('quiz', QuizController::class);
+Route::get('/get-babs/{courseId}', [QuizController::class, 'getBabsByCourse']);
 
 //quiz result
 Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');

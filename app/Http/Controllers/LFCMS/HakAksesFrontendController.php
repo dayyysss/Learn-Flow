@@ -83,7 +83,10 @@ class HakAksesFrontendController extends Controller
             }
     
             // Buat role baru
-            Role::create(['name' => $request->name]);
+            Role::create([
+                'name' => $request->name,
+                'akses' => 'frontend',
+            ]);
     
             // Kembalikan response sukses
             return response()->json([

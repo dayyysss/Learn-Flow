@@ -134,7 +134,7 @@
                                                 </div>
                                                 <!-- progress bar -->
                                                 <div class="h-25px w-full bg-blue-x-light rounded-md relative mt-5 mb-15px">
-                                                    <div class="bg-primaryColor h-full text-center text-whiteColor leading-6"
+                                                    <div class="bg-primaryColor h-full text-center text-blackColor leading-6"
                                                         style="width: {{ $item->progress }}%">
                                                         <span class="text-size-10 block leading-25px">
                                                             {{ $item->progress }}%

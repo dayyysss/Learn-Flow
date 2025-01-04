@@ -9,6 +9,7 @@ class Quiz extends Model
     protected $fillable = [
         'name',
         'slug',
+        'course_id',
         'bab_id',
         'start_time',
         'end_time',
@@ -29,6 +30,11 @@ class Quiz extends Model
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
     public static function boot()
