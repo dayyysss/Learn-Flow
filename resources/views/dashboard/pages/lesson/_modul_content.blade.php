@@ -1,57 +1,46 @@
+@extends('dashboard.pages.lesson.lesson')
+
+@section('modul')
 <div>
     <div class="content mb-3">
         <h5 class="font-bold capitalize text-xl">{{ $modul->name }}</h5>
     </div>
 
-    <div
-        class="top-0 left-0 w-full flex justify-between items-center px-5 py-10px bg-primaryColor leading-1.2 text-whiteColor">
+    <div class="top-0 left-0 w-full flex justify-between items-center px-5 py-10px bg-primaryColor leading-1.2 text-whiteColor">
         <h3 class="sm:text-size-22 font-bold">
             Video - {{ $modul->name }}
         </h3>
         <a href="{{ route('course.detail', $modul->bab->course->slug) }}" class="">Close</a>
     </div>
 
-    @if ($modul->video) <!-- Cek apakah ada video -->
-        <div class="aspect-[16/9]">
-            <video id="player" playsinline controls class="w-full h-full">
-                <source
-                    @if (filter_var($modul->video, FILTER_VALIDATE_URL)) @if (strpos($modul->video, 'youtube.com/watch?v=') !== false)
-                        {{-- Konversi URL YouTube standar ke format embed --}}
-                        src="{{ str_replace('watch?v=', 'embed/', $modul->video) }}"
-                        type="text/html"
-                    @elseif (strpos($modul->video, 'youtu.be/') !== false)
-                        {{-- Konversi URL YouTube pendek ke format embed --}}
-                        src="{{ 'https://www.youtube.com/embed/' . substr(parse_url($modul->video, PHP_URL_PATH), 1) }}"
-                        type="text/html"
-                    @else
-                        {{-- Gunakan URL asli jika bukan YouTube --}}
-                        src="{{ $modul->video }}"
-                        type="video/mp4" @endif
-                @else {{-- Gunakan path dari storage jika bukan URL --}} src="{{ asset('storage/' . $modul->video) }}" type="video/mp4"
-                    @endif
-                />
-            </video>
-        </div>
-    @endif
+    @if (!empty($modul->video))
+    @php
+        $videoSource = '';
+        if (filter_var($modul->video, FILTER_VALIDATE_URL)) {
+            if (strpos($modul->video, 'youtube.com/watch?v=') !== false) {
+                $videoSource = str_replace('watch?v=', 'embed/', $modul->video);
+            } elseif (strpos($modul->video, 'youtu.be/') !== false) {
+                $videoSource = 'https://www.youtube.com/embed/' . substr(parse_url($modul->video, PHP_URL_PATH), 1);
+            } else {
+                $videoSource = $modul->video;
+            }
+        } else {
+            $videoSource = asset('storage/' . $modul->video);
+        }
+    @endphp
+
+    <div class="aspect-[16/9]">
+        <video id="player" playsinline controls class="w-full p-5 h-full">
+            <source src="{{ $videoSource }}" type="{{ strpos($videoSource, 'youtube.com') !== false || strpos($videoSource, 'youtu.be') !== false ? 'text/html' : 'video/mp4' }}" />
+        </video>
+    </div>
+@endif
 
     <div class="deskripsi mt-5">
         <p>{!! $modul->materi !!}</p>
     </div>
 
-    <!-- Navigation Buttons -->
-    <div class="flex justify-between mt-5">
-        @if ($previousModul)
-            <a href="#" data-slug="{{ $previousModul->slug }}" class="btn btn-primary modul-nav">Previous</a>
-        @else
-            <span class="text-gray-500">Previous</span>
-        @endif
 
-        @if ($nextModul)
-            <a href="#" data-slug="{{ $nextModul->slug }}" class="btn btn-primary modul-nav">Next</a>
-        @else
-            <span class="text-gray-500">Next</span>
-        @endif
-    </div>
 </div>
 
 <script>
@@ -66,6 +55,9 @@
                 .then(data => {
                     // Tampilkan konten modul di kontainer
                     contentContainer.innerHTML = data;
+
+                    // Update URL di browser tanpa memuat ulang halaman
+                    history.pushState({ slug: slug }, '', `/modul/${slug}`);
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -79,12 +71,6 @@
             });
         });
 
-        // Muat modul pertama saat halaman dimuat jika ada modul yang tersedia
-        if (modulLinks.length > 0) {
-            const firstModulSlug = modulLinks[0].getAttribute('data-slug');
-            loadModul(firstModulSlug);
-        }
-
         // Menangani klik pada tombol Previous dan Next
         document.querySelectorAll('.modul-nav').forEach(button => {
             button.addEventListener('click', function(e) {
@@ -93,12 +79,22 @@
                 loadModul(slug);
             });
         });
+
+        // Menangani perubahan state (misalnya, tombol back atau forward pada browser)
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.slug) {
+                loadModul(e.state.slug);
+            }
+        });
+
+        // Muat modul pertama saat halaman dimuat jika ada modul yang tersedia
+        const firstModulSlug = document.querySelector('.modul-nav')?.getAttribute('data-slug');
+        if (firstModulSlug) {
+            loadModul(firstModulSlug);
+        }
     });
 
-    //plyr
-    document.addEventListener('DOMContentLoaded', () => {
-        const players = Array.from(document.querySelectorAll('.plyr__video-embed')).map(p => new Plyr(p));
-    }); <
+    // Plyr Video Player
     document.addEventListener('DOMContentLoaded', () => {
         const player = new Plyr('#player', {
             controls: ['play', 'progress', 'volume', 'fullscreen'],
@@ -115,3 +111,4 @@
         });
     });
 </script>
+@endsection

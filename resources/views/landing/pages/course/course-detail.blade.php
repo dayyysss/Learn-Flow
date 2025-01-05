@@ -275,11 +275,12 @@
                                                                                 <p>
                                                                                     <i class="icofont-clock-time"></i> 22 minutes
                                                                                 </p>
-                                                                                <a href="{{ route('babCourse.index', $course->slug) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
+                                                                                <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $modul->slug]) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
                                                                                     <p class="px-10px">
                                                                                         <i class="icofont-eye"></i> Preview
                                                                                     </p>
                                                                                 </a>
+                                                                                
                                                                             </div>
                                                                         </li>
                                                                     @endforeach
@@ -313,7 +314,7 @@
                                                                                 </p>
                                                                                 
                                                                                 
-                                                                                <a href="{{ route('quiz.detail', $quiz->slug) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
+                                                                                <a href="" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
                                                                                     <p class="px-10px">
                                                                                         <i class="icofont-eye"></i> Take Quiz
                                                                                     </p>

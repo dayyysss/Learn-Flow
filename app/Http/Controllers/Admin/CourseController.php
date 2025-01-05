@@ -334,9 +334,12 @@ return compact('categories', 'popularTags', 'recentPostsCourse');
 }
 
 
-public function showModul($slug)
+public function showModul($courseSlug, $modulSlug)
 {
-    $modul = Modul::with('bab.course')->where('slug', $slug)->firstOrFail();
+    $course = Course::where('slug', $courseSlug)->firstOrFail();
+    $modul = Modul::with('bab.course')->where('slug', $modulSlug)->firstOrFail();
+    $bab = $course->babs()->with(['moduls', 'quiz'])->get();
+    $contactData = $this->getContactsLogo();
 
     // Cari modul sebelumnya
     $previousModul = Modul::where('bab_id', $modul->bab_id)
@@ -350,25 +353,29 @@ public function showModul($slug)
                      ->orderBy('id', 'asc')
                      ->first();
 
-    return view('dashboard.pages.lesson._modul_content', compact('modul', 'previousModul', 'nextModul'));
+    return view('dashboard.pages.lesson._modul_content', compact('course', 'modul','bab','previousModul', 'nextModul'));
 }
-public function showQuiz($slug)
+
+public function showQuiz($courseSlug, $quizSlug)
 {
-    $modul = Quiz::with('bab.course')->where('slug', $slug)->firstOrFail();
+    $course = Course::where('slug', $courseSlug)->firstOrFail();
+    $modul = Quiz::with('bab.course')->where('slug', $quizSlug)->firstOrFail();
+    $bab = $course->babs()->with(['moduls', 'quiz'])->get();
+    $contactData = $this->getContactsLogo();
 
     // Cari modul sebelumnya
     $previousModul = Modul::where('bab_id', $modul->bab_id)
                           ->where('id', '<', $modul->id)
                           ->orderBy('id', 'desc')
                           ->first();
-                        
+
     // Cari modul berikutnya
     $nextModul = Modul::where('bab_id', $modul->bab_id)
                      ->where('id', '>', $modul->id)
                      ->orderBy('id', 'asc')
                      ->first();
 
-    return view('dashboard.pages.lesson._quiz_content', compact('modul', 'previousModul', 'nextModul'));
+    return view('dashboard.pages.lesson._quiz_content', compact('course', 'modul','bab','previousModul', 'nextModul'));
 }
 
 
