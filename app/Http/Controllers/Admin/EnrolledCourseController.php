@@ -43,20 +43,35 @@ class EnrolledCourseController extends Controller
     public function showCourses()
     {
         $userId = auth()->id(); // Ambil user yang sedang login
-
+    
         // Ambil kursus yang sudah terdaftar (konfirmasi)
         $enrolledCourses = CourseRegistration::where('user_id', $userId)
             ->where('registration_status', 'confirmed') 
             ->get();
-
-        // Kursus aktif, progress < 100
+    
+        // Periksa apakah semua modul dalam kursus sudah selesai
+        $enrolledCourses->each(function($courseRegistration) {
+            $course = $courseRegistration->course;
+    
+            // Memeriksa apakah semua modul telah selesai
+            $allModulsCompleted = $course->moduls->every(function($modul) use ($courseRegistration) {
+                return $modul->modulProgresses->where('course_registrations_id', $courseRegistration->id)
+                                                ->first()
+                                                ->status === 'selesai';
+            });
+    
+            // Menambahkan status untuk dapat mengunduh sertifikat
+            $courseRegistration->can_download_certificate = $allModulsCompleted;
+        });
+    
+        // Pisahkan kursus yang aktif dan yang sudah selesai
         $activeCourses = $enrolledCourses->where('progress', '<', 100);
-
-        // Kursus selesai, progress = 100
         $completedCourses = $enrolledCourses->where('progress', 100);
-
+    
         return view('dashboard.pages.enrolled-courses.index', compact('activeCourses', 'completedCourses'));
     }
+    
+
 
 
 

@@ -143,11 +143,18 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <a href="{{route('certificate.index', $item->course->id)}}"
-                                                        class="text-size-15 text-whiteColor bg-secondaryColor w-full px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor rounded group text-nowrap text-center">
-                                                        Download Certificate
-                                                    </a>
+                                                    @if ($item->progress == 100)
+                                                        <a href="{{ route('certificate.index', $item->course->id) }}"
+                                                           class="text-size-15 text-whiteColor bg-secondaryColor w-full px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor rounded group text-nowrap text-center">
+                                                            Download Certificate
+                                                        </a>
+                                                    @else
+                                                        <span class="text-size-15 text-gray-500">
+                                                            Complete all modules to download certificate.
+                                                        </span>
+                                                    @endif
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
