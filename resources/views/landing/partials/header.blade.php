@@ -409,59 +409,88 @@
                 menu_type: 'sidebar'
             },
             success: function(data) {
-                // Bangun hierarki menu berdasarkan parent_id
-                let menuMap = {};
-                let rootMenus = [];
+                let sidebarMenu = '';
 
-                // Pisahkan root dan submenu
-                data.forEach(menu => {
-                    if (!menu.parent_id) {
-                        rootMenus.push(menu);
-                    } else {
-                        if (!menuMap[menu.parent_id]) {
-                            menuMap[menu.parent_id] = [];
+                $.each(data, function(index, menu) {
+                    if (menu.hasChildren) {
+                        sidebarMenu += `
+                        <li class="accordion">
+                            <!-- accordion header -->
+                            <div class="flex items-center justify-between">
+                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                                    href="${menu.link}">${menu.content}</a>
+                               <button class="accordion-controller px-3 py-4">
+                                <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
+                                <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
+                            </button>
+                            </div>
+                            <!-- accordion content -->
+                            <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
+                                <div class="content-wrapper">
+                                    <ul>`;
+
+                        if (menu.children && menu.children.length > 0) {
+                            $.each(menu.children, function(childIndex, child) {
+                                sidebarMenu += `
+                                <li class="accordion">
+                                    <!-- accordion header -->
+                                    <div class="flex items-center justify-between">
+                                        <a href="${child.link}" 
+                                           class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
+                                            ${child.content}
+                                            ${child.badge ? `
+                                            <span class="px-15px py-5px text-primaryColor bg-whitegrey3 text-xs rounded ml-5px">
+                                                ${child.badge}
+                                            </span>` : ''}
+                                        </a>
+                                    </div>
+                                </li>`;
+                            });
                         }
-                        menuMap[menu.parent_id].push(menu);
+
+                        sidebarMenu += `
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>`;
+                    } else {
+                        sidebarMenu += `
+                        <li>
+                            <div class="flex items-center justify-between">
+                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                                    href="${menu.link}">${menu.content}</a>
+                            </div>
+                        </li>`;
                     }
                 });
 
-                // Fungsi untuk membangun HTML menu secara rekursif
-                const generateMenuHTML = (menus) => {
-                    let html = '<ul class="accordion-container">';
-                    menus.forEach(menu => {
-                        const hasChildren = menuMap[menu.id] && menuMap[menu.id]
-                            .length > 0;
+                // Wrap the menu in accordion-container
+                $('#sidebar-menu').html(`
+                <ul class="accordion-container">
+                    ${sidebarMenu}
+                </ul>
+            `);
 
-                        html += `
-                            <li class="accordion">
-                                <div class="flex items-center justify-between">
-                                    <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                        href="${menu.link}">${menu.content}</a>
-                                    ${hasChildren ? `
-                                    <button class="accordion-controller px-3 py-4">
-                                        <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
-                                        <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
-                                    </button>` : ''}
-                                </div>
-                                ${hasChildren ? `
-                                <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
-                                    <div class="content-wrapper">
-                                        ${generateMenuHTML(menuMap[menu.id])}
-                                    </div>
-                                </div>` : ''}
-                            </li>`;
-                    });
-                    html += '</ul>';
-                    return html;
-                };
+                // Add click handler for accordion buttons
+                $(document).on('click', '.accordion-controller', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                // Bangun HTML dari root menus
-                const menuHTML = generateMenuHTML(rootMenus);
+                    // Toggle rotation for the plus/minus icon
+                    $(this).find('span:last-child').toggleClass('rotate-0');
 
-                // Debugging (opsional)
-                // console.log('Generated HTML:', menuHTML);
+                    // Find and toggle the content
+                    const content = $(this).closest('.accordion').find(
+                    '.accordion-content');
 
-                $('#sidebar-menu').html(menuHTML);
+                    // If content is closing, add h-0
+                    if (!content.hasClass('h-0')) {
+                        content.addClass('h-0');
+                    } else {
+                        // If content is opening, remove h-0
+                        content.removeClass('h-0');
+                    }
+                });
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error fetching menu:', textStatus, errorThrown);

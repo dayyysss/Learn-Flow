@@ -303,7 +303,8 @@
                                                             <div>
                                                                 <!-- Menampilkan bintang berdasarkan rata-rata rating -->
                                                                 @for ($i = 1; $i <= 5; $i++)
-                                                                    <i class="icofont-star text-size-15 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
+                                                                    <i
+                                                                        class="icofont-star text-size-15 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
                                                                 @endfor
                                                             </div>
                                                             <span class="text-xs text-lightGrey6">
@@ -443,13 +444,14 @@
                                                                         <div>
                                                                             <!-- Menampilkan bintang berdasarkan rata-rata rating -->
                                                                             @for ($i = 1; $i <= 5; $i++)
-                                                                                <i class="icofont-star text-size-10 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
+                                                                                <i
+                                                                                    class="icofont-star text-size-10 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
                                                                             @endfor
                                                                         </div>
                                                                         <span class="text-xs text-lightGrey6">
                                                                             ({{ $item->total_feedbacks }} reviews)
                                                                         </span>
-                                                                    </div> 
+                                                                    </div>
                                                                 </div>
 
                                                                 <div>
@@ -546,74 +548,70 @@
 
     <script>
         $(document).ready(function() {
-            // Cek status wishlist untuk semua kursus saat halaman dimuat
-            $('.add-to-wishlist').each(function() {
-                var button = $(this);
-                var courseId = button.data('id');
-                var userId = {{ auth()->id() }}; // Ambil ID user yang sedang login
 
-                // Kirim permintaan untuk memeriksa apakah kursus ada di wishlist
-                $.ajax({
-                    url: '/wishlist/check', // URL untuk mengecek status wishlist
-                    method: 'GET',
-                    data: {
-                        course_id: courseId,
-                        user_id: userId
-                    },
-                    success: function(response) {
-                        if (response.exists) {
-                            // Jika kursus ada di wishlist, ubah tampilan tombol
+            var courseIds = [];
+            $('.add-to-wishlist').each(function() {
+                courseIds.push($(this).data('id'));
+            });
+
+            var userId = {{ auth()->id() }}; 
+
+            $.ajax({
+                url: '/wishlist/check',
+                method: 'POST', 
+                data: {
+                    course_ids: courseIds,
+                    user_id: userId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    response.forEach(function(item) {
+                        var button = $(`.add-to-wishlist[data-id="${item.course_id}"]`);
+                        if (item.exists) {
                             button.removeClass('bg-black bg-opacity-15');
                             button.addClass('bg-primaryColor hover:bg-primaryColor');
                             button.find('i').addClass('text-white');
                         } else {
-                            // Jika kursus tidak ada di wishlist, pastikan tampilannya default
                             button.removeClass('bg-primaryColor hover:bg-primaryColor');
                             button.addClass('bg-black bg-opacity-15');
                             button.find('i').removeClass('text-white');
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error memeriksa status wishlist:', error);
-                    }
-                });
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error memeriksa status wishlist:', error);
+                }
             });
 
-            // Logika klik tombol wishlist
             $('.add-to-wishlist').on('click', function(event) {
-                event.preventDefault(); // Mencegah perilaku default link
+                event.preventDefault();
 
                 var button = $(this);
-                var courseId = button.data('id'); // Ambil ID kursus
-                var userId = {{ auth()->id() }}; // Ambil ID user yang sedang login
+                var courseId = button.data('id');
+                var userId = {{ auth()->id() }};
 
-                // Cek apakah kursus sudah ada di wishlist
                 $.ajax({
-                    url: '/wishlist/check', // URL untuk mengecek apakah kursus sudah ada di wishlist
-                    method: 'GET',
+                    url: '/wishlist/check',
+                    method: 'POST',
                     data: {
-                        course_id: courseId,
-                        user_id: userId
+                        course_ids: [courseId],
+                        user_id: userId,
+                        _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        if (response.exists) {
-                            // Jika kursus sudah ada di wishlist, hapus dari wishlist
+                        var item = response[0];
+                        if (item && item.exists) {
                             $.ajax({
-                                url: '/wishlist/' + response
-                                    .wishlist_id, // URL untuk menghapus wishlist berdasarkan ID
+                                url: '/wishlist/' + item.wishlist_id,
                                 method: 'DELETE',
                                 data: {
                                     _token: '{{ csrf_token() }}'
                                 },
                                 success: function() {
-                                    // Ubah tampilan tombol setelah kursus dihapus dari wishlist
                                     button.removeClass(
                                         'bg-primaryColor hover:bg-primaryColor');
-                                    button.addClass(
-                                        'bg-black bg-opacity-15'
-                                    ); // Kembalikan warna default
-                                    button.find('i').removeClass(
-                                        'text-white'); // Kembalikan warna ikon
+                                    button.addClass('bg-black bg-opacity-15');
+                                    button.find('i').removeClass('text-white');
                                 },
                                 error: function(xhr, status, error) {
                                     console.error('Error menghapus dari wishlist:',
@@ -621,9 +619,8 @@
                                 }
                             });
                         } else {
-                            // Jika kursus belum ada di wishlist, tambahkan ke wishlist
                             $.ajax({
-                                url: '/wishlist', // URL untuk menambahkan kursus ke wishlist
+                                url: '/wishlist',
                                 method: 'POST',
                                 data: {
                                     course_id: courseId,
@@ -631,12 +628,10 @@
                                     _token: '{{ csrf_token() }}'
                                 },
                                 success: function() {
-                                    // Ubah tampilan tombol setelah kursus ditambahkan ke wishlist
                                     button.removeClass('bg-black bg-opacity-15');
                                     button.addClass(
                                         'bg-primaryColor hover:bg-primaryColor');
-                                    button.find('i').addClass(
-                                        'text-white'); // Ubah warna ikon
+                                    button.find('i').addClass('text-white');
                                 },
                                 error: function(xhr, status, error) {
                                     console.error('Error menambahkan ke wishlist:',
@@ -652,27 +647,6 @@
             });
         });
     </script>
-
-    {{-- <script>
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-    const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
-    const cards = document.querySelectorAll("#dataContainer .group"); // Ambil semua card
-
-    cards.forEach(card => {
-        const name = card.querySelector("a.text-lg").textContent.toLowerCase(); // Ambil nama kursus
-        const category = card.querySelector(".text-xs").textContent.toLowerCase(); // Ambil kategori
-
-        // Periksa apakah query ada di nama atau kategori
-        if (name.includes(query) || category.includes(query)) {
-            card.style.display = ""; // Tampilkan card
-        } else {
-            card.style.display = "none"; // Sembunyikan card
-        }
-    });
-});
-
-
-</script> --}}
 
     <style>
         .coll-span-full {
