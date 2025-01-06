@@ -72,40 +72,39 @@
 
                     <div
                         class="tab-links grid grid-cols-2 gap-11px text-blackColor text-lg lg:text-size-22 font-semibold font-hind mb-43px mt-30px md:mt-0">
-                        <button
+                        <button id="tab-login" onclick="showLoginForm()"
                             class="py-9px lg:py-6 hover:text-primaryColor dark:text-whiteColor dark:hover:text-primaryColor bg-white dark:bg-whiteColor-dark dark:hover:bg-whiteColor-dark hover:bg-white relative group/btn shadow-bottom hover:shadow-bottom dark:shadow-standard-dark disabled:cursor-pointer rounded-standard">
                             <span
                                 class="absolute w-full h-1 bg-primaryColor top-0 left-0 group-hover/btn:w-full"></span>
-
                             Masuk
                         </button>
-                        <button
+                        <button id="tab-signup" onclick="showSignupForm()"
                             class="py-9px lg:py-6 hover:text-primaryColor dark:hover:text-primaryColor dark:text-whiteColor bg-lightGrey7 dark:bg-lightGrey7-dark hover:bg-white dark:hover:bg-whiteColor-dark relative group/btn hover:shadow-bottom dark:shadow-standard-dark disabled:cursor-pointer rounded-standard">
                             <span class="absolute w-0 h-1 bg-primaryColor top-0 left-0 group-hover/btn:w-full"></span>
-
                             Daftar
                         </button>
                     </div>
+
 
                     <!--  tab contents -->
                     <div
                         class="shadow-container bg-whiteColor dark:bg-whiteColor-dark pt-10px px-5 pb-10 md:p-50px md:pt-30px rounded-5px">
                         <div class="tab-contents">
                             <!-- login form-->
-                            <div class="block opacity-100 transition-opacity duration-150 ease-linear">
+                            <div id="login-form" class="block opacity-100 transition-opacity duration-150 ease-linear">
                                 <!-- heading   -->
                                 <div class="text-center">
                                     <h3
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
                                         Masuk
                                     </h3>
-                                    <p class="text-contentColor dark:text-contentColor-dark mb-15px">
+                                    {{-- <p class="text-contentColor dark:text-contentColor-dark mb-15px">
                                         Belum punya akun?
-                                        <a href="{{ url('/login') }}"
+                                        <a href="javascript:void(0);" onclick="showLoginForm()"
                                             class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Daftar
                                             gratis
                                         </a>
-                                    </p>
+                                    </p> --}}
                                 </div>
 
                                 <form class="pt-25px" action="{{ route('login') }}" method="POST" data-aos="fade-up">
@@ -173,29 +172,30 @@
                                             class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             <i class="icofont-facebook"></i> Facebook
                                         </button>
-                                        <a href="{{ route('google.login') }}" 
-    class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-    <i class="icofont-google-plus"></i> Google
-</a>
+                                        <a href="{{ route('google.login') }}"
+                                            class="text-size-15 text-whiteColor bg-primaryColor px-11 py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                            <i class="icofont-google-plus"></i> Google
+                                        </a>
 
                                     </div>
                                 </form>
                                 <x-notify::notify />
                             </div>
                             <!-- sign up form-->
-                            <div class="hidden opacity-0 transition-opacity duration-150 ease-linear">
+                            <div id="signup-form"
+                                class="hidden opacity-0 transition-opacity duration-150 ease-linear">
                                 <!-- heading   -->
                                 <div class="text-center">
                                     <h3
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
                                         Daftar akun Learn Flow
                                     </h3>
-                                    <p class="text-contentColor dark:text-contentColor-dark mb-15px">
+                                    {{-- <p class="text-contentColor dark:text-contentColor-dark mb-15px">
                                         Sudah punya akun?
-                                        <a href="{{ url('/login') }}"
+                                        <a href="javascript:void(0);" onclick="showLoginForm()"
                                             class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Masuk
                                             sekarang</a>
-                                    </p>
+                                    </p> --}}
                                 </div>
 
                                 @if (session('status'))
@@ -337,6 +337,39 @@
             });
         });
     </script>
+
+<script>
+    function showLoginForm() {
+        // Sembunyikan form daftar dan tampilkan form login
+        document.getElementById('signup-form').classList.add('hidden');
+        document.getElementById('signup-form').classList.remove('block', 'opacity-100');
+        document.getElementById('login-form').classList.remove('hidden');
+        document.getElementById('login-form').classList.add('block', 'opacity-100');
+
+        // Atur tab aktif (Masuk)
+        document.getElementById('tab-login').classList.add('bg-white', 'dark:bg-whiteColor-dark');
+        document.getElementById('tab-login').classList.remove('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
+        document.getElementById('tab-signup').classList.remove('bg-white', 'dark:bg-whiteColor-dark');
+        document.getElementById('tab-signup').classList.add('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
+    }
+
+    function showSignupForm() {
+        // Sembunyikan form login dan tampilkan form daftar
+        document.getElementById('login-form').classList.add('hidden');
+        document.getElementById('login-form').classList.remove('block', 'opacity-100');
+        document.getElementById('signup-form').classList.remove('hidden');
+        document.getElementById('signup-form').classList.add('block', 'opacity-100');
+
+        // Atur tab aktif (Daftar)
+        document.getElementById('tab-signup').classList.add('bg-white', 'dark:bg-whiteColor-dark');
+        document.getElementById('tab-signup').classList.remove('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
+        document.getElementById('tab-login').classList.remove('bg-white', 'dark:bg-whiteColor-dark');
+        document.getElementById('tab-login').classList.add('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
+    }
+</script>
+
+
+
 </body>
 
 </html>
