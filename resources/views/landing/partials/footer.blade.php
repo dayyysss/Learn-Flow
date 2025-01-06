@@ -110,7 +110,7 @@
                             Artikel Terbaru
                         </h4>
                         <ul class="flex flex-col gap-y-5">
-                            @foreach ($latestArticles as $article)
+                            {{-- @foreach ($latestArticles as $article)
                                 <li>
                                     <a class="flex items-center gap-3 group cursor-pointer">
                                         <div>
@@ -127,7 +127,7 @@
                                         </div>
                                     </a>
                                 </li>
-                            @endforeach
+                            @endforeach --}}
                         </ul>
                     </div>
                 </div>

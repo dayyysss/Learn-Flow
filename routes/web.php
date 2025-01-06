@@ -198,8 +198,11 @@ Route::get('/certificate/print/{registrationId}', [CourseController::class, 'pri
 Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
-Route::get('/modul/course/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
-Route::get('/quiz/course/{slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
+// web.php
+Route::get('/course/{course:slug}/modul/{modul:slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+
+
+Route::get('/course/{course:slug}/quiz/{modul:slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 Route::resource('/certificate', CertificateController::class);
 
