@@ -99,15 +99,16 @@
                                                 </a>
                                             </div>
                                             <div class="text-start md:text-end">
-                                                <div>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                    <i class="icofont-star text-size-10 text-yellow"></i>
-                                                </div>
-                                                <span class="text-xs text-lightGrey6">(44)</span>
-                                            </div>
+                                              <div>
+                                                  @for ($i = 1; $i <= 5; $i++)
+                                                      <i class="icofont-star text-size-15 {{ $i <= ceil($item->course->average_rating) ? 'text-yellow' : 'text-gray' }}"></i>
+                                                  @endfor
+                                              </div>
+                                              <span class="text-xs text-lightGrey6">
+                                                  ({{ $item->course->total_feedbacks }} reviews)
+                                              </span>
+                                          </div>
+                                                                                   
                                         </div>
                                     </div>
                                 </div>

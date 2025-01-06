@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Feedback;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Providers\CourseFeedbackService;
 
 class WishlistController extends Controller
 {
+    protected $courseFeedbackService;
+
+    public function __construct(CourseFeedbackService $courseFeedbackService)
+    {
+        $this->courseFeedbackService = $courseFeedbackService;
+    }
+
     public function index()
     {
         $wishlists = Wishlist::with([
@@ -18,6 +28,36 @@ class WishlistController extends Controller
         ])
             ->where('user_id', auth()->id())
             ->get();
+
+        // Ambil semua course_id dari wishlist
+        $courseIds = $wishlists->pluck('course.id')->toArray();
+
+        // Ambil feedback berdasarkan course_id
+        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
+            ->whereIn('course_id', $courseIds)
+            ->groupBy('course_id')
+            ->get();
+
+        // Cek apakah feedback ada, jika tidak tambahkan nilai default
+        $feedbacks = $feedbacks->keyBy('course_id');
+
+        // Gabungkan hasil feedback ke dalam wishlist
+        foreach ($wishlists as $wishlist) {
+            $course = $wishlist->course;
+
+            // Pastikan feedback untuk course ada
+            $feedback = $feedbacks->get($course->id);
+
+            if ($feedback) {
+                // Set nilai rating dan feedback jika ada
+                $course->average_rating = $feedback->average_rating;
+                $course->total_feedbacks = $feedback->total_feedbacks;
+            } else {
+                // Default jika tidak ada feedback untuk course
+                $course->average_rating = 0;
+                $course->total_feedbacks = 0;
+            }
+        }
 
         return view('dashboard.pages.wishlist.index', compact('wishlists'));
     }
