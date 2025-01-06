@@ -238,7 +238,7 @@ Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('q
 //wishlist
 Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
-Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');
+Route::post('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');
 ;
 
 //feedback

@@ -62,17 +62,22 @@ class WishlistController extends Controller
 
     public function check(Request $request)
     {
-        $wishlist = Wishlist::where('user_id', auth()->id())
-            ->where('course_id', $request->course_id)
-            ->first(); 
+        $courseIds = $request->input('course_ids', []); // Ambil array course_id dari request body
+        $userId = $request->input('user_id');
 
-        if ($wishlist) {
-            return response()->json(['exists' => true, 'wishlist_id' => $wishlist->id]);
+        $wishlists = Wishlist::where('user_id', $userId)
+            ->whereIn('course_id', $courseIds)
+            ->pluck('id', 'course_id'); // Mengembalikan array [course_id => wishlist_id]
+
+        $response = [];
+        foreach ($courseIds as $courseId) {
+            $response[] = [
+                'course_id' => $courseId,
+                'exists' => isset($wishlists[$courseId]),
+                'wishlist_id' => $wishlists[$courseId] ?? null,
+            ];
         }
 
-        return response()->json(['exists' => false]);
+        return response()->json($response);
     }
-
-
-
 }
