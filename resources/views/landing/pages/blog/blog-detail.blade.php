@@ -249,9 +249,4 @@
     </section>
 @endsection
 
-<script>
-    < script id = "dsq-count-scr"
-    src = "//learnflow-1.disqus.com/count.js"
-    async >
-</script>
-</script>
+<script id="dsq-count-scr" src="//learnflow-1.disqus.com/count.js" async></script>

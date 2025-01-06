@@ -53,7 +53,7 @@
                     <form class="p-35px pt-10 bg-lightGrey10 dark:bg-lightGrey10-dark rounded shadow-experience"
                         data-aos="fade-up">
                         <h3 class="text-xl text-blackColor dark:text-blackColor-dark font-semibold mb-5 font-inter">
-                          Isi Pendaftaran Anda
+                            Isi Pendaftaran Anda
                         </h3>
 
                         <input type="text" placeholder="Nama Anda"

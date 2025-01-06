@@ -70,7 +70,7 @@
                         <!-- Main menu -->
                         <div class="hidden lg:block lg:col-start-3 lg:col-span-7">
                             <ul id="mainmenu" class="nav-list flex justify-center">
-                                {{-- MENU DATA --}}
+                                {{-- MENU HEADER --}}
                             </ul>
                         </div>
                         <!-- navbar right -->
@@ -237,7 +237,7 @@
                 <div class="pb-10 border-b border-borderColor dark:border-borderColor-dark">
                     <form
                         class="flex justify-between items-center w-full bg-whitegrey2 dark:bg-whitegrey2-dark px-15px py-[11px]">
-                        <input type="text" placeholder="Search entire store..."
+                        <input type="text" placeholder="Cari sesuatu disini..."
                             class="bg-transparent w-4/5 focus:outline-none text-sm text-darkdeep1 dark:text-blackColor-dark">
                         <button
                             class="block text-lg text-darkdeep1 hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-secondaryColor">
@@ -248,50 +248,7 @@
 
                 <!-- mobile menu accordions -->
                 <div id="sidebar-menu" class="pt-8 pb-6 border-b border-borderColor dark:border-borderColor-dark">
-                    {{-- <ul class="accordion-container">
-                        <li class="accordion">
-                            <!-- accordion header -->
-                            <div class="flex items-center justify-between">
-                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                    href="index.html">Home</a>
-                            </div>
-
-                        </li>
-                        <li class="accordion">
-                            <!-- accordion header -->
-                            <div class="flex items-center justify-between">
-                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                    href="course.html">Courses</a>
-                                <button class="accordion-controller px-3 py-4">
-                                    <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span><span
-                                        class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
-                                </button>
-                            </div>
-                            <!-- accordion content -->
-                            <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
-                                <div class="content-wrapper">
-                                    <ul class="accordion-container">
-                                        <li class="accordion">
-                                            <!-- accordion header -->
-                                            <div class="flex items-center justify-between">
-                                                <a href="#"
-                                                    class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">Courses</a>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <a href="#"
-                                                    class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">Zoom
-                                                    & Webinars</a>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <a href="#"
-                                                    class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">Event</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul> --}}
+                    {{-- HEADER MOBILE --}}
                 </div>
 
                 <!-- my account accordion -->
@@ -377,7 +334,7 @@
     });
 </script>
 
-{{-- HEADER --}}
+{{-- MENU HEADER --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -393,31 +350,46 @@
                 $.each(data, function(index, menu) {
                     if (menu.hasChildren) {
                         mainMenu += `<li class="nav-item group relative">
-                            <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                ${menu.content} <i class="icofont-rounded-down"></i>
-                            </a>
-                              <div class="dropdown absolute left-0 translate-y-10 z-medium hidden opacity-0"
-                                        style="transition: 0.3s">
-                                        <div
-                                            class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
-                                    <ul>`;
-                        $.each(menu.children, function(childIndex, child) {
-                            mainMenu += `<li>
+                        <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
+                            ${menu.content} <i class="icofont-rounded-down"></i>
+                        </a>
+                        <div class="dropdown absolute left-0 translate-y-10 z-50 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
+                                <ul class="py-1">`;
+
+                        if (menu.children && menu.children.length > 0) {
+                            $.each(menu.children, function(childIndex, child) {
+                                mainMenu += `<li>
                                 <a href="${child.link}" class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
                                     ${child.content}
                                 </a>
                             </li>`;
-                        });
+                            });
+                        }
+
                         mainMenu += `</ul></div></div></li>`;
                     } else {
                         mainMenu += `<li class="nav-item group">
-                            <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                                ${menu.content}
-                            </a>
-                        </li>`;
+                        <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
+                            ${menu.content}
+                        </a>
+                    </li>`;
                     }
                 });
+
                 $('#mainmenu').html(mainMenu);
+
+                // Tambahkan CSS tambahan jika diperlukan
+                const style = `
+                <style>
+                    .nav-item.group:hover .dropdown {
+                        visibility: visible;
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                </style>
+            `;
+                $('head').append(style);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error fetching menu:', textStatus, errorThrown);
@@ -428,72 +400,72 @@
 
 {{-- HEADER MOBILE --}}
 <script>
-  $(document).ready(function() {
-    $.ajax({
-        url: "{{ route('menu.landing') }}",
-        method: 'GET',
-        dataType: 'json',
-        data: {
-            menu_type: 'sidebar'
-        },
-        success: function(data) {
-            let menuHTML = '<ul class="accordion-container">';
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('menu.landing') }}",
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                menu_type: 'sidebar'
+            },
+            success: function(data) {
+                // Bangun hierarki menu berdasarkan parent_id
+                let menuMap = {};
+                let rootMenus = [];
 
-            $.each(data, function(index, menu) {
-                if (menu.hasChildren) {
-                    // Menu dengan submenu
-                    menuHTML += `
-                        <li class="accordion">
-                            <div class="flex items-center justify-between">
-                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                    href="${menu.link}">${menu.content}</a>
-                                <button class="accordion-controller px-3 py-4">
-                                    <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
-                                    <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
-                                </button>
-                            </div>
-                            <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
-                                <div class="content-wrapper">
-                                    <ul class="accordion-container">
-                                        <li class="accordion">`;
-                    
-                    // Loop through children
-                    $.each(menu.children, function(childIndex, child) {
-                        menuHTML += `
-                            <div class="flex items-center justify-between">
-                                <a href="${child.link}"
-                                    class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">${child.content}</a>
-                            </div>`;
-                    });
+                // Pisahkan root dan submenu
+                data.forEach(menu => {
+                    if (!menu.parent_id) {
+                        rootMenus.push(menu);
+                    } else {
+                        if (!menuMap[menu.parent_id]) {
+                            menuMap[menu.parent_id] = [];
+                        }
+                        menuMap[menu.parent_id].push(menu);
+                    }
+                });
 
-                    menuHTML += `
-                                        </li>
-                                    </ul>
+                // Fungsi untuk membangun HTML menu secara rekursif
+                const generateMenuHTML = (menus) => {
+                    let html = '<ul class="accordion-container">';
+                    menus.forEach(menu => {
+                        const hasChildren = menuMap[menu.id] && menuMap[menu.id]
+                            .length > 0;
+
+                        html += `
+                            <li class="accordion">
+                                <div class="flex items-center justify-between">
+                                    <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                                        href="${menu.link}">${menu.content}</a>
+                                    ${hasChildren ? `
+                                    <button class="accordion-controller px-3 py-4">
+                                        <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
+                                        <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
+                                    </button>` : ''}
                                 </div>
-                            </div>
-                        </li>`;
-                } else {
-                    // Menu tanpa submenu
-                    menuHTML += `
-                        <li class="accordion">
-                            <div class="flex items-center justify-between">
-                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                    href="${menu.link}">${menu.content}</a>
-                            </div>
-                        </li>`;
-                }
-            });
+                                ${hasChildren ? `
+                                <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
+                                    <div class="content-wrapper">
+                                        ${generateMenuHTML(menuMap[menu.id])}
+                                    </div>
+                                </div>` : ''}
+                            </li>`;
+                    });
+                    html += '</ul>';
+                    return html;
+                };
 
-            menuHTML += '</ul>';
-            
-            // Debug: Cek output HTML
-            console.log('Generated HTML:', menuHTML);
-            
-            $('#sidebar-menu').html(menuHTML);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error('Error fetching menu:', textStatus, errorThrown);
-        }
+                // Bangun HTML dari root menus
+                const menuHTML = generateMenuHTML(rootMenus);
+
+                // Debugging (opsional)
+                // console.log('Generated HTML:', menuHTML);
+
+                $('#sidebar-menu').html(menuHTML);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching menu:', textStatus, errorThrown);
+            }
+        });
     });
-});
 </script>

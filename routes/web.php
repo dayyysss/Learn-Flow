@@ -230,8 +230,9 @@ Route::patch('/cart', [CartController::class, 'updateCart']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
-Route::resource('quiz', App\Http\Controllers\Admin\Quiz\QuizController::class);
-
+//quiz
+Route::resource('quiz', QuizController::class);
+Route::get('/get-babs/{courseId}', [QuizController::class, 'getBabsByCourse']);
 
 //quiz result
 Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');

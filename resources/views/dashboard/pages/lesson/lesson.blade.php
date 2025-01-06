@@ -2,27 +2,33 @@
 @section('page_title', 'LearnFlow | Lesson Courses')
 
 @section('content')
-<header class="bg-white px-5 border-b py-5">
-    <div class="mx-auto flex items-center">
-        <a href="{{route('course.detail'), $course->slug}}">
+<header class="bg-white dark:bg-whiteColor-dark dark:border-borderColor-dark px-5 border-b py-5" style="background-color: var(--blueLight1);">
+    <div class=" flex  items-center">
+        <a href="{{route('course.detail', $course->slug)}}">
+            <div class="flex dark:text-headingColor-dark">
         <button  class="text-lg font-bold">
             <i class="icofont-arrow-left mr-2"></i> 
         </button>
         <h1 class="text-xl font-bold">{{ $course->name }}</h1>
+            </div>
     </a>
     </div>
 </header>
 
 <section>
-    <div class="show-modul bg-white pb-100px">
-        <div class="grid grid-cols-1 xl:grid-cols-12 gap-30px">
+    <div class="show-modul bg-blackColor2 dark:bg-whiteColor-dark dark:border-borderColor-dark dark:text-headingColor-dark bg-white h-full ">
+        <div class="flex h-full gap-30px">
             @include('dashboard.pages.lesson.sidebar')
-    
+            
+            
             <!-- Konten Modul -->
-            <div class="xl:col-start-2 pt-5 xl:col-span-9 relative" data-aos="fade-up" id="modul-content">
+            <div class="pt-5 relative" data-aos="fade-up" id="modul-content">
                 <!-- Tampilkan Konten Modul -->
-                <div class="modul-content">
-                    @yield('modul')
+                <div class="content" id="content">
+                    <div class="modul-content">
+                        
+                        @yield('modul')
+                
 
                     <!-- Navigasi Modul -->
                     <div class="modul-navigation">
@@ -32,6 +38,7 @@
                         @if($nextModul)
                             <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}">Modul Berikutnya</a>
                         @endif
+                    </div>
                     </div>
                 </div>
             </div>
