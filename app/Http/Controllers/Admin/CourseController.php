@@ -24,6 +24,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 use App\Models\LFCMS\Administrator;
 use App\Http\Controllers\Controller;
+use App\Models\ModulProgress;
 use App\Models\WebsiteConfiguration;
 use Illuminate\Support\Facades\Storage;
 use App\Providers\CourseFeedbackService;
@@ -298,6 +299,10 @@ class CourseController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
+            $firstModul = $course->babs->flatMap(function ($bab) {
+                return $bab->moduls;
+            })->sortBy('id')->first();
+
         // Ambil data feedback
         $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
             ->groupBy('course_id')
@@ -334,7 +339,7 @@ class CourseController extends Controller
 
         // Kirimkan data course ke tampilan show bersama dengan data umum
         return view('landing.pages.course.course-detail', array_merge(
-            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations,],
+            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations, 'firstModul'=>$firstModul],
             $commonData
         ));
     }
@@ -361,9 +366,30 @@ class CourseController extends Controller
     }
 
 
-    public function showModul($slug)
-    {
-        $modul = Modul::with('bab.course')->where('slug', $slug)->firstOrFail();
+public function showModul($courseSlug, $modulSlug)
+{
+    $course = Course::where('slug', $courseSlug)->firstOrFail();
+    $modul = Modul::with('bab.course')->where('slug', $modulSlug)->firstOrFail();
+    $bab = $course->babs()->with(['moduls', 'quiz'])->get();
+    $contactData = $this->getContactsLogo();
+
+    $user = auth()->user();
+    $courseRegistration = CourseRegistration::where('user_id', $user->id)
+                                             ->where('course_id', $course->id)
+                                             ->first();
+
+    if ($courseRegistration) {
+        $modulProgress = ModulProgress::firstOrCreate(
+            [
+                'course_registrations_id' => $courseRegistration->id,
+                'modul_id' => $modul->id
+            ],
+            [
+                'status' => 'proses',
+                'progress' => 0 // Anda dapat mengatur nilai default untuk progress, misalnya 0
+            ]
+        );
+    }
 
         // Cari modul sebelumnya
         $previousModul = Modul::where('bab_id', $modul->bab_id)
@@ -377,26 +403,30 @@ class CourseController extends Controller
             ->orderBy('id', 'asc')
             ->first();
 
-        return view('dashboard.pages.lesson._modul_content', compact('modul', 'previousModul', 'nextModul'));
-    }
-    public function showQuiz($slug)
-    {
-        $modul = Quiz::with('bab.course')->where('slug', $slug)->firstOrFail();
+    return view('dashboard.pages.lesson._modul_content', compact('course', 'modul','bab','previousModul', 'nextModul'));
+}
 
-        // Cari modul sebelumnya
-        $previousModul = Modul::where('bab_id', $modul->bab_id)
-            ->where('id', '<', $modul->id)
-            ->orderBy('id', 'desc')
-            ->first();
+public function showQuiz($courseSlug, $quizSlug)
+{
+    $course = Course::where('slug', $courseSlug)->firstOrFail();
+    $modul = Quiz::with('bab.course')->where('slug', $quizSlug)->firstOrFail();
+    $bab = $course->babs()->with(['moduls', 'quiz'])->get();
+    $contactData = $this->getContactsLogo();
 
-        // Cari modul berikutnya
-        $nextModul = Modul::where('bab_id', $modul->bab_id)
-            ->where('id', '>', $modul->id)
-            ->orderBy('id', 'asc')
-            ->first();
+    // Cari modul sebelumnya
+    $previousModul = Modul::where('bab_id', $modul->bab_id)
+                          ->where('id', '<', $modul->id)
+                          ->orderBy('id', 'desc')
+                          ->first();
 
-        return view('dashboard.pages.lesson._quiz_content', compact('modul', 'previousModul', 'nextModul'));
-    }
+    // Cari modul berikutnya
+    $nextModul = Modul::where('bab_id', $modul->bab_id)
+                     ->where('id', '>', $modul->id)
+                     ->orderBy('id', 'asc')
+                     ->first();
+
+    return view('dashboard.pages.lesson._quiz_content', compact('course', 'modul','bab','previousModul', 'nextModul'));
+}
 
 
     public function showBab($slug)

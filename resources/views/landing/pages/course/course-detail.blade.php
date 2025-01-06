@@ -241,7 +241,7 @@
                                                                 class="cursor-pointer accordion-controller flex justify-between items-center text-xl text-headingColor font-bold w-full px-5 py-18px dark:text-headingColor-dark font-hind leading-[20px]">
                                                                 <div class="flex items-center">
                                                                     <a
-                                                                        href="{{ route('babCourse.index', $course->slug) }}">
+                                                                        href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}">
                                                                         <span>{{ $bab->name }}</span>
                                                                     </a>
                                                                     <p
@@ -284,12 +284,12 @@
                                                                                     <i class="icofont-clock-time"></i> 22
                                                                                     minutes
                                                                                 </p>
-                                                                                <a href="{{ route('babCourse.index', $course->slug) }}"
-                                                                                    class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
+                                                                                <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $modul->slug]) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
                                                                                     <p class="px-10px">
                                                                                         <i class="icofont-eye"></i> Preview
                                                                                     </p>
                                                                                 </a>
+                                                                                
                                                                             </div>
                                                                         </li>
                                                                     @endforeach
@@ -304,7 +304,7 @@
                                                                                     <i
                                                                                         class="icofont-question-circle mr-10px"></i>
                                                                                     <span class="font-medium">Quiz:</span>
-                                                                                    {{ $quiz->title }}
+                                                                                    {{ $quiz->name }}
                                                                                 </h4>
                                                                             </div>
                                                                             <div
@@ -337,7 +337,7 @@
                                                                                 </p>
 
 
-                                                                                <a href="{{ route('quiz.detail', $quiz->slug) }}"
+                                                                                <a href="{{ route('quiz.detail', ['course' => $course->slug, 'modul' => $quiz->slug]) }}"
                                                                                     class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
                                                                                     <p class="px-10px">
                                                                                         <i class="icofont-eye"></i> Take
@@ -1065,10 +1065,15 @@
                                     </form>
                                 @else
                                     <!-- Tombol Mulai Belajar jika pengguna sudah terdaftar -->
-                                    <a href="{{ route('babCourse.index', $course->slug) }}"
-                                        class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                        Mulai Belajar
-                                    </a>
+                                    @if ($firstModul)
+                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
+                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                            Mulai Belajar
+                                        </a>
+                                    @else
+                                        <p class="text-red-500">Belum ada modul untuk course ini.</p>
+                                    @endif
+
                                 @endif
 
                                 <span class="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
