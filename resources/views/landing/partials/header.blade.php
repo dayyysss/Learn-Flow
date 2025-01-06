@@ -400,39 +400,39 @@
 
 {{-- HEADER MOBILE --}}
 <script>
-$(document).ready(function() {
-    $.ajax({
-        url: "{{ route('menu.landing') }}",
-        method: 'GET',
-        dataType: 'json',
-        data: {
-            menu_type: 'sidebar'
-        },
-        success: function(data) {
-            let sidebarMenu = '';
-            
-            $.each(data, function(index, menu) {
-                if (menu.hasChildren) {
-                    sidebarMenu += `
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('menu.landing') }}",
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                menu_type: 'sidebar'
+            },
+            success: function(data) {
+                let sidebarMenu = '';
+
+                $.each(data, function(index, menu) {
+                    if (menu.hasChildren) {
+                        sidebarMenu += `
                         <li class="accordion">
                             <!-- accordion header -->
                             <div class="flex items-center justify-between">
                                 <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
                                     href="${menu.link}">${menu.content}</a>
-                                <button class="accordion-controller px-3 py-4">
-                                    <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
-                                    <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
-                                </button>
+                               <button class="accordion-controller px-3 py-4">
+                                <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
+                                <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
+                            </button>
                             </div>
                             <!-- accordion content -->
                             <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
                                 <div class="content-wrapper">
                                     <ul>`;
-                    
-                    if (menu.children && menu.children.length > 0) {
-                        $.each(menu.children, function(childIndex, child) {
-                            sidebarMenu += `
-                                <li>
+
+                        if (menu.children && menu.children.length > 0) {
+                            $.each(menu.children, function(childIndex, child) {
+                                sidebarMenu += `
+                                <li class="accordion">
                                     <!-- accordion header -->
                                     <div class="flex items-center justify-between">
                                         <a href="${child.link}" 
@@ -445,55 +445,56 @@ $(document).ready(function() {
                                         </a>
                                     </div>
                                 </li>`;
-                        });
-                    }
-                    
-                    sidebarMenu += `
+                            });
+                        }
+
+                        sidebarMenu += `
                                     </ul>
                                 </div>
                             </div>
                         </li>`;
-                } else {
-                    sidebarMenu += `
+                    } else {
+                        sidebarMenu += `
                         <li>
                             <div class="flex items-center justify-between">
                                 <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
                                     href="${menu.link}">${menu.content}</a>
                             </div>
                         </li>`;
-                }
-            });
+                    }
+                });
 
-            // Wrap the menu in accordion-container
-            $('#sidebar-menu').html(`
+                // Wrap the menu in accordion-container
+                $('#sidebar-menu').html(`
                 <ul class="accordion-container">
                     ${sidebarMenu}
                 </ul>
             `);
 
-            // Add click handler for accordion buttons
-            $(document).on('click', '.accordion-controller', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Toggle rotation for the plus/minus icon
-                $(this).find('span:last-child').toggleClass('rotate-0');
-                
-                // Find and toggle the content
-                const content = $(this).closest('.accordion').find('.accordion-content');
-                
-                // If content is closing, add h-0
-                if (!content.hasClass('h-0')) {
-                    content.addClass('h-0');
-                } else {
-                    // If content is opening, remove h-0
-                    content.removeClass('h-0');
-                }
-            });
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error('Error fetching menu:', textStatus, errorThrown);
-        }
+                // Add click handler for accordion buttons
+                $(document).on('click', '.accordion-controller', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Toggle rotation for the plus/minus icon
+                    $(this).find('span:last-child').toggleClass('rotate-0');
+
+                    // Find and toggle the content
+                    const content = $(this).closest('.accordion').find(
+                    '.accordion-content');
+
+                    // If content is closing, add h-0
+                    if (!content.hasClass('h-0')) {
+                        content.addClass('h-0');
+                    } else {
+                        // If content is opening, remove h-0
+                        content.removeClass('h-0');
+                    }
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching menu:', textStatus, errorThrown);
+            }
+        });
     });
-});
 </script>
