@@ -2,7 +2,7 @@
 @section('page_title', $course->name . ' | Learn Flow')
 @section('content')
 
-    @include('landing.components.breadcrumb', ['title' => 'Detail Kursus'])
+    {{-- @include('landing.components.breadcrumb', ['title' => 'Detail Kursus']) --}}
 
     <!--course details section -->
     <section>

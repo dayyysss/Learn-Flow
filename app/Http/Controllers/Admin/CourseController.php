@@ -366,7 +366,7 @@ class CourseController extends Controller
     }
 
 
-public function showModul($courseSlug, $modulSlug)
+    public function showModul($courseSlug, $modulSlug)
 {
     $course = Course::where('slug', $courseSlug)->firstOrFail();
     $modul = Modul::with('bab.course')->where('slug', $modulSlug)->firstOrFail();
@@ -389,22 +389,77 @@ public function showModul($courseSlug, $modulSlug)
                 'progress' => 0 // Anda dapat mengatur nilai default untuk progress, misalnya 0
             ]
         );
+        
+        // Update status modul terakhir yang dilihat menjadi 'selesai'
+        $lastModulProgress = ModulProgress::where('course_registrations_id', $courseRegistration->id)
+            ->where('modul_id', $modul->id)
+            ->first();
+            
+        if ($lastModulProgress) {
+            $lastModulProgress->update(['status' => 'selesai']);
+        }
     }
 
-        // Cari modul sebelumnya
-        $previousModul = Modul::where('bab_id', $modul->bab_id)
-            ->where('id', '<', $modul->id)
+    // Cari modul sebelumnya di bab yang sama
+    $previousModul = Modul::where('bab_id', $modul->bab_id)
+    ->where('id', '<', $modul->id)
+    ->orderBy('id', 'desc')
+    ->first();
+
+    // Jika modul sebelumnya tidak ditemukan, cari dari bab sebelumnya
+    if (!$previousModul) {
+        $previousBab = $course->babs()->where('id', '<', $modul->bab_id)
             ->orderBy('id', 'desc')
             ->first();
 
-        // Cari modul berikutnya
-        $nextModul = Modul::where('bab_id', $modul->bab_id)
-            ->where('id', '>', $modul->id)
+        if ($previousBab) {
+            $previousModul = $previousBab->moduls()->orderBy('id', 'desc')->first();
+        }
+    }
+
+    // Cari modul berikutnya di bab yang sama
+    $nextModul = Modul::where('bab_id', $modul->bab_id)
+        ->where('id', '>', $modul->id)
+        ->orderBy('id', 'asc')
+        ->first();
+
+    // Jika modul berikutnya tidak ditemukan, cari dari bab berikutnya
+    if (!$nextModul) {
+        $nextBab = $course->babs()->where('id', '>', $modul->bab_id)
             ->orderBy('id', 'asc')
             ->first();
 
-    return view('dashboard.pages.lesson._modul_content', compact('course', 'modul','bab','previousModul', 'nextModul'));
+        if ($nextBab) {
+            $nextModul = $nextBab->moduls()->orderBy('id', 'asc')->first();
+        }
+    }
+
+    return view('dashboard.pages.lesson._modul_content', compact('course', 'modul', 'bab', 'previousModul', 'nextModul'));
 }
+
+// Fungsi updateModulStatus di controller
+public function updateModulStatus(Request $request)
+{
+    $modulId = $request->input('modulId');
+    $user = auth()->user();
+
+    $courseRegistration = CourseRegistration::where('user_id', $user->id)
+                                             ->where('course_id', $course->id)
+                                             ->first();
+
+    // Cari modul progress terkait dan perbarui statusnya menjadi selesai
+    $modulProgress = ModulProgress::where('modul_id', $modulId)
+                                  ->where('course_registrations_id', $courseRegistration->id)
+                                  ->first();
+
+    if ($modulProgress) {
+        $modulProgress->update(['status' => 'selesai']);
+    }
+
+    return response()->json(['success' => true]);
+}
+
+    
 
 public function showQuiz($courseSlug, $quizSlug)
 {

@@ -10,7 +10,7 @@
             <!-- heading -->
             <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark">
                 <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
-                    My Profile
+                    Kursus Terdaftar
                 </h2>
             </div>
             <div class="tab">

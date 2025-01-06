@@ -31,7 +31,7 @@
                 
 
                     <!-- Navigasi Modul -->
-                    <div class="modul-navigation">
+                    <div class="modul-navigation sticky">
                         @if($previousModul)
                             <a href="/course/{{ $course->slug }}/modul/{{ $previousModul->slug }}">Modul Sebelumnya</a>
                         @endif
@@ -39,6 +39,7 @@
                             <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}">Modul Berikutnya</a>
                         @endif
                     </div>
+                    
                     </div>
                 </div>
             </div>
@@ -68,4 +69,57 @@
     });
 </script>
 
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const nextModulLink = document.querySelector('.modul-navigation a[href*="modul berikutnya"]');
+    const contentContainer = document.getElementById('modul-content');
+
+    // Fungsi untuk memeriksa apakah sudah mencapai bagian bawah
+    function checkScrollPosition() {
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        if (scrollPosition >= documentHeight) {
+            nextModulLink.classList.remove('disabled'); // Mengaktifkan tombol jika scroll sudah di bawah
+        } else {
+            nextModulLink.classList.add('disabled'); // Menonaktifkan tombol jika scroll belum sampai bawah
+        }
+    }
+
+    // Mengaktifkan/menonaktifkan tombol navigasi saat scroll
+    window.addEventListener('scroll', checkScrollPosition);
+
+    // Cek posisi scroll ketika halaman pertama kali dimuat
+    checkScrollPosition();
+
+    // Event Listener untuk klik tombol navigasi
+    nextModulLink.addEventListener('click', function (e) {
+        if (nextModulLink.classList.contains('disabled')) {
+            e.preventDefault(); // Mencegah klik jika belum sampai bawah
+            alert('Scroll ke bawah terlebih dahulu untuk melanjutkan modul!');
+        } else {
+            // Update status modul terakhir yang dilihat menjadi 'selesai'
+            // Pengguna mengklik modul berikutnya, kirim permintaan untuk memperbarui status
+            fetch('/update-modul-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    modulId: '{{ $modul->id }}'
+                })
+            }).then(response => {
+                if (response.ok) {
+                    // Setelah status diperbarui, arahkan pengguna ke modul berikutnya
+                    window.location.href = nextModulLink.href;
+                }
+            });
+        }
+    });
+});
+
+
+
+</script>
 @endsection
