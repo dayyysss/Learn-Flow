@@ -1065,14 +1065,22 @@
                                     </form>
                                 @else
                                     <!-- Tombol Mulai Belajar jika pengguna sudah terdaftar -->
-                                    @if ($firstModul)
-                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
-                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Mulai Belajar
-                                        </a>
-                                    @else
-                                        <p class="text-red-500">Belum ada modul untuk course ini.</p>
-                                    @endif
+                                    @if ($nextProsesModul)
+        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
+            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+            Lanjutkan
+        </a>
+    @elseif ($lastAccessedModul)
+        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $lastAccessedModul->modul->slug]) }}"
+            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+            Lanjutkan
+        </a>
+    @else
+        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
+            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+            Mulai Belajar
+        </a>
+    @endif
 
                                 @endif
 

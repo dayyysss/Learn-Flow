@@ -299,6 +299,27 @@ class CourseController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
+            $lastAccessedModul = null;
+            $nextProsesModul = null;
+
+            if (auth()->check()) {
+                $user = auth()->user();
+                $courseRegistration = $course->courseRegistrations->firstWhere('user_id', $user->id);
+
+                if ($courseRegistration) {
+                    $lastAccessedModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
+                        ->where('status', 'selesai')
+                        ->orderBy('updated_at', 'desc')
+                        ->first();
+
+                    $nextProsesModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
+                        ->where('status', 'proses')
+                        ->orderBy('updated_at', 'desc')
+                        ->first();
+                }
+            }
+
+
             $firstModul = $course->babs->flatMap(function ($bab) {
                 return $bab->moduls;
             })->sortBy('id')->first();
@@ -339,7 +360,8 @@ class CourseController extends Controller
 
         // Kirimkan data course ke tampilan show bersama dengan data umum
         return view('landing.pages.course.course-detail', array_merge(
-            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations, 'firstModul'=>$firstModul],
+            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations, 'firstModul'=>$firstModul, 'lastAccessedModul' => $lastAccessedModul,
+        'nextProsesModul' => $nextProsesModul],
             $commonData
         ));
     }
@@ -394,10 +416,6 @@ class CourseController extends Controller
         $lastModulProgress = ModulProgress::where('course_registrations_id', $courseRegistration->id)
             ->where('modul_id', $modul->id)
             ->first();
-            
-        if ($lastModulProgress) {
-            $lastModulProgress->update(['status' => 'selesai']);
-        }
     }
 
     // Cari modul sebelumnya di bab yang sama
@@ -437,27 +455,29 @@ class CourseController extends Controller
     return view('dashboard.pages.lesson._modul_content', compact('course', 'modul', 'bab', 'previousModul', 'nextModul'));
 }
 
-// Fungsi updateModulStatus di controller
 public function updateModulStatus(Request $request)
 {
     $modulId = $request->input('modulId');
     $user = auth()->user();
 
-    $courseRegistration = CourseRegistration::where('user_id', $user->id)
-                                             ->where('course_id', $course->id)
-                                             ->first();
+    $courseRegistration = CourseRegistration::where('user_id', $user->id)->first();
 
-    // Cari modul progress terkait dan perbarui statusnya menjadi selesai
-    $modulProgress = ModulProgress::where('modul_id', $modulId)
-                                  ->where('course_registrations_id', $courseRegistration->id)
-                                  ->first();
+    if ($courseRegistration) {
+        // Cari progress modul berdasarkan modul ID dan course_registrations_id
+        $modulProgress = ModulProgress::where('modul_id', $modulId)
+            ->where('course_registrations_id', $courseRegistration->id)
+            ->first();
 
-    if ($modulProgress) {
-        $modulProgress->update(['status' => 'selesai']);
+        if ($modulProgress && $modulProgress->status === 'proses') {
+            // Perbarui status menjadi selesai
+            $modulProgress->update(['status' => 'selesai']);
+        }
     }
 
     return response()->json(['success' => true]);
 }
+
+
 
     
 

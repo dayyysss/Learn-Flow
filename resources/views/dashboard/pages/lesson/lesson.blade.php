@@ -31,14 +31,31 @@
                 
 
                     <!-- Navigasi Modul -->
-                    <div class="modul-navigation sticky">
-                        @if($previousModul)
-                            <a href="/course/{{ $course->slug }}/modul/{{ $previousModul->slug }}">Modul Sebelumnya</a>
-                        @endif
-                        @if($nextModul)
-                            <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}">Modul Berikutnya</a>
-                        @endif
-                    </div>
+                    <!-- Navigasi Modul -->
+<div class="modul-navigation fixed bottom-0 left-0 w-full bg-white dark:bg-blackColor-dark border-t border-gray-300 dark:border-borderColor-dark z-50">
+    <div class="flex justify-between items-center px-5 py-3">
+        @if($previousModul)
+            <a href="/course/{{ $course->slug }}/modul/{{ $previousModul->slug }}" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
+                <i class="icofont-arrow-left mr-2"></i> Modul Sebelumnya
+            </a>
+        @else
+            <span class="text-gray-500 dark:text-gray-400 font-bold">
+                <i class="icofont-arrow-left mr-2"></i> Modul Sebelumnya
+            </span>
+        @endif
+
+        @if($nextModul)
+            <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}" id="nextModulLink" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
+                Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
+            </a>
+        @else
+            <span class="text-gray-500 dark:text-gray-400 font-bold">
+                Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
+            </span>
+        @endif
+    </div>
+</div>
+
                     
                     </div>
                 </div>
@@ -47,6 +64,16 @@
     </div>
 </section>
 
+<style>
+    .modul-navigation {
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.modul-navigation a {
+    transition: color 0.2s ease-in-out;
+}
+
+</style>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const links = document.querySelectorAll('.modul-link, .quiz-link');
@@ -70,36 +97,29 @@
 </script>
 
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
-    const nextModulLink = document.querySelector('.modul-navigation a[href*="modul berikutnya"]');
+  document.addEventListener('DOMContentLoaded', function () {
+    const nextModulLink = document.querySelector('#nextModulLink');
     const contentContainer = document.getElementById('modul-content');
 
-    // Fungsi untuk memeriksa apakah sudah mencapai bagian bawah
     function checkScrollPosition() {
         const scrollPosition = window.scrollY + window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
 
         if (scrollPosition >= documentHeight) {
-            nextModulLink.classList.remove('disabled'); // Mengaktifkan tombol jika scroll sudah di bawah
+            nextModulLink.classList.remove('disabled'); // Aktifkan tombol
         } else {
-            nextModulLink.classList.add('disabled'); // Menonaktifkan tombol jika scroll belum sampai bawah
+            nextModulLink.classList.add('disabled'); // Nonaktifkan tombol
         }
     }
 
-    // Mengaktifkan/menonaktifkan tombol navigasi saat scroll
     window.addEventListener('scroll', checkScrollPosition);
-
-    // Cek posisi scroll ketika halaman pertama kali dimuat
     checkScrollPosition();
 
-    // Event Listener untuk klik tombol navigasi
     nextModulLink.addEventListener('click', function (e) {
         if (nextModulLink.classList.contains('disabled')) {
-            e.preventDefault(); // Mencegah klik jika belum sampai bawah
+            e.preventDefault();
             alert('Scroll ke bawah terlebih dahulu untuk melanjutkan modul!');
         } else {
-            // Update status modul terakhir yang dilihat menjadi 'selesai'
-            // Pengguna mengklik modul berikutnya, kirim permintaan untuk memperbarui status
             fetch('/update-modul-status', {
                 method: 'POST',
                 headers: {
@@ -109,16 +129,21 @@
                 body: JSON.stringify({
                     modulId: '{{ $modul->id }}'
                 })
-            }).then(response => {
-                if (response.ok) {
-                    // Setelah status diperbarui, arahkan pengguna ke modul berikutnya
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
                     window.location.href = nextModulLink.href;
+                } else {
+                    alert('Terjadi kesalahan: ' + data.message);
                 }
+            })
+            .catch(error => {
+                alert('Tidak dapat memperbarui status modul.');
             });
         }
     });
 });
-
 
 
 </script>
