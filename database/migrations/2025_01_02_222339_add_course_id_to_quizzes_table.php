@@ -13,8 +13,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('quizzes', function (Blueprint $table) {
-            $table->unsignedBigInteger('course_id')->nullable()->after('slug'); // Menambah kolom course_id setelah kolom id
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade'); // Menambahkan relasi foreign key
+            
+            $table->foreignId('course_id')->nullable()->after('slug')->constrained('courses')->onDelete('cascade'); // Menambahkan relasi foreign key
         });
     }
 

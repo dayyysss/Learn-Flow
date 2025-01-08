@@ -104,22 +104,30 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('landing.partials.header', function ($view) {
-            $user = Auth::user();
-
-            $cartCount = $user->cart()->count();
-
-            // Ambil course terbaru di cart
-            $latestCourses = $user->cart()
-                ->orderBy('created_at', 'desc')
-                ->limit(3) // Tampilkan 3 course terbaru
-                ->get();
-
+            $user = Auth::user(); // Ambil pengguna yang sedang login
+        
+            if ($user) { // Pastikan pengguna sudah login
+                $cartCount = $user->cart()->count(); // Hitung jumlah item di cart
+        
+                // Ambil course terbaru di cart
+                $latestCourses = $user->cart()
+                    ->orderBy('created_at', 'desc')
+                    ->limit(3) // Tampilkan 3 course terbaru
+                    ->get();
+        
                 $view->with([
-                    'cartCount'=> $cartCount,
-                    'latestCourses'=> $latestCourses,
-                
+                    'cartCount' => $cartCount,
+                    'latestCourses' => $latestCourses,
                 ]);
-            });
+            } else {
+                // Jika pengguna belum login, set nilai default
+                $view->with([
+                    'cartCount' => 0,
+                    'latestCourses' => [],
+                ]);
+            }
+        });
+        
 
         View::composer('lfcms.partials.sidebar', function ($view) {
             $menus = MenuList::where('menutype_id', 1)

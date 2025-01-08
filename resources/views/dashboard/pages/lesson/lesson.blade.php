@@ -1,3 +1,4 @@
+{{-- @extends('dashboard.pages.lesson.layout-course') --}}
 @extends('landing.layouts.landing-layouts')
 @section('page_title', 'LearnFlow | Lesson Courses')
 
@@ -16,7 +17,7 @@
 </header>
 
 <section>
-    <div class="show-modul bg-blackColor2 dark:bg-whiteColor-dark dark:border-borderColor-dark dark:text-headingColor-dark bg-white h-full ">
+    <div class="show-modul dark:bg-whiteColor-dark dark:border-borderColor-dark dark:text-headingColor-dark  h-full ">
         <div class="flex h-full gap-30px">
 
                         
@@ -24,7 +25,7 @@
             
             
             <!-- Konten Modul -->
-            <div class="pt-5 flex-1" style="min-height: 80vh" data-aos="fade-up" id="modul-content">
+            <div class="pt-5 flex-1 overflow-auto" style="min-height: 80vh" data-aos="fade-up" id="modul-content">
                 <!-- Tampilkan Konten Modul -->
                 <div class="content" id="content">
                     <div class="modul-content">
@@ -66,6 +67,11 @@
 </section>
 
 <style>
+    /* .content {
+        overflow: auto; /* Mengaktifkan scroll untuk konten */
+        max-height: 30vh; /* Menentukan tinggi maksimal untuk kontainer */
+    } */
+
     .modul-navigation {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -75,6 +81,7 @@
 .modul-navigation a {
     transition: color 0.2s ease-in-out;
 }
+
 
 </style>
 <script>
