@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AssignmentController;
 use App\Models\Course;
 use App\Models\ModulProgress;
 use App\Models\CategoryCourse;
@@ -48,6 +49,7 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
+use App\Models\Assignment;
 
 // Auth
 Route::get('/login', function () { return view('auth.login'); })->name('login');
@@ -261,4 +263,8 @@ Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'upda
 // Rute untuk update progres berbasis scroll
 Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
 Route::get('/modultes', [DashboardController::class, 'modulPembelajaran'])->name('dashboard.modulPembelajaran');
+
+Route::resource('/assignment', AssignmentController::class);
     });
+
+

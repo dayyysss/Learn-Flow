@@ -1,7 +1,7 @@
 
 
 <!-- Sidebar -->
-<div class="top-0  flex items-start left-0 bg-white transform -translate-x-full transition-transform duration-300 z-40 sidebar">
+<div class="top-0  flex items-start left-0 transform -translate-x-full transition-transform duration-300 z-40 sidebar">
 
     <div id="sidebarModul" class="sidebar-modul w-full h-full top-0 left-0 bg-white z-40">
         
@@ -132,7 +132,7 @@
     }
 
     .sidebar {
-    width: 450px;
+    width: 350px;
     transition: width 0.3s ease; /* Tambahkan transisi */
     
 }
@@ -157,6 +157,8 @@
     color: white;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    z-index: 999999 !important;
+    position: fixed;
 }
 
 </style>

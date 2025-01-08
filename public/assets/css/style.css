@@ -2364,6 +2364,10 @@ video {
     width: 100%;
 }
 
+.w-auto {
+    width: auto;
+}
+
 .w-logo-sm {
     width: 9.375rem;
 }
