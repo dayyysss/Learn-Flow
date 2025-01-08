@@ -10,7 +10,7 @@
             <!-- heading -->
             <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark">
                 <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
-                    My Profile
+                    Kursus Terdaftar
                 </h2>
             </div>
             <div class="tab">
@@ -123,13 +123,13 @@
                                                     </div>
                                                     <div class="text-start md:text-end">
                                                         <div>
-                                                        <i class="icofont-star text-size-10 text-yellow"></i>
-                                                        <i class="icofont-star text-size-10 text-yellow"></i>
-                                                        <i class="icofont-star text-size-10 text-yellow"></i>
-                                                        <i class="icofont-star text-size-10 text-yellow"></i>
-                                                        <i class="icofont-star text-size-10 text-yellow"></i>
+                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                <i class="icofont-star text-size-15 {{ $i <= ceil($item->course->average_rating) ? 'text-yellow' : 'text-gray' }}"></i>
+                                                            @endfor
                                                         </div>
-                                                        <span class="text-xs text-lightGrey6">(44)</span>
+                                                        <span class="text-xs text-lightGrey6">
+                                                            ({{ $item->course->total_feedbacks }} reviews)
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <!-- progress bar -->
@@ -143,11 +143,18 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <a href="{{route('certificate.index', $item->course->id)}}"
-                                                        class="text-size-15 text-whiteColor bg-secondaryColor w-full px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor rounded group text-nowrap text-center">
-                                                        Download Certificate
-                                                    </a>
+                                                    @if ($item->progress == 100)
+                                                        <a href="{{ route('certificate.index', $item->course->id) }}"
+                                                           class="text-size-15 text-whiteColor bg-secondaryColor w-full px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor rounded group text-nowrap text-center">
+                                                            Download Certificate
+                                                        </a>
+                                                    @else
+                                                        <span class="text-size-15 text-gray-500">
+                                                            Complete all modules to download certificate.
+                                                        </span>
+                                                    @endif
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>

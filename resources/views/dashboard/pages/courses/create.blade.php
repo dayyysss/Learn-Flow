@@ -3,7 +3,7 @@
 
 @section('content')
 
-@include('landing.components.breadcrumb', ['title' => 'Create Courses'])
+{{-- @include('landing.components.breadcrumb', ['title' => 'Create Courses']) --}}
 
 <div class="container pt-100px pb-100px aos-init aos-animate" data-aos="fade-up">
     {{-- Display Validation Errors --}}

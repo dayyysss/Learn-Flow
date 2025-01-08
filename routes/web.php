@@ -202,7 +202,9 @@ Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.i
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 // web.php
 Route::get('/course/{course:slug}/modul/{modul:slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::post('/update-modul-status', [CourseController::class, 'updateModulStatus']);
 
+Route::get('/getcart', [CartController::class, 'getCartData']);
 
 Route::get('/course/{course:slug}/quiz/{modul:slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
