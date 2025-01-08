@@ -196,9 +196,7 @@ class LandingPageController extends Controller
 
     public function contact()
     {
-        $category = CategoryArtikel::all();
-
-        return view('landing.pages.contact.contact', compact('category'));
+        return view('landing.pages.contact.contact');
     }
 
     public function instructor()

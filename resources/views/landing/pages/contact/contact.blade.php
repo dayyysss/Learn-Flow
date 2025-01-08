@@ -111,9 +111,10 @@
     <!-- comment form section -->
     <section>
         <div class="container pb-100px">
-            <form id="contact-form" method="post"
+            <form action="{{ route('submitContactForm') }}" id="contactUSForm" method="POST"
                 class="contact-form p-5 md:p-70px md:pt-90px border border-borderColor2 dark:border-transparent dark:shadow-container"
                 data-aos="fade-up">
+                {{ csrf_field() }}
                 <!-- heading -->
                 <div class="mb-10">
                     <h4 class="text-size-23 md:text-size-44 font-bold leading-10 md:leading-70px text-blackColor dark:text-blackColor-dark"
@@ -127,33 +128,44 @@
                 </div>
                 <div class="grid grid-cols-1 xl:grid-cols-2 mb-30px gap-30px">
                     <div data-aos="fade-up" class="relative">
-                        <input name="con_name" id="con_name" type="text" placeholder="Masukkan nama anda*"
+                        <input type="text" name="name" id="name" placeholder="Masukkan nama anda*"
+                            value="{{ old('name') }}"
                             class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-
+                        @if ($errors->has('name'))
+                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                        @endif
                         <div class="text-xl leading-23px text-primaryColor absolute right-6 top-1/2 -translate-y-1/2">
                             <i class="icofont-businessman"></i>
                         </div>
                     </div>
                     <div data-aos="fade-up" class="relative">
-                        <input name="con_email" id="con_email" type="email" placeholder="Masukkan email anda*"
+                        <input name="email" id="email" type="text" placeholder="Masukkan email anda*"
+                            value="{{ old('email') }}"
                             class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-
+                        @if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                        @endif
                         <div class="text-xl leading-23px text-primaryColor absolute right-6 top-1/2 -translate-y-1/2">
                             <i class="icofont-envelope"></i>
                         </div>
                     </div>
                     <div data-aos="fade-up" class="relative">
-                        <input name="subject" type="text" placeholder="Masukkan Topik"
+                        <input name="topic" id="topic" type="text" placeholder="Masukkan Topik"
                             class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-
+                        @if ($errors->has('topic'))
+                            <span class="text-danger">{{ $errors->first('topic') }}</span>
+                        @endif
                         <div class="text-xl leading-23px text-primaryColor absolute right-6 top-1/2 -translate-y-1/2">
                             <i class="icofont-edit"></i>
                         </div>
                     </div>
                     <div data-aos="fade-up" class="relative">
-                        <input name="phone" type="text" placeholder="Masukkan No Telepon"
+                        <input name="phone" id="phone" type="text" placeholder="Masukkan No Telepon"
+                            value="{{ old('phone') }}"
                             class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-
+                        @if ($errors->has('phone'))
+                            <span class="text-danger">{{ $errors->first('phone') }}</span>
+                        @endif
                         <div class="text-xl leading-23px text-primaryColor absolute right-6 top-1/2 -translate-y-1/2">
                             <i class="icofont-ui-call"></i>
                         </div>
@@ -161,24 +173,46 @@
                 </div>
 
                 <div class="relative" data-aos="fade-up">
-                    <textarea name="con_message" id="con_message" placeholder="Masukkan Pesan Anda di sini"
+                    <textarea name="message" id="message" placeholder="Masukkan Pesan Anda di sini"
                         class="w-full pl-26px bg-transparent text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 rounded"
-                        cols="30" rows="10"></textarea>
+                        cols="30" rows="10">{{ old('message') }}</textarea>
+                    @if ($errors->has('message'))
+                        <span class="text-danger">{{ $errors->first('message') }}</span>
+                    @endif
+                    @if ($errors->has('g-recaptcha-response'))
+                        <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+                    @endif
                     <div class="text-xl leading-23px text-primaryColor absolute right-6 top-[17px]">
                         <i class="icofont-pen-alt-2"></i>
                     </div>
                 </div>
 
                 <div class="mt-30px" data-aos="fade-up">
-                    <button value="submit" name="submit"
-                        class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                    <!-- reCAPTCHA -->
+                    <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+
+                    <button type="submit" value="submit" name="submit"
+                        class="g-recaptcha mt-5 text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                         Kirim Pesan
                     </button>
-
-                    <p class="form-messege"></p>
 
                 </div>
             </form>
         </div>
     </section>
 @endsection
+
+<script type="text/javascript">
+    $('#contactUSForm').submit(function(event) {
+        event.preventDefault();
+    
+        grecaptcha.ready(function() {
+            grecaptcha.execute("{{ env('GOOGLE_RECAPTCHA_KEY') }}", {action: 'subscribe_newsletter'}).then(function(token) {
+                $('#contactUSForm').prepend('<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
+                $('#contactUSForm').unbind('submit').submit();
+            });;
+        });
+    });
+</script>
+<script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
+<script async src="https://www.google.com/recaptcha/api.js"></script>
