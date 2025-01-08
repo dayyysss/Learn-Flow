@@ -30,6 +30,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Landing\LandingPageController;
+use App\Http\Controllers\Landing\ContactFormController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
@@ -93,6 +94,7 @@ Route::controller(LandingPageController::class)->group(function () {
     });
 
     Route::get('/kontak', 'contact')->name('contact');
+    Route::post('/submit-contact-form', [ContactFormController::class, 'submitContactForm'])->name('submitContactForm');
     Route::get('/instruktur', 'instructor')->name('instructor');
     Route::get('/instruktur/{id}', [LandingPageController::class, 'showinstructor'])->name('showinstructor');
 });

@@ -196,9 +196,7 @@ class LandingPageController extends Controller
 
     public function contact()
     {
-        $category = CategoryArtikel::all();
-
-        return view('landing.pages.contact.contact', compact('category'));
+        return view('landing.pages.contact.contact');
     }
 
     public function instructor()
@@ -231,81 +229,6 @@ class LandingPageController extends Controller
         // Kirim data instruktur ke view
         return view('landing.pages.instructor.instructor-detail', compact('instrukturs', 'relatedCourses'));
     }
-
-    // private function loadCommonData()
-    // {
-    //     $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
-    //     $categoriesArtikel = CategoryArtikel::orderBy('created_at', 'desc')->get();
-    //     $recentPosts = Artikel::where('status', '1')
-    //     ->orderBy('created_at', 'desc')
-    //     ->take(5)
-    //     ->get();
-    //     // Ambil kategori dan hitung jumlah kursus yang terkait
-    //     $categories = CategoryCourse::withCount(['courses' => function ($query) {
-    //         // Filter kursus dengan publish_date yang sudah terlewat
-    //         $query->where('publish_date', '<=', now());
-    //     }])
-    //     ->orderBy('courses_count', 'desc') // Urutkan berdasarkan jumlah kursus
-    //     ->get();
-
-    //     // Ambil tag populer berdasarkan kursus dengan publish_date yang sudah terlewat
-    //     $popularTags = DB::table('courses')
-    //         ->whereNotNull('tags') // Pastikan tags tidak null
-    //         ->where('publish_date', '<=', now()) // Filter kursus dengan publish_date yang sudah terlewat
-    //         ->pluck('tags') // Ambil kolom tags
-    //         ->flatMap(function ($tagsString) {
-    //             // Pecah string tags menjadi array
-    //             return explode(',', $tagsString);
-    //         })
-    //         ->map(fn($tag) => trim($tag)) // Hilangkan spasi pada setiap tag
-    //         ->filter() // Hilangkan nilai kosong
-    //         ->countBy() // Hitung jumlah kemunculan setiap tag
-    //         ->sortDesc() // Urutkan berdasarkan jumlah kemunculan
-    //         ->take(10); // Ambil 10 tag teratas
-
-    //     $popularTagsArtikel = DB::table('artikel')
-    //         ->whereNotNull('tag')
-    //         ->pluck('tag')
-    //         ->flatMap(function ($tagsString) {
-    //             return explode(',', $tagsString);
-    //         })
-    //         ->map(fn($tag) => trim($tag))
-    //         ->filter()
-    //         ->countBy()
-    //         ->sortDesc()
-    //         ->take(10);
-
-    //     return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
-    // }
-
-    // public function getContactsLogo()
-    // {
-    //     // Ambil data kontak dari konfigurasi website
-    //     $websiteConfig = WebsiteConfiguration::first();
-    //     // $contacts = json_decode($websiteConfig->informasi_kontak, true);
-    //     // $socialMedia = json_decode($websiteConfig->informasi_sosial_media, true);
-    //     $pagesDeskripsi = Page::with('users')->find(3);
-
-    //     // Ambil logo dan favicon
-    //     // $favicon = Logo::where('type', 'favicon')->first();
-    //     // $logoDark = Logo::where('type', 'gelap')->first();
-    //     // $logoBright = Logo::where('type', 'terang')->first();
-
-    //     $latestArticles = Artikel::orderBy('created_at', 'desc')->take(3)->get();
-    //     $configuration = WebsiteConfiguration::first();
-
-    //     return [
-    //         // 'contacts' => $contacts,
-    //         // 'socialMedia' => $socialMedia,
-    //         'websiteConfig' => $websiteConfig,
-    //         'pagesDeskripsi' => $pagesDeskripsi,
-    //         'latestArticles' => $latestArticles,
-    //         'configuration' => $configuration,
-    //         // 'favicon' => $favicon,
-    //         // 'logoDark' => $logoDark,
-    //         // 'logoBright' => $logoBright,
-    //     ];
-    // }
 
     public function indexMenu(Request $request)
     {
