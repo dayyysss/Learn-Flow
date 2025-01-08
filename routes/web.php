@@ -37,7 +37,7 @@ use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
-use App\Http\Controllers\LFCMS\ContactController    ;
+use App\Http\Controllers\LFCMS\ContactController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 // use App\Http\Controllers\LFCMS\ArticleController;
@@ -92,7 +92,6 @@ Route::controller(LandingPageController::class)->group(function () {
     });
 
     Route::get('/kontak', 'contact')->name('contact');
-    Route::post('/submit-contact-form', [ContactFormController::class, 'submitContactForm'])->name('submitContactForm');
     Route::get('/instruktur', 'instructor')->name('instructor');
     Route::get('/instruktur/{id}', [LandingPageController::class, 'showinstructor'])->name('showinstructor');
 });
@@ -264,3 +263,5 @@ Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'upda
 Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
 Route::get('/modultes', [DashboardController::class, 'modulPembelajaran'])->name('dashboard.modulPembelajaran');
     });
+
+    Route::post('/kontak-masuk', [ContactController::class, 'store'])->name('contact.store');

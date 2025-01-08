@@ -111,7 +111,7 @@
     <!-- comment form section -->
     <section>
         <div class="container pb-100px">
-            <form action="{{ route('submitContactForm') }}" id="contactUSForm" method="POST"
+            <form id="contact-form" method="POST"
                 class="contact-form p-5 md:p-70px md:pt-90px border border-borderColor2 dark:border-transparent dark:shadow-container"
                 data-aos="fade-up">
                 {{ csrf_field() }}
@@ -202,6 +202,7 @@
     </section>
 @endsection
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $('#contactUSForm').submit(function(event) {
         event.preventDefault();
@@ -214,5 +215,39 @@
         });
     });
 </script>
-<script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contact-form');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted');
+            
+            let formData = new FormData(form);
+            
+            $.ajax({
+                url: "{{ route('contact.store') }}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    console.log('Success:', response);
+                    alert('Pesan berhasil dikirim!');
+                    form.reset();
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan, silakan coba lagi.');
+                }
+            });
+        });
+
+    });
+</script>
+
 <script async src="https://www.google.com/recaptcha/api.js"></script>
