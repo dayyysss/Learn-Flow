@@ -2,12 +2,15 @@
 
 @section('modul')
 <div class="pb-5">
+    <!-- Judul Modul -->
     <div class="content mb-3">
         <h5 class="font-bold capitalize text-xl">{{ $modul->name }}</h5>
     </div>
 
-    <div class="dark:bg-lightGrey10-dark relative z-0 overflow-y-visible 2xl:pb-150px 2xl:pt-40.5">
-        @if ($modul->video) <!-- Cek apakah ada video -->
+    <!-- Video Modul -->
+    <div class="dark:bg-lightGrey10-dark flex justify-center relative z-0 overflow-y-visible 2xl:pb-150px 2xl:pt-40.5">
+        @if ($modul->video) 
+        <!-- Cek apakah ada video -->
         <div class="w-full py-18px flex justify-center">
             <iframe
                 @if (filter_var($modul->video, FILTER_VALIDATE_URL))
@@ -29,11 +32,13 @@
         @endif
     </div>
 
+    <!-- Deskripsi Modul -->
     <div class="deskripsi mt-5">
         <p>{!! $modul->materi !!}</p>
     </div>
 </div>
 
+<!-- JavaScript untuk AJAX Modul dan Navigasi -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const modulLinks = document.querySelectorAll('.modul-link');

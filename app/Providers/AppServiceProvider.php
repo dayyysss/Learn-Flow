@@ -93,6 +93,8 @@ class AppServiceProvider extends ServiceProvider
             $averageInstructorRating = $averageInstructorRating ?? 0;
             $instructorReviewCount = $instructorReviewCount ?? 0;
 
+            
+
             $view->with([
                 'registeredCoursesCount' => $registeredCoursesCount,
                 'certificatesCount' => $certificatesCount,
@@ -100,6 +102,24 @@ class AppServiceProvider extends ServiceProvider
                 'instructorReviewCount' => $instructorReviewCount
             ]);
         });
+
+        View::composer('landing.partials.header', function ($view) {
+            $user = Auth::user();
+
+            $cartCount = $user->cart()->count();
+
+            // Ambil course terbaru di cart
+            $latestCourses = $user->cart()
+                ->orderBy('created_at', 'desc')
+                ->limit(3) // Tampilkan 3 course terbaru
+                ->get();
+
+                $view->with([
+                    'cartCount'=> $cartCount,
+                    'latestCourses'=> $latestCourses,
+                
+                ]);
+            });
 
         View::composer('lfcms.partials.sidebar', function ($view) {
             $menus = MenuList::where('menutype_id', 1)

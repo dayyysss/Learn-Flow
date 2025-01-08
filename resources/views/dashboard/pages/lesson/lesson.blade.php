@@ -18,11 +18,13 @@
 <section>
     <div class="show-modul bg-blackColor2 dark:bg-whiteColor-dark dark:border-borderColor-dark dark:text-headingColor-dark bg-white h-full ">
         <div class="flex h-full gap-30px">
+
+                        
             @include('dashboard.pages.lesson.sidebar')
             
             
             <!-- Konten Modul -->
-            <div class="pt-5 relative" data-aos="fade-up" id="modul-content">
+            <div class="pt-5 flex-1" style="min-height: 80vh" data-aos="fade-up" id="modul-content">
                 <!-- Tampilkan Konten Modul -->
                 <div class="content" id="content">
                     <div class="modul-content">
@@ -31,30 +33,29 @@
                 
 
                     <!-- Navigasi Modul -->
-                    <!-- Navigasi Modul -->
-<div class="modul-navigation fixed bottom-0 left-0 w-full bg-white dark:bg-blackColor-dark border-t border-gray-300 dark:border-borderColor-dark z-50">
-    <div class="flex justify-between items-center px-5 py-3">
-        @if($previousModul)
-            <a href="/course/{{ $course->slug }}/modul/{{ $previousModul->slug }}" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
-                <i class="icofont-arrow-left mr-2"></i> Modul Sebelumnya
-            </a>
-        @else
-            <span class="text-gray-500 dark:text-gray-400 font-bold">
-                <i class="icofont-arrow-left mr-2"></i> Modul Sebelumnya
-            </span>
-        @endif
+                    <div class="modul-navigation fixed bottom-0 left-0 w-full bg-white dark:bg-blackColor-dark border-t border-gray-300 dark:border-borderColor-dark z-50">
+                        <div class="flex justify-between items-center px-5 py-3">
+                            @if($previousModul)
+                                <a href="/course/{{ $course->slug }}/modul/{{ $previousModul->slug }}" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
+                                    <i class="icofont-arrow-left mr-2"></i> Modul Sebelumnya
+                                </a>
+                            @else
+                                <span class="text-gray-500 dark:text-gray-400 font-bold">
+                                    <i class="icofont-arrow-left mr-2"></i> Modul Sebelumnya
+                                </span>
+                            @endif
 
-        @if($nextModul)
-            <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}" id="nextModulLink" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
-                Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
-            </a>
-        @else
-            <span class="text-gray-500 dark:text-gray-400 font-bold">
-                Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
-            </span>
-        @endif
-    </div>
-</div>
+                            @if($nextModul)
+                                <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}" id="nextModulLink" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
+                                    Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
+                                </a>
+                            @else
+                                <span class="text-gray-500 dark:text-gray-400 font-bold">
+                                    Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
 
                     
                     </div>
@@ -68,6 +69,8 @@
     .modul-navigation {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
+
+
 
 .modul-navigation a {
     transition: color 0.2s ease-in-out;
@@ -97,29 +100,38 @@
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+ document.addEventListener('DOMContentLoaded', function () {
     const nextModulLink = document.querySelector('#nextModulLink');
-    const contentContainer = document.getElementById('modul-content');
+    const contentContainer = document.getElementById('modul-content'); // Pastikan ID ini adalah elemen konten
 
+    // Cek status modul (misalnya, berdasarkan kelas atau data atribut)
+    const isModulCompleted = nextModulLink.getAttribute('data-status') === 'selesai'; // Ganti dengan logika yang sesuai dengan status modul
+
+    // Fungsi untuk memeriksa posisi scroll
     function checkScrollPosition() {
+        const containerBottom = contentContainer.offsetTop + contentContainer.offsetHeight;
         const scrollPosition = window.scrollY + window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
 
-        if (scrollPosition >= documentHeight) {
+        if (scrollPosition >= containerBottom || isModulCompleted) {
             nextModulLink.classList.remove('disabled'); // Aktifkan tombol
         } else {
             nextModulLink.classList.add('disabled'); // Nonaktifkan tombol
         }
     }
 
+    // Pasang event listener pada scroll
     window.addEventListener('scroll', checkScrollPosition);
+
+    // Cek posisi saat halaman dimuat
     checkScrollPosition();
 
+    // Mencegah klik pada tombol "Modul Berikutnya" jika belum scroll ke bawah dan status modul belum selesai
     nextModulLink.addEventListener('click', function (e) {
-        if (nextModulLink.classList.contains('disabled')) {
-            e.preventDefault();
+        if (nextModulLink.classList.contains('disabled') && !isModulCompleted) {
+            e.preventDefault(); // Blokir aksi default
             alert('Scroll ke bawah terlebih dahulu untuk melanjutkan modul!');
         } else {
+            // Kirim request untuk memperbarui status modul
             fetch('/update-modul-status', {
                 method: 'POST',
                 headers: {
@@ -144,6 +156,7 @@
         }
     });
 });
+
 
 
 </script>

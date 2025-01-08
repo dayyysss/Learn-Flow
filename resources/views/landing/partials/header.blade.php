@@ -78,57 +78,53 @@
                             <ul class="relative nav-list flex justify-end items-center">
                                 @auth
                                     <li class="px-5 lg:px-10px 2xl:px-5 lg:py-4 2xl:py-26px 3xl:py-9 group">
-                                        <a href="{{ url('/cart') }}" class="relative block"><i
-                                                class="icofont-cart-alt text-3xl text-blackColor group-hover:text-secondaryColor transition-all duration-300 dark:text-blackColor-dark"></i>
-                                            <span
-                                                class="absolute -top-1 2xl:-top-[5px] -right-[10px] lg:right-3/4 2xl:-right-[10px] text-[10px] font-medium text-white dark:text-whiteColor-dark bg-secondaryColor px-1 py-[2px] leading-1 rounded-full z-50 block">3</span></a>
-                                        <!-- dropdown menu -->
-                                        <div class="dropdown absolute top-full right-0 lg:right-8 z-medium hidden opacity-0"
-                                            style="transition: 0.3s">
-                                            <div
-                                                class="shadow-dropdown-secodary max-w-dropdown3 w-2000 rounded-standard p-5 bg-white dark:bg-whiteColor-dark">
-                                                <ul
-                                                    class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
-                                                    <li class="relative flex gap-x-15px items-center">
-                                                        <a href="course-details.html"><img
-                                                                src="{{ asset('assets/images/grid/cart1.jpg') }}" alt="photo"
-                                                                class="w-card-img py-[3px]"></a>
-                                                        <div>
-                                                            <a href="course-details.html"
-                                                                class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">web
-                                                                dictionary</a>
-                                                            <p
-                                                                class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
-                                                                1 x
-                                                                <span class="text-secondaryColor">$ 80.00</span>
-                                                            </p>
-                                                        </div>
-
-                                                        <button
-                                                            class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
-                                                            <i class="icofont-close-line"></i>
-                                                        </button>
-                                                    </li>
+                                        <a href="{{ url('/cart') }}" class="relative block">
+                                            <i class="icofont-cart-alt text-3xl text-blackColor group-hover:text-secondaryColor transition-all duration-300 dark:text-blackColor-dark"></i>
+                                            <span class="absolute -top-1 2xl:-top-[5px] -right-[10px] lg:right-3/4 2xl:-right-[10px] text-[10px] font-medium text-white dark:text-whiteColor-dark bg-secondaryColor px-1 py-[2px] leading-1 rounded-full z-50 block">
+                                                {{ $cartCount }}
+                                            </span>
+                                        </a>
+                                        
+                                        <div class="dropdown absolute top-full right-0 lg:right-8 z-medium hidden opacity-0" style="transition: 0.3s">
+                                            <div class="shadow-dropdown-secodary max-w-dropdown3 w-2000 rounded-standard p-5 bg-white dark:bg-whiteColor-dark">
+                                                <ul class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
+                                                    @foreach ($latestCourses as $course)
+                                                        <li class="relative flex gap-x-15px items-center">
+                                                            <a href="{{ route('course.details', $course->id) }}">
+                                                                <img src="{{ $course->image }}" alt="photo" class="w-card-img py-[3px]">
+                                                            </a>
+                                                            <div>
+                                                                <a href="{{ route('course.details', $course->id) }}" class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">
+                                                                    {{ $course->name }}
+                                                                </a>
+                                                                <p class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
+                                                                    {{ $course->quantity }} x
+                                                                    <span class="text-secondaryColor">${{ $course->price }}</span>
+                                                                </p>
+                                                            </div>
+                                                            <button class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
+                                                                <i class="icofont-close-line"></i>
+                                                            </button>
+                                                        </li>
+                                                    @endforeach
                                                 </ul>
-                                                <!-- total price -->
                                                 <div>
-                                                    <p
-                                                        class="text-size-17 text-contentColor dark:text-contentColor-dark pb-5 flex justify-between">
+                                                    <p class="text-size-17 text-contentColor dark:text-contentColor-dark pb-5 flex justify-between">
                                                         Total Price:
-                                                        <span class="font-bold text-secondaryColor">$ 210.00</span>
+                                                        <span class="font-bold text-secondaryColor">${{ $latestCourses->sum('price') }}</span>
                                                     </p>
                                                 </div>
-
-                                                <!-- action buttons -->
                                                 <div class="flex flex-col gap-y-5">
-                                                    <a href="{{ url('/cart') }}"
-                                                        class="text-sm font-bold text-contentColor dark:text-contentColor-dark hover:text-whiteColor hover:bg-secondaryColor text-center py-10px border border-secondaryColor">View
-                                                        Cart</a>
-                                                    <a href="{{ url('/checkout') }}"
-                                                        class="text-sm font-bold bg-darkblack dark:bg-darkblack-dark text-whiteColor dark:text-whiteColor-dark hover:bg-secondaryColor dark:hover:bg-secondaryColor text-center py-10px">Checkout</a>
+                                                    <a href="{{ url('/cart') }}" class="text-sm font-bold text-contentColor dark:text-contentColor-dark hover:text-whiteColor hover:bg-secondaryColor text-center py-10px border border-secondaryColor">
+                                                        View Cart
+                                                    </a>
+                                                    <a href="{{ url('/checkout') }}" class="text-sm font-bold bg-darkblack dark:bg-darkblack-dark text-whiteColor dark:text-whiteColor-dark hover:bg-secondaryColor dark:hover:bg-secondaryColor text-center py-10px">
+                                                        Checkout
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </li>
                                     <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
                                         <div class="mr-5 cursor-pointer group relative flex items-center">
