@@ -102,10 +102,6 @@
 
                                 <form class="pt-25px" action="{{ route('login') }}" method="POST" data-aos="fade-up">
                                     @csrf
-
-                                   
-
-
                                     <div class="mb-25px">
                                         <label
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Username
@@ -115,7 +111,7 @@
                                             class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('login') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                             value="{{ old('login') }}" />
                                         @error('login')
-                                            <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                                            <span class="error-message text-red-500 text-sm mt-1 block">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -125,7 +121,7 @@
                                         <input type="password" id="password" name="password" placeholder="Password"
                                             class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                         @error('password')
-                                            <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                                            <span class="error-message text-red-500 text-sm mt-1 block">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -214,7 +210,7 @@
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('first_name') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 value="{{ old('first_name') }}" />
                                             @error('first_name')
-                                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                                                <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div>
@@ -225,7 +221,7 @@
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('last_name') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 value="{{ old('last_name') }}" />
                                             @error('last_name')
-                                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                                                <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -238,7 +234,7 @@
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('name') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 value="{{ old('name') }}" />
                                             @error('name')
-                                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                                                <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div>
@@ -248,7 +244,7 @@
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('email') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 value="{{ old('email') }}" />
                                             @error('email')
-                                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                                                <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -257,11 +253,11 @@
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
-                                            <input type="password" name="password"
+                                            <input type="password" name="password_regist"
                                                 placeholder="Password minimal 8 karakter"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                             @error('password')
-                                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                                                <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div>
@@ -272,7 +268,7 @@
                                                 placeholder="Masukkan ulang password"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password_confirmation') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                             @error('password_confirmation')
-                                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                                                <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -282,7 +278,7 @@
                                             class="w-18px h-18px mr-2 block box-content @error('terms') border-red-500 @enderror" />
                                         <label for="accept-pp">Terima Persyaratan dan Kebijakan Privasi</label>
                                         @error('terms')
-                                            <span class="text-red-500 text-sm ml-2">{{ $message }}</span>
+                                            <span class="error-message text-red-500 text-sm ml-2">{{ $message }}</span>
                                         @enderror
                                     </div>
 
