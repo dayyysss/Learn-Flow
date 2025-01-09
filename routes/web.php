@@ -107,11 +107,14 @@ Route::prefix('lfcms')
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
         Route::resource('/klien', ClientController::class);
+        Route::get('/klien/{id}/delete', [ClientController::class, 'destroy'])->name('klien.destroy');
         Route::resource('/halaman', PageController::class);
+        Route::get('/halaman/{id}/delete', [PageController::class, 'destroy'])->name('halaman.destroy');
         Route::resource('/testimonial', TestimonialController::class);
+        Route::get('/testimonial/{id}/delete', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
         Route::resource('/kontak', ContactController::class);
+        Route::get('/kontak/{id}/delete', [ContactController::class, 'destroy'])->name('kontak.destroy');
         Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
-        Route::delete('/kontak/{id}', [ContactController::class, 'destroy'])->name('kontak.destroy');
         Route::post('/kontak/{id}/reply', [ContactController::class, 'reply'])->name('kontak.reply');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
@@ -129,6 +132,7 @@ Route::prefix('lfcms')
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
+        Route::get('/artikel/{id}/delete', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaran.index');
