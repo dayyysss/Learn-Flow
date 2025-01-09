@@ -179,6 +179,9 @@ Route::prefix('lfcms')
 
 });
 
+// Detail Course
+Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+
 // Dashboard
 Route::middleware(['auth'])
     ->group(function () {
@@ -205,7 +208,6 @@ Route::get('/certificate/print/{registrationId}', [CourseController::class, 'pri
 
 Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
-Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 // web.php
 Route::get('/course/{course:slug}/modul/{modul:slug}', [CourseController::class, 'showModul'])->name('modul.detail');
 Route::post('/update-modul-status', [CourseController::class, 'updateModulStatus']);
