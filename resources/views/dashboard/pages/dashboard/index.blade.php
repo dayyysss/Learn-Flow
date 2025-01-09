@@ -209,7 +209,7 @@
                         </div>
                     </div>
 
-                    <!-- piechart -->
+                    {{-- <!-- piechart -->
                     <div class="w-full md:w-50% mt-5">
                         <div class="md:px-5 py-10px md:py-0">
                             <div
@@ -231,7 +231,7 @@
                             </div>
                             <canvas id="pieChart"></canvas>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
