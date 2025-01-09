@@ -96,29 +96,14 @@
                                 <div class="text-center">
                                     <h3
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
-                                        Masuk
+                                        Masuk Learn Flow
                                     </h3>
-                                    {{-- <p class="text-contentColor dark:text-contentColor-dark mb-15px">
-                                        Belum punya akun?
-                                        <a href="javascript:void(0);" onclick="showLoginForm()"
-                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Daftar
-                                            gratis
-                                        </a>
-                                    </p> --}}
                                 </div>
 
                                 <form class="pt-25px" action="{{ route('login') }}" method="POST" data-aos="fade-up">
                                     @csrf
 
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
+                                   
 
 
                                     <div class="mb-25px">
@@ -127,14 +112,21 @@
                                             atau email</label>
                                         <input type="text" id="login" name="login"
                                             placeholder="Your username or email"
-                                            class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('login') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                            value="{{ old('login') }}" />
+                                        @error('login')
+                                            <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-25px">
                                         <label
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
                                         <input type="password" id="password" name="password" placeholder="Password"
-                                            class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                        @error('password')
+                                            <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div
@@ -184,18 +176,13 @@
                             <!-- sign up form-->
                             <div id="signup-form"
                                 class="hidden opacity-0 transition-opacity duration-150 ease-linear">
+
                                 <!-- heading   -->
                                 <div class="text-center">
                                     <h3
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
                                         Daftar akun Learn Flow
                                     </h3>
-                                    {{-- <p class="text-contentColor dark:text-contentColor-dark mb-15px">
-                                        Sudah punya akun?
-                                        <a href="javascript:void(0);" onclick="showLoginForm()"
-                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Masuk
-                                            sekarang</a>
-                                    </p> --}}
                                 </div>
 
                                 @if (session('status'))
@@ -207,6 +194,16 @@
                                 <form class="pt-25px" action="{{ route('register') }}" method="POST"
                                     data-aos="fade-up">
                                     @csrf
+
+                                    {{-- @if ($errors->any())
+                                    <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                                        <ul class="list-disc list-inside">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif --}}
 
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
@@ -247,7 +244,7 @@
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Email</label>
-                                            <input type="email" name="email" placeholder="Alamat Email"
+                                            <input type="text" name="email" placeholder="Alamat Email"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('email') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                                 value="{{ old('email') }}" />
                                             @error('email')
