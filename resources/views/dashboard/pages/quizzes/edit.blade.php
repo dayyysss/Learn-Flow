@@ -9,9 +9,9 @@
             <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Edit Quiz</h2>
         </div>
 
-        <form action="{{ route('quiz.update', $quiz->id) }}" method="POST">
+        <form action="{{ route('quiz.update', $quiz->slug) }}" method="POST">
             @csrf
-            @method('PUT') <!-- Specify the HTTP method as PUT for updates -->
+            @method('PATCH') <!-- Specify the HTTP method as PUT for updates -->
 
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-blackColor dark:text-blackColor-dark">
@@ -32,17 +32,36 @@
             </div>
 
             <div>
+                <label for="course_id" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
+                    Kursus
+                </label>
+                <select id="course_id" name="course_id"
+                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
+                    required>
+                    <option value="" disabled>Pilih Course</option>
+                    @foreach ($courses as $course)
+                        <option value="{{ $course->id }}" {{ $quiz->course_id == $course->id ? 'selected' : '' }}>
+                            {{ $course->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            
+            <div class="mt-4">
                 <label for="bab_id" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
                     Bab
                 </label>
-                <select name="bab_id"
+                <select id="bab_id" name="bab_id"
                     class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
                     required>
-                    @foreach ($babs as $bab)
-                        <option value="{{ $bab->id }}" {{ $quiz->bab_id == $bab->id ? 'selected' : '' }}>
-                            {{ $bab->name }}
-                        </option>
-                    @endforeach
+                    <option value="" disabled>Pilih Bab</option>
+                    @if($quiz->course_id)
+                        @foreach($babs->where('course_id', $quiz->course_id) as $bab)
+                            <option value="{{ $bab->id }}" {{ $quiz->bab_id == $bab->id ? 'selected' : '' }}>
+                                {{ $bab->name }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
 
@@ -119,6 +138,35 @@
             dateFormat: "H:i", // Format jam:menit (24 jam)
             time_24hr: true,
             locale: "id", // Bahasa Indonesia
+        });
+
+        // Menangani perubahan course_id dan mengambil babs terkait
+        document.getElementById('course_id').addEventListener('change', function() {
+            const courseId = this.value;
+            const babSelect = document.getElementById('bab_id');
+
+            // Kosongkan dropdown bab
+            babSelect.innerHTML = '<option value="" disabled selected>Loading...</option>';
+            babSelect.disabled = true; // Nonaktifkan dropdown bab sementara
+
+            // Kirim permintaan untuk mengambil bab terkait course_id
+            fetch(`/get-babs/${courseId}`)
+                .then(response => response.json())
+                .then(data => {
+                    babSelect.innerHTML =
+                    '<option value="" disabled selected>Pilih Bab</option>'; // Reset dropdown bab
+                    data.forEach(bab => {
+                        const option = document.createElement('option');
+                        option.value = bab.id;
+                        option.textContent = bab.name;
+                        babSelect.appendChild(option);
+                    });
+                    babSelect.disabled = false; // Aktifkan dropdown bab
+                })
+                .catch(error => {
+                    console.error('Error fetching babs:', error);
+                    babSelect.innerHTML = '<option value="" disabled selected>Error memuat bab</option>';
+                });
         });
     </script>
 @endsection

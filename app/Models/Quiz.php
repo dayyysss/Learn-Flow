@@ -34,7 +34,7 @@ class Quiz extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsTo(Course::class);
     }
 
     public static function boot()
@@ -63,6 +63,15 @@ class Quiz extends Model
             $slug = \Str::slug($quiz->name);
             $count = self::where('slug', 'like', $slug . '%')->where('id', '<>', $quiz->id)->count();
             $quiz->slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
+        });
+    }
+
+    protected static function slug()
+    {
+        parent::slug();
+
+        static::creating(function ($quiz) {
+            $quiz->slug = Str::slug($quiz->name);
         });
     }
 }

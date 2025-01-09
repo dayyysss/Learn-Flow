@@ -11,22 +11,11 @@ use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
-    public function index()
-    {
-        $questions = Question::with('quiz', 'options')->get();
-        return view('questions.index', compact('questions'));
-    }
-
-    public function show($id)
-    {
-        $question = Question::with('quiz', 'options')->findOrFail($id);
-        return view('questions.show', compact('question'));
-    }
 
     public function create(int $quizId): View
     {
         $quiz = Quiz::findOrFail($quizId);
-        return view('questions.create', compact('quiz'));
+        return view('dashboard.pages.quizzes.question.create', compact('quiz'));
     }
 
     public function store(Request $request, int $quizId): RedirectResponse
