@@ -14,7 +14,7 @@
                     <div>
                         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_342_4736)">
-                                <rect width="64" height="64" fill="white"></rect>
+                                <rect width="64" height="64"></rect>
                                 <path
                                     d="M63.6998 20.3413L54.4316 13.7947V4.23233C54.3387 3.28509 53.609 2.52481 52.6663 2.39346H12.0633C11.1207 2.52495 10.3908 3.28509 10.2979 4.23233V13.7211L0.662001 20.3411C0.280316 20.6182 0.0385768 21.048 0 21.518V56.4572C0.125304 57.4162 0.879946 58.171 1.83888 58.2961H62.8907C63.6998 58.2961 63.994 57.3399 63.994 56.4572V21.5181C63.994 21.0768 64.0675 20.6354 63.6998 20.3413ZM54.4316 17.3254L60.7575 21.6651L54.4316 26.4463V17.3254ZM13.2402 5.33572H51.4894V28.7267L32.3647 43.1437L13.24 28.7267V5.33572H13.2402ZM10.2979 17.2519V26.52L3.97201 21.6653L10.2979 17.2519ZM2.94226 24.681L23.5381 40.2749L2.94226 54.1771V24.681ZM6.47302 55.354L26.0389 42.1875L31.2615 46.1595C31.5571 46.388 31.9177 46.5168 32.2912 46.5272C32.5855 46.5272 32.7326 46.3801 33.0267 46.1595L38.4698 41.9667L58.2565 55.354H6.47302ZM61.0518 53.6623L40.8974 40.1278L61.0518 24.681V53.6623Z"
                                     fill="#5F2DED"></path>
@@ -111,9 +111,10 @@
     <!-- comment form section -->
     <section>
         <div class="container pb-100px">
-            <form id="contact-form" method="post"
+            <form id="contact-form" method="POST"
                 class="contact-form p-5 md:p-70px md:pt-90px border border-borderColor2 dark:border-transparent dark:shadow-container"
                 data-aos="fade-up">
+                {{ csrf_field() }}
                 <!-- heading -->
                 <div class="mb-10">
                     <h4 class="text-size-23 md:text-size-44 font-bold leading-10 md:leading-70px text-blackColor dark:text-blackColor-dark"
@@ -127,33 +128,44 @@
                 </div>
                 <div class="grid grid-cols-1 xl:grid-cols-2 mb-30px gap-30px">
                     <div data-aos="fade-up" class="relative">
-                        <input name="con_name" id="con_name" type="text" placeholder="Masukkan nama anda*"
+                        <input type="text" name="name" id="name" placeholder="Masukkan nama anda*"
+                            value="{{ old('name') }}"
                             class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-
+                        @if ($errors->has('name'))
+                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                        @endif
                         <div class="text-xl leading-23px text-primaryColor absolute right-6 top-1/2 -translate-y-1/2">
                             <i class="icofont-businessman"></i>
                         </div>
                     </div>
                     <div data-aos="fade-up" class="relative">
-                        <input name="con_email" id="con_email" type="email" placeholder="Masukkan email anda*"
+                        <input name="email" id="email" type="text" placeholder="Masukkan email anda*"
+                            value="{{ old('email') }}"
                             class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-
+                        @if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                        @endif
                         <div class="text-xl leading-23px text-primaryColor absolute right-6 top-1/2 -translate-y-1/2">
                             <i class="icofont-envelope"></i>
                         </div>
                     </div>
                     <div data-aos="fade-up" class="relative">
-                        <input name="subject" type="text" placeholder="Masukkan Topik"
+                        <input name="topic" id="topic" type="text" placeholder="Masukkan Topik"
                             class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-
+                        @if ($errors->has('topic'))
+                            <span class="text-danger">{{ $errors->first('topic') }}</span>
+                        @endif
                         <div class="text-xl leading-23px text-primaryColor absolute right-6 top-1/2 -translate-y-1/2">
                             <i class="icofont-edit"></i>
                         </div>
                     </div>
                     <div data-aos="fade-up" class="relative">
-                        <input name="phone" type="text" placeholder="Masukkan No Telepon"
+                        <input name="phone" id="phone" type="text" placeholder="Masukkan No Telepon"
+                            value="{{ old('phone') }}"
                             class="w-full pl-26px bg-transparent focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-
+                        @if ($errors->has('phone'))
+                            <span class="text-danger">{{ $errors->first('phone') }}</span>
+                        @endif
                         <div class="text-xl leading-23px text-primaryColor absolute right-6 top-1/2 -translate-y-1/2">
                             <i class="icofont-ui-call"></i>
                         </div>
@@ -161,24 +173,81 @@
                 </div>
 
                 <div class="relative" data-aos="fade-up">
-                    <textarea name="con_message" id="con_message" placeholder="Masukkan Pesan Anda di sini"
+                    <textarea name="message" id="message" placeholder="Masukkan Pesan Anda di sini"
                         class="w-full pl-26px bg-transparent text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 rounded"
-                        cols="30" rows="10"></textarea>
+                        cols="30" rows="10">{{ old('message') }}</textarea>
+                    @if ($errors->has('message'))
+                        <span class="text-danger">{{ $errors->first('message') }}</span>
+                    @endif
+                    @if ($errors->has('g-recaptcha-response'))
+                        <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+                    @endif
                     <div class="text-xl leading-23px text-primaryColor absolute right-6 top-[17px]">
                         <i class="icofont-pen-alt-2"></i>
                     </div>
                 </div>
 
                 <div class="mt-30px" data-aos="fade-up">
-                    <button value="submit" name="submit"
-                        class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                    <!-- reCAPTCHA -->
+                    <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+
+                    <button type="submit" value="submit" name="submit"
+                        class="g-recaptcha mt-5 text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                         Kirim Pesan
                     </button>
-
-                    <p class="form-messege"></p>
 
                 </div>
             </form>
         </div>
     </section>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $('#contactUSForm').submit(function(event) {
+        event.preventDefault();
+    
+        grecaptcha.ready(function() {
+            grecaptcha.execute("{{ env('GOOGLE_RECAPTCHA_KEY') }}", {action: 'subscribe_newsletter'}).then(function(token) {
+                $('#contactUSForm').prepend('<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
+                $('#contactUSForm').unbind('submit').submit();
+            });;
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contact-form');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted');
+            
+            let formData = new FormData(form);
+            
+            $.ajax({
+                url: "{{ route('contact.store') }}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    console.log('Success:', response);
+                    alert('Pesan berhasil dikirim!');
+                    form.reset();
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan, silakan coba lagi.');
+                }
+            });
+        });
+
+    });
+</script>
+
+<script async src="https://www.google.com/recaptcha/api.js"></script>

@@ -204,5 +204,22 @@ class CartController extends Controller
         return response()->json(['success' => false], 400);
     }
 
+    public function getCartData()
+{
+    // Pastikan user sudah login
+    $user = Auth::user();
+
+    // Hitung jumlah item di cart
+    $cartCount = $user->cart()->count();
+
+    // Ambil course terbaru di cart
+    $latestCourses = $user->cart()
+        ->orderBy('created_at', 'desc')
+        ->limit(3) // Tampilkan 3 course terbaru
+        ->get();
+
+    return view('landing.partials.header', compact('cartCount', 'latestCourses'));
+}
+
 }
 

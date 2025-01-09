@@ -2364,6 +2364,10 @@ video {
     width: 100%;
 }
 
+.w-auto {
+    width: auto;
+}
+
 .w-logo-sm {
     width: 9.375rem;
 }
@@ -2430,6 +2434,10 @@ video {
 
 .max-w-full {
     max-width: 100%;
+}
+
+.flex-1{
+    flex: 1;
 }
 
 .flex-shrink {
@@ -2766,6 +2774,10 @@ video {
 
 .items-center {
     align-items: center;
+}
+
+.items-start {
+    align-items: start;
 }
 
 .justify-start {
@@ -3110,6 +3122,11 @@ video {
 .rounded-l-lg2 {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+}
+
+.rounded-2-lg2 {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .rounded-t-md {

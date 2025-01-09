@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 use App\Models\ModulProgress;
 use App\Models\CourseRegistration;
@@ -16,7 +17,33 @@ class EnrolledCourseController extends Controller
             ->where('registration_status', 'confirmed')
             ->get();
 
+        // Ambil data feedback berdasarkan course_id yang terdaftar
+        $courseIds = $enrolledcourses->pluck('course.id')->toArray();
+        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
+            ->whereIn('course_id', $courseIds)
+            ->groupBy('course_id')
+            ->get();
+
+        // Gabungkan feedback ke dalam setiap course yang terdaftar
+        $feedbacks = $feedbacks->keyBy('course_id');
+
         foreach ($enrolledcourses as $registration) {
+            $course = $registration->course;
+
+            // Ambil feedback untuk setiap course
+            $feedback = $feedbacks->get($course->id);
+
+            if ($feedback) {
+                // Set nilai rating dan total feedbacks pada setiap course
+                $course->average_rating = (float) $feedback->average_rating;
+                $course->total_feedbacks = (int) $feedback->total_feedbacks;
+            } else {
+                // Default jika tidak ada feedback untuk course
+                $course->average_rating = 0;
+                $course->total_feedbacks = 0;
+            }
+
+            // Update progress jika perlu
             $registration->updateProgress();
         }
 
@@ -43,20 +70,35 @@ class EnrolledCourseController extends Controller
     public function showCourses()
     {
         $userId = auth()->id(); // Ambil user yang sedang login
-
+    
         // Ambil kursus yang sudah terdaftar (konfirmasi)
         $enrolledCourses = CourseRegistration::where('user_id', $userId)
-            ->where('registration_status', 'confirmed') 
+            ->where('registration_status', 'confirmed')
             ->get();
-
-        // Kursus aktif, progress < 100
+    
+        // Periksa apakah semua modul dalam kursus sudah selesai
+        $enrolledCourses->each(function($courseRegistration) {
+            $course = $courseRegistration->course;
+    
+            // Memeriksa apakah semua modul telah selesai
+            $allModulsCompleted = $course->moduls->every(function($modul) use ($courseRegistration) {
+                return $modul->modulProgresses->where('course_registrations_id', $courseRegistration->id)
+                                                ->first()
+                                                ->status === 'selesai';
+            });
+    
+            // Menambahkan status untuk dapat mengunduh sertifikat
+            $courseRegistration->can_download_certificate = $allModulsCompleted;
+        });
+    
+        // Pisahkan kursus yang aktif dan yang sudah selesai
         $activeCourses = $enrolledCourses->where('progress', '<', 100);
-
-        // Kursus selesai, progress = 100
         $completedCourses = $enrolledCourses->where('progress', 100);
-
+    
         return view('dashboard.pages.enrolled-courses.index', compact('activeCourses', 'completedCourses'));
     }
+    
+
 
 
 

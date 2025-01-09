@@ -13,6 +13,7 @@ class Modul extends Model
         'video',
         'file',
         'bab_id', // Jika ada field lain yang perlu diisi massal, tambahkan di sini
+        'task'
     ];
 
     public static function boot()

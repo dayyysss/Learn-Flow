@@ -15,14 +15,8 @@
                         class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
                         Testimonial
                     </span>
-                    <h3
-                        class="text-3xl md:text-size-35 2xl:text-size-38 3xl:text-size-42 leading-10 md:leading-45px 2xl:leading-50px 3xl:leading-2xl font-bold text-blackColor pb-25px dark:text-blackColor-dark">
-                        Apa Kata Mereka Tentang Kami
-                    </h3>
-                    <p class="text-sm md:text-base text-contentColor mb-5 2xl:mb-45px dark:text-contentColor-dark">
-                        Construction is a general term meaning the art and science to
-                        form systems organizations and comes from Latin Construction
-                        is
+                    <p class="text-sm md:text-base text-contentColor dark:text-contentColor-dark">
+                       {!! $testiSection->deskripsi !!}
                     </p>
 
                     <div>

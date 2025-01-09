@@ -81,11 +81,11 @@
                         </div>
                     </div>
                     @if ($key == count($artikel) - 1)
-                 </div>
-            </div>
-        @endif
-    @endif
-@endforeach
-    </div>
         </div>
-            </section>
+    </div>
+    @endif
+    @endif
+    @endforeach
+    </div>
+    </div>
+</section>

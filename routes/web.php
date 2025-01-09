@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AssignmentController;
 use App\Models\Course;
 use App\Models\ModulProgress;
 use App\Models\CategoryCourse;
@@ -29,6 +30,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Landing\LandingPageController;
+use App\Http\Controllers\Landing\ContactFormController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
@@ -36,7 +38,7 @@ use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
-use App\Http\Controllers\LFCMS\ContactController    ;
+use App\Http\Controllers\LFCMS\ContactController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 use App\Http\Controllers\Admin\Quiz\QuestionController;
@@ -49,6 +51,7 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
+use App\Models\Assignment;
 
 // Auth
 Route::get('/login', function () { return view('auth.login'); })->name('login');
@@ -199,8 +202,13 @@ Route::get('/certificate/print/{registrationId}', [CourseController::class, 'pri
 Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
-Route::get('/modul/course/{slug}', [CourseController::class, 'showModul'])->name('modul.detail');
-Route::get('/quiz/course/{slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
+// web.php
+Route::get('/course/{course:slug}/modul/{modul:slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::post('/update-modul-status', [CourseController::class, 'updateModulStatus']);
+
+Route::get('/getcart', [CartController::class, 'getCartData']);
+
+Route::get('/course/{course:slug}/quiz/{modul:slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
 Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
 Route::resource('/certificate', CertificateController::class);
 
@@ -252,7 +260,7 @@ Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('q
 //wishlist
 Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
-Route::get('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');
+Route::post('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');
 ;
 
 //feedback
@@ -270,4 +278,8 @@ Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'upda
 // Rute untuk update progres berbasis scroll
 Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'update']);
 Route::get('/modultes', [DashboardController::class, 'modulPembelajaran'])->name('dashboard.modulPembelajaran');
+
+Route::resource('/assignment', AssignmentController::class);
     });
+
+    Route::post('/kontak-masuk', [ContactController::class, 'store'])->name('contact.store');

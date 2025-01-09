@@ -13,19 +13,9 @@
                         class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
                         Kategori Kursus Populer
                     </span>
-                    <h3
-                        class="text-3xl md:text-size-35 2xl:text-size-38 3xl:text-size-42 leading-10 md:leading-45px 2xl:leading-50px 3xl:leading-2xl font-bold text-blackColor dark:text-blackColor-dark pb-25px">
-                        Rekomendasi Kategori Kursus Untuk Kamu!
-                    </h3>
-                    <p class="text-sm md:text-base text-contentColor dark:text-contentColor-dark mb-10px 2xl:mb-50px">
-                        Pembangunan adalah seni dan ilmu dalam menciptakan sistem dan organisasi yang kokoh, yang
-                        mendasari banyak bidang, termasuk pendidikan dan teknologi.
-                    </p>
                     <p
-                        class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark mb-10 pl-3 border-l-[3px] border-secondaryColor">
-                        Selamat datang di Pusat Pembelajaran Online! Di sini, kamu bisa menemukan berbagai kursus
-                        berkualitas untuk mengembangkan keterampilan di bidang yang kamu minati. Dari teknologi, desain,
-                        hingga bisnis, kami memiliki kursus yang dirancang untuk memenuhi kebutuhan belajarmu.
+                        class="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark pl-3 border-l-[3px] border-secondaryColor">
+                        {!! $categorySection->deskripsi !!}
                     </p>
                     <div>
                         <a class="text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor"

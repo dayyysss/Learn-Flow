@@ -78,57 +78,53 @@
                             <ul class="relative nav-list flex justify-end items-center">
                                 @auth
                                     <li class="px-5 lg:px-10px 2xl:px-5 lg:py-4 2xl:py-26px 3xl:py-9 group">
-                                        <a href="{{ url('/cart') }}" class="relative block"><i
-                                                class="icofont-cart-alt text-3xl text-blackColor group-hover:text-secondaryColor transition-all duration-300 dark:text-blackColor-dark"></i>
-                                            <span
-                                                class="absolute -top-1 2xl:-top-[5px] -right-[10px] lg:right-3/4 2xl:-right-[10px] text-[10px] font-medium text-white dark:text-whiteColor-dark bg-secondaryColor px-1 py-[2px] leading-1 rounded-full z-50 block">3</span></a>
-                                        <!-- dropdown menu -->
-                                        <div class="dropdown absolute top-full right-0 lg:right-8 z-medium hidden opacity-0"
-                                            style="transition: 0.3s">
-                                            <div
-                                                class="shadow-dropdown-secodary max-w-dropdown3 w-2000 rounded-standard p-5 bg-white dark:bg-whiteColor-dark">
-                                                <ul
-                                                    class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
-                                                    <li class="relative flex gap-x-15px items-center">
-                                                        <a href="course-details.html"><img
-                                                                src="{{ asset('assets/images/grid/cart1.jpg') }}" alt="photo"
-                                                                class="w-card-img py-[3px]"></a>
-                                                        <div>
-                                                            <a href="course-details.html"
-                                                                class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">web
-                                                                dictionary</a>
-                                                            <p
-                                                                class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
-                                                                1 x
-                                                                <span class="text-secondaryColor">$ 80.00</span>
-                                                            </p>
-                                                        </div>
-
-                                                        <button
-                                                            class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
-                                                            <i class="icofont-close-line"></i>
-                                                        </button>
-                                                    </li>
+                                        <a href="{{ url('/cart') }}" class="relative block">
+                                            <i class="icofont-cart-alt text-3xl text-blackColor group-hover:text-secondaryColor transition-all duration-300 dark:text-blackColor-dark"></i>
+                                            <span class="absolute -top-1 2xl:-top-[5px] -right-[10px] lg:right-3/4 2xl:-right-[10px] text-[10px] font-medium text-white dark:text-whiteColor-dark bg-secondaryColor px-1 py-[2px] leading-1 rounded-full z-50 block">
+                                                {{ $cartCount }}
+                                            </span>
+                                        </a>
+                                        
+                                        <div class="dropdown absolute top-full right-0 lg:right-8 z-medium hidden opacity-0" style="transition: 0.3s">
+                                            <div class="shadow-dropdown-secodary max-w-dropdown3 w-2000 rounded-standard p-5 bg-white dark:bg-whiteColor-dark">
+                                                <ul class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
+                                                    @foreach ($latestCourses as $course)
+                                                        <li class="relative flex gap-x-15px items-center">
+                                                            <a href="{{ route('course.details', $course->id) }}">
+                                                                <img src="{{ $course->image }}" alt="photo" class="w-card-img py-[3px]">
+                                                            </a>
+                                                            <div>
+                                                                <a href="{{ route('course.details', $course->id) }}" class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">
+                                                                    {{ $course->name }}
+                                                                </a>
+                                                                <p class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
+                                                                    {{ $course->quantity }} x
+                                                                    <span class="text-secondaryColor">${{ $course->price }}</span>
+                                                                </p>
+                                                            </div>
+                                                            <button class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
+                                                                <i class="icofont-close-line"></i>
+                                                            </button>
+                                                        </li>
+                                                    @endforeach
                                                 </ul>
-                                                <!-- total price -->
                                                 <div>
-                                                    <p
-                                                        class="text-size-17 text-contentColor dark:text-contentColor-dark pb-5 flex justify-between">
+                                                    <p class="text-size-17 text-contentColor dark:text-contentColor-dark pb-5 flex justify-between">
                                                         Total Price:
-                                                        <span class="font-bold text-secondaryColor">$ 210.00</span>
+                                                        <span class="font-bold text-secondaryColor">${{ $latestCourses->sum('price') }}</span>
                                                     </p>
                                                 </div>
-
-                                                <!-- action buttons -->
                                                 <div class="flex flex-col gap-y-5">
-                                                    <a href="{{ url('/cart') }}"
-                                                        class="text-sm font-bold text-contentColor dark:text-contentColor-dark hover:text-whiteColor hover:bg-secondaryColor text-center py-10px border border-secondaryColor">View
-                                                        Cart</a>
-                                                    <a href="{{ url('/checkout') }}"
-                                                        class="text-sm font-bold bg-darkblack dark:bg-darkblack-dark text-whiteColor dark:text-whiteColor-dark hover:bg-secondaryColor dark:hover:bg-secondaryColor text-center py-10px">Checkout</a>
+                                                    <a href="{{ url('/cart') }}" class="text-sm font-bold text-contentColor dark:text-contentColor-dark hover:text-whiteColor hover:bg-secondaryColor text-center py-10px border border-secondaryColor">
+                                                        View Cart
+                                                    </a>
+                                                    <a href="{{ url('/checkout') }}" class="text-sm font-bold bg-darkblack dark:bg-darkblack-dark text-whiteColor dark:text-whiteColor-dark hover:bg-secondaryColor dark:hover:bg-secondaryColor text-center py-10px">
+                                                        Checkout
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </li>
                                     <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
                                         <div class="mr-5 cursor-pointer group relative flex items-center">
@@ -237,7 +233,7 @@
                 <div class="pb-10 border-b border-borderColor dark:border-borderColor-dark">
                     <form
                         class="flex justify-between items-center w-full bg-whitegrey2 dark:bg-whitegrey2-dark px-15px py-[11px]">
-                        <input type="text" placeholder="Search entire store..."
+                        <input type="text" placeholder="Cari sesuatu disini..."
                             class="bg-transparent w-4/5 focus:outline-none text-sm text-darkdeep1 dark:text-blackColor-dark">
                         <button
                             class="block text-lg text-darkdeep1 hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-secondaryColor">
@@ -337,50 +333,50 @@
 {{-- MENU HEADER --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $.ajax({
-        url: "{{ route('menu.landing') }}",
-        method: 'GET',
-        dataType: 'json',
-        data: {
-            menu_type: 'header'
-        },
-        success: function(data) {
-            let mainMenu = '';
-            $.each(data, function(index, menu) {
-                if (menu.hasChildren) {
-                    mainMenu += `<li class="nav-item group relative">
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('menu.landing') }}",
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                menu_type: 'header'
+            },
+            success: function(data) {
+                let mainMenu = '';
+                $.each(data, function(index, menu) {
+                    if (menu.hasChildren) {
+                        mainMenu += `<li class="nav-item group relative">
                         <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
                             ${menu.content} <i class="icofont-rounded-down"></i>
                         </a>
                         <div class="dropdown absolute left-0 translate-y-10 z-50 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
                             <div class="shadow-dropdown max-w-dropdown2 w-2000 py-14px rounded-standard bg-white dark:bg-whiteColor-dark">
                                 <ul class="py-1">`;
-                    
-                    if (menu.children && menu.children.length > 0) {
-                        $.each(menu.children, function(childIndex, child) {
-                            mainMenu += `<li>
+
+                        if (menu.children && menu.children.length > 0) {
+                            $.each(menu.children, function(childIndex, child) {
+                                mainMenu += `<li>
                                 <a href="${child.link}" class="text-sm 2xl:text-base font-semibold text-contentColor border-l-2 border-transparent transition duration-300 hover:border-primaryColor px-25px py-10px hover:bg-whitegrey1 block hover:text-primaryColor leading-sm lg:leading-lg 2xl:leading-lg dark:text-contentColor-dark dark:hover:text-primaryColor dark:hover:bg-whitegrey1-dark">
                                     ${child.content}
                                 </a>
                             </li>`;
-                        });
-                    }
-                    
-                    mainMenu += `</ul></div></div></li>`;
-                } else {
-                    mainMenu += `<li class="nav-item group">
+                            });
+                        }
+
+                        mainMenu += `</ul></div></div></li>`;
+                    } else {
+                        mainMenu += `<li class="nav-item group">
                         <a href="${menu.link}" class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
                             ${menu.content}
                         </a>
                     </li>`;
-                }
-            });
-            
-            $('#mainmenu').html(mainMenu);
+                    }
+                });
 
-            // Tambahkan CSS tambahan jika diperlukan
-            const style = `
+                $('#mainmenu').html(mainMenu);
+
+                // Tambahkan CSS tambahan jika diperlukan
+                const style = `
                 <style>
                     .nav-item.group:hover .dropdown {
                         visibility: visible;
@@ -389,13 +385,13 @@ $(document).ready(function() {
                     }
                 </style>
             `;
-            $('head').append(style);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error('Error fetching menu:', textStatus, errorThrown);
-        }
+                $('head').append(style);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching menu:', textStatus, errorThrown);
+            }
+        });
     });
-});
 </script>
 
 {{-- HEADER MOBILE --}}
@@ -409,59 +405,88 @@ $(document).ready(function() {
                 menu_type: 'sidebar'
             },
             success: function(data) {
-                // Bangun hierarki menu berdasarkan parent_id
-                let menuMap = {};
-                let rootMenus = [];
+                let sidebarMenu = '';
 
-                // Pisahkan root dan submenu
-                data.forEach(menu => {
-                    if (!menu.parent_id) {
-                        rootMenus.push(menu);
-                    } else {
-                        if (!menuMap[menu.parent_id]) {
-                            menuMap[menu.parent_id] = [];
+                $.each(data, function(index, menu) {
+                    if (menu.hasChildren) {
+                        sidebarMenu += `
+                        <li class="accordion">
+                            <!-- accordion header -->
+                            <div class="flex items-center justify-between">
+                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                                    href="${menu.link}">${menu.content}</a>
+                               <button class="accordion-controller px-3 py-4">
+                                <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
+                                <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
+                            </button>
+                            </div>
+                            <!-- accordion content -->
+                            <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
+                                <div class="content-wrapper">
+                                    <ul>`;
+
+                        if (menu.children && menu.children.length > 0) {
+                            $.each(menu.children, function(childIndex, child) {
+                                sidebarMenu += `
+                                <li class="accordion">
+                                    <!-- accordion header -->
+                                    <div class="flex items-center justify-between">
+                                        <a href="${child.link}" 
+                                           class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
+                                            ${child.content}
+                                            ${child.badge ? `
+                                            <span class="px-15px py-5px text-primaryColor bg-whitegrey3 text-xs rounded ml-5px">
+                                                ${child.badge}
+                                            </span>` : ''}
+                                        </a>
+                                    </div>
+                                </li>`;
+                            });
                         }
-                        menuMap[menu.parent_id].push(menu);
+
+                        sidebarMenu += `
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>`;
+                    } else {
+                        sidebarMenu += `
+                        <li>
+                            <div class="flex items-center justify-between">
+                                <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                                    href="${menu.link}">${menu.content}</a>
+                            </div>
+                        </li>`;
                     }
                 });
 
-                // Fungsi untuk membangun HTML menu secara rekursif
-                const generateMenuHTML = (menus) => {
-                    let html = '<ul class="accordion-container">';
-                    menus.forEach(menu => {
-                        const hasChildren = menuMap[menu.id] && menuMap[menu.id]
-                            .length > 0;
+                // Wrap the menu in accordion-container
+                $('#sidebar-menu').html(`
+                <ul class="accordion-container">
+                    ${sidebarMenu}
+                </ul>
+            `);
 
-                        html += `
-                            <li class="accordion">
-                                <div class="flex items-center justify-between">
-                                    <a class="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
-                                        href="${menu.link}">${menu.content}</a>
-                                    ${hasChildren ? `
-                                    <button class="accordion-controller px-3 py-4">
-                                        <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor"></span>
-                                        <span class="w-[10px] h-[1px] bg-darkdeep1 block dark:bg-whiteColor rotate-90 -mt-[1px] transition-all duration-500"></span>
-                                    </button>` : ''}
-                                </div>
-                                ${hasChildren ? `
-                                <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
-                                    <div class="content-wrapper">
-                                        ${generateMenuHTML(menuMap[menu.id])}
-                                    </div>
-                                </div>` : ''}
-                            </li>`;
-                    });
-                    html += '</ul>';
-                    return html;
-                };
+                // Add click handler for accordion buttons
+                $(document).on('click', '.accordion-controller', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                // Bangun HTML dari root menus
-                const menuHTML = generateMenuHTML(rootMenus);
+                    // Toggle rotation for the plus/minus icon
+                    $(this).find('span:last-child').toggleClass('rotate-0');
 
-                // Debugging (opsional)
-                // console.log('Generated HTML:', menuHTML);
+                    // Find and toggle the content
+                    const content = $(this).closest('.accordion').find(
+                    '.accordion-content');
 
-                $('#sidebar-menu').html(menuHTML);
+                    // If content is closing, add h-0
+                    if (!content.hasClass('h-0')) {
+                        content.addClass('h-0');
+                    } else {
+                        // If content is opening, remove h-0
+                        content.removeClass('h-0');
+                    }
+                });
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error fetching menu:', textStatus, errorThrown);
