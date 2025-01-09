@@ -9,7 +9,7 @@
             <div class="col-span-full lg:col-span-6">
                 <div class="card p-0 max-h-full">
                     <div class="p-4 sm:px-7 py-5 bg-gray-200/30 dark:bg-dark-card-two">
-                        <a href="mailbox.html" class="flex items-center gap-1">
+                        <a href="/lfcms/kontak" class="flex items-center gap-1">
                             <i class="ri-arrow-left-line text-2xl text-heading dark:text-dark-text"></i>
                             <h6 class="card-title dark:text-dark-text">{{ $contact->email }}</h6>
                         </a>
