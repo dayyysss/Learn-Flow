@@ -8,14 +8,13 @@
                     <div class="text-center">
                         <span
                             class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
-                            Pricing Plan
+                            Paket Langganan
                         </span>
                     </div>
                 </div>
                 <h3
                     class="text-3xl md:text-size-35 2xl:text-size-38 3xl:text-size-42 md:leading-45px 2xl:leading-50px 3xl:leading-2xl font-bold text-blackColor dark:text-blackColor-dark text-center">
-                    Choose The Best Package <br>
-                    For your Learning
+                    Pilih Paket Langganan Terbaik <br>Untuk Pembelajaran Anda
                 </h3>
             </div>
         </div>
