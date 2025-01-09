@@ -24,16 +24,16 @@ class QuizController extends Controller
         return view('dashboard.pages.quizzes.index', compact('quizzes'));
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $quiz = Quiz::with(['questions.options', 'quizResults'])->findOrFail($id);
+        $quiz = Quiz::with(['questions.options', 'quizResults', 'course', 'bab'])->where('slug', $slug)->firstOrFail();
         return view('dashboard.pages.quizzes.show', compact('quiz'));
     }
 
     public function create()
     {
         $courses = Course::all(); // Mengambil semua course yang ada
-        $babs = []; // Inisialisasi babs kosong
+        $babs = Bab::all();
         return view('dashboard.pages.quizzes.create', compact('courses', 'babs'));
     }
 
@@ -41,7 +41,7 @@ class QuizController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'course_id' => 'required',
+            'course_id' => 'required|exists:courses,id',
             'bab_id' => 'required|exists:babs,id',
             'start_time' => 'required', // Validasi format waktu
             'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
@@ -75,69 +75,65 @@ class QuizController extends Controller
         return redirect()->route('quiz.index')->with('success', 'Quiz created successfully.');
     }
 
-    public function edit(int $id): View
+    public function edit(string $slug)
     {
-        $quiz = Quiz::findOrFail($id);
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
         $courses = Course::all(); // Mengambil semua course yang ada
-        $babs = []; // Inisialisasi babs kosong
-        return view('dashboard.pages.quizzes.edit', compact('quiz', 'babs'));
+        $babs = Bab::all();
+        return view('dashboard.pages.quizzes.edit', compact('quiz', 'babs', 'courses'));
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, string $slug)
     {
-        $quiz = Quiz::findOrFail($id);
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
 
         $validated = $request->validate([
             'name' => 'required',
-            'course_id' => 'required',
+            'course_id' => 'required|exists:courses,id',
             'bab_id' => 'required|exists:babs,id',
             'start_time' => 'required', // Format waktu
             'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
-            'description' => 'required', // Perbaikan aturan validasi
+            'description' => 'required',
         ]);
 
         // Bersihkan tag HTML dari input description
         $cleanDescription = strip_tags($request->description);
 
-        // Generate slug
-        $slug = Str::slug($request->name);
-        $count = Quiz::where('slug', 'like', $slug . '%')->where('id', '!=', $id ?? 0)->count();
-        $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
-
-
-        try {
-            $quiz->update([
-                'name' => $request->name,
-                'slug' => $slug,
-                'course_id' => $request->course_id,
-                'bab_id' => $request->bab_id,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-                'description' => $cleanDescription,
-            ]);
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withErrors(['error' => 'Could not update data: ' . $e->getMessage()])
-                ->withInput();
+        // Generate slug baru jika nama diubah
+        $slug = $quiz->slug; // Tetap gunakan slug lama jika nama tidak berubah
+        if ($quiz->name !== $request->name) {
+            $slug = Str::slug($request->name);
+            $count = Quiz::where('slug', 'like', $slug . '%')->where('id', '!=', $quiz->id)->count();
+            $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
         }
+
+        $quiz->update([
+            'name' => $request->name,
+            'slug' => $slug,
+            'course_id' => $request->course_id,
+            'bab_id' => $request->bab_id,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'description' => $cleanDescription,
+        ]);
 
         return redirect()->route('quiz.index')->with('success', 'Quiz updated successfully.');
     }
 
     // Hanya superadmin dan instructor yang bisa menghapus quiz
-    public function destroy($id)
+    public function destroy(string $slug)
     {
         if (!auth()->user()->hasRole(['superadmin', 'instructor', 'admin'])) {
             abort(403, 'Unauthorized action.');
         }
 
-        // Temukan Quiz berdasarkan ID
-        $quiz = Quiz::findOrFail($id);
+        // Temukan Quiz berdasarkan slug
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
 
-        // Hapus Quiz (cascading deletion akan bekerja di sini)
+        // Hapus Quiz (cascading deletion akan bekerja jika diatur di database)
         $quiz->delete();
 
-        return redirect()->route('quiz.index')->with('success', 'Quiz deleted successfully');
+        return redirect()->route('quiz.index')->with('success', 'Quiz deleted successfully.');
     }
 
     public function getBabsByCourse(Request $request, $courseId)

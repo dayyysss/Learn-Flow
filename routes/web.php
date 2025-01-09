@@ -41,6 +41,7 @@ use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use App\Http\Controllers\LFCMS\ContactController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\Quiz\QuestionController;
 // use App\Http\Controllers\LFCMS\ArticleController;
 // use App\Http\Controllers\LFCMS\HakAksesController;
 // use App\Http\Controllers\LFCMS\HakAksesFrontendController;
@@ -240,8 +241,21 @@ Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.re
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
 //quiz
-Route::resource('quiz', QuizController::class);
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
+Route::get('/quiz/{slug}', [QuizController::class, 'show'])->name('quiz.show');
+Route::get('/quiz/{slug}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
+Route::patch('/quiz/{slug}/update', [QuizController::class, 'update'])->name('quiz.update');
+Route::delete('/quiz/{slug}', [QuizController::class, 'destroy'])->name('quiz.destroy');
 Route::get('/get-babs/{courseId}', [QuizController::class, 'getBabsByCourse']);
+
+//question
+Route::get('/question/create', [QuestionController::class, 'create'])->name('questions.create');
+Route::post('/question/store', [QuestionController::class, 'store'])->name('questions.store');
+Route::get('/question/{slug}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
+Route::patch('/question/{slug}/update', [QuestionController::class, 'update'])->name('questions.update');
+Route::delete('/question/{slug}', [QuestionController::class, 'destroy'])->name('questions.destroy');
 
 //quiz result
 Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');

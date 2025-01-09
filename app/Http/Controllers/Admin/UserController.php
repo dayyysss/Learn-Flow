@@ -72,7 +72,7 @@ $user = User::create([
     'last_name' => $request['last_name'],
     'name' => $request['name'],
     'email' => $request['email'],
-    'password' => Hash::make($request['password']),
+    'password' => Hash::make($request['password_regist']),
     'image' => $defaultImagePath, // Set gambar default
 ]);
 
