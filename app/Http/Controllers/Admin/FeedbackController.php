@@ -66,19 +66,34 @@ class FeedbackController extends Controller
         ]);
 
         try {
+            $userId = auth()->id();
+            $courseId = $request->input('course_id');
+
+            // Cek apakah pengguna sudah memberikan ulasan untuk kursus ini
+            $existingFeedback = Feedback::where('user_id', $userId)
+                ->where('course_id', $courseId)
+                ->first();
+
+            if ($existingFeedback) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Anda sudah memberikan ulasan untuk kursus ini.'
+                ]);
+            }
+
             $feedback = new Feedback();
-            $feedback->user_id = auth()->id();
-            $feedback->course_id = $request->input('course_id');
+            $feedback->user_id = $userId;
+            $feedback->course_id = $courseId;
             $feedback->rating = $request->input('rating');
             $feedback->komentar = $request->input('komentar');
             $feedback->instructor_rating = $request->input('instructor_rating');
             $feedback->instructor_komentar = $request->input('instructor_komentar');
-            
+
             $now = now()->setTimezone('Asia/Jakarta');
             $feedback->created_at = $now;
             $feedback->updated_at = $now;
 
-            $course = Course::find($request->input('course_id'));
+            $course = Course::find($courseId);
 
             $feedback->instruktur_id = $course ? $course->user_id : null;
 
