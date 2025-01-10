@@ -406,6 +406,7 @@ class CourseController extends Controller
             ->where('course_id', $course->id)
             ->first();
 
+        // Jika sudah terdaftar, cari atau buat data progress modul
         if ($courseRegistration) {
             $modulProgress = ModulProgress::firstOrCreate(
                 [
@@ -414,7 +415,7 @@ class CourseController extends Controller
                 ],
                 [
                     'status' => 'proses',
-                    'progress' => 0 // Anda dapat mengatur nilai default untuk progress, misalnya 0
+                    'progress' => 0 // Nilai default untuk progress, bisa disesuaikan
                 ]
             );
 
@@ -423,6 +424,12 @@ class CourseController extends Controller
                 ->where('modul_id', $modul->id)
                 ->first();
         }
+    
+        // Mengambil assignment berdasarkan modul dan user yang sedang login
+        $assignment = Assignment::where('modul_id', $modul->id)
+                                ->where('user_id', $user->id)
+                                ->first();
+
 
         // Cari modul sebelumnya di bab yang sama
         $previousModul = Modul::where('bab_id', $modul->bab_id)
@@ -456,7 +463,29 @@ class CourseController extends Controller
             }
         }
 
-        return view('dashboard.pages.lesson._modul_content', compact('course', 'modul', 'bab', 'previousModul', 'nextModul'));
+        $assignments = Assignment::where('modul_id', $modul->id)->get();
+
+        $modul_progress = ModulProgress::where('modul_id', $modul->id)->first(); // Menyesuaikan dengan modul_id yang relevan
+
+if ($modul_progress) {
+    $course_registration = $modul_progress->courseRegistration; // Ambil data CourseRegistration terkait
+    $status = $course_registration ? $course_registration->status : null; // Ambil status jika ada
+}
+
+
+    
+        // Mengirim data ke view
+        return view('dashboard.pages.lesson._modul_content', compact(
+            'course', 
+            'modul', 
+            'bab', 
+            'previousModul', 
+            'nextModul', 
+            'assignment', // Menambahkan assignment ke dalam view
+            'assignments',
+            'modul_progress',
+            'status'
+        ));
     }
 
     public function updateModulStatus(Request $request)

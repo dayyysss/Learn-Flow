@@ -49,6 +49,8 @@
             <h4 class="text-2xl sm:text-3xl leading-1.2 text-black dark:text-black">
                 Submission
             </h4>
+
+            
             <hr class="border-borderColor2 dark:opacity-30 my-4">
             
             <form action="{{ route('assignment.store') }}" id="assignmentForm" method="POST" enctype="multipart/form-data">
@@ -61,6 +63,11 @@
                             <form action="" id="" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="modul_id" value="{{ $modul->id }}">
+
+                                <div class="flex justify-end">
+                                    {{$assignment->nilai ?? 'belum dinilai'}}
+                                </div>
+
 
                                 @if($assignment->task)
                                     @php
@@ -105,6 +112,7 @@
                                     <textarea id="content" name="content" class="w-full px-3 py-1 bg-transparent text-darkBlue border border-borderColor6 placeholder:opacity-80 focus:outline-none focus:shadow-select rounded-md">{{$assignment->content}}</textarea>
                                 </div>
 
+                                
                                 
                             </div>
                             <!-- Button Batalkan Pengiriman -->

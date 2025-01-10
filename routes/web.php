@@ -52,8 +52,6 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
-use App\Models\Assignment;
-
 // Auth
 Route::get('/login', function () { return view('auth.login'); })->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.post');

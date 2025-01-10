@@ -118,14 +118,23 @@
             <div class="p-5">
             <div class="flex justify-between">
                 <h3 class="text-xl font-semibold mb-4">Assignment Detail</h3>
-                <button data-modal-toggle="assignment-modal-{{ $assignment->id }}" class="right-2 text-gray-500">
-                    <i class="icofont-close"></i>
-                </button>
+                <button 
+    data-modal-toggle="assignment-modal-{{ $assignment->id }}" 
+    class="right-2 text-gray-500"
+    title="Close Modal"
+>
+    <i class="icofont-close"></i>
+</button>
             </div>
             
             <!-- Flex container for image and user details -->
             <div class="mb-4 flex gap-5 border-b py-3 items-center">
-                <img class="w-15 bg-black h-15 rounded-full" src="{{ asset('storage/' . ($assignment->user->image ?? 'assets/images/avatar/default-avatar.png')) }}" alt="{{ $assignment->user->name }}">
+                <img 
+    class="w-15 bg-black border h-15 rounded-full" 
+    src="{{ $assignment->user->image ? asset('storage/' . $assignment->user->image) : asset('assets/images/avatar/default-avatar.png') }}" 
+    alt="{{ $assignment->user->name }}"
+>
+
                 <div class="flex w-full justify-between">
                 <div>
                     <p class="font-semibold">{{ $assignment->user->name ?? 'Tidak Diketahui' }}</p>
@@ -154,7 +163,7 @@
                                                 @endif
                                             
                                                 <!-- Menampilkan nama file dengan pengaturan overflow -->
-                                                <p class="truncate w-full">{{ basename($task['file']) }}</p>
+                                                <p class="truncate mr-5 w-full">{{ basename($task['file']) }}</p>
                                             </li>
                                             
                                             @endforeach
@@ -163,46 +172,51 @@
                                     @endif
                                 @endif
 
-                                <div class="mb-4 mt-5">
+                                <div class="mt-5">
                                     <label class="text-darkBlue dark:text-darkBlue-dark mb-2 block" for="content">Assignment Content</label>
                                     <textarea id="content" name="content" class="w-full px-3 py-1 bg-transparent text-darkBlue border border-borderColor6 placeholder:opacity-80 focus:outline-none focus:shadow-select rounded-md">{{$assignment->content}}</textarea>
                                 </div>
+                            
+                                </div>
                                 
-            
-            
-            <div class="mb-2">
-                <strong>Grade:</strong> {{ $assignment->nilai ?? '(belum dinilai)'}}
-            </div>
-
-            </div>
-
-            <div class="mb-4 mt-5 border-t">
-                <form method="POST" class="p-5 flex" action="{{ route('assignments.grade', $assignment->id) }}">
-                    @csrf
-                    @method('PUT')
-
-                    <div>
-                    <label class="text-darkBlue dark:text-darkBlue-dark mb-2 block" for="grade-{{ $assignment->id }}">Give Grade</label>
-                    <input 
-                        type="number" 
-                        id="grade-{{ $assignment->id }}" 
-                        name="grade" 
-                        class="w-full px-3 py-1 bg-transparent text-darkBlue border border-borderColor6 placeholder:opacity-80 focus:outline-none focus:shadow-select rounded-md"
-                        placeholder="Enter grade (0-100)"
-                        min="0"
-                        max="100"
-                        value="{{ $assignment->nilai }}"
-                        required
-                    >
-                    </div>
-                    <button 
-                        type="submit" 
-                        class="bg-primaryColor text-white px-4 py-2 rounded mt-3"
-                    >
-                        Submit Grade
-                    </button>
-                </form>
-            </div>
+                                <div class="mb-4 border-t">
+                                    <form method="POST" class="p-5 flex items-center gap-4" action="{{ route('assignments.grade', $assignment->id) }}">
+                                        @csrf
+                                        @method('PUT')
+                                    
+                                        <!-- Bagian Input Nilai -->
+                                        <div class="flex-grow">
+                                            <label class="text-darkBlue dark:text-darkBlue-dark mb-2 block" for="grade-{{ $assignment->id }}">Nilai</label>
+                                            <div class="flex items-center gap-2">
+                                                <input 
+                                                    type="number" 
+                                                    id="grade-{{ $assignment->id }}" 
+                                                    name="grade" 
+                                                    class="flex-grow px-3 py-1 bg-transparent text-darkBlue border border-borderColor6 placeholder:opacity-80 focus:outline-none focus:shadow-select rounded-md"
+                                                    placeholder="Enter grade (0-100)"
+                                                    min="0"
+                                                    max="100"
+                                                    value="{{ $assignment->nilai ?? 'Masukkan Nilai' }}" 
+                                                    required
+                                                >
+                                    
+                                                <!-- Tombol Kirim -->
+                                                <button 
+                                                    type="submit" 
+                                                    class="flex items-center justify-center bg-primaryColor text-white p-3 rounded-full"
+                                                    title="Submit Grade"
+                                                >
+                                                    <!-- SVG Icon -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l-7-7 7-7m0 0l7 7-7 7z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    
+                                </div>
+                                
             
         </div>
     </div>
@@ -215,15 +229,19 @@
 
 <script>
     // Modal functionality
-    const modalTriggers = document.querySelectorAll('[data-modal-toggle]');
-    modalTriggers.forEach(trigger => {
+    document.querySelectorAll('[data-modal-toggle]').forEach(trigger => {
         trigger.addEventListener('click', function () {
-            const modalId = this.getAttribute('data-modal-target');
+            const modalId = this.getAttribute('data-modal-toggle');
             const modal = document.getElementById(modalId);
-            modal.classList.toggle('hidden');
+            if (modal) {
+                modal.classList.toggle('hidden');
+            } else {
+                console.error(`Modal with ID "${modalId}" not found.`);
+            }
         });
     });
 </script>
+
 
 <style>
     .assignment_modal {
