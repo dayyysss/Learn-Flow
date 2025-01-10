@@ -3,42 +3,39 @@
 
 @section('content')
     <div
-        class="p-4 md:p-10 mb-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6">Create Question</h1>
+        class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
+        <h1 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark mb-6">Tambah Pertanyaan</h1>
 
-        <form action="{{ route('questions.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('questions.store', $quizzes->slug) }}" method="POST" class="space-y-6">
             @csrf
-
-            <!-- Quiz ID -->
-            <div>
-                <label for="quiz_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Quiz</label>
-                <select name="quiz_id" id="quiz_id" class="mt-1 block w-full p-2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Select a quiz</option>
-                    @foreach ($quizzes as $quiz)
-                        <option value="{{ $quiz->id }}">{{ $quiz->name }}</option>
-                    @endforeach
-                </select>
-            </div>
 
             <!-- Question -->
             <div>
-                <label for="question" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Question</label>
-                <textarea name="question" id="question" rows="4" class="mt-1 block w-full p-2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter the question"></textarea>
+                <label for="question"
+                    class="block text-sm font-medium text-blackColor dark:text-blackColor-dark">Pertanyaan</label>
+                <textarea name="question" id="question" rows="4"
+                    class="mt-1 block w-full p-2 border-gray-300 dark:border-gray-700 bg-transparent dark:bg-transparent-dark rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Enter the question"></textarea>
             </div>
 
             <!-- Score -->
             <div>
-                <label for="score" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Score</label>
-                <input type="number" name="score" id="score" class="mt-1 block w-full p-2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter the score" min="0">
+                <label for="score"
+                    class="block text-sm font-medium text-blackColor dark:text-blackColor-dark">Score</label>
+                <input type="number" name="score" id="score"
+                    class="mt-1 block w-full p-2 border-gray-300 dark:border-gray-700 bg-transparent dark:bg-transparent-dark rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Enter the score" min="0">
             </div>
 
             <!-- Submit Button -->
-            <div>
-                <button type="submit" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow-md hover:bg-blue-700 transition">
-                    Save Question
+            <div class="flex gap-2 pt-8">
+                <button type="submit"
+                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-darkGrey5 border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer">
+                    Buat Pertanyaan
                 </button>
-                <a href="{{ route('questions.index') }}" class="inline-block px-6 py-2 bg-gray-600 text-white font-medium text-sm rounded-lg shadow-md hover:bg-gray-700 transition">
-                    Cancel
+                <a href="{{ route('quiz.show', $quizzes->slug) }}"
+                    class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-secondaryColor bg-secondaryColor hover:bg-whiteColor dark:hover:bg-darkGrey5 border border-secondaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer">
+                    Batal
                 </a>
             </div>
         </form>
