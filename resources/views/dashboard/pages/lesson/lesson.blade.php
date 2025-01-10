@@ -47,14 +47,19 @@
                             @endif
 
                             @if($nextModul)
-                                <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}" id="nextModulLink" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
-                                    Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
-                                </a>
-                            @else
-                                <span class="text-gray-500 dark:text-gray-400 font-bold">
-                                    Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
-                                </span>
-                            @endif
+                        <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}" id="nextModulLink" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
+                            Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
+                        </a>
+                    @elseif($isLastModul)
+                    <a href="/certificate/{{ $course->id }}" id="nextModulLink" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
+                        Selesaikan Course <i class="icofont-check ml-2"></i>
+                    </a>
+                    @else
+                        <span class="text-gray-500 dark:text-gray-400 font-bold">
+                            Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
+                        </span>
+                    @endif
+
                         </div>
                     </div>
 
@@ -107,7 +112,7 @@
 </script>
 
 <script>
- document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
     const nextModulLink = document.querySelector('#nextModulLink');
     const contentContainer = document.getElementById('modul-content'); // Pastikan ID ini adalah elemen konten
 
@@ -137,6 +142,9 @@
         if (nextModulLink.classList.contains('disabled') && !isModulCompleted) {
             e.preventDefault(); // Blokir aksi default
             alert('Scroll ke bawah terlebih dahulu untuk melanjutkan modul!');
+        } else if (nextModulLink.href.includes('/certificate')) {
+            // Arahkan langsung ke halaman sertifikat jika modul terakhir
+            window.location.href = nextModulLink.href;
         } else {
             // Kirim request untuk memperbarui status modul
             fetch('/update-modul-status', {
@@ -163,6 +171,7 @@
         }
     });
 });
+
 
 
 

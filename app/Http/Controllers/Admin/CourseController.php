@@ -473,7 +473,7 @@ if ($modul_progress) {
 }
 
 
-    
+$isLastModul = !$nextModul; // True jika tidak ada modul berikutnya
         // Mengirim data ke view
         return view('dashboard.pages.lesson._modul_content', compact(
             'course', 
@@ -484,7 +484,8 @@ if ($modul_progress) {
             'assignment', // Menambahkan assignment ke dalam view
             'assignments',
             'modul_progress',
-            'status'
+            'status',
+            'isLastModul'
         ));
     }
 

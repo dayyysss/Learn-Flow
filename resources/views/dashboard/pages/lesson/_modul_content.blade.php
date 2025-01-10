@@ -64,8 +64,8 @@
                                 @csrf
                                 <input type="hidden" name="modul_id" value="{{ $modul->id }}">
 
-                                <div class="flex justify-end">
-                                    {{$assignment->nilai ?? 'belum dinilai'}}
+                                <div class="flex justify-end mb-2">
+                                   <div class="border border-blackColor px-2">{{$assignment->nilai ?? 'belum dinilai'}}</div>
                                 </div>
 
 
