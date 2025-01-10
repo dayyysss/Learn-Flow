@@ -39,10 +39,10 @@ use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
-use App\Http\Controllers\LFCMS\ContactController    ;
+use App\Http\Controllers\LFCMS\ContactController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\Admin\ModulController;
+use App\Http\Controllers\Admin\Quiz\QuestionController;
 // use App\Http\Controllers\LFCMS\ArticleController;
 // use App\Http\Controllers\LFCMS\HakAksesController;
 // use App\Http\Controllers\LFCMS\HakAksesFrontendController;
@@ -96,7 +96,6 @@ Route::controller(LandingPageController::class)->group(function () {
     });
 
     Route::get('/kontak', 'contact')->name('contact');
-    Route::post('/submit-contact-form', [ContactFormController::class, 'submitContactForm'])->name('submitContactForm');
     Route::get('/instruktur', 'instructor')->name('instructor');
     Route::get('/instruktur/{id}', [LandingPageController::class, 'showinstructor'])->name('showinstructor');
 });
@@ -110,11 +109,14 @@ Route::prefix('lfcms')
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
         Route::resource('/klien', ClientController::class);
+        Route::get('/klien/{id}/delete', [ClientController::class, 'destroy'])->name('klien.destroy');
         Route::resource('/halaman', PageController::class);
+        Route::get('/halaman/{id}/delete', [PageController::class, 'destroy'])->name('halaman.destroy');
         Route::resource('/testimonial', TestimonialController::class);
+        Route::get('/testimonial/{id}/delete', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
         Route::resource('/kontak', ContactController::class);
+        Route::get('/kontak/{id}/delete', [ContactController::class, 'destroy'])->name('kontak.destroy');
         Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
-        Route::delete('/kontak/{id}', [ContactController::class, 'destroy'])->name('kontak.destroy');
         Route::post('/kontak/{id}/reply', [ContactController::class, 'reply'])->name('kontak.reply');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
@@ -132,6 +134,7 @@ Route::prefix('lfcms')
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
+        Route::get('/artikel/{id}/delete', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaran.index');
@@ -177,6 +180,9 @@ Route::prefix('lfcms')
 
 });
 
+// Detail Course
+Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+
 // Dashboard
 Route::middleware(['auth'])
     ->group(function () {
@@ -203,7 +209,6 @@ Route::get('/certificate/print/{registrationId}', [CourseController::class, 'pri
 
 Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
-Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 // web.php
 Route::get('/course/{course:slug}/modul/{modul:slug}', [CourseController::class, 'showModul'])->name('modul.detail');
 Route::get('/courses/{course:slug}/moduls/{modul:slug}', [CourseController::class, 'showModulAdmin'])->name('modul.detail.admin');
@@ -240,8 +245,21 @@ Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.re
 Route::post('/clear-cart', [CartController::class, 'clearCart']);
 
 //quiz
-Route::resource('quiz', QuizController::class);
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
+Route::get('/quiz/{slug}', [QuizController::class, 'show'])->name('quiz.show');
+Route::get('/quiz/{slug}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
+Route::patch('/quiz/{slug}/update', [QuizController::class, 'update'])->name('quiz.update');
+Route::delete('/quiz/{slug}', [QuizController::class, 'destroy'])->name('quiz.destroy');
 Route::get('/get-babs/{courseId}', [QuizController::class, 'getBabsByCourse']);
+
+//question
+Route::get('/question/create', [QuestionController::class, 'create'])->name('questions.create');
+Route::post('/question/store', [QuestionController::class, 'store'])->name('questions.store');
+Route::get('/question/{slug}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
+Route::patch('/question/{slug}/update', [QuestionController::class, 'update'])->name('questions.update');
+Route::delete('/question/{slug}', [QuestionController::class, 'destroy'])->name('questions.destroy');
 
 //quiz result
 Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');
@@ -286,4 +304,4 @@ Route::put('/assignments/{id}/grade', [AssignmentController::class, 'grade'])->n
 
     });
 
-
+    Route::post('/kontak-masuk', [ContactController::class, 'store'])->name('contact.store');

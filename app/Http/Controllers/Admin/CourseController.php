@@ -293,78 +293,84 @@ class CourseController extends Controller
     }
 
     public function show($slug)
-    {
-        // Cari course berdasarkan slug dan lakukan eager loading pada relasi yang diperlukan
-        $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
-            ->where('slug', $slug)
-            ->firstOrFail();
+{
+    // Cari course berdasarkan slug dan lakukan eager loading pada relasi yang diperlukan
+    $course = Course::with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
+        ->where('slug', $slug)
+        ->firstOrFail();
 
-            $lastAccessedModul = null;
-            $nextProsesModul = null;
+    $lastAccessedModul = null;
+    $nextProsesModul = null;
 
-            if (auth()->check()) {
-                $user = auth()->user();
-                $courseRegistration = $course->courseRegistrations->firstWhere('user_id', $user->id);
+    if (auth()->check()) {
+        $user = auth()->user();
+        $courseRegistration = $course->courseRegistrations->firstWhere('user_id', $user->id);
 
-                if ($courseRegistration) {
-                    $lastAccessedModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
-                        ->where('status', 'selesai')
-                        ->orderBy('updated_at', 'desc')
-                        ->first();
+        if ($courseRegistration) {
+            $lastAccessedModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
+                ->where('status', 'selesai')
+                ->orderBy('updated_at', 'desc')
+                ->first();
 
-                    $nextProsesModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
-                        ->where('status', 'proses')
-                        ->orderBy('updated_at', 'desc')
-                        ->first();
-                }
-            }
-
-
-            $firstModul = $course->babs->flatMap(function ($bab) {
-                return $bab->moduls;
-            })->sortBy('id')->first();
-
-        // Ambil data feedback
-        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
-            ->groupBy('course_id')
-            ->get();
-
-        // Hitung feedback dan rating menggunakan service
-        $calculatedCourse = $this->courseFeedbackService->calculateFeedbacks(collect([$course]), $feedbacks)->first();
-
-        // Set hasil yang dihitung ke dalam objek course
-        $course->average_rating = $calculatedCourse->average_rating;
-        $course->total_feedbacks = $calculatedCourse->total_feedbacks;
-
-
-        $thumbnailUrl = $this->getVideoThumbnail($course->video);
-        $commonData = $this->loadCommonData();
-
-        // Perhitungan diskon
-        $hargaAsli = $course->harga;
-        $hargaDiskon = $course->harga_diskon;
-
-        // Hitung persentase diskon
-        if ($hargaAsli > 0 && $hargaDiskon >= 0) {
-            $persentaseDiskon = (($hargaDiskon / $hargaAsli)) * 100;
-        } else {
-            $persentaseDiskon = 0;
+            $nextProsesModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
+                ->where('status', 'proses')
+                ->orderBy('updated_at', 'desc')
+                ->first();
         }
-
-        $relatedCourses = Course::where('instruktur_id', $course->instruktur_id)
-            ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
-            ->where('id', '!=', $course->id) // Pastikan tidak termasuk course yang sedang dilihat
-            ->orderBy('created_at', 'desc')
-            ->take(5) // Misalnya tampilkan 5 course terkait
-            ->get();
-
-        // Kirimkan data course ke tampilan show bersama dengan data umum
-        return view('landing.pages.course.course-detail', array_merge(
-            ['course' => $course, 'thumbnailUrl' => $thumbnailUrl, 'persentaseDiskon' => $persentaseDiskon, 'relatedCourses' => $relatedCourses, 'courseRegistrations' => $course->courseRegistrations, 'firstModul'=>$firstModul, 'lastAccessedModul' => $lastAccessedModul,
-        'nextProsesModul' => $nextProsesModul],
-            $commonData
-        ));
     }
+
+    $firstModul = $course->babs->flatMap(function ($bab) {
+        return $bab->moduls;
+    })->sortBy('id')->first();
+
+    // Ambil data feedback
+    $feedbacks = Feedback::where('course_id', $course->id)->get();
+
+    // Hitung total feedback dan rata-rata rating
+    $total_feedbacks = $feedbacks->count();
+    $average_rating = $total_feedbacks > 0 ? $feedbacks->avg('rating') : 0;
+
+    // Set hasil yang dihitung ke dalam objek course
+    $course->average_rating = $average_rating;
+    $course->total_feedbacks = $total_feedbacks;
+
+    $thumbnailUrl = $this->getVideoThumbnail($course->video);
+    $commonData = $this->loadCommonData();
+
+    // Perhitungan diskon
+    $hargaAsli = $course->harga;
+    $hargaDiskon = $course->harga_diskon;
+
+    // Hitung persentase diskon
+    if ($hargaAsli > 0 && $hargaDiskon >= 0) {
+        $persentaseDiskon = (($hargaDiskon / $hargaAsli)) * 100;
+    } else {
+        $persentaseDiskon = 0;
+    }
+
+    $relatedCourses = Course::where('instruktur_id', $course->instruktur_id)
+        ->with(['users', 'categories', 'babs.moduls', 'instrukturs', 'certificate', 'babs.quiz', 'courseRegistrations'])
+        ->where('id', '!=', $course->id) // Pastikan tidak termasuk course yang sedang dilihat
+        ->orderBy('created_at', 'desc')
+        ->take(5) // Misalnya tampilkan 5 course terkait
+        ->get();
+
+    // Kirimkan data course ke tampilan show bersama dengan data umum
+    return view('landing.pages.course.course-detail', array_merge(
+        [
+            'course' => $course,
+            'thumbnailUrl' => $thumbnailUrl,
+            'persentaseDiskon' => $persentaseDiskon,
+            'relatedCourses' => $relatedCourses,
+            'courseRegistrations' => $course->courseRegistrations,
+            'firstModul' => $firstModul,
+            'lastAccessedModul' => $lastAccessedModul,
+            'nextProsesModul' => $nextProsesModul,
+            'feedbacks' => $feedbacks
+        ],
+        $commonData
+    ));
+}
 
     private function loadCommonData()
     {
@@ -390,27 +396,16 @@ class CourseController extends Controller
 
     public function showModul($courseSlug, $modulSlug)
     {
-        // Mengambil data course berdasarkan slug
         $course = Course::where('slug', $courseSlug)->firstOrFail();
-    
-        // Mengambil data modul berdasarkan slug
         $modul = Modul::with('bab.course')->where('slug', $modulSlug)->firstOrFail();
-    
-        // Mengambil data bab yang terkait dengan modul
         $bab = $course->babs()->with(['moduls', 'quiz'])->get();
-    
-        // Mendapatkan data kontak dan logo
         $contactData = $this->getContactsLogo();
-    
-        // Mendapatkan user yang sedang login
+
         $user = auth()->user();
-    
-        // Mencari apakah user sudah terdaftar di course ini
         $courseRegistration = CourseRegistration::where('user_id', $user->id)
-                                                 ->where('course_id', $course->id)
-                                                 ->first();
-    
-        // Jika sudah terdaftar, cari atau buat data progress modul
+            ->where('course_id', $course->id)
+            ->first();
+
         if ($courseRegistration) {
             $modulProgress = ModulProgress::firstOrCreate(
                 [
@@ -419,129 +414,98 @@ class CourseController extends Controller
                 ],
                 [
                     'status' => 'proses',
-                    'progress' => 0 // Nilai default untuk progress, bisa disesuaikan
+                    'progress' => 0 // Anda dapat mengatur nilai default untuk progress, misalnya 0
                 ]
             );
-            
+
             // Update status modul terakhir yang dilihat menjadi 'selesai'
             $lastModulProgress = ModulProgress::where('course_registrations_id', $courseRegistration->id)
                 ->where('modul_id', $modul->id)
                 ->first();
         }
-    
-        // Mengambil assignment berdasarkan modul dan user yang sedang login
-        $assignment = Assignment::where('modul_id', $modul->id)
-                                ->where('user_id', $user->id)
-                                ->first();
 
-    
         // Cari modul sebelumnya di bab yang sama
         $previousModul = Modul::where('bab_id', $modul->bab_id)
-                              ->where('id', '<', $modul->id)
-                              ->orderBy('id', 'desc')
-                              ->first();
-    
+            ->where('id', '<', $modul->id)
+            ->orderBy('id', 'desc')
+            ->first();
+
         // Jika modul sebelumnya tidak ditemukan, cari dari bab sebelumnya
         if (!$previousModul) {
             $previousBab = $course->babs()->where('id', '<', $modul->bab_id)
                 ->orderBy('id', 'desc')
                 ->first();
-    
+
             if ($previousBab) {
                 $previousModul = $previousBab->moduls()->orderBy('id', 'desc')->first();
             }
         }
-    
+
         // Cari modul berikutnya di bab yang sama
         $nextModul = Modul::where('bab_id', $modul->bab_id)
             ->where('id', '>', $modul->id)
             ->orderBy('id', 'asc')
             ->first();
-    
         // Jika modul berikutnya tidak ditemukan, cari dari bab berikutnya
         if (!$nextModul) {
             $nextBab = $course->babs()->where('id', '>', $modul->bab_id)
                 ->orderBy('id', 'asc')
                 ->first();
-    
             if ($nextBab) {
                 $nextModul = $nextBab->moduls()->orderBy('id', 'asc')->first();
             }
         }
 
-        $assignments = Assignment::where('modul_id', $modul->id)->get();
-
-        $modul_progress = ModulProgress::where('modul_id', $modul->id)->first(); // Menyesuaikan dengan modul_id yang relevan
-
-if ($modul_progress) {
-    $course_registration = $modul_progress->courseRegistration; // Ambil data CourseRegistration terkait
-    $status = $course_registration ? $course_registration->status : null; // Ambil status jika ada
-}
-
-
-    
-        // Mengirim data ke view
-        return view('dashboard.pages.lesson._modul_content', compact(
-            'course', 
-            'modul', 
-            'bab', 
-            'previousModul', 
-            'nextModul', 
-            'assignment', // Menambahkan assignment ke dalam view
-            'assignments',
-            'modul_progress',
-            'status'
-        ));
+        return view('dashboard.pages.lesson._modul_content', compact('course', 'modul', 'bab', 'previousModul', 'nextModul'));
     }
-    
 
-public function updateModulStatus(Request $request)
-{
-    $modulId = $request->input('modulId');
-    $user = auth()->user();
+    public function updateModulStatus(Request $request)
+    {
+        $modulId = $request->input('modulId');
+        $user = auth()->user();
 
-    $courseRegistration = CourseRegistration::where('user_id', $user->id)->first();
+        $courseRegistration = CourseRegistration::where('user_id', $user->id)->first();
 
-    if ($courseRegistration) {
-        // Cari progress modul berdasarkan modul ID dan course_registrations_id
-        $modulProgress = ModulProgress::where('modul_id', $modulId)
-            ->where('course_registrations_id', $courseRegistration->id)
+        if ($courseRegistration) {
+            // Cari progress modul berdasarkan modul ID dan course_registrations_id
+            $modulProgress = ModulProgress::where('modul_id', $modulId)
+                ->where('course_registrations_id', $courseRegistration->id)
+                ->first();
+
+            if ($modulProgress && $modulProgress->status === 'proses') {
+                // Perbarui status menjadi selesai
+                $modulProgress->update(['status' => 'selesai']);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+
+
+
+
+    public function showQuiz($courseSlug, $quizSlug)
+    {
+        $course = Course::where('slug', $courseSlug)->firstOrFail();
+        $modul = Quiz::with('bab.course')->where('slug', $quizSlug)->firstOrFail();
+        $bab = $course->babs()->with(['moduls', 'quiz'])->get();
+        $contactData = $this->getContactsLogo();
+
+        // Cari modul sebelumnya
+        $previousModul = Modul::where('bab_id', $modul->bab_id)
+            ->where('id', '<', $modul->id)
+            ->orderBy('id', 'desc')
             ->first();
 
-        if ($modulProgress && $modulProgress->status === 'proses') {
-            // Perbarui status menjadi selesai
-            $modulProgress->update(['status' => 'selesai']);
-        }
+        // Cari modul berikutnya
+        $nextModul = Modul::where('bab_id', $modul->bab_id)
+            ->where('id', '>', $modul->id)
+            ->orderBy('id', 'asc')
+            ->first();
+
+        return view('dashboard.pages.lesson._quiz_content', compact('course', 'modul', 'bab', 'previousModul', 'nextModul'));
     }
-
-    return response()->json(['success' => true]);
-}
-
-
-
-    
-
-public function showQuiz($courseSlug, $quizSlug)
-{
-    $course = Course::where('slug', $courseSlug)->firstOrFail();
-    $modul = Quiz::with('bab.course')->where('slug', $quizSlug)->firstOrFail();
-    $bab = $course->babs()->with(['moduls', 'quiz'])->get();
-    $contactData = $this->getContactsLogo();
-
-    // Cari modul sebelumnya
-    $previousModul = Modul::where('bab_id', $modul->bab_id)
-                          ->where('id', '<', $modul->id)
-                          ->orderBy('id', 'desc')
-                          ->first();
-
-    // Cari modul berikutnya
-    $nextModul = Modul::where('bab_id', $modul->bab_id)
-                     ->where('id', '>', $modul->id)
-                     ->orderBy('id', 'asc')
-                     ->first();
-
-    return view('dashboard.pages.lesson._quiz_content', compact('course', 'modul','bab','previousModul', 'nextModul'));
-}
 
 
     public function showBab($slug)

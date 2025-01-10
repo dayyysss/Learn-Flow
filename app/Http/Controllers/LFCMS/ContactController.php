@@ -4,11 +4,15 @@ namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator; // Tambahkan ini
+use Illuminate\Support\Facades\Validator; 
 use App\Models\Contact;
 use App\Mail\ContactFormSubmitted;
 use Illuminate\Support\Facades\Mail;
-// use Scyllaly\HCaptcha\Facades\HCaptcha;
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Rules\ReCaptcha;
 
 class ContactController extends Controller
 {
@@ -30,23 +34,23 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         // Validasi data dari form
-        $this->validate($request, [
+        $request->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|max:255',
             'topic'   => 'required|string|max:255',
             'phone'   => 'required|string|max:15',
             'message' => 'required|string',
-            // 'h-captcha-response' => ['hcaptcha'],
+            'g-recaptcha-response' => ['required', new ReCaptcha]
         ]);
     
         // Menyimpan data ke dalam tabel contacts
         $contact = Contact::create($request->all());
     
         // Mengirim email ke admin (atau siapapun penerima emailnya)
-        Mail::to('nyoba@example.com')->send(new ContactFormSubmitted($contact));
+        // Mail::to('nyoba@example.com')->send(new ContactFormSubmitted($contact));
     
 
-        return response()->json(['success' => true, 'message' => 'Pesan berhasil dikirim cuy']);
+        return response()->json(['success' => true, 'message' => 'Pesan berhasil dikirim!']);
     }    
 
     /**

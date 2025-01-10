@@ -96,45 +96,35 @@
                                 <div class="text-center">
                                     <h3
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
-                                        Masuk
+                                        Masuk Learn Flow
                                     </h3>
-                                    {{-- <p class="text-contentColor dark:text-contentColor-dark mb-15px">
-                                        Belum punya akun?
-                                        <a href="javascript:void(0);" onclick="showLoginForm()"
-                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Daftar
-                                            gratis
-                                        </a>
-                                    </p> --}}
                                 </div>
 
                                 <form class="pt-25px" action="{{ route('login') }}" method="POST" data-aos="fade-up">
                                     @csrf
-
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-
-
                                     <div class="mb-25px">
                                         <label
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Username
                                             atau email</label>
-                                        <input type="text" id="login" name="login" required
+                                        <input type="text" id="login" name="login"
                                             placeholder="Your username or email"
-                                            class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('login') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                            value="{{ old('login') }}" />
+                                        @error('login')
+                                            <span
+                                                class="error-message text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-25px">
                                         <label
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
                                         <input type="password" id="password" name="password" placeholder="Password"
-                                            class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                        @error('password')
+                                            <span
+                                                class="error-message text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div
@@ -184,18 +174,13 @@
                             <!-- sign up form-->
                             <div id="signup-form"
                                 class="hidden opacity-0 transition-opacity duration-150 ease-linear">
+
                                 <!-- heading   -->
                                 <div class="text-center">
                                     <h3
                                         class="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
                                         Daftar akun Learn Flow
                                     </h3>
-                                    {{-- <p class="text-contentColor dark:text-contentColor-dark mb-15px">
-                                        Sudah punya akun?
-                                        <a href="javascript:void(0);" onclick="showLoginForm()"
-                                            class="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full">Masuk
-                                            sekarang</a>
-                                    </p> --}}
                                 </div>
 
                                 @if (session('status'))
@@ -206,25 +191,42 @@
 
                                 <form class="pt-25px" action="{{ route('register') }}" method="POST"
                                     data-aos="fade-up">
-                                    @csrf <!-- Pastikan untuk menambahkan token CSRF -->
+                                    @csrf
+
+                                    {{-- @if ($errors->any())
+                                    <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                                        <ul class="list-disc list-inside">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                          @endif --}}
 
                                     <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Nama
-                                                Depan
-                                            </label>
+                                                Depan</label>
                                             <input type="text" name="first_name" placeholder="Nama Depan"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
-                                                required />
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('first_name') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                value="{{ old('first_name') }}" />
+                                            @error('first_name')
+                                                <span
+                                                    class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Nama
                                                 Belakang</label>
                                             <input type="text" name="last_name" placeholder="Nama Belakang"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
-                                                required />
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('last_name') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                value="{{ old('last_name') }}" />
+                                            @error('last_name')
+                                                <span
+                                                    class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -233,15 +235,23 @@
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Username</label>
                                             <input type="text" name="name" placeholder="Username"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
-                                                required />
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('name') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                value="{{ old('name') }}" />
+                                            @error('name')
+                                                <span
+                                                    class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Email</label>
-                                            <input type="email" name="email" placeholder="Alamat Email"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
-                                                required />
+                                            <input type="text" name="email" placeholder="Alamat Email"
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('email') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                                                value="{{ old('email') }}" />
+                                            @error('email')
+                                                <span
+                                                    class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -249,28 +259,38 @@
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
-                                            <input type="password" name="password"
+                                            <input type="password" name="password_regist"
                                                 placeholder="Password minimal 8 karakter"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
-                                                required />
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            @error('password')
+                                                <span
+                                                    class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div>
-                                            <label class="text-contentColor dark:text-contentColor-dark mb-10px block">
-                                                Konfirmasi Password</label>
+                                            <label
+                                                class="text-contentColor dark:text-contentColor-dark mb-10px block">Konfirmasi
+                                                Password</label>
                                             <input type="password" name="password_confirmation"
                                                 placeholder="Masukkan ulang password"
-                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
-                                                required />
+                                                class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password_confirmation') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
+                                            @error('password_confirmation')
+                                                <span
+                                                    class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="text-contentColor dark:text-contentColor-dark flex items-center">
                                         <input type="checkbox" id="accept-pp" name="terms"
-                                            class="w-18px h-18px mr-2 block box-content" required />
+                                            class="w-18px h-18px mr-2 block box-content @error('terms') border-red-500 @enderror" />
                                         <label for="accept-pp">Terima Persyaratan dan Kebijakan Privasi</label>
+                                        @error('terms')
+                                            <span
+                                                class="error-message text-red-500 text-sm ml-2">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
-                                    <!-- Input hidden untuk role 'student' -->
                                     <input type="hidden" name="roles[]" value="student">
 
                                     <div class="mt-25px text-center">
@@ -338,35 +358,35 @@
         });
     </script>
 
-<script>
-    function showLoginForm() {
-        // Sembunyikan form daftar dan tampilkan form login
-        document.getElementById('signup-form').classList.add('hidden');
-        document.getElementById('signup-form').classList.remove('block', 'opacity-100');
-        document.getElementById('login-form').classList.remove('hidden');
-        document.getElementById('login-form').classList.add('block', 'opacity-100');
+    <script>
+        function showLoginForm() {
+            // Sembunyikan form daftar dan tampilkan form login
+            document.getElementById('signup-form').classList.add('hidden');
+            document.getElementById('signup-form').classList.remove('block', 'opacity-100');
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('login-form').classList.add('block', 'opacity-100');
 
-        // Atur tab aktif (Masuk)
-        document.getElementById('tab-login').classList.add('bg-white', 'dark:bg-whiteColor-dark');
-        document.getElementById('tab-login').classList.remove('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
-        document.getElementById('tab-signup').classList.remove('bg-white', 'dark:bg-whiteColor-dark');
-        document.getElementById('tab-signup').classList.add('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
-    }
+            // Atur tab aktif (Masuk)
+            document.getElementById('tab-login').classList.add('bg-white', 'dark:bg-whiteColor-dark');
+            document.getElementById('tab-login').classList.remove('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
+            document.getElementById('tab-signup').classList.remove('bg-white', 'dark:bg-whiteColor-dark');
+            document.getElementById('tab-signup').classList.add('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
+        }
 
-    function showSignupForm() {
-        // Sembunyikan form login dan tampilkan form daftar
-        document.getElementById('login-form').classList.add('hidden');
-        document.getElementById('login-form').classList.remove('block', 'opacity-100');
-        document.getElementById('signup-form').classList.remove('hidden');
-        document.getElementById('signup-form').classList.add('block', 'opacity-100');
+        function showSignupForm() {
+            // Sembunyikan form login dan tampilkan form daftar
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('block', 'opacity-100');
+            document.getElementById('signup-form').classList.remove('hidden');
+            document.getElementById('signup-form').classList.add('block', 'opacity-100');
 
-        // Atur tab aktif (Daftar)
-        document.getElementById('tab-signup').classList.add('bg-white', 'dark:bg-whiteColor-dark');
-        document.getElementById('tab-signup').classList.remove('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
-        document.getElementById('tab-login').classList.remove('bg-white', 'dark:bg-whiteColor-dark');
-        document.getElementById('tab-login').classList.add('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
-    }
-</script>
+            // Atur tab aktif (Daftar)
+            document.getElementById('tab-signup').classList.add('bg-white', 'dark:bg-whiteColor-dark');
+            document.getElementById('tab-signup').classList.remove('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
+            document.getElementById('tab-login').classList.remove('bg-white', 'dark:bg-whiteColor-dark');
+            document.getElementById('tab-login').classList.add('bg-lightGrey7', 'dark:bg-lightGrey7-dark');
+        }
+    </script>
 
 
 

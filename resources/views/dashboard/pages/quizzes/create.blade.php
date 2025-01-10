@@ -29,7 +29,7 @@
 
             <div>
                 <label for="course_id" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
-                    Course
+                    Kursus
                 </label>
                 <select id="course_id" name="course_id"
                     class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
@@ -48,7 +48,7 @@
                 <select id="bab_id" name="bab_id"
                     class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
                     disabled required>
-                    <option value="" disabled selected>Pilih Bab terlebih dahulu</option>
+                    <option value="" disabled selected>Pilih Kursus terlebih dahulu</option>
                 </select>
             </div>
 

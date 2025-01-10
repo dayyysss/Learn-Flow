@@ -9391,3 +9391,7 @@ video {
 .items-end {
     align-items: flex-end;
 }
+
+.error-message {
+    color: red;
+}
