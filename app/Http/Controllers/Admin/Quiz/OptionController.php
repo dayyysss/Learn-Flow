@@ -5,22 +5,20 @@ namespace App\Http\Controllers\Admin\Quiz;
 use App\Http\Controllers\Controller;
 use App\Models\Option;
 use App\Models\Question;
+use App\Models\Quiz;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class OptionController extends Controller
 {
-    public function index()
+    public function create($slug)
     {
-        $options = Option::with('question')->get();
-        return view('options.index', compact('options'));
-    }
+        // Cari quiz berdasarkan slug
+        $quiz = Quiz::with('questions')->where('slug', $slug)->firstOrFail();
 
-    public function create(int $questionId): View
-    {
-        $question = Question::findOrFail($questionId);
-        return view('options.create', compact('question'));
+        // Return view dengan quiz terkait
+        return view('dashboard.pages.quizzes.option.create', compact('quiz'));
     }
 
     public function store(Request $request, int $questionId): RedirectResponse

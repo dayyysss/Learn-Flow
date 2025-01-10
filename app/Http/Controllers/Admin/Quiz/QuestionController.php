@@ -12,34 +12,41 @@ use Illuminate\View\View;
 class QuestionController extends Controller
 {
 
-    public function create(int $quizId): View
+    public function create($slug)
     {
-        $quiz = Quiz::findOrFail($quizId);
-        return view('dashboard.pages.quizzes.question.create', compact('quiz'));
+        $quizzes = Quiz::with('questions')->where('slug', $slug)->firstOrFail(); // Pastikan relasi ada dan benar
+        return view('dashboard.pages.quizzes.question.create', compact('quizzes'));
     }
 
-    public function store(Request $request, int $quizId): RedirectResponse
+    public function store(Request $request, string $slug)
     {
+        // Validasi input pertanyaan dan skor
         $request->validate([
             'question' => 'required|string|max:255',
             'score' => 'required|integer',
         ]);
 
-        $quiz = Quiz::findOrFail($quizId);
+        // Cari quiz berdasarkan slug
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
+
+        // Tambahkan pertanyaan ke quiz
         $quiz->questions()->create($request->only(['question', 'score']));
 
-        return redirect()->route('quiz.show', $quizId)->with('success', 'Question added successfully.');
+        return redirect()->route('quiz.show', $quiz->slug)->with('success', 'Question added successfully.');
     }
 
-    public function edit(int $id): View
+    public function edit(string $slug, int $id)
     {
-        $question = Question::findOrFail($id);
-        return view('questions.edit', compact('question'));
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
+        $question = $quiz->questions()->findOrFail($id);
+
+        return view('questions.edit', compact('question', 'quiz'));
     }
 
-    public function update(Request $request, int $id): RedirectResponse
+    public function update(Request $request, string $slug, int $id)
     {
-        $question = Question::findOrFail($id);
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
+        $question = $quiz->questions()->findOrFail($id);
 
         $request->validate([
             'question' => 'required|string|max:255',
@@ -48,13 +55,16 @@ class QuestionController extends Controller
 
         $question->update($request->only(['question', 'score']));
 
-        return redirect()->route('quiz.show', $question->quiz_id)->with('success', 'Question updated successfully.');
+        return redirect()->route('quiz.show', $quiz->slug)->with('success', 'Question updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy(string $slug, int $id)
     {
-        $question = Question::findOrFail($id);
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
+        $question = $quiz->questions()->findOrFail($id);
+
         $question->delete();
-        return redirect()->route('questions.index')->with('success', 'Question deleted successfully.');
+
+        return redirect()->route('quiz.show', $quiz->slug)->with('success', 'Question deleted successfully.');
     }
 }

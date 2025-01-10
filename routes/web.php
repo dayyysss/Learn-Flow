@@ -41,6 +41,7 @@ use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use App\Http\Controllers\LFCMS\ContactController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\Admin\Quiz\OptionController;
 use App\Http\Controllers\Admin\Quiz\QuestionController;
 // use App\Http\Controllers\LFCMS\ArticleController;
 // use App\Http\Controllers\LFCMS\HakAksesController;
@@ -242,16 +243,23 @@ Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create
 Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
 Route::get('/quiz/{slug}', [QuizController::class, 'show'])->name('quiz.show');
 Route::get('/quiz/{slug}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
-Route::patch('/quiz/{slug}/update', [QuizController::class, 'update'])->name('quiz.update');
+Route::patch('/quiz/update/{slug}', [QuizController::class, 'update'])->name('quiz.update');
 Route::delete('/quiz/{slug}', [QuizController::class, 'destroy'])->name('quiz.destroy');
 Route::get('/get-babs/{courseId}', [QuizController::class, 'getBabsByCourse']);
 
 //question
-Route::get('/question/create', [QuestionController::class, 'create'])->name('questions.create');
-Route::post('/question/store', [QuestionController::class, 'store'])->name('questions.store');
-Route::get('/question/{slug}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
-Route::patch('/question/{slug}/update', [QuestionController::class, 'update'])->name('questions.update');
-Route::delete('/question/{slug}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+Route::get('/quiz/question/create/{slug}', [QuestionController::class, 'create'])->name('questions.create');
+Route::post('/quiz/question/store/{slug}', [QuestionController::class, 'store'])->name('questions.store');
+Route::get('/quiz/question/edit/{slug}', [QuestionController::class, 'edit'])->name('questions.edit');
+Route::patch('/quiz/question/update/{slug}', [QuestionController::class, 'update'])->name('questions.update');
+Route::delete('/quiz/question/{slug}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+
+//option
+Route::get('/quiz/question/option/create/{slug}', [OptionController::class, 'create'])->name('options.create');
+Route::post('/quiz/question/option/store/{slug}', [OptionController::class, 'store'])->name('options.store');
+Route::get('/quiz/question/option/edit/{slug}', [OptionController::class, 'edit'])->name('options.edit');
+Route::patch('/quiz/question/option/update/{slug}', [OptionController::class, 'update'])->name('options.update');
+Route::delete('/quiz/question/option/{slug}', [OptionController::class, 'destroy'])->name('options.destroy');
 
 //quiz result
 Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');
