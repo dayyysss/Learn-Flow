@@ -136,6 +136,7 @@ Route::prefix('lfcms')
         Route::get('/artikel/{id}/delete', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
+        Route::get('/kategori-artikel/{id}/delete', [KategoriArtikelController::class, 'destroy'])->name('kategori-artikel.destroy');
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaran.index');
         Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('riwayat-pembayaran.index');
 

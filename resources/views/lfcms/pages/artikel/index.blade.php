@@ -81,12 +81,6 @@
                                                     onclick="event.preventDefault(); deleteRecord('{{ route('artikel.destroy', $item->id) }}');">
                                                     <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <form id="delete-form-{{ $item->id }}"
-                                                        action="{{ route('artikel.destroy', $item->id) }}" method="POST"
-                                                        style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
                                                     <div class="relative ml-5">
                                                         <button data-popover-target="td-3-0" data-popover-trigger="click"
                                                             data-popover-placement="bottom-end"

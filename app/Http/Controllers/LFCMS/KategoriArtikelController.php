@@ -80,9 +80,11 @@ class KategoriArtikelController extends Controller
         
     }
 
-    public function destroy(CategoryArtikel $kategori_artikel)
+    public function destroy($id)
     {
+        $kategori_artikel = CategoryArtikel::findOrFail($id);
         $kategori_artikel->delete();
-        return response()->json(['message' => 'Artikel berhasil dihapus']);
+
+        return redirect()->route('kategori-artikel.index')->with('success', 'Artikel berhasil dihapus.');
     }
 }
