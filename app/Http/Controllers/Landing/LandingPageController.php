@@ -288,7 +288,7 @@ class LandingPageController extends Controller
             $menuArray[] = [
                 'id' => $menu->id,
                 'content' => $menu->name,
-                'link' => $menu->url,
+                'link' => url($menu->url),
                 'icon' => $menu->ikon,
                 'hasChildren' => count($children) > 0,
                 'children' => $children,
