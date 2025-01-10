@@ -16,6 +16,8 @@
             Mulai Quiz
         </button>
     </div>
-
 </div>
+<script>
+    
+</script>
 @endsection

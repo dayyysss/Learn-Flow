@@ -6,8 +6,8 @@
         <div class="col-span-full">
             <div class="card p-0">
                 <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
-                    <h3 class="text-lg card-title leading-none">Data Administrator</h3>
-                    @include('lfcms.components.breadcrumb.custom', ['title' => 'Administrator'])
+                    <h3 class="text-lg card-title leading-none">Data Pengguna</h3>
+                    @include('lfcms.components.breadcrumb.custom', ['title' => 'Pengguna'])
                 </div>
                 <div class="p-6">
                     <div class="flex-center-between">
@@ -37,7 +37,8 @@
                                     <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">No</th>
                                     <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Nama</th>
                                     <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Email</th>
-                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Email diverifikasi pada</th>
+                                    <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Level</th>
+                                    {{-- <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Email diverifikasi pada</th> --}}
                                     <th class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two">Aksi</th>
                                 </tr>
                             </thead>
@@ -47,7 +48,8 @@
                                         <td class="p-6 py-4">{{ $index + 1 }}</td>
                                         <td class="p-6 py-4">{{ $user->first_name . ' ' . $user->last_name }}</td>
                                         <td class="p-6 py-4">{{ $user->email }}</td>
-                                        <td class="p-6 py-4">{{ $user->email_verified_at ?? '-' }}</td>
+                                        <td class="p-6 py-4">{{ $user->role->name }}</td>
+                                        {{-- <td class="p-6 py-4">{{ $user->email_verified_at ?? '-' }}</td> --}}
                                         <td class="p-6 py-4">
                                             <div class="flex items-center gap-2">
                                                 <a href="#" class="btn-icon btn-primary-icon-light size-7">

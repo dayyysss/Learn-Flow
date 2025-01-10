@@ -13,6 +13,8 @@ class CategoryCourseController extends Controller
     public function index(Request $request)
     {
         $query = CategoryCourse::query();
+        $categories = $query->paginate(10);
+        $categoryNames = CategoryCourse::pluck('name')->unique();
 
         if ($request->has('category') && $request->category != 'All') {
             $query->where('name', $request->category);
@@ -41,9 +43,6 @@ class CategoryCourseController extends Controller
             }
         }
 
-        $categories = $query->paginate(10);
-
-        $categoryNames = CategoryCourse::pluck('name')->unique();
 
         return view('dashboard.pages.kategori-kursus.index', compact('categories', 'categoryNames'));
     }

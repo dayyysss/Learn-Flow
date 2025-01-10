@@ -84,14 +84,13 @@
                             <th class="px-5px py-10px md:px-5">No</th>
                             <th class="px-5px py-10px md:px-5">Name</th>
                             <th class="px-5px py-10px md:px-5">Status</th>
-                            <th class="px-5px py-10px md:px-5">Tanggal Dibuat</th>
                             <th class="px-5px py-10px md:px-5 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal">
                         @foreach ($categories as $index => $category)
                             <tr class="leading-1.8 md:leading-1.8">
-                                <td class="px-5px py-10px md:px-5">  {{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->index + 1 }}</td>
+                                <td class="px-5px py-10px md:px-5">{{ $index + 1 }}</td>
                                 <td class="px-5px py-10px md:px-5">{{ $category->name }}</td>
                                 <td class="px-5px py-10px md:px-5">
                                     <p class="text-xs">
@@ -103,7 +102,6 @@
                                         </span>
                                     </p>
                                 </td>
-                                <td>{{ $category->created_at->format('d M Y H:i') }}</td>
                                 <td class="px-5px py-10px md:px-5">
                                     <div class="dashboard__button__group">
                                         <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px edit-category"
@@ -149,7 +147,6 @@
                 </table>
             </div>
         </div>
-        {{ $categories->links('dashboard.components.pagination.custom') }}
     </div>
 
     @include('dashboard.pages.kategori-kursus.edit')
