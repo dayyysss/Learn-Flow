@@ -73,6 +73,10 @@ class FeedbackController extends Controller
             $feedback->komentar = $request->input('komentar');
             $feedback->instructor_rating = $request->input('instructor_rating');
             $feedback->instructor_komentar = $request->input('instructor_komentar');
+            
+            $now = now()->setTimezone('Asia/Jakarta');
+            $feedback->created_at = $now;
+            $feedback->updated_at = $now;
 
             $course = Course::find($request->input('course_id'));
 
