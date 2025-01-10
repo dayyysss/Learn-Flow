@@ -183,8 +183,5 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function modulPembelajaran()
-    {
-        return view('dashboard.pages.modul.create');
-    }
+    
 }

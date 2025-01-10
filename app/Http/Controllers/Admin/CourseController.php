@@ -24,6 +24,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 use App\Models\LFCMS\Administrator;
 use App\Http\Controllers\Controller;
+use App\Models\Assignment;
 use App\Models\ModulProgress;
 use App\Models\WebsiteConfiguration;
 use Illuminate\Support\Facades\Storage;
@@ -103,11 +104,11 @@ class CourseController extends Controller
             // Validasi untuk banyak file TTD
             'certificate_ttd.*' => 'nullable|file|mimes:jpg,png|max:1024',
             // Validasi untuk Bab dan Modul
-            'bab.*.name' => 'nullable|string',
-            'bab.*.moduls.*.name' => 'nullable|string',
-            'bab.*.moduls.*.materi' => 'nullable|string',
-            'bab.*.moduls.*.video' => 'nullable',
-            'bab.*.moduls.*.file' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
+            // 'bab.*.name' => 'nullable|string',
+            // 'bab.*.moduls.*.name' => 'nullable|string',
+            // 'bab.*.moduls.*.materi' => 'nullable|string',
+            // 'bab.*.moduls.*.video' => 'nullable',
+            // 'bab.*.moduls.*.file' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -169,8 +170,7 @@ class CourseController extends Controller
         // Create certificate
         $this->createCertificate($course->id, $request);
 
-        // Create Bab and Moduls
-        $this->createBabAndModules($course->id, $request->bab);
+       
 
         return response()->json([
             'status' => 'success',
@@ -446,13 +446,11 @@ class CourseController extends Controller
             ->where('id', '>', $modul->id)
             ->orderBy('id', 'asc')
             ->first();
-
         // Jika modul berikutnya tidak ditemukan, cari dari bab berikutnya
         if (!$nextModul) {
             $nextBab = $course->babs()->where('id', '>', $modul->bab_id)
                 ->orderBy('id', 'asc')
                 ->first();
-
             if ($nextBab) {
                 $nextModul = $nextBab->moduls()->orderBy('id', 'asc')->first();
             }
@@ -631,5 +629,102 @@ class CourseController extends Controller
             // 'logoBright' => $logoBright,
         ];
     }
+
+    public function showModulAdmin($courseSlug, $modulSlug)
+{
+    // Mengambil data course berdasarkan slug
+    $course = Course::where('slug', $courseSlug)->firstOrFail();
+
+    // Mengambil data modul berdasarkan slug
+    $modul = Modul::with('bab.course')->where('slug', $modulSlug)->firstOrFail();
+
+    // Mengambil data bab yang terkait dengan modul
+    $bab = $course->babs()->with(['moduls', 'quiz'])->get();
+
+    // Mendapatkan data kontak dan logo
+    $contactData = $this->getContactsLogo();
+
+    // Mendapatkan user yang sedang login
+    $user = auth()->user();
+
+    // Mencari apakah user sudah terdaftar di course ini
+    $courseRegistration = CourseRegistration::where('user_id', $user->id)
+                                             ->where('course_id', $course->id)
+                                             ->first();
+
+    // Jika sudah terdaftar, cari atau buat data progress modul
+    $modulProgress = null;
+    $lastModulProgress = null;
+    if ($courseRegistration) {
+        $modulProgress = ModulProgress::firstOrCreate(
+            [
+                'course_registrations_id' => $courseRegistration->id,
+                'modul_id' => $modul->id
+            ],
+            [
+                'status' => 'proses',
+                'progress' => 0 // Nilai default untuk progress
+            ]
+        );
+
+        // Update status modul terakhir yang dilihat menjadi 'selesai'
+        $lastModulProgress = ModulProgress::where('course_registrations_id', $courseRegistration->id)
+            ->where('modul_id', $modul->id)
+            ->first();
+    }
+
+    // Mengambil assignment berdasarkan modul dan user yang sedang login
+    $assignment = Assignment::where('modul_id', $modul->id)
+                            ->where('user_id', $user->id)
+                            ->first();
+
+    // Cari modul sebelumnya di bab yang sama
+    $previousModul = Modul::where('bab_id', $modul->bab_id)
+                          ->where('id', '<', $modul->id)
+                          ->orderBy('id', 'desc')
+                          ->first();
+
+    // Jika modul sebelumnya tidak ditemukan, cari dari bab sebelumnya
+    if (!$previousModul) {
+        $previousBab = $course->babs()->where('id', '<', $modul->bab_id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($previousBab) {
+            $previousModul = $previousBab->moduls()->orderBy('id', 'desc')->first();
+        }
+    }
+
+    // Cari modul berikutnya di bab yang sama
+    $nextModul = Modul::where('bab_id', $modul->bab_id)
+        ->where('id', '>', $modul->id)
+        ->orderBy('id', 'asc')
+        ->first();
+
+    // Jika modul berikutnya tidak ditemukan, cari dari bab berikutnya
+    if (!$nextModul) {
+        $nextBab = $course->babs()->where('id', '>', $modul->bab_id)
+            ->orderBy('id', 'asc')
+            ->first();
+
+        if ($nextBab) {
+            $nextModul = $nextBab->moduls()->orderBy('id', 'asc')->first();
+        }
+    }
+
+    // Mengambil semua assignments untuk modul ini
+    $assignments = Assignment::with('user')->where('modul_id', $modul->id)->get();
+
+    // Mengirim data ke view
+    return view('dashboard.pages.lesson-admin._modul_content', compact(
+        'course', 
+        'modul', 
+        'bab', 
+        'previousModul', 
+        'nextModul', 
+        'assignment', // Menambahkan assignment spesifik user
+        'assignments' // Semua assignments untuk modul ini
+    ));
+}
 
 }

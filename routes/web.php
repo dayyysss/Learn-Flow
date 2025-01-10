@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AssignmentController;
+use App\Http\Controllers\Admin\BabController;
 use App\Models\Course;
 use App\Models\ModulProgress;
 use App\Models\CategoryCourse;
@@ -211,6 +212,7 @@ Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->n
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
 // web.php
 Route::get('/course/{course:slug}/modul/{modul:slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::get('/courses/{course:slug}/moduls/{modul:slug}', [CourseController::class, 'showModulAdmin'])->name('modul.detail.admin');
 Route::post('/update-modul-status', [CourseController::class, 'updateModulStatus']);
 
 Route::get('/getcart', [CartController::class, 'getCartData']);
@@ -287,6 +289,20 @@ Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'upd
 Route::get('/modultes', [DashboardController::class, 'modulPembelajaran'])->name('dashboard.modulPembelajaran');
 
 Route::resource('/assignment', AssignmentController::class);
+
+Route::post('/assignment/cancel/{id}', [AssignmentController::class, 'cancel'])->name('assignment.cancel');
+Route::get('/assignments/{modulId}', [AssignmentController::class, 'index'])->name('assignments.index');
+
+Route::resource('/babs', BabController::class);
+Route::resource('/moduls', ModulController::class);
+
+Route::get('/courses/{slug}/details', [BabController::class, 'showDetail'])->name('courses.details');
+
+Route::put('/assignments/{id}/grade', [AssignmentController::class, 'grade'])->name('assignments.grade');
+
+
+
+
     });
 
     Route::post('/kontak-masuk', [ContactController::class, 'store'])->name('contact.store');

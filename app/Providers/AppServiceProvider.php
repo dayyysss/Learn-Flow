@@ -9,6 +9,7 @@ use App\Models\Certificate;
 use App\Models\LFCMS\MenuList;
 
 use App\Models\Artikel;
+use App\Models\Assignment;
 use App\Models\CategoryArtikel;
 use App\Models\CategoryCourse;
 use App\Models\WebsiteConfiguration;
@@ -127,6 +128,20 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
         });
+
+        // View::composer(['dashboard.pages.lesson._modul_content'], function ($view) {
+        //     // Mendapatkan modul_id dari parameter URL
+        //     $modulId = request()->route('modulId');
+
+        //     // Ambil data assignment berdasarkan modul_id dan user_id yang sedang login
+        //     $assignment = Assignment::where('modul_id', $modulId)
+        //         ->where('user_id', auth()->id())
+        //         ->with('files') // Pastikan ada relasi dengan files
+        //         ->first();
+
+        //     // Bagikan data assignment ke view
+        //     $view->with('assignment', $assignment);
+        // });
         
 
         View::composer('lfcms.partials.sidebar', function ($view) {
@@ -151,6 +166,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with(array_merge($commonData, $contactsLogo));
         });
     }
+
+    
 
     private function loadCommonData()
     {
@@ -209,4 +226,6 @@ class AppServiceProvider extends ServiceProvider
             'configuration' => $configuration,
         ];
     }
+
+    
 }  
