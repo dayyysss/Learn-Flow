@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Admin\ModulController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
 use App\Http\Controllers\LFCMS\ContactController;
