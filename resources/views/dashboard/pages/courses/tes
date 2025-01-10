@@ -1,0 +1,69 @@
+<li class="accordion mb-5">
+                        <div class="bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark">
+                            <div class="py-5 px-30px">
+                                <div class="cursor-pointer accordion-controller flex justify-between items-center text-lg text-headingColor font-semibold w-full dark:text-headingColor-dark font-hind leading-27px">
+                                    <div>
+                                        <span>Modul Pembelajaran</span>
+                                    </div>
+                                    <svg class="transition-all duration-500 rotate-0" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#212529">
+                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            {{-- Dynamic Bab and Modul Section --}}
+                            <div class="accordion-content transition-all duration-500 overflow-hidden h-0">
+                                <div class="content-wrapper py-4 px-5">
+                                    <div class="bab-form p-10px md:p-10 lg:p-5 2xl:p-10 bg-darkdeep3 dark:bg-transparent text-sm text-blackColor dark:text-blackColor-dark leading-1.8" data-aos="fade-up" id="video-form">
+                                        <div class="bab-section">
+                                            <button type="button" class="btn bg-blue px-5 py-1 btn-primary add-bab-btn">Add Bab</button>
+                                            <div class="bab-item rounded bg-whiteColor">
+                                                <div class="bab-header bg-whiteColor rounded flex justify-between items-center cursor-pointer">
+                                                    <h3 class="bab-title">Bab 1</h3>
+                                                    <span class="toggle-icon">▼</span> <!-- Ikon panah -->
+                                                </div>
+                                                <div class="bab-content hidden">
+
+                                                    <div class="mb-15px" >
+                                                        <label class="mb-3 block font-semibold">Judul Bab</label>
+                                                        <input type="text" name="bab[0][name]" placeholder="Bab Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
+                                                    </div>
+
+                                                    <div class="modul-section">
+                                                        <div class="modul-item border p-5 mb-3">
+                                                            <div class="mb-15px">
+                                                                <label class="mb-3 block font-semibold">Judul Modul</label>
+                                                                <input type="text"  name="bab[0][moduls][0][name]" placeholder="Modul Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
+                                                            </div>
+
+                                                            <div class="grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px">
+                                                                <div>
+                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Video Pembelajaran</label>
+                                                                    <input type="file" name="bab[0][moduls][0][video]" accept="video/*" class="form-control mb-1 mt-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
+                                                            
+                                                                </div>
+
+                                                                <div>
+                                                                    <label class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File Materi Pembelajaran</label>
+                                                                <input type="file" name="bab[0][moduls][0][file]" accept="image/*,application/pdf" class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" >
+                                                                </div>
+                                                            </div>
+
+                                                            <div>
+                                                                <label class="mb-3 block font-semibold">Materi</label>
+                                                                <textarea name="bab[0][moduls][0][materi]" placeholder="Materi" id="materi" class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" cols="30" rows="10" ></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-secondary add-modul-btn mt-2">Add Modul</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                        </div>
+                    </li>

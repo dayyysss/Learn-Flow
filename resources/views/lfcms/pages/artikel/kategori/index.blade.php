@@ -75,10 +75,10 @@
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
                                                     <!-- Tombol Hapus -->
-                                                    <button class="btn-icon btn-danger-icon-light size-7 delete-category"
-                                                        data-id="{{ $item->id }}">
-                                                        <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                    </button>
+                                                    <a href="{{ route('kategori-artikel.destroy', $item->id) }}" class="btn-icon btn-danger-icon-light size-7"
+                                                    onclick="event.preventDefault(); deleteRecord('{{ route('kategori-artikel.destroy', $item->id) }}');">
+                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                    </a>
                                                     <div class="relative ml-5">
                                                         <button data-popover-target="td-3-0" data-popover-trigger="click"
                                                             data-popover-placement="bottom-end"
@@ -183,35 +183,35 @@
                 console.log(`Edit kategori dengan ID: ${id}`);
                 openEditModal(id); // Fungsi untuk membuka modal edit
             }
-
-            // Tangani klik tombol Hapus
-            if (e.target.closest('.delete-category')) {
-                const categoryId = e.target.closest('.delete-category').getAttribute('data-id');
-                if (categoryId) {
-                    // Kirim request untuk menghapus kategori
-                    fetch(`/lfcms/kategori-artikel/${categoryId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Token CSRF
-                                'Content-Type': 'application/json'
-                            }
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Gagal menghapus kategori');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            alert('Kategori berhasil dihapus');
-                            document.querySelector(`#category-row-${categoryId}`).remove();
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Terjadi kesalahan saat menghapus kategori.');
-                        });
-                }
-            }
         });
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function deleteRecord(url) {
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: 'Anda tidak akan dapat mengembalikannya!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '3085d6',
+            confirmButtonText: 'Ya, Hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Dihapus!',
+                    text: 'Data berhasil dihapus.',
+                    icon: 'success',
+                    showConfirmButton: true
+                }).then((result) => {
+                    //jika tombol ok di klik, kembali ke halaman sebelumnya
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                        window.location.href = url;
+                    }
+                });
+            }
+        });
+    }
+</script>
 @endsection

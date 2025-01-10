@@ -12,9 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->text('link', 'content')->nullable()->change();
-            $table->json('file','task')->nullable()->change();
+            // Merename kolom 'link' menjadi 'content'
+            $table->renameColumn('link', 'content');
+            
+            // Merename kolom 'file' menjadi 'task'
+            $table->renameColumn('file', 'task');
         });
+        
     }
 
     /**
