@@ -67,10 +67,10 @@
 </section>
 
 <style>
-    /* .content {
-        overflow: auto; /* Mengaktifkan scroll untuk konten */
-        max-height: 30vh; /* Menentukan tinggi maksimal untuk kontainer */
-    } */
+    .show-modul {
+        height: calc(100vh - 90px); /* Sesuaikan dengan tinggi header dan navigasi */
+        overflow-y: auto;
+    }
 
     .modul-navigation {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
