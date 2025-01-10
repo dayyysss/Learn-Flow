@@ -144,29 +144,10 @@
                         <div
                           class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
                         >
-                          <div>
-                            <a
-                              href="instructor-details.html"
-                              class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                              ><img
-                              class="w-[30px] h-[30px] rounded-full mr-15px"
-                              src="{{ $item->instrukturs->image ? Storage::url($item->instrukturs->image) : asset('assets/images/grid/grid_small_2.jpg') }}"
-                              alt="{{ $item->instrukturs->name }}"
-                          >
-                          {{$item->instrukturs->name}}
-                            </a>
-                          </div>
-                          <div class="text-start md:text-end">
-                              <div>
-                                  <!-- Menampilkan bintang berdasarkan rata-rata rating -->
-                                  @for ($i = 1; $i <= 5; $i++)
-                                      <i class="icofont-star text-size-15 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
-                                  @endfor
-                              </div>
-                              <span class="text-xs text-lightGrey6">
-                                  ({{ $item->total_feedbacks }} reviews)
-                              </span>
-                          </div>                
+                          <p>
+                            <a href="{{route('courses.details', $item->slug)}}">Lihat Detail >></a>
+                          </p>
+                                        
                         </div>
                       </div>
                     </div>
@@ -691,40 +672,8 @@
                       <div
                         class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor"
                       >
-                        <div>
-                          <a
-                            href="instructor-details.html"
-                            class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                            ><img
-                            class="w-[30px] h-[30px] rounded-full mr-15px"
-                            src="{{ $item_draft->instrukturs->image ? Storage::url($item->instrukturs->image) : asset('assets/images/grid/grid_small_2.jpg') }}"
-                            alt="{{ $item_draft->instrukturs->name }}"
-                        >
-                        {{$item_draft->instrukturs->name}}
-                          </a>
-                        </div>
-                        <div class="text-start md:text-end">
-                          <div>
-                          <i
-                            class="icofont-star text-size-10 text-yellow"
-                          ></i>
-                          <i
-                            class="icofont-star text-size-10 text-yellow"
-                          ></i>
-                          <i
-                            class="icofont-star text-size-10 text-yellow"
-                          ></i>
-                          <i
-                            class="icofont-star text-size-10 text-yellow"
-                          ></i>
-                          <i
-                            class="icofont-star text-size-10 text-yellow"
-                          ></i>
-                          </div>
-                          <span class="text-xs text-lightGrey6"
-                            >(44)</span
-                          >
-                        </div>
+                        
+                       
                       </div>
                     </div>
                   </div>

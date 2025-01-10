@@ -47,12 +47,6 @@
                                             Topik</th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
-                                            Telepon</th>
-                                        <th
-                                            class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
-                                            Pesan</th>
-                                        <th
-                                            class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                             Aksi</th>
                                     </tr>
                                 </thead>
@@ -73,8 +67,6 @@
                                             </td>
                                             <td class="p-6 py-4">{{ $contact->email }}</td>
                                             <td class="p-6 py-4">{{ $contact->topic }}</td>
-                                            <td class="p-6 py-4">{{ $contact->phone }}</td>
-                                            <td class="p-6 py-4">{{ $contact->message }}</td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
                                                     <a href="{{ route('kontak.show', $contact->id) }}"
@@ -85,15 +77,10 @@
                                                         class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <form action="{{ route('kontak.destroy', $contact->id) }}" method="POST" class="inline-block">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                                class="btn-icon btn-danger-icon-light size-7"
-                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus kontak ini?')">
-                                                            <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                        </button>
-                                                    </form>
+                                                    <a href="{{ route('kontak.destroy', $contact->id) }}" class="btn-icon btn-danger-icon-light size-7"
+                                                    onclick="event.preventDefault(); deleteRecord('{{ route('kontak.destroy', $contact->id) }}');">
+                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -149,4 +136,33 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function deleteRecord(url) {
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: 'Anda tidak akan dapat mengembalikannya!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '3085d6',
+            confirmButtonText: 'Ya, Hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Dihapus!',
+                    text: 'Data berhasil dihapus.',
+                    icon: 'success',
+                    showConfirmButton: true
+                }).then((result) => {
+                    //jika tombol ok di klik, kembali ke halaman sebelumnya
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                        window.location.href = url;
+                    }
+                });
+            }
+        });
+    }
+</script>
 @endsection

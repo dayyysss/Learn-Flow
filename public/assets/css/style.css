@@ -17,6 +17,7 @@
     --borderColor: #eeeeee;
     --lightGrey4: #a2a9b6;
     --borderColor2: #dddddd;
+    background-color: #007bff79;
 }
 
 .dark {
@@ -9389,4 +9390,8 @@ video {
 
 .items-end {
     align-items: flex-end;
+}
+
+.error-message {
+    color: red;
 }

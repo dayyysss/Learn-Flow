@@ -44,68 +44,109 @@
     
     <!-- Assignment Submission -->
     @if ($modul->task == 1) <!-- Periksa apakah task bernilai 1 -->
-    <div class="task rounded-md h-auto bg-white p-30px">
-   <div class="">
-       <div>
-           <h4
-               class="text-2xl sm:text-size-28 leading-1.2 text-blackColor dark:text-blackColor-dark"
-           >
-               Submission
-           </h4>
-           <hr class="border-borderColor2 dark:opacity-30 my-4">
-           <form>
+    <div class="task rounded-md h-auto bg-white p-5">
+        <div class="p-4">
+            <h4 class="text-2xl sm:text-3xl leading-1.2 text-black dark:text-black">
+                Submission
+            </h4>
+            <hr class="border-borderColor2 dark:opacity-30 my-4">
+            
+            <form action="{{ route('assignment.store') }}" id="assignmentForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="modul_id" value="{{ $modul->id }}">
+            
+                <!-- File Upload Section -->
+                @if($assignment) 
+                            <!-- Jika sudah mengumpulkan tugas -->
+                            <form action="" id="" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="modul_id" value="{{ $modul->id }}">
 
-            <div class="relative inline-block text-left w-full mb-4">
-                <!-- Tombol -->
-                <button
-                    type="button"
-                    id="dropdownButton"
-                    class="w-full border py-1 px-4 text-s bg-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                    
-                >
-                <label
-                        class="block text-darkBlue hover:bg-gray-100 hover:text-blue-500 cursor-pointer"
-                    >
-                    Tambah atau Buat
-                        <input
-                            type="file"
-                            class="hidden"
-                            id="fileInput"
-                        />
-                    </label>
-                  
-                </button>
+                                @if($assignment->task)
+                                    @php
+                                        // Mendekode data JSON yang disimpan di kolom 'task'
+                                        $tasks = json_decode($assignment->task, true)['tasks'] ?? [];
+                                    @endphp
+                                    @if(count($tasks) > 0)
+                                        <ul>
+                                            @foreach($tasks as $task)
+                                            <li class="flex gap-4 border rounded-md mb-2 p-2 items-center">
+                                                <!-- Jika file adalah gambar, tampilkan gambar -->
+                                                @if(strpos(mime_content_type(storage_path('app/public/' . $task['file'])), 'image') === 0)
+                                                    <img src="{{ asset('storage/' . $task['file']) }}" alt="{{ basename($task['file']) }}" class="w-15 h-auto rounded-l-lg">
+                                                @endif
+                                            
+                                                <!-- Menampilkan nama file dengan pengaturan overflow -->
+                                                <p class="truncate w-full">{{ basename($task['file']) }}</p>
+                                            </li>
+                                            
+                                            @endforeach
+                                        </ul>
+                                        
+                                    @endif
+                                @endif
+                                <div id="filePreview" class="mt-2">
+                                    <!-- File yang diunggah akan ditampilkan di sini -->
+                                </div>
+
+                            <div class="mb-4">
+                                <div class="relative inline-block text-left w-full mb-4">
+                                    <button type="button" id="dropdownButton" class="w-full border py-2 px-4 text-white bg-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                        <label class="block text-darkBlue cursor-pointer">
+                                            Tambah atau Buat
+                                            <input type="file" class="hidden" id="fileInput" name="files[]" multiple />
+                                        </label>
+                                    </button>
+                                </div>
+
+                                
+                                <div class="mb-4">
+                                    <label class="text-darkBlue dark:text-darkBlue-dark mb-2 block" for="content">Assignment Content</label>
+                                    <textarea id="content" name="content" class="w-full px-3 py-1 bg-transparent text-darkBlue border border-borderColor6 placeholder:opacity-80 focus:outline-none focus:shadow-select rounded-md">{{$assignment->content}}</textarea>
+                                </div>
+
+                                
+                            </div>
+                            <!-- Button Batalkan Pengiriman -->
+                            <input type="hidden" name="assignment_id" value="{{ $assignment->id }}"> <!-- Input untuk assignment_id -->
+                            <div>
+                                <button id="cancelButton" type="submit" class="text-size-15 text-white bg-red-500 w-full px-6 py-2 border border-primaryColor hover:text-primaryColor hover:bg-white inline-block rounded group dark:hover:text-white dark:hover:bg-white-dark">Batalkan Pengiriman</button>
+                            </div>
+                            </form>
+                        @else
 
 
-            <div class="mb-4">
-                <label
-                    class="text-darkBlue dark:text-darkBlue-dark mb-2 block"
-                    for="content"
-                >Assignment Content</label>
-                <textarea
-                    id="content"
-                    class="w-full px-3 py-1 bg-transparent focus:outline-none text-darkBlue bg-whiteColor border border-borderColor6 placeholder:opacity-80 focus:shadow-select rounded-md"
-                    
-                ></textarea>
-            </div>
-        
-            <div>
-                <button
-                    type="submit"
-                    class="text-size-15 text-whiteColor bg-primaryColor w-full px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
-                >
-                    Submit Assignment
-                </button>
-            </div>
-        </form>
-        
-       
-        
-       </div>
-   </div>
+                    <!-- Jika belum mengumpulkan tugas -->
+                    <div class="relative inline-block text-left w-full mb-4">
+                        <button type="button" id="dropdownButton" class="w-full border py-2 px-4 text-white bg-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            <label class="block text-darkBlue cursor-pointer">
+                                Tambah atau Buat
+                                <input type="file" class="hidden" id="fileInput" name="files[]" multiple />
+                            </label>
+                        </button>
+                    </div>
+                    <div id="filePreview" class="mt-2">
+                        <!-- File yang diunggah akan ditampilkan di sini -->
+                    </div>
+                    <div class="mb-4">
+                        <label class="text-darkBlue dark:text-darkBlue-dark mb-2 block" for="content">Assignment Content</label>
+                        <textarea id="content" name="content" class="w-full px-3 py-1 bg-transparent text-darkBlue border border-borderColor6 placeholder:opacity-80 focus:outline-none focus:shadow-select rounded-md"></textarea>
+                    </div>
+                    <!-- Submit Button -->
+                    <div>
+                        <button id="submitButton" type="submit" class="text-size-15 text-white bg-primaryColor w-full px-6 py-2 border border-primaryColor hover:text-primaryColor hover:bg-white inline-block rounded group dark:hover:text-white dark:hover:bg-white-dark">
+                            Kirim Tugas
+                        </button>
+                    </div>
+                @endif
+            </form>
+            
+        </div>
+    </div>
+@endif
+
 </div>
-   @endif
-</div>
+
 </div>
 
 <!-- JavaScript untuk AJAX Modul dan Navigasi -->
@@ -239,6 +280,151 @@
 
 
 
+<script>
+    // Menangani File Upload dan Menampilkan Nama File dan Gambar
+    // Menangani File Upload dan Menampilkan Nama File dan Gambar
+// Menangani File Upload dan Menampilkan Nama File dan Gambar
+function displayFileNameAndImage(event) {
+    const fileInput = event.target;
+    const filePreview = document.getElementById('filePreview');
+    const file = fileInput.files[0]; // Ambil file pertama yang dipilih
+
+    if (file) {
+        const fileURL = URL.createObjectURL(file);
+        
+        const fileElement = document.createElement('div');
+        fileElement.classList.add('flex', 'gap-4', 'border', 'rounded', 'mb-2', 'p-2');
+        
+        // Jika file adalah gambar, tampilkan gambar
+        if (file.type.startsWith('image/')) {
+            const imgElement = document.createElement('img');
+            imgElement.src = fileURL;
+            imgElement.alt = file.name;
+            imgElement.classList.add('w-15', 'h-auto');
+            fileElement.appendChild(imgElement);
+        }
+        
+        // Menampilkan nama file
+        const fileName = document.createElement('p');
+        fileName.textContent = file.name;
+        fileElement.appendChild(fileName);
+        
+        // Menambahkan elemen file ke dalam preview
+        filePreview.appendChild(fileElement);
+    }
+}
+
+// Event listener untuk fileInput
+document.getElementById('fileInput').addEventListener('change', displayFileNameAndImage);
+
+
+</script>
+<script>
+    // Menambahkan event listener untuk form submit
+    document.getElementById('assignmentForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const submitButton = document.getElementById('submitButton');
+
+        fetch('{{ route("assignment.store") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.message === 'Tugas berhasil dikirim!') {
+                alert(data.message);
+
+                // Ubah teks dan kelas tombol untuk batalkan pengiriman
+                submitButton.textContent = 'Batalkan Pengiriman';
+                submitButton.classList.replace('bg-primaryColor', 'bg-red-500');
+                submitButton.setAttribute('id', 'cancelButton');
+
+                // Menambahkan event listener untuk membatalkan pengiriman
+                submitButton.removeEventListener('click', submitAssignment);
+                submitButton.addEventListener('click', cancelSubmission);
+            } else {
+                alert(data.message || 'Terjadi kesalahan.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat mengirim tugas.');
+        });
+    });
+
+    // Fungsi untuk membatalkan pengiriman tugas
+    function cancelSubmission(e) {
+    e.preventDefault();
+
+    const modulIdInput = document.querySelector('input[name="modul_id"]');
+    const assignmentIdInput = document.querySelector('input[name="assignment_id"]');
+
+    console.log(modulIdInput, assignmentIdInput); // Cek apakah elemen ditemukan
+
+    if (!modulIdInput || !assignmentIdInput) {
+        console.error('Elemen input tidak ditemukan');
+        alert('Terjadi kesalahan saat membatalkan pengiriman tugas.');
+        return;
+    }
+
+    const modulId = modulIdInput.value;
+    const assignmentId = assignmentIdInput.value;
+
+    fetch(`{{ url('/assignment/cancel') }}/${assignmentId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        },
+        body: JSON.stringify({ modul_id: modulId }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.message === 'Pengiriman tugas berhasil dibatalkan.') {
+            alert(data.message);
+
+            const cancelButton = document.getElementById('cancelButton');
+            cancelButton.textContent = 'Kirim Tugas';
+            cancelButton.classList.replace('bg-red-500', 'bg-primaryColor');
+            cancelButton.setAttribute('id', 'submitButton');
+
+            cancelButton.removeEventListener('click', cancelSubmission);
+            cancelButton.addEventListener('click', submitAssignment);
+        } else {
+            alert(data.message || 'Terjadi kesalahan saat membatalkan.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat membatalkan tugas.');
+    });
+}
+
+// Pastikan hanya pasang event listener jika tombol "Batalkan Pengiriman" ada
+document.addEventListener('DOMContentLoaded', function() {
+    const cancelButton = document.getElementById('cancelButton');
+    if (cancelButton) {
+        cancelButton.addEventListener('click', cancelSubmission);
+    }
+});
+
+
+
+    // Fungsi untuk mengirim tugas
+    function submitAssignment(e) {
+        e.preventDefault();
+        document.getElementById('assignmentForm').submit();
+    }
+</script>
+
+    
+
 
 <style>
 
@@ -257,36 +443,10 @@
     height: auto !important;
 }
 
-    /* CSS untuk modal */
-    #modal {
-    display: none;  /* Sembunyikan modal awalnya */
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Latar belakang gelap */
-    z-index: 99999999 !important; /* Prioritas lebih tinggi */
-}
-
-#modal.show {
-    display: flex;  /* Tampilkan modal dengan flex saat class 'show' ditambahkan */
-}
-
-    #modal .modal-content {
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 20px;
-        max-width: 300px;
-        width: 100%;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        animation: 0.3s ease-in-out;
-    }
-
-    .file-name{
-        box-sizing: border-box;
+    .truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 </style>

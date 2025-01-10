@@ -13,7 +13,7 @@
                     <div class="bg-whiteColor border-borderColor dark:bg-whiteColor-dark dark:border-borderColor-dark">
                         <div>
                             <button class="accordion-controller flex justify-between items-center text-md text-headingColor font-bold w-full px-5 py-18px dark:text-headingColor-dark font-hind leading-[20px]">
-                                <span>{{ $bab->name }}</span>
+                                <span>{{ $bab->name }} </span>
                                 <svg class="transition-all duration-500 rotate-0" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#212529">
                                     <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
                                 </svg>
@@ -26,14 +26,7 @@
                                         <li class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
                                             <div class="flex items-center">
                                                 <!-- Lingkaran Progres -->
-                                                <div class="progress-circle">
-                                                    <div class="progress-bar"></div>
-                                                    <div class="check-icon hidden">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                                            <path d="M12 4l-6 6-3-3"></path>
-                                                        </svg>
-                                                    </div>
-                                                </div>
+                                                
                                                 <h4 class="text-blackColor dark:text-blackColor-dark leading-1 font-light">
                                                     <i class="icofont-video-alt mr-10px"></i>
                                                     <a href="#" data-id="{{ $modul->id }}" data-slug="{{ $modul->slug }}" class="modul-link font-medium text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
@@ -68,53 +61,6 @@
 
 <!-- CSS -->
 <style>
-    /* Lingkaran progres */
-.progress-circle {
-    position: relative;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid #ccc; /* Warna border lingkaran */
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-/* Lingkaran progress bar */
-.progress-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: conic-gradient(#4caf50 0%, #4caf50 0%, #ccc 0%); /* Warna progres */
-    transform: rotate(-90deg); /* Agar progres dimulai dari atas */
-}
-
-/* Ceklis di tengah lingkaran */
-.check-icon {
-    position: absolute;
-    display: none;
-    font-size: 12px;
-    color: #fff;
-}
-
-.check-icon svg {
-    width: 14px;
-    height: 14px;
-}
-
-/* Untuk mengubah warna progress jika selesai */
-.completed .progress-bar {
-    background: conic-gradient(#4caf50 0%, #4caf50 100%, #ccc 100%);
-}
-
-.completed .check-icon {
-    display: block;
-}
 
 
     .sidebar-modul {
@@ -181,6 +127,28 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('.modul-link, .quiz-link');
+
+        // Event Listener untuk Klik Modul atau Quiz
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const slug = this.getAttribute('data-slug');
+                const isQuiz = this.classList.contains('quiz-link');
+
+                // Tentukan URL pengalihan berdasarkan jenis item
+                const baseUrl = `/courses/{{ $course->slug }}`;
+                const redirectUrl = isQuiz ? `${baseUrl}/quiz/${slug}` : `${baseUrl}/moduls/${slug}`;
+                
+                // Arahkan ke URL tujuan
+                window.location.href = redirectUrl;
+            });
+        });
+    });
+</script>
+
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
     const sidebarModul = document.getElementById('sidebarModul'); // Kontainer sidebar modul
     const progressCircles = document.querySelectorAll('.progress-circle'); // Semua lingkaran progres
 
@@ -211,4 +179,4 @@
     });
 });
 
-</script>
+</script> --}}

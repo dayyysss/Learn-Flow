@@ -77,21 +77,10 @@
                                                         class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <a href="{{ route('artikel.destroy', $item->id) }}"
-                                                        onclick="event.preventDefault(); 
-                                                                     if (confirm('Apakah Anda yakin ingin menghapus artikel ini?')) { 
-                                                                         document.getElementById('delete-form-{{ $item->id }}').submit(); 
-                                                                     }"
-                                                        class="btn-icon btn-danger-icon-light size-7">
-                                                        <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                    <a href="{{ route('artikel.destroy', $item->id) }}" class="btn-icon btn-danger-icon-light size-7"
+                                                    onclick="event.preventDefault(); deleteRecord('{{ route('artikel.destroy', $item->id) }}');">
+                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                     </a>
-
-                                                    <form id="delete-form-{{ $item->id }}"
-                                                        action="{{ route('artikel.destroy', $item->id) }}" method="POST"
-                                                        style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
                                                     <div class="relative ml-5">
                                                         <button data-popover-target="td-3-0" data-popover-trigger="click"
                                                             data-popover-placement="bottom-end"
@@ -120,6 +109,34 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function deleteRecord(url) {
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: 'Anda tidak akan dapat mengembalikannya!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '3085d6',
+            confirmButtonText: 'Ya, Hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Dihapus!',
+                    text: 'Data berhasil dihapus.',
+                    icon: 'success',
+                    showConfirmButton: true
+                }).then((result) => {
+                    //jika tombol ok di klik, kembali ke halaman sebelumnya
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                        window.location.href = url;
+                    }
+                });
+            }
+        });
+    }
+</script>
     <script>
         document.getElementById("searchInput").addEventListener("keyup", function() {
             const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil

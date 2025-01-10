@@ -74,13 +74,14 @@
                                     <div class="flex items-center">
                                         <!-- Menampilkan bintang berdasarkan rata-rata rating -->
                                         @for ($i = 1; $i <= 5; $i++)
-                                            <i class="icofont-star text-size-15 {{ $i <= min($course->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
+                                            <i
+                                                class="icofont-star text-size-15 {{ $i <= min($course->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
                                         @endfor
                                     </div>
                                     <span class="text-xs text-lightGrey6">
                                         ({{ $course->total_feedbacks }} reviews)
                                     </span>
-                                </div>                                
+                                </div>
                             </div>
                             <p class="text-sm md:text-lg text-contentColor dark:contentColor-dark mb-25px !leading-30px"
                                 data-aos="fade-up">
@@ -284,12 +285,13 @@
                                                                                     <i class="icofont-clock-time"></i> 22
                                                                                     minutes
                                                                                 </p>
-                                                                                <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $modul->slug]) }}" class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
+                                                                                <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $modul->slug]) }}"
+                                                                                    class="bg-primaryColor text-whiteColor text-sm ml-5 rounded py-0.5">
                                                                                     <p class="px-10px">
                                                                                         <i class="icofont-eye"></i> Preview
                                                                                     </p>
                                                                                 </a>
-                                                                                
+
                                                                             </div>
                                                                         </li>
                                                                     @endforeach
@@ -371,96 +373,50 @@
                                                 class="lg:col-start-1 lg:col-span-4 px-10px py-30px bg-whiteColor dark:bg-whiteColor-dark shadow-review text-center">
                                                 <p
                                                     class="text-7xl font-extrabold text-blackColor dark:text-blackColor-dark leading-90px">
-                                                    5.0
+                                                    {{ number_format($course->average_rating, 1) }}
                                                 </p>
                                                 <div class="text-secondaryColor">
-                                                    <i class="icofont-star"></i>
-                                                    <i class="icofont-star"></i>
-                                                    <i class="icofont-star"></i>
-                                                    <i class="icofont-star"></i>
-                                                    <i class="icofont-star"></i>
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        <i
+                                                            class="icofont-star {{ $i < $course->average_rating ? 'text-secondaryColor' : '' }}"></i>
+                                                    @endfor
                                                 </div>
                                                 <p
                                                     class="text-blackColor dark:text-blackColor-dark leading-26px font-medium">
-                                                    (17 Reviews)
+                                                    ({{ $course->total_feedbacks }} Reviews)
                                                 </p>
                                             </div>
                                             <!-- progress bar -->
                                             <div class="lg:col-start-5 lg:col-span-8 px-15px">
                                                 <ul class="flex flex-col gap-y-3">
-                                                    <li
-                                                        class="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                        <div>
-                                                            <span>5</span>
-                                                            <span><i class="icofont-star text-secondaryColor"></i></span>
-                                                        </div>
-                                                        <div class="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                            <span
-                                                                class="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block"></span>
-                                                            <span
-                                                                class="absolute left-0 top-0 h-10px w-full bg-secondaryColor rounded-full"></span>
-                                                        </div>
-                                                        <div><span>10</span></div>
-                                                    </li>
-                                                    <li
-                                                        class="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                        <div>
-                                                            <span>4</span>
-                                                            <span><i class="icofont-star text-secondaryColor"></i></span>
-                                                        </div>
-                                                        <div class="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                            <span
-                                                                class="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block"></span>
-                                                            <span
-                                                                class="absolute left-0 top-0 h-10px w-4/5 bg-secondaryColor rounded-full"></span>
-                                                        </div>
-                                                        <div><span>5</span></div>
-                                                    </li>
-                                                    <li
-                                                        class="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                        <div>
-                                                            <span>3</span>
-                                                            <span><i class="icofont-star text-secondaryColor"></i></span>
-                                                        </div>
-                                                        <div class="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                            <span
-                                                                class="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block"></span>
-                                                            <span
-                                                                class="absolute left-0 top-0 h-10px w-60% bg-secondaryColor rounded-full"></span>
-                                                        </div>
-                                                        <div><span>3</span></div>
-                                                    </li>
-                                                    <li
-                                                        class="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                        <div>
-                                                            <span>2</span>
-                                                            <span><i class="icofont-star text-secondaryColor"></i></span>
-                                                        </div>
-                                                        <div class="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                            <span
-                                                                class="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block"></span>
-                                                            <span
-                                                                class="absolute left-0 top-0 h-10px w-30% bg-secondaryColor rounded-full"></span>
-                                                        </div>
-                                                        <div><span>2</span></div>
-                                                    </li>
-                                                    <li
-                                                        class="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                        <div>
-                                                            <span>1</span>
-                                                            <span><i class="icofont-star text-secondaryColor"></i></span>
-                                                        </div>
-                                                        <div class="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                            <span
-                                                                class="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block"></span>
-                                                            <span
-                                                                class="absolute left-0 top-0 h-10px w-10% bg-secondaryColor rounded-full"></span>
-                                                        </div>
-                                                        <div><span>1</span></div>
-                                                    </li>
+                                                    @foreach ([5, 4, 3, 2, 1] as $rating)
+                                                        @php
+                                                            $count = $feedbacks->where('rating', $rating)->count();
+                                                            $percentage =
+                                                                $course->total_feedbacks > 0
+                                                                    ? ($count / $course->total_feedbacks) * 100
+                                                                    : 0;
+                                                        @endphp
+                                                        <li
+                                                            class="flex items-center text-blackColor dark:text-blackColor-dark">
+                                                            <div>
+                                                                <span>{{ $rating }}</span>
+                                                                <span><i
+                                                                        class="icofont-star text-secondaryColor"></i></span>
+                                                            </div>
+                                                            <div class="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
+                                                                <span
+                                                                    class="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block"></span>
+                                                                <span class="absolute left-0 top-0 h-10px"
+                                                                    style="width: {{ $percentage }}%; background-color: #f2277e;"></span>
+                                                            </div>
+                                                            <div><span>{{ $count }}</span></div>
+                                                        </li>
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                         </div>
+
                                         <!-- client reviews -->
                                         <div class="mt-60px mb-10">
                                             <h4
@@ -468,126 +424,45 @@
                                                 Customer Reviews
                                             </h4>
                                             <ul>
-                                                <li
-                                                    class="flex gap-30px pt-35px border-t border-borderColor2 dark:border-borderColor2-dark">
-                                                    <div class="flex-shrink-0">
-                                                        <div>
-                                                            <img src="{{ asset('assets/images/teacher/teacher__2.png') }}"
-                                                                alt="" class="w-25 h-25 rounded-full">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow">
-                                                        <div class="flex justify-between">
+                                                @foreach ($feedbacks as $feedback)
+                                                    <li
+                                                        class="flex gap-30px pt-35px border-t border-borderColor2 dark:border-borderColor2-dark">
+                                                        <div class="flex-shrink-0">
                                                             <div>
-                                                                <h4>
-                                                                    <a href="#"
-                                                                        class="text-lg font-semibold text-blackColor hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-condaryColor leading-1.2">
-                                                                        Adam Smit</a>
-                                                                </h4>
-                                                                <div class="text-secondaryColor leading-1.8">
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
+                                                                <img src="{{ Auth::user()->image ?? asset('assets/images/avatar/default-avatar.png') }}"
+                                                                    alt="" class="w-25 h-25 rounded-full">
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow">
+                                                            <div class="flex justify-between">
+                                                                <div>
+                                                                    <h4>
+                                                                        <a href="#"
+                                                                            class="text-lg font-semibold text-blackColor hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-condaryColor leading-1.2">
+                                                                            {{ $feedback->user->name }}
+                                                                        </a>
+                                                                    </h4>
+                                                                    <div class="leading-1.8">
+                                                                        @for ($i = 0; $i < 5; $i++)
+                                                                            <i
+                                                                                class="icofont-star {{ $i < $feedback->rating ? 'text-secondaryColor' : '' }}"></i>
+                                                                        @endfor
+                                                                    </div>
+                                                                </div>
+                                                                <div class="author__icon">
+                                                                    <p
+                                                                        class="text-sm font-bold text-blackColor dark:text-blackColor-dark leading-9 px-25px mb-5px border-2 border-borderColor2 dark:border-borderColo2-dark hover:border-secondaryColor dark:hover:border-secondaryColor rounded-full transition-all duration-300">
+                                                                        {{ $feedback->created_at->format('F j, Y') }}
+                                                                    </p>
                                                                 </div>
                                                             </div>
-                                                            <div class="author__icon">
-                                                                <p
-                                                                    class="text-sm font-bold text-blackColor dark:text-blackColor-dark leading-9 px-25px mb-5px border-2 border-borderColor2 dark:border-borderColo2-dark hover:border-secondaryColor dark:hover:border-secondaryColor rounded-full transition-all duration-300">
-                                                                    September 2, 2024
-                                                                </p>
-                                                            </div>
+                                                            <p
+                                                                class="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
+                                                                {{ $feedback->komentar }}
+                                                            </p>
                                                         </div>
-
-                                                        <p
-                                                            class="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                            Lorem ipsum dolor sit amet, consectetur
-                                                            adipisicing elit. Doloribus, omnis fugit
-                                                            corporis iste magnam ratione.
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li
-                                                    class="flex gap-30px pt-35px border-t border-borderColor2 dark:border-borderColor2-dark">
-                                                    <div class="flex-shrink-0">
-                                                        <div>
-                                                            <img src="{{ asset('assets/images/teacher/teacher__1.png') }}"
-                                                                alt="" class="w-25 h-25 rounded-full">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow">
-                                                        <div class="flex justify-between">
-                                                            <div>
-                                                                <h4>
-                                                                    <a href="#"
-                                                                        class="text-lg font-semibold text-blackColor hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-condaryColor leading-1.2">
-                                                                        Adam Smit</a>
-                                                                </h4>
-                                                                <div class="text-secondaryColor leading-1.8">
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="author__icon">
-                                                                <p
-                                                                    class="text-sm font-bold text-blackColor dark:text-blackColor-dark leading-9 px-25px mb-5px border-2 border-borderColor2 dark:border-borderColo2-dark hover:border-secondaryColor dark:hover:border-secondaryColor rounded-full transition-all duration-300">
-                                                                    September 2, 2024
-                                                                </p>
-                                                            </div>
-                                                        </div>
-
-                                                        <p
-                                                            class="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                            Lorem ipsum dolor sit amet, consectetur
-                                                            adipisicing elit. Doloribus, omnis fugit
-                                                            corporis iste magnam ratione.
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li
-                                                    class="flex gap-30px pt-35px border-t border-borderColor2 dark:border-borderColor2-dark">
-                                                    <div class="flex-shrink-0">
-                                                        <div>
-                                                            <img src="v{{ asset('assets/images/teacher/teacher__3.png') }}"
-                                                                alt="" class="w-25 h-25 rounded-full">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow">
-                                                        <div class="flex justify-between">
-                                                            <div>
-                                                                <h4>
-                                                                    <a href="#"
-                                                                        class="text-lg font-semibold text-blackColor hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-condaryColor leading-1.2">
-                                                                        Adam Smit</a>
-                                                                </h4>
-                                                                <div class="text-secondaryColor leading-1.8">
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                    <i class="icofont-star"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="author__icon">
-                                                                <p
-                                                                    class="text-sm font-bold text-blackColor dark:text-blackColor-dark leading-9 px-25px mb-5px border-2 border-borderColor2 dark:border-borderColo2-dark hover:border-secondaryColor dark:hover:border-secondaryColor rounded-full transition-all duration-300">
-                                                                    September 2, 2024
-                                                                </p>
-                                                            </div>
-                                                        </div>
-
-                                                        <p
-                                                            class="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                            Lorem ipsum dolor sit amet, consectetur
-                                                            adipisicing elit. Doloribus, omnis fugit
-                                                            corporis iste magnam ratione.
-                                                        </p>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                @endforeach
                                             </ul>
                                         </div>
 
@@ -611,27 +486,30 @@
                                                     <i class="icofont-star hover:text-primaryColor"></i>
                                                 </div>
                                             </div>
-                                            <form class="pt-5" data-aos="fade-up">
-                                                <textarea placeholder="Type you comments...."
+                                            <form class="pt-5" data-aos="fade-up" method="POST"
+                                                action="{{ route('reviews.store') }}">
+                                                @csrf
+                                                <textarea name="comment" placeholder="Type your comments...."
                                                     class="w-full p-5 mb-8 bg-transparent text-sm text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder k"
                                                     cols="30" rows="6"></textarea>
                                                 <div class="grid grid-cols-1 mb-10 gap-10">
-                                                    <input type="text" placeholder="Type your name...."
+                                                    <input type="text" name="name" placeholder="Type your name...."
                                                         class="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-                                                    <input type="email" placeholder="Type your email...."
+                                                    <input type="email" name="email"
+                                                        placeholder="Type your email...."
                                                         class="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
                                                 </div>
-
                                                 <div class="grid grid-cols-1 mb-10 gap-10">
-                                                    <input type="text" placeholder="Type your website...."
+                                                    <input type="text" name="website"
+                                                        placeholder="Type your website...."
                                                         class="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark placeholder:text-placeholder border border-transparent dark:border-borderColor2-dark placeholder:opacity-80 h-15 leading-15 font-medium rounded">
                                                 </div>
-
                                                 <div>
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" name="save_info">
                                                     <span class="text-size-15 text-darkBlue dark:text-darkBlue-dark">
-                                                        Save my name, email, and website in this browser
-                                                        for the next time I comment.</span>
+                                                        Save my name, email, and website in this browser for the next time I
+                                                        comment.
+                                                    </span>
                                                 </div>
                                                 <div class="mt-30px">
                                                     <button type="submit"
@@ -807,7 +685,8 @@
                                     <h4 class="text-3xl font-bold text-blackColor dark:text-blackColor-dark leading-1.2">
                                         instructor More Courses
                                     </h4>
-                                    <a href="{{ url('/course') }}" class="text-contentColor dark:text-contentColor-dark">Kursus Lainnya...</a>
+                                    <a href="{{ url('/course') }}"
+                                        class="text-contentColor dark:text-contentColor-dark">Kursus Lainnya...</a>
                                 </div>
                                 <div data-aos="fade-up" class="sm:-mx-15px">
                                     <!-- Swiper -->
@@ -1066,21 +945,21 @@
                                 @else
                                     <!-- Tombol Mulai Belajar jika pengguna sudah terdaftar -->
                                     @if ($nextProsesModul)
-        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
-            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-            Lanjutkan
-        </a>
-    @elseif ($lastAccessedModul)
-        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $lastAccessedModul->modul->slug]) }}"
-            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-            Lanjutkan
-        </a>
-    @else
-        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
-            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-            Mulai Belajar
-        </a>
-    @endif
+                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
+                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                            Lanjutkan
+                                        </a>
+                                    @elseif ($lastAccessedModul)
+                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $lastAccessedModul->modul->slug]) }}"
+                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                            Lanjutkan
+                                        </a>
+                                    @else
+                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
+                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                            Mulai Belajar
+                                        </a>
+                                    @endif
 
                                 @endif
 
@@ -1275,7 +1154,7 @@
                         </div>
 
                         <!-- tags
-                               -->
+                                       -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4
@@ -1316,7 +1195,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        window.location.href = data.redirect_url; 
+                        window.location.href = data.redirect_url;
                     } else {
                         alert(data.message);
                     }
@@ -1326,5 +1205,5 @@
                 });
         }
     </script>
-<script id="dsq-count-scr" src="//learnflow-1.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//learnflow-1.disqus.com/count.js" async></script>
 @endsection

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AssignmentController;
+use App\Http\Controllers\Admin\BabController;
 use App\Models\Course;
 use App\Models\ModulProgress;
 use App\Models\CategoryCourse;
@@ -109,11 +110,14 @@ Route::prefix('lfcms')
         Route::get('/pengguna', 'penggunaCMS')->name('penggunaCMS');
         Route::get('/administrator', 'administratorCMS')->name('administratorCMS');
         Route::resource('/klien', ClientController::class);
+        Route::get('/klien/{id}/delete', [ClientController::class, 'destroy'])->name('klien.destroy');
         Route::resource('/halaman', PageController::class);
+        Route::get('/halaman/{id}/delete', [PageController::class, 'destroy'])->name('halaman.destroy');
         Route::resource('/testimonial', TestimonialController::class);
+        Route::get('/testimonial/{id}/delete', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
         Route::resource('/kontak', ContactController::class);
+        Route::get('/kontak/{id}/delete', [ContactController::class, 'destroy'])->name('kontak.destroy');
         Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
-        Route::delete('/kontak/{id}', [ContactController::class, 'destroy'])->name('kontak.destroy');
         Route::post('/kontak/{id}/reply', [ContactController::class, 'reply'])->name('kontak.reply');
         Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
     });
@@ -131,8 +135,10 @@ Route::prefix('lfcms')
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
+        Route::get('/artikel/{id}/delete', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
       
         Route::resource('/kategori-artikel', KategoriArtikelController::class);
+        Route::get('/kategori-artikel/{id}/delete', [KategoriArtikelController::class, 'destroy'])->name('kategori-artikel.destroy');
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaran.index');
         Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('riwayat-pembayaran.index');
 
@@ -176,6 +182,9 @@ Route::prefix('lfcms')
 
 });
 
+// Detail Course
+Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
+
 // Dashboard
 Route::middleware(['auth'])
     ->group(function () {
@@ -202,9 +211,9 @@ Route::get('/certificate/print/{registrationId}', [CourseController::class, 'pri
 
 Route::get('/instruktur-detail', [UserController::class, 'instrukturDetail'])->name('instruktur.detail');
 Route::get('/my-course', [CourseController::class, 'myCourses'])->name('course.instruktur');
-Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 // web.php
 Route::get('/course/{course:slug}/modul/{modul:slug}', [CourseController::class, 'showModul'])->name('modul.detail');
+Route::get('/courses/{course:slug}/moduls/{modul:slug}', [CourseController::class, 'showModulAdmin'])->name('modul.detail.admin');
 Route::post('/update-modul-status', [CourseController::class, 'updateModulStatus']);
 
 Route::get('/getcart', [CartController::class, 'getCartData']);
@@ -288,6 +297,20 @@ Route::post('/modul/{modul_id}/progresss', [ModulProgressController::class, 'upd
 Route::get('/modultes', [DashboardController::class, 'modulPembelajaran'])->name('dashboard.modulPembelajaran');
 
 Route::resource('/assignment', AssignmentController::class);
+
+Route::post('/assignment/cancel/{id}', [AssignmentController::class, 'cancel'])->name('assignment.cancel');
+Route::get('/assignments/{modulId}', [AssignmentController::class, 'index'])->name('assignments.index');
+
+Route::resource('/babs', BabController::class);
+Route::resource('/moduls', ModulController::class);
+
+Route::get('/courses/{slug}/details', [BabController::class, 'showDetail'])->name('courses.details');
+
+Route::put('/assignments/{id}/grade', [AssignmentController::class, 'grade'])->name('assignments.grade');
+
+
+
+
     });
 
     Route::post('/kontak-masuk', [ContactController::class, 'store'])->name('contact.store');
