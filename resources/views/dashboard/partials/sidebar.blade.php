@@ -49,7 +49,7 @@
                     <span
                         class="text-size-10 font-medium text-whiteColor px-9px bg-primaryColor leading-14px rounded-2xl">12</span>
                 </li>
-                <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                {{-- <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <div class="flex items-center justify-between cursor-pointer" onclick="toggleSubmenu(this)">
                         <a
                             class="sidebar-link text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
@@ -80,7 +80,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard.wishlist') }}"
                         class="sidebar-link {{ request()->routeIs('dashboard.wishlist') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
@@ -92,7 +92,7 @@
                         Daftar Keinginan
                     </a>
                 </li>
-                <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                {{-- <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard.reviews') }}"
                         class="sidebar-link {{ request()->routeIs('dashboard.reviews') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -104,7 +104,7 @@
                         </svg>
                         Ulasan
                     </a>
-                </li>
+                </li> --}}
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('quizResults.index') }}"
                         class="sidebar-link {{ request()->routeIs('quizResults.index', 'quiz.index', 'quiz.create', 'quiz.edit', 'quiz.show', 'questions.create', 'questions.edit') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
@@ -142,7 +142,7 @@
                         Kursus Terdaftar
                     </a>
                 </li>
-                <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                {{-- <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard.assignments') }}"
                         class="sidebar-link {{ request()->routeIs('dashboard.assignments') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -153,16 +153,16 @@
                         </svg>
                         Tugas
                     </a>
-                </li>
+                </li> --}}
             </ul>
 
             <!-- instructor -->
-            <h5
+            {{-- <h5
                 class="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
                 PENGAJAR
-            </h5>
+            </h5> --}}
             <ul>
-                <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                {{-- <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('course.instruktur') }}"
                         class="sidebar-link {{ request()->routeIs('course.instruktur') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -174,8 +174,8 @@
                         </svg>
                         Kursus saya
                     </a>
-                </li>
-                <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                </li> --}}
+                {{-- <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard.announcements') }}"
                         class="sidebar-link {{ request()->routeIs('dashboard.announcements') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -186,8 +186,8 @@
                         </svg>
                         Pengumuman
                     </a>
-                </li>
-                <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                </li> --}}
+                {{-- <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('dashboard.assignments') }}"
                         class="sidebar-link {{ request()->routeIs('dashboard.assignments') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                             xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
@@ -197,7 +197,7 @@
                             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                         </svg>
                         Tugas</a>
-                </li>
+                </li> --}}
             </ul>
             <!-- user -->
             <h5

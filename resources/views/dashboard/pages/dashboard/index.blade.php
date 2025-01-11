@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div
+                        {{-- <div
                             class="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                             <div class="flex gap-4">
                                 <div>
@@ -126,7 +126,7 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 

@@ -100,7 +100,7 @@ class CertificateController extends Controller
         $pdf->SetFont('Helvetica', 'I');
         $pdf->SetFontSize(20);
         $pdf->SetTextColor(128, 128, 128);
-        $pdf->SetXY(37, 200);
+        $pdf->SetXY(70, 209);
         $pdf->Cell(0, 10, $completionDate, 0, 1, 'L');
 
         // Set text for certificate ID
