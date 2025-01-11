@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('page_title', 'Login or Register | Learn Flow')</title>
+    <title>@yield('page_title', 'Login dan Register | Learn Flow')</title>
     <link rel="shortcut icon" type="image/x-icon" href=" {{ asset('assets/images/favicon.ico') }}">
     <!-- link stylesheet -->
     <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
@@ -107,7 +107,7 @@
                                             class="text-contentColor dark:text-contentColor-dark mb-10px block">Username
                                             atau email</label>
                                         <input type="text" id="login" name="login"
-                                            placeholder="Your username or email"
+                                            placeholder="Masukkan username atau email"
                                             class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('login') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                                             value="{{ old('login') }}" />
                                         @error('login')
@@ -153,7 +153,7 @@
                                     <div>
                                         <p
                                             class="text-contentColor dark:text-contentColor-dark text-center relative mb-15px before:w-2/5 before:h-1px before:bg-borderColor4 dark:before:bg-borderColor2-dark before:absolute before:left-0 before:top-4 after:w-2/5 after:h-1px after:bg-borderColor4 dark:after:bg-borderColor2-dark after:absolute after:right-0 after:top-4">
-                                            or Log-in with
+                                            atau Log-in menggunakan
                                         </p>
                                     </div>
                                     <div
