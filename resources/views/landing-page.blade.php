@@ -12,7 +12,7 @@
 <body class="relative font-inter font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
     @extends('landing.layouts.landing-layouts')
 
-    @section('page_title', 'Learn Flow | Course and LMS')
+    @section('page_title', 'Learn Flow | Belajar Online dengan Fleksibel dan Efektif')
 
     @section('content')
         <!-- Slider Section -->
