@@ -244,7 +244,7 @@
                                                     <div>
                                                         <i class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
                                                     </div>
-                                                    <div>
+                                                            <div>
                                                         <span class="text-sm text-black dark:text-blackColor-dark">{{ $item->tanggal_mulai }}</span>
                                                     </div>
                                                 </div>

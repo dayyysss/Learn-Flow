@@ -45,7 +45,7 @@
                             </p>
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center gap-3">
-                                    <img src="{{ asset('storage/' . $item->author_image) }}" alt=""
+                                    <img src="{{$item->author_image ? asset('storage/' . $item->author_image) : asset('assets/images/avatar/default-avatar.png') }}" alt=""
                                         class="w-11 h-11 rounded-full">
                                     <div class="text-sm md:text-lg text-darkdeep5 dark:text-darkdeep5-dark">
                                         By: <span

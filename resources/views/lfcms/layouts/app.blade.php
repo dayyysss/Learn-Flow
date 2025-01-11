@@ -151,6 +151,7 @@
     <script src="{{ asset('assets/lfcms/js/vendor/select/select2.min.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/vendor/smooth-scrollbar/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/pages/dashboard-lms.js') }}"></script>
+    <script src="{{ asset('assets/lfcms/js/pages/dashboard-online-course.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/component/app-menu-bar.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/component/tab.js') }}"></script>
     <script src="{{ asset('assets/lfcms/js/switcher.js') }}"></script>
