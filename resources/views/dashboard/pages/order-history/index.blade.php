@@ -6,7 +6,7 @@
     <div class="lg:col-start-4 lg:col-span-9">
         <div class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
             <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark">
-                <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Order History</h2>
+                <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">Riwayat Pembelian</h2>
             </div>
 
             <div class="overflow-auto">
@@ -14,9 +14,9 @@
                     <thead class="text-sm md:text-base text-blackColor dark:text-blackColor-dark bg-lightGrey5 dark:bg-whiteColor-dark leading-1.8 md:leading-1.8">
                         <tr>
                             <th class="px-5px py-10px md:px-5">Order ID</th>
-                            <th class="px-5px py-10px md:px-5">Course Name</th>
-                            <th class="px-5px py-10px md:px-5">Date</th>
-                            <th class="px-5px py-10px md:px-5">Price</th>
+                            <th class="px-5px py-10px md:px-5">Nama Kursus</th>
+                            <th class="px-5px py-10px md:px-5">Tanggal</th>
+                            <th class="px-5px py-10px md:px-5">Harga</th>
                             <th class="px-5px py-10px md:px-5">Status</th>
                         </tr>
                     </thead>

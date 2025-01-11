@@ -46,7 +46,8 @@
                                             class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                                             <!-- card image -->
                                             <div class="relative mb-4">
-                                                <a href="{{route('course.detail', $item->course->slug)}}" class="w-full overflow-hidden rounded">
+                                                <a href="{{ route('course.detail', $item->course->slug) }}"
+                                                    class="w-full overflow-hidden rounded">
                                                     <img src="{{ asset('storage/' . $item->course->thumbnail) }}"
                                                         alt=""
                                                         class="w-full transition-all duration-300 group-hover:scale-110"
@@ -88,9 +89,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="{{route('course.detail', $item->course->slug)}}"
+                                                <a href="{{ route('course.detail', $item->course->slug) }}"
                                                     class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                    {{ $item->course->name }}
+                                                    {!! Str::limit($item->course->name, 45) !!}
                                                 </a>
                                                 <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
                                                     @if ($item->course->harga_diskon)
@@ -103,10 +104,10 @@
                                                     @endif
                                                     <span class="ml-6">
                                                         @if ($item->course->harga_diskon > 0)
-                                                            <del class="text-base font-semibold text-greencolor">Free</del>
+                                                            <del class="text-base font-semibold text-greencolor">Gratis</del>
                                                         @else
                                                             <span
-                                                                class="text-base font-semibold text-greencolor">Free</span>
+                                                                class="text-base font-semibold text-greencolor">Gratis</span>
                                                         @endif
                                                     </span>
                                                 </div>
@@ -124,7 +125,8 @@
                                                     <div class="text-start md:text-end">
                                                         <div>
                                                             @for ($i = 1; $i <= 5; $i++)
-                                                                <i class="icofont-star text-size-15 {{ $i <= ceil($item->course->average_rating) ? 'text-yellow' : 'text-gray' }}"></i>
+                                                                <i
+                                                                    class="icofont-star text-size-15 {{ $i <= ceil($item->course->average_rating) ? 'text-yellow' : 'text-gray' }}"></i>
                                                             @endfor
                                                         </div>
                                                         <span class="text-xs text-lightGrey6">
@@ -145,7 +147,7 @@
                                                 <div>
                                                     @if ($item->progress == 100)
                                                         <a href="{{ route('certificate.index', $item->course->id) }}"
-                                                           class="text-size-15 text-whiteColor bg-secondaryColor w-full px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor rounded group text-nowrap text-center">
+                                                            class="text-size-15 text-whiteColor bg-secondaryColor w-full px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor rounded group text-nowrap text-center">
                                                             Download Certificate
                                                         </a>
                                                     @else
@@ -154,7 +156,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
