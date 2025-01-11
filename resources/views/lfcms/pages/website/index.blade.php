@@ -110,23 +110,26 @@
                             </button>
                         </div>
                         <ul class="flex flex-col gap-y-3 *:flex *:gap-x-2.5 *:leading-none *:text-gray-500 dark:*:text-dark-text *:font-medium mt-4">
-                            @foreach(json_decode($configuration->informasi_kontak, true) as $contact)
-                                <li class="flex items-center gap-x-2.5">
-                                    <!-- Menentukan Ikon Berdasarkan Jenis Kontak -->
-                                    @if(strtolower($contact['name']) == 'telepon')
-                                        <i class="ri-phone-line text-inherit"></i>
-                                    @elseif(strtolower($contact['name']) == 'alamat')
-                                        <i class="ri-home-2-line text-inherit"></i>
-                                    @elseif(strtolower($contact['name']) == 'email')
-                                        <i class="ri-mail-line text-inherit"></i>
-                                    @elseif(strtolower($contact['name']) == 'website')
-                                        <i class="ri-link-m text-inherit"></i>
-                                    @else
-                                        <i class="ri-information-line text-inherit"></i>
-                                    @endif
-                                    <div>{{ $contact['name'] }}: <span class="text-heading dark:text-dark-text">{{ $contact['value'] }}</span></div>
-                                </li>
-                            @endforeach
+                            @if(!empty($configuration->informasi_kontak) && is_array(json_decode($configuration->informasi_kontak, true)))
+    @foreach(json_decode($configuration->informasi_kontak, true) as $contact)
+        <li class="flex items-center gap-x-2.5">
+            <!-- Menentukan Ikon Berdasarkan Jenis Kontak -->
+            @if(strtolower($contact['name']) == 'telepon')
+                <i class="ri-phone-line text-inherit"></i>
+            @elseif(strtolower($contact['name']) == 'alamat')
+                <i class="ri-home-2-line text-inherit"></i>
+            @elseif(strtolower($contact['name']) == 'email')
+                <i class="ri-mail-line text-inherit"></i>
+            @elseif(strtolower($contact['name']) == 'website')
+                <i class="ri-link-m text-inherit"></i>
+            @else
+                <i class="ri-information-line text-inherit"></i>
+            @endif
+            <div>{{ $contact['name'] }}: <span class="text-heading dark:text-dark-text">{{ $contact['value'] }}</span></div>
+        </li>
+    @endforeach
+@endif
+
                         </ul>
                         
                     </div>

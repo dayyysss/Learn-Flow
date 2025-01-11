@@ -70,6 +70,7 @@
         </button>
     </div>
 
+      @include('landing.partials.header')
     <main class="bg-transparent">
         @yield('content')
     </main>
