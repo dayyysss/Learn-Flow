@@ -17,11 +17,17 @@ use App\Http\Controllers\Controller;
 class CourseRegistrationController extends Controller
 {
     public function orderHistory()
-    {
-        $registrations = CourseRegistration::with(['user', 'course'])->paginate(10);
+{
+    // Ambil user ID dari pengguna yang sedang login
+    $userId = auth()->user()->id;
 
-        return view('dashboard.pages.order-history.index', compact('registrations'));
-    }
+    // Filter pendaftaran berdasarkan user ID
+    $registrations = CourseRegistration::with(['user', 'course'])
+        ->where('user_id', $userId)
+        ->paginate(10);
+
+    return view('dashboard.pages.order-history.index', compact('registrations'));
+}
 
     public function create()
     {

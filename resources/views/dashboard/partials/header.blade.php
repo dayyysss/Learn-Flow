@@ -73,7 +73,7 @@
                     </p>
                 </div>
             @endif
-            <div>
+            {{-- <div>
                 <a href="{{ route('courses.create') }}"
                     class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-whiteColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center">
                     Buat Kursus Baru
@@ -84,7 +84,7 @@
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
                 </a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>
