@@ -260,7 +260,7 @@
                                                     </div>
                                                     <a href="{{ route('course.detail', $item->slug) }}"
                                                         class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                        {{ $item->name }}
+                                                        {!! Str::limit($item->name, 45) !!}
                                                     </a>
                                                     <!-- price -->
                                                     <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
