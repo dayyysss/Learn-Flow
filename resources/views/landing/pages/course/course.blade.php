@@ -401,7 +401,7 @@
                                                             </div>
                                                             <a href="{{ route('course.detail', $item->slug) }}"
                                                                 class="text-size-26 leading-30px font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                                {{ \Illuminate\Support\Str::limit($item->name, 40, '...') }}
+                                                                {{ Str::limit($item->name, 40, '...') }}
                                                             </a>
                                                             <!-- price -->
                                                             <div

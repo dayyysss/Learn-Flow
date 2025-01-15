@@ -9,11 +9,11 @@
 
             <div data-aos="fade-up" class="text-center mb-45px">
                 <span class="text-size-15 font-semibold text-secondaryColor inline-block uppercase mb-[13px]">
-                    EXPERT TEACHER
+                    INSTRUKTUR AHLI
                 </span>
                 <h3
                     class="text-3xl md:text-size-35 lg:text-size-45 leading-10 md:leading-2xl font-bold text-blackColor dark:text-blackColor-dark">
-                    Our Expert Teacher
+                    Ahli di Bidangnya
                 </h3>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-30px gap-y-15">
@@ -82,10 +82,6 @@
                                 @endif
                             @endforeach
                         </ul>
-                        
-                        
-                        
-
                     </div>
                 </div>
                 @endforeach
