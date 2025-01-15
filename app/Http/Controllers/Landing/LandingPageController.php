@@ -36,10 +36,11 @@ class LandingPageController extends Controller
         $categorySection = Page::with('users')->where('status', 'publik')->find(6);
         $testiSection = Page::with('users')->where('status', 'publik')->find(7);
         $artikel = Artikel::where('status', '1')->orderBy('created_at', 'desc')->take(3)->get();
+        $course = Course::where('status', 'publik')->orderBy('created_at', 'desc')->take(6)->get();
         $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $klien = Client::where('status', 'publik')->take(5)->get();
     
-        return view('landing-page', compact('heroSection', 'aboutSection', 'artikel', 'klien', 'testimonial', 'categorySection', 'testiSection'));
+        return view('landing-page', compact('heroSection', 'course', 'aboutSection', 'artikel', 'klien', 'testimonial', 'categorySection', 'testiSection'));
     }
 
     public function about()
@@ -47,9 +48,10 @@ class LandingPageController extends Controller
         $tentang = Page::with('users')->where('slug', 'tentang-kami')->where('status', 'publik')->first();
         $halamanTentang = Page::with('users')->where('slug', 'halaman-tentang')->where('status', 'publik')->first();
         $testimonial = Testimonial::where('status', 'publik')->get();
+        $course = Course::where('status', 'publik')->orderBy('created_at', 'desc')->take(9)->get();
         $klien = Client::where('status', 'publik')->orderBy('created_at', 'desc')->take(9)->get();
 
-        return view('landing.pages.about.about', compact('testimonial', 'klien', 'tentang', 'halamanTentang'));
+        return view('landing.pages.about.about', compact('testimonial', 'course', 'klien', 'tentang', 'halamanTentang'));
     }
 
     public function course(Request $request)
