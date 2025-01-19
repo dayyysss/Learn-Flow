@@ -70,7 +70,7 @@
 
                     <div class="hidden">
                         <div class="flex flex-col gap-30px">
-                            <!-- card 1 -->
+                            @foreach ($coursePopular as $item)
                             <div class="w-full group grid-item rounded">
                                 <div class="tab-content-wrapper">
                                     <div
@@ -86,7 +86,7 @@
                                                 <div>
                                                     <p
                                                         class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold capitalize">
-                                                        Data & Tech
+                                                        {{ $item->categories->name }}
                                                     </p>
                                                 </div>
                                                 <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
@@ -120,7 +120,7 @@
                                                 </div>
                                                 <a href="course-details.html"
                                                     class="text-xl 2xl:text-size-34 2xl:!leading-9 font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                    Become a product Manager learn the skills & job.
+                                                    {{ $item->name }}
                                                 </a>
                                                 <!-- price -->
                                                 <div class="text-lg font-semibold text-black-brerry-light font-inter mb-4">
@@ -163,195 +163,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- card 1 -->
-                            <div class="w-full group grid-item rounded">
-                                <div class="tab-content-wrapper">
-                                    <div
-                                        class="p-15px lg:pr-30px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark flex flex-wrap md:flex-nowrap rounded">
-                                        <!-- card image -->
-                                        <div class="relative overflow-hidden w-full md:w-2/5">
-                                            <a href="course.html" class="w-full">
-                                                <img src="assets/images/grid/grid_3.png" alt=""
-                                                    class="w-full transition-all duration-300 scale-105 group-hover:scale-110">
-                                            </a>
-                                            <div
-                                                class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
-                                                <div>
-                                                    <p
-                                                        class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor2 rounded font-semibold capitalize">
-                                                        gridDevelopment
-                                                    </p>
-                                                </div>
-                                                <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                                    href="#"><i class="icofont-heart-alt text-base py-1 px-2"></i></a>
-                                            </div>
-                                        </div>
-                                        <!-- card content -->
-                                        <div class="w-full md:w-3/5">
-                                            <div class="pl-0 md:pl-5 lg:pl-30px 2xl:pl-90px">
-                                                <div class="grid grid-cols-2 mb-15px">
-                                                    <div class="flex items-center">
-                                                        <div>
-                                                            <i
-                                                                class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-sm text-black dark:text-blackColor-dark">23
-                                                                Lesson</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex items-center">
-                                                        <div>
-                                                            <i
-                                                                class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-sm text-black dark:text-blackColor-dark">1 hr
-                                                                30 min</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a href="course-details.html"
-                                                    class="text-xl 2xl:text-size-34 2xl:!leading-9 font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                    Strategy law and with for organization Foundation
-                                                </a>
-                                                <!-- price -->
-                                                <div class="text-lg font-semibold text-black-brerry-light font-inter mb-4">
-                                                    $32.00
-                                                    <del class="text-sm text-lightGrey4 font-semibold">/ $67.00</del>
-                                                    <span
-                                                        class="ml-6 text-base font-semibold text-greencolor2">Free.</span>
-                                                </div>
-                                                <!-- bottom -->
-                                                <div
-                                                    class="flex flex-wrap justify-between sm:flex-nowrap items-center gap-y-2 pt-15px border-t border-borderColor">
-                                                    <!-- author and rating-->
-                                                    <div class="flex items-center flex-wrap">
-                                                        <div>
-                                                            <a href="instructor-details.html"
-                                                                class="text-sm font-medium font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"><img
-                                                                    class="w-[30px] h-[30px] rounded-full mr-15px"
-                                                                    src="assets/images/grid/grid_small_1.jpg"
-                                                                    alt="">
-                                                                <span class="flex">Micle john</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="text-start md:text-end ml-35px">
-                                                            <i class="icofont-star text-size-15 text-yellow"></i>
-                                                            <i class="icofont-star text-size-15 text-yellow"></i>
-                                                            <i class="icofont-star text-size-15 text-yellow"></i>
-                                                            <i class="icofont-star text-size-15 text-yellow"></i>
-
-                                                            <span class="text-xs text-lightGrey6">(44)</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <a class="text-sm lg:text-base text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                                            href="course-details.html">Know Details
-                                                            <i class="icofont-arrow-right"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- card 3 -->
-                            <div class="w-full group grid-item rounded">
-                                <div class="tab-content-wrapper">
-                                    <div
-                                        class="p-15px lg:pr-30px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark flex flex-wrap md:flex-nowrap rounded">
-                                        <!-- card image -->
-                                        <div class="relative overflow-hidden w-full md:w-2/5">
-                                            <a href="course.html" class="w-full">
-                                                <img src="assets/images/grid/grid_2.png" alt=""
-                                                    class="w-full transition-all duration-300 scale-105 group-hover:scale-110">
-                                            </a>
-                                            <div
-                                                class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
-                                                <div>
-                                                    <p
-                                                        class="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold capitalize">
-                                                        gridMechanical
-                                                    </p>
-                                                </div>
-                                                <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                                    href="#"><i
-                                                        class="icofont-heart-alt text-base py-1 px-2"></i></a>
-                                            </div>
-                                        </div>
-                                        <!-- card content -->
-                                        <div class="w-full md:w-3/5">
-                                            <div class="pl-0 md:pl-5 lg:pl-30px 2xl:pl-90px">
-                                                <div class="grid grid-cols-2 mb-15px">
-                                                    <div class="flex items-center">
-                                                        <div>
-                                                            <i
-                                                                class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-sm text-black dark:text-blackColor-dark">23
-                                                                Lesson</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex items-center">
-                                                        <div>
-                                                            <i
-                                                                class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-sm text-black dark:text-blackColor-dark">1 hr
-                                                                30 min</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a href="course-details.html"
-                                                    class="text-xl 2xl:text-size-34 2xl:!leading-9 font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                    Foundation course to under stand about softwere
-                                                </a>
-                                                <!-- price -->
-                                                <div class="text-lg font-semibold text-black-brerry-light font-inter mb-4">
-                                                    $32.00
-                                                    <del class="text-sm text-lightGrey4 font-semibold">/ $67.00</del>
-                                                    <span
-                                                        class="ml-6 text-base font-semibold text-greencolor2">Free.</span>
-                                                </div>
-                                                <!-- bottom -->
-                                                <div
-                                                    class="flex flex-wrap justify-between sm:flex-nowrap items-center gap-y-2 pt-15px border-t border-borderColor">
-                                                    <!-- author and rating-->
-                                                    <div class="flex items-center flex-wrap">
-                                                        <div>
-                                                            <a href="instructor-details.html"
-                                                                class="text-sm font-medium font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"><img
-                                                                    class="w-[30px] h-[30px] rounded-full mr-15px"
-                                                                    src="assets/images/grid/grid_small_1.jpg"
-                                                                    alt="">
-                                                                <span class="flex">Micle john</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="text-start md:text-end ml-35px">
-                                                            <i class="icofont-star text-size-15 text-yellow"></i>
-                                                            <i class="icofont-star text-size-15 text-yellow"></i>
-                                                            <i class="icofont-star text-size-15 text-yellow"></i>
-                                                            <i class="icofont-star text-size-15 text-yellow"></i>
-
-                                                            <span class="text-xs text-lightGrey6">(44)</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <a class="text-sm lg:text-base text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                                            href="course-details.html">Know Details
-                                                            <i class="icofont-arrow-right"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <!-- certifications  -->

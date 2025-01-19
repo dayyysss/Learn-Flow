@@ -127,15 +127,15 @@
                                     </label>
                                 </div>
 
-                                <div class="flex-center !justify-end">
+                                <div class="flex gap-5 mt-6">
                                     <button type="submit"
-                                        class="btn b-solid btn-primary-solid btn-lg dk-theme-card-square">Submit</button>
+                                        class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                                    <a href="{{ route('testimonial.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Course Media File -->
             </div>
         </form>
     </div>

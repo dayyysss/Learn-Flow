@@ -49,9 +49,10 @@ class LandingPageController extends Controller
         $halamanTentang = Page::with('users')->where('slug', 'halaman-tentang')->where('status', 'publik')->first();
         $testimonial = Testimonial::where('status', 'publik')->get();
         $course = Course::where('status', 'publik')->orderBy('created_at', 'desc')->take(9)->get();
+        $coursePopular = Course::where('status', 'publik')->orderBy('created_at', 'desc')->take(3)->get();
         $klien = Client::where('status', 'publik')->orderBy('created_at', 'desc')->take(9)->get();
 
-        return view('landing.pages.about.about', compact('testimonial', 'course', 'klien', 'tentang', 'halamanTentang'));
+        return view('landing.pages.about.about', compact('testimonial', 'course', 'coursePopular', 'klien', 'tentang', 'halamanTentang'));
     }
 
     public function course(Request $request)
