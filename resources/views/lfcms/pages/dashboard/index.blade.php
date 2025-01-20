@@ -7,8 +7,8 @@
         <div class="col-span-full card p-3 sm:p-7">
             <div class="flex-center-between flex-col sm:flex-row items-start sm:items-center gap-3 pb-3 sm:pb-7">
                 <div>
-                    <h6 class="card-title isd">Dashboard Online Courses</h6>
-                    <p class="card-description">Welcome to Dashkit Dashboard</p>
+                    <h6 class="card-title isd">Dashboard Learn Flow</h6>
+                    <p class="card-description">Welcome to Learn Flow Dashboard</p>
                 </div>
                 <div class="flex items-center gap-4">
                     <select class="form-input form-select form-select-calendar h-[42px]">
@@ -20,7 +20,7 @@
                     <div>
                         <a href="create-course.html" class="btn b-solid btn-primary-solid dk-theme-card-square">
                             <i class="ri-add-circle-line text-inherit"></i>
-                            New course
+                            Tambah Kursus
                         </a>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                 <!-- Total Courses -->
                 <div class="col-span-full md:col-span-6 2xl:col-span-3 p-[10px_16px] dk-border-one rounded-xl h-full dk-theme-card-square">
                     <div class="flex-center-between">
-                        <h6 class="leading-none text-gray-500 dark:text-dark-text font-semibold">All Courses</h6>
+                        <h6 class="leading-none text-gray-500 dark:text-dark-text font-semibold">Semua Kursus</h6>
                         <select class="form-input form-select form-select-sm">
                             <option>Monthly</option>
                             <option>Weekly</option>
@@ -54,7 +54,7 @@
                 <!-- Total Mentors -->
                 <div class="col-span-full md:col-span-6 2xl:col-span-3 p-[10px_16px] dk-border-one rounded-xl h-full dk-theme-card-square">
                     <div class="flex-center-between">
-                        <h6 class="leading-none text-gray-500 dark:text-dark-text font-semibold">Total Mentors</h6>
+                        <h6 class="leading-none text-gray-500 dark:text-dark-text font-semibold">Total Instruktur</h6>
                         <select class="form-input form-select form-select-sm">
                             <option>Monthly</option>
                             <option>Weekly</option>
@@ -79,7 +79,7 @@
                 <!-- Total Students -->
                 <div class="col-span-full md:col-span-6 2xl:col-span-3 p-[10px_16px] dk-border-one rounded-xl h-full dk-theme-card-square">
                     <div class="flex-center-between">
-                        <h6 class="leading-none text-gray-500 dark:text-dark-text font-semibold">Total Students</h6>
+                        <h6 class="leading-none text-gray-500 dark:text-dark-text font-semibold">Total Siswa</h6>
                         <select class="form-input form-select form-select-sm">
                             <option>Monthly</option>
                             <option>Weekly</option>
@@ -104,7 +104,7 @@
                 <!-- Total Enroll -->
                 <div class="col-span-full md:col-span-6 2xl:col-span-3 p-[10px_16px] dk-border-one rounded-xl h-full dk-theme-card-square">
                     <div class="flex-center-between">
-                        <h6 class="leading-none text-gray-500 dark:text-dark-text font-semibold">Total Enroll</h6>
+                        <h6 class="leading-none text-gray-500 dark:text-dark-text font-semibold">Total Kursus Terdaftar</h6>
                         <select class="form-input form-select form-select-sm">
                             <option>Weekly</option>
                             <option>Monthly</option>
@@ -133,7 +133,7 @@
         <!-- Start Average Course Selling Chart -->
         <div class="col-span-full 2xl:col-span-7 card">
             <div class="flex-center-between">
-                <h6 class="card-title">Average course selling</h6>
+                <h6 class="card-title">Penjualan kursus rata-rata</h6>
                 <select class="form-input form-select">
                     <option>This Month</option>
                     <option>This Year</option>
@@ -147,7 +147,7 @@
         <!-- Start Top Selling Course -->
         <div class="col-span-full 2xl:col-span-5 card">
             <div class="flex-center-between">
-                <h6 class="card-title">Top selling courses</h6>
+                <h6 class="card-title">Kursus terlaris</h6>
                 <a href="#" class="btn b-solid btn-primary-solid btn-sm dk-theme-card-square">See all</a>
             </div>
             <!-- Course Table -->
@@ -235,7 +235,7 @@
         <!-- Start Top Instructor -->
         <div class="col-span-full 2xl:col-span-5 card">
             <div class="flex-center-between">
-                <h6 class="card-title">Top Instructor</h6>
+                <h6 class="card-title">Instruktur Teratas</h6>
                 <select class="form-input form-select">
                     <option>This Month</option>
                     <option>This Year</option>
@@ -391,7 +391,7 @@
         <!-- Start Learn Activity -->
         <div class="col-span-full 2xl:col-span-7 card">
             <div class="flex-center-between">
-                <h6 class="card-title">Learn Activity</h6>
+                <h6 class="card-title">Aktifitas Lainnya</h6>
                 <select class="form-input form-select">
                     <option>This Month</option>
                     <option>This Year</option>
