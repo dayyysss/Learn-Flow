@@ -923,13 +923,19 @@
                                 </div>
                             </div>
                             <div class="mb-5" data-aos="fade-up">
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+
+                                <button type="submit" class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                    Tambah ke Keranjang
+                                </button>
+                            </form>
                                 @if (auth()->user() &&
                                         !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
                                     <!-- Tombol Add to Cart dan Buy Now jika pengguna belum terdaftar -->
-                                    <button type="submit"
-                                        class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                        Add To Cart
-                                    </button>
+                                    
+
                                     <form id="course-registration-form"
                                         action="{{ route('course-registrations.store') }}" method="POST"
                                         style="display: inline;">
@@ -939,7 +945,7 @@
                                         <!-- Tombol Buy Now -->
                                         <button type="button" onclick="submitCourseRegistration({{ $course->id }})"
                                             class="w-full text-center text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark">
-                                            Buy Now
+                                            Beli Sekarang
                                         </button>
                                     </form>
                                 @else

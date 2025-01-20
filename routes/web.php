@@ -228,7 +228,7 @@ Route::resource('/kategori-kursus', CategoryCourseController::class);
 // course-registrations
 Route::get('/course-registrations/create', [CourseRegistrationController::class, 'create'])->name('course-registrations.create');
 Route::post('/course-registrations/store', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
-// Route::post('/course-registrations/store-from-cart', [CourseRegistrationController::class, 'storeFromCart'])->name('course-registrations.store-from-cart');
+Route::post('/course-registrations/store-from-cart', [CourseRegistrationController::class, 'storeFromCart'])->name('course-registrations.store-from-cart');
 Route::get('/course-registrations', [CourseRegistrationController::class, 'enrolledCourses'])->name('course-registrations.index');
 Route::post('/payment/update', [CourseRegistrationController::class, 'update']);
 Route::post('/payment/update-method', [CourseRegistrationController::class, 'updateMethod']);
@@ -239,6 +239,7 @@ Route::get('/payment/{snapToken}', [CourseRegistrationController::class, 'showPa
 
 //cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
 Route::post('/cart', [CartController::class, 'updateCart'])->name('cart.update');
 // Route::post('/cart', [CartController::class, 'update'])->name('cart.update');
 Route::patch('/cart', [CartController::class, 'updateCart']);
