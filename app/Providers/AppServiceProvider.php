@@ -105,31 +105,30 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('landing.partials.header', function ($view) {
-            $user = Auth::user(); // Ambil pengguna yang sedang login
+            $user = Auth::user(); 
 
-            if ($user) { // Pastikan pengguna sudah login
-                $cart = $user->cart()->first(); // Ambil cart pertama dari user
+            if ($user) {
+                $cart = $user->cart()->first();
 
-                // Dekode cart_items dari JSON ke array
-                $cartItems = $cart ? json_decode($cart->cart_items, true) : []; // Menyimpan data cart_items dalam array
+                $cartItems = $cart ? json_decode($cart->cart_items, true) : [];
 
-                Log::info(json_decode($cart->cart_items, true)); // Debug data cart_items
-
-                // Hitung jumlah item di cart
                 $cartCount = count($cartItems);
 
                 $view->with([
+                    'cart' => $cart,
                     'cartCount' => $cartCount,
-                    'cartItems' => $cartItems, // Kirim cartItems yang sudah didekode ke view
+                    'cartItems' => $cartItems,
                 ]);
             } else {
-                // Jika pengguna belum login, set nilai default
+    
                 $view->with([
+                    'cart' => null, 
                     'cartCount' => 0,
                     'cartItems' => [],
                 ]);
             }
         });
+
 
 
         // View::composer(['dashboard.pages.lesson._modul_content'], function ($view) {

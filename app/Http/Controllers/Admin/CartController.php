@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Cart;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -161,23 +162,24 @@ class CartController extends Controller
     {
         $courseId = $request->input('course_id');
 
-        // Ambil cart_items yang ada
         $cartItems = json_decode($cart->cart_items, true);
 
-        // Hapus item berdasarkan course_id
         $cartItems = array_filter($cartItems, function ($item) use ($courseId) {
             return $item['course_id'] != $courseId;
         });
 
-        // Simpan ulang cart_items
         $cart->cart_items = json_encode(array_values($cartItems));
         $cart->save();
+
+        $totalPrice = collect($cartItems)->sum('total_price');
 
         return response()->json([
             'status' => 'success',
             'message' => 'Cart item deleted successfully!',
+            'totalPrice' => $totalPrice,
         ]);
     }
+
 
 
     public function clearCart(Request $request)

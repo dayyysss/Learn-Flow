@@ -90,59 +90,51 @@
                                         <div
                                             class="shadow-dropdown-secodary max-w-dropdown3 w-2000 rounded-standard p-5 bg-white dark:bg-whiteColor-dark">
                                             <ul class="flex flex-col gap-y-5 pb-5 mb-30px border-b border-borderColor dark:border-borderColor-dark">
-    @foreach ($cartItems as $cartItem)
-        @php
-            $course = \App\Models\Course::find($cartItem['course_id']);
-            $quantity = 1;
-        @endphp
-        <li class="relative flex gap-x-15px items-center">
-            <a href="{{ route('course.detail', $course->id) }}">
-                <img src="{{ asset('storage/' . $course->thumbnail) }}" alt="{{ $course->name }}" width="40">
-            </a>
-            <div>
-                <a href="{{ route('course.detail', $course->id) }}" class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">
-                    {{ $course->name }}
-                </a>
-                <p class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
-                    {{ $quantity }} x <span class="text-secondaryColor">Rp {{ number_format($cartItem['total_price'], 2, ',', '.') }}
-                    </span>
-                </p>
-            </div>
-            <button class="absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor">
-                <i class="icofont-close-line"></i>
-            </button>
-        </li>
-    @endforeach
-</ul>
+                                            @foreach ($cartItems as $cartItem)
+                                                @php
+                                                $course = \App\Models\Course::find($cartItem['course_id']);
+                                                $quantity = 1;
+                                                 @endphp
+                                                <li class="relative flex gap-x-15px items-center">
+                                                    <a href="{{ route('course.detail', $course->id) }}">
+                                                        <img src="{{ asset('storage/' . $course->thumbnail) }}" alt="{{ $course->name }}" width="40">
+                                                    </a>
+                                                <div>
+                                                    <a href="{{ route('course.detail', $course->id) }}" class="text-sm text-darkblack hover:text-secondaryColor leading-5 block pb-2 capitalize dark:text-darkblack-dark dark:hover:text-secondaryColor">
+                                                        {{ $course->name }}
+                                                    </a>
+                                                    <p class="text-sm text-darkblack leading-5 block pb-5px dark:text-darkblack-dark">
+                                                        {{ $quantity }} x <span class="text-secondaryColor">Rp {{ number_format($cartItem['total_price'], 2, ',', '.') }}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <button class="remove-item absolute block top-0 right-0 text-base text-contentColor leading-1 hover:text-secondaryColor dark:text-contentColor-dark dark:hover:text-secondaryColor"
+                                                    data-course-id="{{ $cartItem['course_id'] }}"
+                                                    data-cart-id="{{ $cart ? $cart->id : '' }}">
+                                                    <i class="icofont-close-line"></i>
+                                                </button>
+                                                </li>
+                                            @endforeach
+                                            </ul>
 
-<!-- Total Price -->
-<div>
-    <p class="text-size-17 text-contentColor dark:text-contentColor-dark pb-5 flex justify-between">
-        Total Price:
-        <span class="font-bold text-secondaryColor">
-            Rp {{ number_format(collect($cartItems)->sum(function($item) {
-            return (float) ($item['total_price'] ?? 0); // Menjumlahkan total_price dari setiap item
-            }), 2, ',', '.') }}
-        </span>
-    </p>
-</div>
+                                            <!-- Total Price -->
+                                            <div>
+                                                <p class="text-size-17 text-contentColor dark:text-contentColor-dark pb-5 flex justify-between">
+                                                        Total Price:
+                                                    <span id="total-price" class="font-bold text-secondaryColor">
+                                                        Rp {{ number_format(collect($cartItems)->sum('total_price'), 2, ',', '.') }}
+                                                    </span>
+                                                </p>
+                                            </div>
 
-<!-- View Cart and Checkout Buttons -->
-<div class="flex flex-col gap-y-5">
-    <a href="{{ url('/cart') }}" class="text-sm font-bold text-contentColor dark:text-contentColor-dark hover:text-whiteColor hover:bg-secondaryColor text-center py-10px border border-secondaryColor">
-        View Cart
-    </a>
-    <a href="{{ url('/checkout') }}" class="text-sm font-bold bg-darkblack dark:bg-darkblack-dark text-whiteColor dark:text-whiteColor-dark hover:bg-secondaryColor dark:hover:bg-secondaryColor text-center py-10px">
-        Checkout
-    </a>
-</div>
-
-
-
-
+                                            <!-- View Cart and Checkout Buttons -->
+                                            <div class="flex flex-col gap-y-5">
+                                                <a href="{{ url('/cart') }}" class="text-sm font-bold text-contentColor dark:text-contentColor-dark hover:text-whiteColor hover:bg-secondaryColor text-center py-10px border border-secondaryColor">
+                                                    Lihat Keranjang
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-
                                 </li>
                                 <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
                                     <div class="mr-5 cursor-pointer group relative flex items-center">
@@ -511,4 +503,44 @@
             }
         });
     });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".remove-item").forEach(button => {
+        button.addEventListener("click", function () {
+            let courseId = this.getAttribute("data-course-id");
+            let cartId = this.getAttribute("data-cart-id");
+
+            if (!cartId || !courseId) {
+                alert("Cart ID atau Course ID tidak ditemukan!");
+                return;
+            }
+
+            fetch(`/cart/${cartId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                body: JSON.stringify({ course_id: courseId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    
+                    this.closest("li").remove();
+
+                    let totalPriceElement = document.getElementById("total-price");
+                    if (totalPriceElement) {
+                        totalPriceElement.innerText = "Rp " + new Intl.NumberFormat('id-ID', { minimumFractionDigits: 2 }).format(data.totalPrice);
+                    }
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    });
+});
 </script>
