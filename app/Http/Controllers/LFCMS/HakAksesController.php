@@ -15,7 +15,7 @@ class HakAksesController extends Controller
     public function index(Request $request)
     {
         // Ambil semua roles untuk ditampilkan
-        $roles = Role::where('akses', 'backend')->get();
+        $roles = Role::all();
     
         // Ambil role yang dipilih (default ke role pertama jika tidak ada yang dipilih)
         $selectedRoleId = $request->input('role_id', $roles->first()->id);
