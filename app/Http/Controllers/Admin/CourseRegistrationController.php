@@ -17,17 +17,17 @@ use App\Http\Controllers\Controller;
 class CourseRegistrationController extends Controller
 {
     public function orderHistory()
-{
-    // Ambil user ID dari pengguna yang sedang login
-    $userId = auth()->user()->id;
+    {
+        // Ambil user ID dari pengguna yang sedang login
+        $userId = auth()->user()->id;
 
-    // Filter pendaftaran berdasarkan user ID
-    $registrations = CourseRegistration::with(['user', 'course'])
-        ->where('user_id', $userId)
-        ->paginate(10);
+        // Filter pendaftaran berdasarkan user ID
+        $registrations = CourseRegistration::with(['user', 'course'])
+            ->where('user_id', $userId)
+            ->paginate(10);
 
-    return view('dashboard.pages.order-history.index', compact('registrations'));
-}
+        return view('dashboard.pages.order-history.index', compact('registrations'));
+    }
 
     public function create()
     {
@@ -221,81 +221,105 @@ class CourseRegistrationController extends Controller
         }
     }
 
-
-    // public function paymentNotification(Request $request)
-    // {
-    //     // Set konfigurasi Midtrans
-    //     Config::$serverKey = config('services.midtrans.server_key');
-    //     Config::$isProduction = config('services.midtrans.is_production');
-    //     Config::$clientKey = config('services.midtrans.client_key');
-
-    //     // Ambil data notifikasi dari Midtrans
-    //     $notif = new Notification();
-
-    //     // Ambil status pembayaran dan informasi lainnya
-    //     $transactionStatus = $notif->transaction_status;
-    //     $paymentType = $notif->payment_type;
-    //     $orderId = $notif->order_id;
-
-    //     // Cari data pendaftaran berdasarkan order_id
-    //     $registration = CourseRegistration::where('order_id', $orderId)->first();
-
-    //     if ($registration) {
-    //         // Update status berdasarkan notifikasi yang diterima dari Midtrans
-    //         if ($transactionStatus == 'success') {
-    //             $registration->update([
-    //                 'method_pembayaran' => $paymentType, // Mengambil metode pembayaran (gopay, bank transfer, dll.)
-    //                 'registration_status' => 'Berhasil',
-    //             ]);
-    //         } elseif ($transactionStatus == 'pending') {
-    //             $registration->update([
-    //                 'method_pembayaran' => $paymentType,
-    //                 'registration_status' => 'Pending',
-    //             ]);
-    //         } elseif ($transactionStatus == 'failed') {
-    //             $registration->update([
-    //                 'method_pembayaran' => $paymentType,
-    //                 'registration_status' => 'Gagal',
-    //             ]);
-    //         }
-
-    //         return response()->json(['status' => 'success']);
-    //     }
-
-    //     return response()->json(['status' => 'error', 'message' => 'Order tidak ditemukan']);
-    // }
-
-
     public function storeFromCart(Request $request)
     {
-        // Ambil item yang ada di cart untuk user yang sedang login
-        $cartItems = Cart::where('user_id', auth()->id())->get();
+        // Cek apakah pengguna sudah login
+        if (!auth()->check()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Silakan login atau daftar terlebih dahulu untuk melanjutkan.',
+            ], 401);
+        }
 
-        $methodPembayaran = $request->input('method_pembayaran');
-        $now = now();
+        // Ambil data cart pengguna
+        $cart = Cart::where('user_id', auth()->user()->id)->first();
+        if (!$cart || empty($cart->cart_items)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Keranjang Anda kosong.',
+            ], 400);
+        }
 
-        foreach ($cartItems as $cartItem) {
-            // Ambil harga dari cart item, misalnya diambil dari kolom 'harga' di tabel cart_items
-            $formattedHarga = (float) str_replace(['.', ','], '', $cartItem->harga);
+        // Dekode cart_items
+        $cartItems = is_string($cart->cart_items) ? json_decode($cart->cart_items, true) : $cart->cart_items;
 
-            // Buat registrasi course dari data cart
+        // Validasi apakah cartItems adalah array
+        if (!is_array($cartItems)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data keranjang tidak valid.',
+            ], 400);
+        }
+
+        // Debugging log
+        \Log::info('Cart Items:', ['cart_items' => $cartItems]);
+
+        $snapTokens = []; // Array untuk menyimpan semua snapToken
+        foreach ($cartItems as $item) {
+            if (!isset($item['course_id'], $item['total_price'])) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Data kursus tidak lengkap di keranjang.',
+                ], 400);
+            }
+
+            // Ambil data kursus
+            $course = Course::find($item['course_id']);
+            if (!$course) {
+                continue; // Skip jika kursus tidak ditemukan
+            }
+
+            // Tentukan harga akhir berdasarkan data keranjang
+            $hargaAkhir = $item['total_price'];
+
+            // Set konfigurasi Midtrans
+            Config::$serverKey = config('services.midtrans.server_key');
+            Config::$isProduction = config('services.midtrans.is_production');
+            Config::$clientKey = config('services.midtrans.client_key');
+
+            // Persiapkan data transaksi untuk Midtrans
+            $transaction = [
+                'transaction_details' => [
+                    'order_id' => 'ORDER-' . Str::uuid()->toString(),
+                    'gross_amount' => $hargaAkhir,
+                ],
+                'customer_details' => [
+                    'first_name' => auth()->user()->first_name,
+                    'email' => auth()->user()->email,
+                    'phone' => auth()->user()->phone_number,
+                ]
+            ];
+
+            // Generate Snap Token
+            $snapToken = Snap::getSnapToken($transaction);
+            $snapTokens[] = $snapToken;
+
+            // Simpan data registrasi
             CourseRegistration::create([
-                'user_id' => Auth()->user()->id,
-                'course_id' => $cartItem->course_id,
-                'name' => $cartItem->course->name, // Misalkan relasi antara cart_items dan courses
-                'harga' => $formattedHarga,
-                'method_pembayaran' => $methodPembayaran,
+                'user_id' => auth()->user()->id,
+                'course_id' => $item['course_id'],
+                'registration_date' => now(),
+                'order_date' => now(),
+                'method_pembayaran' => 'Midtrans',
+                'harga' => $hargaAkhir,
                 'registration_status' => 'Menunggu',
-                'registrations_date' => $now,
-                'order_date' => $now,
+                'snap_token' => $snapToken,
+                'order_id' => $transaction['transaction_details']['order_id'],
             ]);
         }
 
-        // Setelah pendaftaran berhasil, hapus cart items yang sudah diproses
-        Cart::where('user_id', auth()->id())->delete();
+        // Hapus keranjang setelah checkout berhasil
+        $cart->delete();
 
-        return response()->json(['message' => 'Pendaftaran berhasil']);
+        // Redirect ke halaman pembayaran menggunakan snapToken pertama
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Checkout berhasil! Pendaftaran kursus telah dibuat.',
+            'redirect_url' => route('payment.page', ['snapToken' => $snapTokens[0]]), // Gunakan snapToken pertama
+        ]);
     }
+
+
 
 
     public function show($id)

@@ -923,13 +923,19 @@
                                 </div>
                             </div>
                             <div class="mb-5" data-aos="fade-up">
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+
+                                <button type="submit" class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                    Tambah ke Keranjang
+                                </button>
+                            </form>
                                 @if (auth()->user() &&
                                         !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
                                     <!-- Tombol Add to Cart dan Buy Now jika pengguna belum terdaftar -->
-                                    <button type="submit"
-                                        class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                        Add To Cart
-                                    </button>
+                                    
+
                                     <form id="course-registration-form"
                                         action="{{ route('course-registrations.store') }}" method="POST"
                                         style="display: inline;">
@@ -939,7 +945,7 @@
                                         <!-- Tombol Buy Now -->
                                         <button type="button" onclick="submitCourseRegistration({{ $course->id }})"
                                             class="w-full text-center text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark">
-                                            Buy Now
+                                            Beli Sekarang
                                         </button>
                                     </form>
                                 @else
@@ -1124,7 +1130,7 @@
                                             </h3>
                                             <a href="{{ route('course.detail', $course->slug) }}"
                                                 class="text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor font-semibold leading-22px">
-                                                {{ $course->name }}
+                                                {{ Str::limit($course->name, 40) }}
                                             </a>
                                         </div>
                                     </li>
@@ -1132,29 +1138,7 @@
                             </ul>
                         </div>
 
-                        <!-- contact form -->
-                        <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
-                            data-aos="fade-up">
-                            <h4
-                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Get in Touch
-                            </h4>
-                            <form class="space-y-5">
-                                <input type="text" placeholder="Enter Name*"
-                                    class="w-full text-contentColor leading-7 pb-10px bg-transparent focus:outline-none placeholder:text-placeholder placeholder:opacity-80 border-b border-borderColor2 dark:text-contentColor-dark dark:border-borderColor2-dark">
-                                <input type="email" placeholder="Enter your mail*"
-                                    class="w-full text-contentColor leading-7 pb-10px bg-transparent focus:outline-none placeholder:text-placeholder placeholder:opacity-80 border-b border-borderColor2 dark:text-contentColor-dark dark:border-borderColor2-dark">
-                                <input type="text" placeholder="Message*"
-                                    class="w-full text-contentColor leading-7 pb-10px bg-transparent focus:outline-none placeholder:text-placeholder placeholder:opacity-80 border-b border-borderColor2 dark:text-contentColor-dark dark:border-borderColor2-dark">
-                                <button type="submit"
-                                    class="text-size-15 text-whiteColor uppercase bg-primaryColor border border-primaryColor px-55px py-13px hover:text-primaryColor hover:bg-whiteColor rounded inline-block dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                                    Send Message
-                                </button>
-                            </form>
-                        </div>
-
-                        <!-- tags
-                                       -->
+                        <!-- tags -->
                         <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
                             data-aos="fade-up">
                             <h4

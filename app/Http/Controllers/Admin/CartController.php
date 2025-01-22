@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Cart;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,12 +16,18 @@ class CartController extends Controller
      */
     public function index()
     {
-        // Menampilkan cart hanya untuk user yang sedang login
-        $cartItems = Cart::with('course')
-            ->where('user_id', auth()->id()) // Menambahkan filter berdasarkan user_id
-            ->get();
+        $carts = Cart::where('user_id', auth()->id())->get();
+        $totalPrice = 0;
 
-        return view('dashboard.pages.cart.index', compact('cartItems'));
+        foreach ($carts as $cart) {
+            $cartItems = json_decode($cart->cart_items, true);
+            $cart->cartItems = $cartItems;
+
+            // Hitung total harga kursus di keranjang
+            $totalPrice += array_sum(array_column($cartItems, 'total_price'));
+        }
+
+        return view('dashboard.pages.cart.index', compact('carts', 'totalPrice'));
     }
 
     /**
@@ -30,39 +37,44 @@ class CartController extends Controller
     {
         $request->validate([
             'course_id' => 'required|exists:courses,id',
-            'quantity' => 'required|integer|min:1', // Validasi kuantitas
         ]);
 
         // Ambil cart yang ada atau buat yang baru
-        $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
+        $cart = Cart::firstOrCreate(
+            ['user_id' => auth()->id()],
+            ['cart_items' => json_encode([])]  // Jika cart tidak ada, buat cart baru dengan cart_items default kosong
+        );
 
-        // Ambil data cart_items atau buat array baru
+        // Ambil data cart_items yang sudah ada, atau buat array baru jika belum ada
         $cartItems = $cart->cart_items ? json_decode($cart->cart_items, true) : [];
 
-        // Cek apakah course_id sudah ada dalam cart
-        $existingItem = collect($cartItems)->firstWhere('course_id', $request->course_id);
-        if ($existingItem) {
-            // Update kuantitas jika course sudah ada
-            $existingItem['quantity'] += $request->quantity;
-        } else {
-            // Ambil data kursus dari course_id
-            $course = Course::find($request->course_id);
-
-            // Tambahkan item baru, termasuk nama kursus
-            $cartItems[] = [
-                'course_id' => $request->course_id,
-                'course_name' => $course->name, // Nama kursus
-                'quantity' => $request->quantity,
-                'price' => $course->harga * $request->quantity, // Harga per item dikali kuantitas
-            ];
+        foreach ($cartItems as $item) {
+            if ($item['course_id'] == $request->course_id) {
+                return redirect()->route('cart.index')->with('error', 'Kursus sudah ada di keranjang anda.');
+            }
         }
 
-        // Simpan kembali cart dengan data cart_items yang diperbarui
+        // Ambil data course
+        $course = Course::find($request->course_id);
+
+        // Hitung harga setelah diskon
+        $finalPrice = $course->harga - ($course->harga_diskon ?? 0);
+
+        // Menambahkan item baru ke cart
+        $cartItems[] = [
+            'course_id' => $request->course_id,
+            'course_name' => $course->name,
+            'price' => $course->harga,
+            'total_price' => $finalPrice,
+        ];
+
+        // Menyimpan kembali cart dengan cart_items yang diperbarui
         $cart->cart_items = json_encode($cartItems);
         $cart->save();
 
         return redirect()->route('cart.index')->with('success', 'Item added to cart successfully.');
     }
+
 
     public function getCartTotal()
     {
@@ -112,7 +124,6 @@ class CartController extends Controller
 
             // Log untuk debugging
             if (!$course) {
-                \Log::error('Kursus tidak ditemukan dengan ID: ' . $request->course_id);  // Log kesalahan untuk debugging
                 return response()->json([
                     'success' => false,
                     'message' => 'Kursus tidak ditemukan.',
@@ -144,47 +155,31 @@ class CartController extends Controller
         }
     }
 
-
-
-
-
-    // public function update(Request $request)
-    // {
-    //     $cart = Cart::find($request->cartId);
-    //     $cart->quantity = $request->quantity;
-    //     $cart->price = $request->total;
-    //     $cart->save();
-
-    //     return response()->json(['success' => true]);
-    // }
-
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart, $course_id)
+    public function destroy(Request $request, Cart $cart)
     {
-        if ($cart->user_id !== auth()->id()) {
-            return response()->json(['status' => 'error', 'message' => 'Unauthorized action!'], 403);
-        }
+        $courseId = $request->input('course_id');
 
-        // Ambil data cart_items
         $cartItems = json_decode($cart->cart_items, true);
 
-        // Filter untuk menghapus item berdasarkan course_id
-        $cartItems = array_filter($cartItems, function ($item) use ($course_id) {
-            return $item['course_id'] !== $course_id;
+        $cartItems = array_filter($cartItems, function ($item) use ($courseId) {
+            return $item['course_id'] != $courseId;
         });
 
-        // Simpan ulang cart setelah item dihapus
-        $cart->cart_items = json_encode(array_values($cartItems)); // Gunakan array_values untuk re-index array
+        $cart->cart_items = json_encode(array_values($cartItems));
         $cart->save();
+
+        $totalPrice = collect($cartItems)->sum('total_price');
 
         return response()->json([
             'status' => 'success',
             'message' => 'Cart item deleted successfully!',
+            'totalPrice' => $totalPrice,
         ]);
     }
+
 
 
     public function clearCart(Request $request)
@@ -195,31 +190,17 @@ class CartController extends Controller
             Cart::where('user_id', $user->id)->delete();
 
             return response()->json([
+                'success' => true,
                 'status' => 'success',
-                'message' => 'All Cart item deleted successfully!',
+                'message' => 'isi keranjang berhasil dihapus!',
                 'redirect_url' => route('cart.index'),
             ]);
+
         }
 
         return response()->json(['success' => false], 400);
     }
 
-    public function getCartData()
-{
-    // Pastikan user sudah login
-    $user = Auth::user();
-
-    // Hitung jumlah item di cart
-    $cartCount = $user->cart()->count();
-
-    // Ambil course terbaru di cart
-    $latestCourses = $user->cart()
-        ->orderBy('created_at', 'desc')
-        ->limit(3) // Tampilkan 3 course terbaru
-        ->get();
-
-    return view('landing.partials.header', compact('cartCount', 'latestCourses'));
-}
 
 }
 

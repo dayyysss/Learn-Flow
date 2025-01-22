@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('permission', function ($permission) {
             return auth()->check() && auth()->user()->hasPermissionTo($permission);
         });
-        
+
         Blade::if('roles', function ($roles) {
             if (!auth()->check()) {
                 \Log::info('User not authenticated.');
@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
             \Log::info('User has roles: ' . json_encode($hasRoles));
             return $hasRoles;
         });
-        
+
 
         View::composer('dashboard.partials.header', function ($view) {
             $user = auth()->user();
@@ -94,7 +94,7 @@ class AppServiceProvider extends ServiceProvider
             $averageInstructorRating = $averageInstructorRating ?? 0;
             $instructorReviewCount = $instructorReviewCount ?? 0;
 
-            
+
 
             $view->with([
                 'registeredCoursesCount' => $registeredCoursesCount,
@@ -105,29 +105,31 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('landing.partials.header', function ($view) {
-            $user = Auth::user(); // Ambil pengguna yang sedang login
-        
-            if ($user) { // Pastikan pengguna sudah login
-                $cartCount = $user->cart()->count(); // Hitung jumlah item di cart
-        
-                // Ambil course terbaru di cart
-                $latestCourses = $user->cart()
-                    ->orderBy('created_at', 'desc')
-                    ->limit(3) // Tampilkan 3 course terbaru
-                    ->get();
-        
+            $user = Auth::user(); 
+
+            if ($user) {
+                $cart = $user->cart()->first();
+
+                $cartItems = $cart ? json_decode($cart->cart_items, true) : [];
+
+                $cartCount = count($cartItems);
+
                 $view->with([
+                    'cart' => $cart,
                     'cartCount' => $cartCount,
-                    'latestCourses' => $latestCourses,
+                    'cartItems' => $cartItems,
                 ]);
             } else {
-                // Jika pengguna belum login, set nilai default
+    
                 $view->with([
+                    'cart' => null, 
                     'cartCount' => 0,
-                    'latestCourses' => [],
+                    'cartItems' => [],
                 ]);
             }
         });
+
+
 
         // View::composer(['dashboard.pages.lesson._modul_content'], function ($view) {
         //     // Mendapatkan modul_id dari parameter URL
@@ -142,7 +144,7 @@ class AppServiceProvider extends ServiceProvider
         //     // Bagikan data assignment ke view
         //     $view->with('assignment', $assignment);
         // });
-        
+
 
         View::composer('lfcms.partials.sidebar', function ($view) {
             $menus = MenuList::where('menutype_id', 1)
@@ -162,12 +164,12 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['*'], function ($view) {
             $commonData = $this->loadCommonData();
             $contactsLogo = $this->getContactsLogo();
-            
+
             $view->with(array_merge($commonData, $contactsLogo));
         });
     }
 
-    
+
 
     private function loadCommonData()
     {
@@ -178,11 +180,13 @@ class AppServiceProvider extends ServiceProvider
             ->take(5)
             ->get();
 
-        $categories = CategoryCourse::withCount(['courses' => function ($query) {
-            $query->where('publish_date', '<=', now());
-        }])
-        ->orderBy('courses_count', 'desc')
-        ->get();
+        $categories = CategoryCourse::withCount([
+            'courses' => function ($query) {
+                $query->where('publish_date', '<=', now());
+            }
+        ])
+            ->orderBy('courses_count', 'desc')
+            ->get();
 
         $popularTags = DB::table('courses')
             ->whereNotNull('tags')
@@ -208,9 +212,9 @@ class AppServiceProvider extends ServiceProvider
             ->countBy()
             ->sortDesc()
             ->take(10);
-        
-    return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
-}
+
+        return compact('categories', 'popularTags', 'categoriesArtikel', 'recentPosts', 'popularTagsArtikel');
+    }
 
     private function getContactsLogo()
     {
@@ -227,5 +231,5 @@ class AppServiceProvider extends ServiceProvider
         ];
     }
 
-    
-}  
+
+}

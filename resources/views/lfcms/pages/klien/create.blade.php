@@ -39,9 +39,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex-center mt-5 !justify-end">
+                        <div class="mt-5 !justify-end">
                             <button type="submit"
-                                class="btn b-solid btn-primary-solid btn-md w-full dk-theme-card-square">{{ isset($klien) ? 'Update' : 'Tambah' }}</button>
+                                class="btn b-solid btn-primary-solid btn-md w-full dk-theme-card-square flex">{{ isset($klien) ? 'Update' : 'Tambah' }}</button>
+                                <button type="submit"
+                                class="btn b-solid btn-secondary-solid btn-md w-full dk-theme-card-square"><a href="{{ route('klien.index') }}"></a>Kembali</button>
                         </div>
                     </div>
                 </div>
@@ -78,7 +80,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Course Media File -->
             </div>
         </form>
     </div>
