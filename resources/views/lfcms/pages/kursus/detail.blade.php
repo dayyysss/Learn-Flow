@@ -18,25 +18,23 @@
               </div>
               <div class="text-center mt-5">
                   <div class="aspect-video rounded-20 overflow-hidden dk-theme-card-square">
-                      <img src="assets/images/course/course-thumb.png" alt="thumb" class="w-full h-full object-contain dark:brightness-50">
+                      <img src="{{ asset('storage/' . $course->thumbnail) }}" alt="thumb" class="w-full h-full object-contain dark:brightness-50">
                   </div>
                   <div class="max-w-[540px] mx-auto mt-4">
                       <h4 class="text-[25px] leading-[1.4] text-heading font-semibold">
-                          Build Responsive Real-World Websites with HTML and CSS
+                          {{$course->name}}
                       </h4>
                       <p class="font-spline_sans leading-[1.62] text-gray-500 dark:text-dark-text mt-2">
-                          Learn modern HTML5, CSS3 and web design by building a stunning 
-                          website for your portfolio! Includes flexbox and CSS Grid Sed 
-                          arcu non odio euismod lacinia at. Porta lorem mollis aliquam ut porttitor.
+                          {!! $course->deskripsi !!}
                       </p>
                   </div>
                   <div class="p-5 border border-dashed border-gray-200 dark:border-dark-border rounded-15 mt-4">
                       <div class="grid grid-cols-12 gap-x-5 sm:gap-x-0 gap-y-5 font-semibold leading-none text-left">
                           <div class="col-span-6 sm:col-span-4 lg:col-span-6 2xl:col-span-4 flex items-center gap-2.5">
-                              <img src="assets/images/user/user-1.png" alt="Instructor" class="size-11 rounded-50 hidden sm:block dk-theme-card-square">
+                            <img src="{{ $course->instrukturs->image ? Storage::url($course->instrukturs->image) : asset('assets/images/grid/grid_small_1.jpg') }}" alt="Instructor" class="size-11 rounded-50 hidden sm:block dk-theme-card-square">
                               <div class="flex flex-col gap-1">
-                                  <p class="text-xs text-gray-500 dark:text-dark-text">Author</p>
-                                  <h6 class="text-heading">Alex Jonsion</h6>
+                                  <p class="text-xs text-gray-500 dark:text-dark-text">Instruktur</p>
+                                  <h6 class="text-heading">{{$course->instrukturs->name}}</h6>
                               </div>
                           </div>
                           <div class="col-span-6 sm:col-span-4 lg:col-span-6 2xl:col-span-4 flex items-center gap-2.5">
@@ -71,8 +69,8 @@
                                   </svg>
                               </div>
                               <div class="flex flex-col gap-1">
-                                  <p class="text-xs text-gray-500 dark:text-dark-text">Skills</p>
-                                  <h6 class="text-heading">Intermediate</h6>
+                                  <p class="text-xs text-gray-500 dark:text-dark-text">Level</p>
+                                  <h6 class="text-heading">{{ $course->tingkatan}}</h6>
                               </div>
                           </div>
                           <div class="col-span-6 sm:col-span-4 lg:col-span-6 2xl:col-span-4 flex items-center gap-2.5">
