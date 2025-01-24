@@ -30,8 +30,8 @@
         <!-- CTA Section -->
         @include('landing.components.course')
 
-        <!-- Portofolio Section -->
-        @include('landing.components.register-course')
+        <!-- Regist Section -->
+        {{-- @include('landing.components.register-course') --}}
 
         <!-- Counter Up Section -->
         @include('landing.components.pricing')

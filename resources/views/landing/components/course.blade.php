@@ -3,7 +3,6 @@
         class="pt-50px pb-10 md:pt-70px md:pb-50px lg:pt-20 2xl:pt-100px 2xl:pb-70px bg-whiteColor dark:bg-whiteColor-dark">
         <div class="filter-container container">
             <div class="flex gap-15px lg:gap-30px flex-wrap lg:flex-nowrap items-center">
-                <!-- courses Left -->
                 <div class="basis-full lg:basis-[500px]" data-aos="fade-up">
                     <span
                         class="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
@@ -14,7 +13,6 @@
                         Temukan Kursus Favorit Impian Anda!
                     </h3>
                 </div>
-                <!-- courses right -->
                 <div class="basis-full lg:basis-[700px]">
                     <ul class="filter-controllers flex flex-wrap sm:flex-nowrap justify-start lg:justify-end button-group filters-button-group"
                         data-aos="fade-up">
@@ -24,45 +22,26 @@
                                 Lihat Semua
                             </button>
                         </li>
-                        <li>
-                            <button data-filter=".filter1"
-                                class="pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor">
-                                Data science
-                            </button>
-                        </li>
-                        <li>
-                            <button data-filter=".filter2"
-                                class="pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor">
-                                Engineering
-                            </button>
-                        </li>
-                        <li>
-                            <button data-filter=".filter3"
-                                class="pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor">
-                                Featured
-                            </button>
-                        </li>
-                        <li>
-                            <button data-filter=".filter4"
-                                class="text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor">
-                                Architecture
-                            </button>
-                        </li>
+                        @foreach ($categories as $category)
+                            <li>
+                                <button data-filter=".category-{{ $category->id }}"
+                                    class="pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor">
+                                    {{ $category->name }}
+                                </button>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
 
-            <!-- course cards -->
-
             <div class="container p-0 filter-contents flex flex-wrap sm:-mx-15px mt-7 lg:mt-10" data-aos="fade-up">
-                <!-- card 1 -->
                 @if ($course->count())
                     @foreach ($course as $item)
-                        <div class="w-full sm:w-1/2 lg:w-1/3 group grid-item filter1 filter3">
+                        <div
+                            class="course-card category-{{ $item->categories->id }} w-full sm:w-1/2 lg:w-1/3 group grid-item filter1 filter3">
                             <div class="tab-content-wrapper sm:px-15px mb-30px">
                                 <div
                                     class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
-                                    <!-- card image -->
                                     <div class="relative mb-4">
                                         <a href="{{ route('course.detail', $item->slug) }}"
                                             class="w-full overflow-hidden rounded">
@@ -82,7 +61,6 @@
                                                     class="icofont-heart-alt text-base py-1 px-2"></i></a>
                                         </div>
                                     </div>
-                                    <!-- card content -->
                                     <div>
                                         <div class="grid grid-cols-2 mb-15px">
                                             <div class="flex items-center">
@@ -111,7 +89,6 @@
                                             class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                             {{ \Illuminate\Support\Str::limit($item->name, 40, '...') }}
                                         </a>
-                                        <!-- price -->
                                         <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
                                             @if ($item->harga_diskon)
                                                 Rp {{ number_format($item->harga - $item->harga_diskon, 2, ',', '.') }}
@@ -124,7 +101,6 @@
                                                 <del
                                                     class="text-base font-semibold text-secondaryColor3">Free</del></span>
                                         </div>
-                                        <!-- author and rating-->
                                         <div
                                             class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
                                             <div>
@@ -140,7 +116,6 @@
                                                     <i
                                                         class="icofont-star text-size-10 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
                                                 @endfor
-
                                                 <span class="text-xs text-lightGrey6">
                                                     ({{ $item->total_feedbacks }} reviews)
                                                 </span>
@@ -152,7 +127,6 @@
                         </div>
                     @endforeach
                 @else
-                    <!-- Pesan jika tidak ada kursus ditemukan -->
                     <div
                         class="coll-span-full text-center py-10 bg-lightGrey dark:bg-darkdeep3-dark text-xl font-semibold text-primaryColor">
                         Kursus tidak ditemukan untuk pencarian ini.
@@ -162,3 +136,30 @@
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-controllers button');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('is-checked'));
+                this.classList.add('is-checked');
+
+                // Filter cards
+                if (filter === '*') {
+                    courseCards.forEach(card => card.style.display = 'block');
+                } else {
+                    courseCards.forEach(card => {
+                        card.style.display = card.classList.contains(filter.slice(1)) ?
+                            'block' : 'none';
+                    });
+                }
+            });
+        });
+    });
+</script>
