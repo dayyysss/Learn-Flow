@@ -8,7 +8,7 @@
       <div class="col-span-full lg:col-span-7 card p-4 sm:p-6">
           <div class="p-0.5">
               <div class="flex-center-between">
-                  <h5 class="text-heading sm:text-[22px] leading-none font-semibold">Course details</h5>
+                  <h5 class="text-heading sm:text-[22px] leading-none font-semibold">Detail Kursus</h5>
                   <a href="edit-course.html" class="btn b-light btn-primary-light dk-theme-card-square">
                       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none" class="hidden sm:block">
                           <path d="M14.6492 3.70261L11.2974 0.351573C11.186 0.240112 11.0537 0.151695 10.908 0.0913719C10.7624 0.0310484 10.6064 0 10.4488 0C10.2911 0 10.1351 0.0310484 9.98947 0.0913719C9.84386 0.151695 9.71156 0.240112 9.60012 0.351573L0.35176 9.59993C0.239844 9.71096 0.151113 9.84313 0.0907265 9.98875C0.03034 10.1344 -0.000497585 10.2905 6.07129e-06 10.4482V13.8C6.07129e-06 14.1182 0.126436 14.4235 0.351482 14.6485C0.576528 14.8736 0.881757 15 1.20002 15H13.8002C13.9593 15 14.1119 14.9368 14.2244 14.8243C14.337 14.7117 14.4002 14.5591 14.4002 14.4C14.4002 14.2409 14.337 14.0882 14.2244 13.9757C14.1119 13.8632 13.9593 13.8 13.8002 13.8H6.24908L14.6492 5.39988C14.7606 5.28845 14.8491 5.15615 14.9094 5.01054C14.9697 4.86493 15.0008 4.70886 15.0008 4.55125C15.0008 4.39364 14.9697 4.23757 14.9094 4.09196C14.8491 3.94635 14.7606 3.81405 14.6492 3.70261ZM4.55181 13.8H1.20002V10.4482L7.8001 3.84811L11.1519 7.19991L4.55181 13.8ZM12.0002 6.35165L8.64911 2.99985L10.4491 1.19983L13.8002 4.55162L12.0002 6.35165Z" fill="currentColor"/>
@@ -146,7 +146,7 @@
               <!-- Course Earning Chart -->
               <div class="card p-5">
                   <div class="flex-center-between">
-                      <h6 class="card-title">Earnings</h6>
+                      <h6 class="card-title">Jumlah Peserta Terdaftar</h6>
                       <select class="form-input form-select">
                           <option value="this-month">This Month</option>
                           <option value="last-year">Last Year</option>
@@ -158,34 +158,39 @@
                       $<span class="counter-value" data-value="1258">0</span>
                   </div>
                   <div id="courseEarning"></div> 
-              </div>
+                </div>
               <!-- New Enrollment Chart -->
               <div class="card p-5">
                   <div class="flex-center-between">
-                      <h6 class="card-title">New enrollment</h6>
-                      <select class="form-input form-select">
-                          <option value="this-month">This Month</option>
-                          <option value="last-year">Last Year</option>
-                          <option value="last-month">Last Month</option>
-                          <option value="last-week">Last Week</option>
-                      </select>
+                      <h6 class="card-title">Modul Pembelajaran</h6>
+                     
+                      <div class="card-title text-[42px] mt-3 mb-5">
+                          <span class="counter-value" data-value="1.5">0</span>k
+                      </div>
                   </div>
-                  <div class="counter-value card-title text-[42px] mt-3 mb-5" data-value="583">0</div>
-                  <div id="newEnroll"></div> 
+                  <div id="courseImpression"></div> 
               </div>
-              <!-- New Enrollment Chart -->
               <div class="card p-5">
                   <div class="flex-center-between">
-                      <h6 class="card-title">Course impression</h6>
-                      <select class="form-input form-select">
-                          <option value="this-month">This Month</option>
-                          <option value="last-year">Last Year</option>
-                          <option value="last-month">Last Month</option>
-                          <option value="last-week">Last Week</option>
-                      </select>
+                      <h6 class="card-title">Tes</h6>
+                     
+                     
                   </div>
-                  <div class="card-title text-[42px] mt-3 mb-5">
-                      <span class="counter-value" data-value="1.5">0</span>k
+                  <div id="courseImpression"></div> 
+              </div>
+              <div class="card p-5">
+                  <div class="flex-center-between">
+                      <h6 class="card-title">Tes</h6>
+                     
+                     
+                  </div>
+                  <div id="courseImpression"></div> 
+              </div>
+              <div class="card p-5">
+                  <div class="flex-center-between">
+                      <h6 class="card-title">Tes</h6>
+                     
+                     
                   </div>
                   <div id="courseImpression"></div> 
               </div>
