@@ -927,14 +927,27 @@
                                         !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
                                     <!-- Tombol Add to Cart dan Buy Now jika pengguna belum terdaftar -->
                                     
+                                @php
+                                    $cart = \App\Models\Cart::where('user_id', auth()->id())->first();
+                                    $cartItems = $cart ? json_decode($cart->cart_items, true) : [];
+                                    $isInCart = collect($cartItems)->contains('course_id', $course->id);
+                                @endphp
+
+                                @if ($isInCart)
+                                    <div class="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
+                                        <i class="icofont-warning"></i> Kursus ini sudah ada di keranjang!
+                                    </div>
+                                @else
+
                                     <form action="{{ route('cart.store') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
-        
+
                                         <button type="submit" class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Tambah ke Keranjang
+                                        Tambah ke Keranjang
                                         </button>
                                     </form>
+                                @endif
 
                                     <form id="course-registration-form"
                                         action="{{ route('course-registrations.store') }}" method="POST"
