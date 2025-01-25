@@ -20,9 +20,6 @@
                         Harga
                     </th>
                     <th class="pt-13px pb-9px md:py-22px px-5 md:px-25px leading-1.8 max-w-25 whitespace-nowrap">
-                        Quantity
-                    </th>
-                    <th class="pt-13px pb-9px md:py-22px px-5 md:px-25px leading-1.8 max-w-25 whitespace-nowrap">
                         Total
                     </th>
                     <th class="pt-13px pb-9px md:py-22px px-5 md:px-25px leading-1.8 max-w-25 whitespace-nowrap">
@@ -50,12 +47,6 @@
                                                 <span class="amount" id="price-{{ $cart->id }}">
                                                     Rp {{ number_format($item['price'], 2, ',', '.') }} <!-- Display price -->
                                                 </span>
-                                            </td>
-                                            <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
-                                                <div
-                                                    class="count-container max-w-150px h-55px leading-55px border-borderColor2 dark:border-borderColor2-dark relative overflow-hidden inline-block">
-                                                    1
-                                                </div>
                                             </td>
                                             <td class="py-15px md:py-5 border-r border-borderColor dark:border-borderColor-dark">
                                                 <span id="total-{{ $cart->id }}">
