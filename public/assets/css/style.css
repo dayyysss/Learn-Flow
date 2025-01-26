@@ -8,7 +8,7 @@
     --blackColor: #000000;
     --whiteColor: #ffffff;
     --darkdeep1: #170f2f;
-    --primaryColor: #5f2ded;
+    --primaryColor: #021248;
     --secondaryColor: #f2277e;
     --blue: #0c63e4;
     --blue2: rgba(13, 110, 253, 0.25);
@@ -3079,7 +3079,7 @@ video {
 }
 
 .rounded-5 {
-    border-radius: 1.25rem;
+    border-radius: 0.2rem;
 }
 
 .rounded-5px {
@@ -3095,7 +3095,7 @@ video {
 }
 
 .rounded-lg2 {
-    border-radius: 10px;
+    border-radius: 2px;
 }
 
 .rounded-md {

@@ -353,7 +353,8 @@
                                                     <div class="relative overflow-hidden w-full md:w-2/5">
                                                         <a href="{{ route('course.detail', $item->slug) }}"
                                                             class="w-full overflow-hidden rounded">
-                                                            <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
+                                                            <img src="{{ asset('storage/' . $item->thumbnail) }}"
+                                                                alt=""
                                                                 class="w-full transition-all duration-300 group-hover:scale-110 block">
                                                         </a>
 
@@ -447,7 +448,7 @@
                                                                             <i
                                                                                 class="icofont-star text-size-10 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
                                                                         @endfor
-                          
+
                                                                         <span class="text-xs text-lightGrey6">
                                                                             ({{ $item->total_feedbacks }} reviews)
                                                                         </span>

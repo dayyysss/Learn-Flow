@@ -73,7 +73,7 @@ class CertificateController extends Controller
 
         // Buat instance PDF
         $pdf = new Fpdi();
-        $pathToTemplate = public_path('storage/certificates/template.jpg');
+        $pathToTemplate = public_path('storage/certificates/template.jpeg');
         list($width, $height) = getimagesize($pathToTemplate);
         $widthInMM = $width * 0.264583;
         $heightInMM = $height * 0.264583;

@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CourseRegistration;
+use App\Models\ModulProgress;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -172,16 +173,37 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // Hitung jumlah kursus yang terdaftar oleh pengguna
-        $registeredCoursesCount = Course::where('user_id', $user->id)->count();
+        $registeredCourses = Course::where('user_id', $user->id)->get();
 
-        // Hitung jumlah sertifikat yang dimiliki pengguna
-        $certificatesCount = Certificate::where('user_id', $user->id)->count();
+        // Ambil kursus yang sudah terdaftar (konfirmasi)
+        $enrolledCourses = CourseRegistration::where('user_id', $user->id)
+            ->where('registration_status', 'confirmed')
+            ->get();
+
+        // Inisialisasi jumlah sertifikat yang dimiliki pengguna
+        $certificatesCount = 0;
+
+        // Periksa apakah semua modul dalam kursus sudah selesai
+        $enrolledCourses->each(function ($courseRegistration) use (&$certificatesCount) {
+            $course = $courseRegistration->course;
+
+            // Memeriksa apakah semua modul telah selesai
+            $allModulsCompleted = $course->babs->moduls->every(function ($modul) use ($courseRegistration) {
+                return $modul->modulProgresses->where('course_registrations_id', $courseRegistration->id)
+                    ->first()
+                    ->status === 'selesai';
+            });
+
+            // Jika semua modul selesai, hitung sertifikat
+            if ($allModulsCompleted) {
+                $certificatesCount++;
+            }
+        });
+
 
         return view('dashboard.partials.header', [
-            'registeredCoursesCount' => $registeredCoursesCount,
+            'registeredCoursesCount' => $registeredCourses->count(),
             'certificatesCount' => $certificatesCount,
         ]);
     }
-
-    
 }
