@@ -39,8 +39,8 @@ class LandingPageController extends Controller
         $course = Course::where('status', 'publik')->orderBy('created_at', 'desc')->take(6)->get();
         $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $klien = Client::where('status', 'publik')->take(5)->get();
-        $categories = CategoryCourse::all();
-
+        $categories = CategoryCourse::all(); 
+    
         return view('landing-page', compact('heroSection', 'course', 'aboutSection', 'artikel', 'klien', 'categories', 'testimonial', 'categorySection', 'testiSection'));
     }
 
@@ -68,11 +68,6 @@ class LandingPageController extends Controller
         $selectedSkillLevel = $request->get('skill_level');
         $searchQuery = $request->get('search'); // Menambahkan pencarian
 
-        $course = $courseQuery->paginate(10);
-        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
-            ->groupBy('course_id')
-            ->get();
-
         // Query kursus dengan filter kategori, tag, skill_level, dan pencarian
         $courseQuery = Course::where('publish_date', '<=', Carbon::now())
             ->with(['users', 'categories', 'babs.moduls', 'instrukturs']);
@@ -97,6 +92,14 @@ class LandingPageController extends Controller
                     ->orWhere('deskripsi', 'like', '%' . $searchQuery . '%'); // Pencarian berdasarkan deskripsi
             });
         }
+
+        // Paginasi hasil kursus
+        $course = $courseQuery->paginate(10);
+
+        // Ambil data feedback
+        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
+            ->groupBy('course_id')
+            ->get();
 
         // Hitung feedback dan rating menggunakan service
         $calculatedCourses = $this->courseFeedbackService->calculateFeedbacks($course->getCollection(), $feedbacks);
@@ -149,12 +152,17 @@ class LandingPageController extends Controller
 
     public function roadmap(Request $request)
     {
+        // Mengambil semua kategori dengan jumlah kursus terkait
         $categories = CategoryCourse::withCount('courses')->get();
         $instrukturs = CategoryCourse::all();
+
+        // Ambil parameter kategori, tag, skill_level, dan search dari permintaan
         $selectedCategory = $request->get('category');
         $selectedTag = $request->get('tag');
         $selectedSkillLevel = $request->get('skill_level');
         $searchQuery = $request->get('search'); // Menambahkan pencarian
+
+        // Query kursus dengan filter kategori, tag, skill_level, dan pencarian
         $courseQuery = Course::where('publish_date', '<=', Carbon::now())
             ->with(['users', 'categories', 'babs.moduls', 'instrukturs']);
 
@@ -179,14 +187,21 @@ class LandingPageController extends Controller
             });
         }
 
+        // Paginasi hasil kursus
         $course = $courseQuery->paginate(10);
 
+        // Ambil data feedback
         $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
             ->groupBy('course_id')
             ->get();
 
+        // Hitung feedback dan rating menggunakan service
         $calculatedCourses = $this->courseFeedbackService->calculateFeedbacks($course->getCollection(), $feedbacks);
+
+        // Set koleksi kursus dengan hasil yang dihitung
         $course->setCollection($calculatedCourses);
+
+        // Menambahkan parameter pencarian pada URL pagination
         $course->appends([
             'search' => $searchQuery,
             'category' => $selectedCategory,

@@ -4,7 +4,6 @@
 
     @include('landing.components.breadcrumb', ['title' => 'Kursus'])
 
-
     <!-- courses section -->
     <div>
         <div class="container tab py-10 md:py-50px lg:py-60px 2xl:py-100px">
@@ -124,9 +123,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-
                         </div>
-
 
                         <!-- skills -->
                         <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"

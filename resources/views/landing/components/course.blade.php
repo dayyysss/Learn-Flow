@@ -45,13 +45,10 @@
                                     <div class="relative mb-4">
                                         <a href="{{ route('course.detail', $item->slug) }}"
                                             class="w-full overflow-hidden rounded">
-                                            <img src="{{ asset('storage/' . $item->thumbnail) }}" 
-                                            alt="" 
-                                            style="object-fit: cover; 
-                                                   width: 200px; 
-                                                   height: 200px; 
-                                                   background-repeat: no-repeat;" 
-                                            class="transition-all duration-300 group-hover:scale-110">
+                                            <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
+                                                style="
+                                                   height: 214px;"
+                                                class="w-full transition-all duration-300 group-hover:scale-110">
                                         </a>
                                         <div
                                             class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
