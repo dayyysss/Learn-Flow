@@ -39,8 +39,8 @@ class LandingPageController extends Controller
         $course = Course::where('status', 'publik')->orderBy('created_at', 'desc')->take(6)->get();
         $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $klien = Client::where('status', 'publik')->take(5)->get();
-        $categories = CategoryCourse::all(); 
-    
+        $categories = CategoryCourse::all();
+
         return view('landing-page', compact('heroSection', 'course', 'aboutSection', 'artikel', 'klien', 'categories', 'testimonial', 'categorySection', 'testiSection'));
     }
 
@@ -68,6 +68,11 @@ class LandingPageController extends Controller
         $selectedSkillLevel = $request->get('skill_level');
         $searchQuery = $request->get('search'); // Menambahkan pencarian
 
+        $course = $courseQuery->paginate(10);
+        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
+            ->groupBy('course_id')
+            ->get();
+
         // Query kursus dengan filter kategori, tag, skill_level, dan pencarian
         $courseQuery = Course::where('publish_date', '<=', Carbon::now())
             ->with(['users', 'categories', 'babs.moduls', 'instrukturs']);
@@ -92,14 +97,6 @@ class LandingPageController extends Controller
                     ->orWhere('deskripsi', 'like', '%' . $searchQuery . '%'); // Pencarian berdasarkan deskripsi
             });
         }
-
-        // Paginasi hasil kursus
-        $course = $courseQuery->paginate(10);
-
-        // Ambil data feedback
-        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
-            ->groupBy('course_id')
-            ->get();
 
         // Hitung feedback dan rating menggunakan service
         $calculatedCourses = $this->courseFeedbackService->calculateFeedbacks($course->getCollection(), $feedbacks);
@@ -148,6 +145,66 @@ class LandingPageController extends Controller
         $category = CategoryArtikel::all();
 
         return view('landing.pages.blog.blog', compact('artikel', 'category'));
+    }
+
+    public function roadmap(Request $request)
+    {
+        $categories = CategoryCourse::withCount('courses')->get();
+        $instrukturs = CategoryCourse::all();
+        $selectedCategory = $request->get('category');
+        $selectedTag = $request->get('tag');
+        $selectedSkillLevel = $request->get('skill_level');
+        $searchQuery = $request->get('search'); // Menambahkan pencarian
+        $courseQuery = Course::where('publish_date', '<=', Carbon::now())
+            ->with(['users', 'categories', 'babs.moduls', 'instrukturs']);
+
+        if ($selectedCategory) {
+            $courseQuery->whereHas('categories', function ($query) use ($selectedCategory) {
+                $query->where('slug', $selectedCategory);
+            });
+        }
+
+        if ($selectedTag) {
+            $courseQuery->where('tags', 'like', '%' . $selectedTag . '%');
+        }
+
+        if ($selectedSkillLevel) {
+            $courseQuery->where('tingkatan', $selectedSkillLevel);
+        }
+
+        if ($searchQuery) {
+            $courseQuery->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%' . $searchQuery . '%') // Pencarian berdasarkan judul
+                    ->orWhere('deskripsi', 'like', '%' . $searchQuery . '%'); // Pencarian berdasarkan deskripsi
+            });
+        }
+
+        $course = $courseQuery->paginate(10);
+
+        $feedbacks = Feedback::selectRaw('course_id, AVG(rating) as average_rating, COUNT(*) as total_feedbacks')
+            ->groupBy('course_id')
+            ->get();
+
+        $calculatedCourses = $this->courseFeedbackService->calculateFeedbacks($course->getCollection(), $feedbacks);
+        $course->setCollection($calculatedCourses);
+        $course->appends([
+            'search' => $searchQuery,
+            'category' => $selectedCategory,
+            'tag' => $selectedTag,
+            'skill_level' => $selectedSkillLevel,
+        ]);
+
+        return view('landing.pages.roadmap.index', array_merge(
+            [
+                'course' => $course,
+                'categories' => $categories,
+                'instrukturs' => $instrukturs,
+                'selectedCategory' => $selectedCategory,
+                'selectedTag' => $selectedTag,
+                'selectedSkillLevel' => $selectedSkillLevel,
+                'searchQuery' => $searchQuery,
+            ],
+        ));
     }
 
     public function showSlug($slug)

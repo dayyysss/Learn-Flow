@@ -100,6 +100,7 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
     Route::get('/event', 'event')->name('event');
     Route::get('/menu-landing', 'indexMenu')->name('menu.landing');
+    Route::get('/roadmap', 'roadmap')->name('roadmap');
 
     Route::prefix('blog')->group(function () {
         Route::get('/', 'blog')->name('blog');
