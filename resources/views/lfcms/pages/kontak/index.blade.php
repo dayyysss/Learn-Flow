@@ -69,18 +69,15 @@
                                             <td class="p-6 py-4">{{ $contact->topic }}</td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
-                                                    <a href="{{ route('kontak.show', $contact->id) }}"
-                                                        class="btn-icon btn-primary-icon-light size-7">
-                                                        <i class="ri-eye-2-line text-inherit text-[13px]"></i>
-                                                    </a>
-                                                    <a href="{{ route('kontak.edit', $contact->id) }}"
-                                                        class="btn-icon btn-primary-icon-light size-7">
-                                                        <i class="ri-edit-2-line text-inherit text-[13px]"></i>
-                                                    </a>
-                                                    <a href="{{ route('kontak.destroy', $contact->id) }}" class="btn-icon btn-danger-icon-light size-7"
+                                                    <a href="{{ route('kontak.show', $contact->id) }}" 
+                                                    class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Lihat & Balas</a>
+                                                    
+                                                    <a href="{{ route('kontak.destroy', $contact->id) }}" 
+                                                    class="btn b-solid btn-danger-solid px-5 dk-theme-card-square"
                                                     onclick="event.preventDefault(); deleteRecord('{{ route('kontak.destroy', $contact->id) }}');">
-                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                        Hapus
                                                     </a>
+
                                                 </div>
                                             </td>
                                         </tr>

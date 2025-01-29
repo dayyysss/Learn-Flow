@@ -97,20 +97,6 @@
                                                     onclick="event.preventDefault(); deleteRecord('{{ route('testimonial.destroy', $testimonial->id) }}');">
                                                     <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <div class="relative ml-5">
-                                                        <button data-popover-target="td-3-0" data-popover-trigger="click"
-                                                            data-popover-placement="bottom-end"
-                                                            class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                            <i class="ri-more-2-fill text-inherit"></i>
-                                                        </button>
-                                                        <ul id="td-3-0"
-                                                            class="hidden popover-target invisible [&.visible]:!block"
-                                                            data-popover>
-                                                            <li>
-                                                                <a class="popover-item" href="#">More</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>

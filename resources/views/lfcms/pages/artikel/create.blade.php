@@ -44,7 +44,7 @@
             @csrf
             <div class="grid grid-cols-12 gap-x-4">
                 <!-- Start Artikel Information -->
-                <div class="col-span-full lg:col-span-7 card h-fit">
+                <div class="col-span-full lg:col-span-7 card h-auto">
                     <div class="p-6">
                         <h6 class="card-title text-xl font-semibold mb-4">Tambah Artikel</h6>
                         <div class="mt-4">
@@ -52,25 +52,45 @@
                                 <div class="col-span-full">
                                     <label for="judul" class="form-label">Judul</label>
                                     <input type="text" id="judul" name="judul" placeholder="Judul Artikel"
-                                        class="form-input" required oninput="generateSlug()">
+                                        class="form-input @error('judul') is-invalid @enderror" oninput="generateSlug()">
+                                        @error('judul')
+                                        <span class="invalid-feedback" role="alert" style="color: red;">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-span-full">
                                     <label for="slug" class="form-label">Slug</label>
                                     <input type="text" id="slug" name="slug" placeholder="slug"
-                                        class="form-input" required readonly>
+                                        class="form-input" readonly>
                                 </div>
                           
                                 <!-- Author input dihapus, dan akan diambil otomatis dari auth()->user()->name -->
                                 <div class="col-span-full">
                                     <label for="deskripsi_singkat" class="form-label">Deskripsi Singkat</label>
-                                    <textarea id="deskripsi_singkat" name="deskripsi_singkat" rows="3" class="form-input h-[100px]"
-                                        placeholder="Deskripsi Singkat" required></textarea>
+                                    <textarea 
+                                        id="deskripsi_singkat" 
+                                        name="deskripsi_singkat" 
+                                        rows="3" 
+                                        class="form-input @error('deskripsi_singkat') is-invalid @enderror h-[100px]" 
+                                        placeholder="Deskripsi Singkat">{{ old('deskripsi_singkat') }}</textarea>
+                                    @error('deskripsi_singkat')
+                                        <span class="invalid-feedback" role="alert" style="color: red;">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
                                 </div>
+
 
                                 <div class="col-span-full">
                                     <label for="deskripsi" class="form-label">Deskripsi</label>
-                                    <textarea id="deskripsi" name="deskripsi" rows="6" class="summernote form-input" placeholder="Deskripsi Lengkap"
-                                        required></textarea>
+                                    <textarea id="deskripsi" name="deskripsi" rows="6" class="summernote form-input @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi Lengkap">
+                                    
+                                    </textarea>@error('deskripsi')
+                                        <span class="invalid-feedback" role="alert" style="color: red;">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
                                 </div>
                      
                             </div>
@@ -82,16 +102,20 @@
                 <!-- Start Artikel Media File -->
                 <div class="col-span-full lg:col-span-5 card">
                     <div class="p-6">
-                        <h6 class="card-title text-xl font-semibold mb-4">Data Tambahan</h6>
                         <div class="mt-4 flex flex-col gap-5">
                             <div class="col-span-full">
                                 <label for="category_id" class="form-label">Kategori</label>
-                                <select class="singleSelect" name="category_id" required>
+                                <select class="singleSelect @error('category_id') is-invalid @enderror" name="category_id" >
                                     <option selected disabled>Pilih Kategori</option>
                                     @foreach ($kategori as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('category_id')
+                                        <span class="invalid-feedback" role="alert" style="color: red;">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
                             </div>
                             <div class="col-span-full">
                                 <label for="keyword" class="form-label">Keyword</label>
@@ -116,17 +140,23 @@
                                 <p class="text-xs">*tekan enter untuk memisahkan</p>
                             </div>
 
-                            <div class="col-span-full">
-                                <label for="status" class="form-label">Status</label>
-                                <select class="singleSelect" name="status" id="status" required>
-                                    <option value="1" selected>Publik</option>
-                                    <option value="0">Draft</option>
-                                </select>
-                            </div>
+                            <div class="col-span-full mt-3 xl:col-auto leading-none">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="singleSelect @error('status') is-invalid @enderror" name="status" id="status">
+                                        <option selected disabled>Pilih Status</option>
+                                        <option value="publik">Publik</option>
+                                        <option value="draft">Draft</option>
+                                    </select>
+                                    @error('status')
+                                            <span class="invalid-feedback" role="alert"  style="color: red;">
+                                                {{ $message }}
+                                            </span>
+                                    @enderror
+                                </div>
 
                             <div class="col-span-full">
                                 <label for="publish_date" class="form-label">Tanggal publish</label>
-                                <input type="date" id="publish_date" name="publish_date" class="form-input" required>
+                                <input type="date" id="publish_date" name="publish_date" class="form-input">
                             </div>
 
                             
@@ -134,23 +164,26 @@
                             <div class="col-span-full">
                                 <p class="text-sm text-gray-500 mb-3">Gambar</p>
                                 <label for="image"
-                                    class="file-container ac-bg text-sm font-semibold cursor-pointer aspect-[4/1.5] flex items-center justify-center border-dashed border-gray-900 dark:border-dark-border rounded-lg">
-                                    <input type="file" id="image" name="image" hidden
-                                        class="img-src peer/file">
-                                    <span class="peer-[.uploaded]/file:hidden flex flex-col items-center">
-                                        <span class="flex-center bg-primary-200 dark:bg-dark-icon rounded-full p-2">
-                                            <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon" class="w-1/2">
+                                        class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/3] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square">
+                                        <input type="file" id="image" name="image" hidden
+                                            class="img-src peer/file">
+                                        <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
+                                            <span
+                                                class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
+                                                <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}"
+                                                    alt="icon"
+                                                    class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
+                                            </span>
+                                            <span class="mt-2 text-gray-500 dark:text-dark-text">Pilih file</span>
                                         </span>
-                                        <span class="mt-2 text-gray-500">Pilih File</span>
-                                    </span>
-                                </label>
+                                    </label>
                             </div>
                             <!-- Menambahkan jarak antara upload file dan tombol -->
-                            <div class="flex gap-5 mt-6">
-                                <button type="submit"
-                                    class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
-                                <a href="{{ route('artikel.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>
-                            </div>
+                            <div class="flex justify-end gap-5 mt-6">
+                            <button type="submit"
+                                class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                            <a href="{{ route('artikel.index') }}" class="btn b-solid btn-secondary-solid px-5 dk-theme-card-square">Kembali</a>
+                             </div>
                         </div>
                     </div>
                 </div>

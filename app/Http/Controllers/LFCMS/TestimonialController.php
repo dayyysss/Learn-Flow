@@ -41,6 +41,11 @@ class TestimonialController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required|in:draft,publik',
+        ],
+    
+        [
+            'name.required' => 'The field Name is required.', // Pesan khusus untuk validasi name
+            'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]);
 
         // Jika ada file image, simpan file tersebut
@@ -76,6 +81,10 @@ class TestimonialController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required|in:draft,publik',
+        ],
+    
+        [
+            'name.required' => 'The field Name is required.', // Pesan khusus untuk validasi name
         ]);
 
         $testimonial = Testimonial::findOrFail($id);

@@ -9395,3 +9395,11 @@ video {
 .error-message {
     color: red;
 }
+
+.invalid-feedback {
+    color: red; /* Merah untuk pesan error */
+}
+
+.form-input {
+    color: red; /* Merah untuk pesan error */
+}
