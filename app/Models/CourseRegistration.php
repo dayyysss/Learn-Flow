@@ -21,7 +21,7 @@ class CourseRegistration extends Model
         'order_id',
         'snap_token',
         'progress',
-        // 'certificate_id'
+        'certificate_id'
     ];
 
     public function user()

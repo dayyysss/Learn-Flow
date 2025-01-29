@@ -46,6 +46,8 @@
                                         <a href="{{ route('course.detail', $item->slug) }}"
                                             class="w-full overflow-hidden rounded">
                                             <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
+                                                style="
+                                                   height: 214px;"
                                                 class="w-full transition-all duration-300 group-hover:scale-110">
                                         </a>
                                         <div
