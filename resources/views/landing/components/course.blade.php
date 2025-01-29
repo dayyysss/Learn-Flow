@@ -22,7 +22,7 @@
                                 Lihat Semua
                             </button>
                         </li>
-                        @foreach ($categories as $category)
+                        @foreach ($kategoriLanding as $category)
                             <li>
                                 <button data-filter=".category-{{ $category->id }}"
                                     class="pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor">
@@ -53,8 +53,19 @@
                                         <div
                                             class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
                                             <div>
+                                                @php
+                                                    $backgrounds = [
+                                                        'bg-secondaryColor',
+                                                        'bg-blue',
+                                                        'bg-secondaryColor2',
+                                                        'bg-greencolor2',
+                                                        'bg-orange',
+                                                        'bg-yellow',
+                                                    ];
+                                                    $bgClass = $backgrounds[array_rand($backgrounds)];
+                                                @endphp
                                                 <p
-                                                    class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold">
+                                                    class="text-xs text-whiteColor px-4 py-[3px] {{ $bgClass }} rounded font-semibold">
                                                     {{ $item->categories->name ?? 'No Category' }}
                                                 </p>
                                             </div>
@@ -64,17 +75,18 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="grid grid-cols-2 mb-15px">
+                                        <div class="flex justify-between items-center mb-15px">
                                             <div class="flex items-center">
                                                 <div>
                                                     <i class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
                                                 </div>
                                                 <div>
-                                                    <span
-                                                        class="text-sm text-black dark:text-blackColor-dark">{{ $item->babs->sum(function ($bab) {
+                                                    <span class="text-sm text-black dark:text-blackColor-dark">
+                                                        {{ $item->babs->sum(function ($bab) {
                                                             return $bab->moduls->count();
                                                         }) }}
-                                                        Modul</span>
+                                                        Modul
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="flex items-center">
@@ -82,14 +94,15 @@
                                                     <i class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
                                                 </div>
                                                 <div>
-                                                    <span
-                                                        class="text-sm text-black dark:text-blackColor-dark">{{ $item->tanggal_mulai }}</span>
+                                                    <span class="text-sm text-black dark:text-blackColor-dark">
+                                                        {{ $item->tanggal_mulai }}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                         <a href="{{ route('course.detail', $item->slug) }}"
                                             class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                            {{ \Illuminate\Support\Str::limit($item->name, 40, '...') }}
+                                            {{ Str::limit($item->name, 80, '...') }}
                                         </a>
                                         <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
                                             @if ($item->harga_diskon)

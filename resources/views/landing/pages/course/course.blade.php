@@ -214,8 +214,19 @@
                                                     <div
                                                         class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
                                                         <div>
+                                                            @php
+                                                                $backgrounds = [
+                                                                    'bg-secondaryColor',
+                                                                    'bg-blue',
+                                                                    'bg-secondaryColor2',
+                                                                    'bg-greencolor2',
+                                                                    'bg-orange',
+                                                                    'bg-yellow',
+                                                                ];
+                                                                $bgClass = $backgrounds[array_rand($backgrounds)];
+                                                            @endphp
                                                             <p
-                                                                class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold">
+                                                                class="text-xs text-whiteColor px-4 py-[3px] {{ $bgClass }} rounded font-semibold">
                                                                 {{ $item->categories->name ?? 'No Category' }}
                                                             </p>
                                                         </div>
@@ -254,7 +265,7 @@
                                                     </div>
                                                     <a href="{{ route('course.detail', $item->slug) }}"
                                                         class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                        {{ \Illuminate\Support\Str::limit($item->name, 40, '...') }}
+                                                        {{ Str::limit($item->name, 70, '...') }}
                                                     </a>
                                                 </div>
                                                 <!-- price -->
@@ -334,7 +345,8 @@
                                                             class="w-full overflow-hidden rounded">
                                                             <img src="{{ asset('storage/' . $item->thumbnail) }}"
                                                                 alt=""
-                                                                class="w-full transition-all duration-300 group-hover:scale-110 block">
+                                                                class="w-full transition-all duration-300 group-hover:scale-110 block"
+                                                                style="height: 215px;">
                                                         </a>
 
                                                         <div
@@ -354,7 +366,7 @@
                                                     <!-- card content -->
                                                     <div class="w-full md:w-3/5">
                                                         <div class="pl-0 lg:pl-30px">
-                                                            <div class="grid grid-cols-2 mb-15px">
+                                                            <div class="flex justify-between items-center mb-15px">
                                                                 <div class="flex items-center">
                                                                     <div>
                                                                         <i
@@ -381,7 +393,7 @@
                                                             </div>
                                                             <a href="{{ route('course.detail', $item->slug) }}"
                                                                 class="text-size-26 leading-30px font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                                {{ Str::limit($item->name, 40, '...') }}
+                                                                {{ Str::limit($item->name, 80, '...') }}
                                                             </a>
                                                             <!-- price -->
                                                             <div
@@ -436,8 +448,7 @@
 
                                                                 <div>
                                                                     <a class="text-sm lg:text-base text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                                                        href="{{ route('course.detail', $item->slug) }}">Know
-                                                                        Details
+                                                                        href="{{ route('course.detail', $item->slug) }}">Lihat Selengkapnya
                                                                         <i class="icofont-arrow-right"></i></a>
                                                                 </div>
                                                             </div>

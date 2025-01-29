@@ -13,12 +13,12 @@
                         <div class="grid grid-cols-2 gap-x-4 gap-y-5">
                             <div class="col-span-full ">
                                 <label for="courseTitle" class="form-label">Nama Kursus</label> 
-                                <input type="text" id="name" name="name" placeholder="Course Title" class="form-input" required>
+                                <input type="text" id="name" name="name" placeholder="Masukkan nama kursus" class="form-input" required>
                             </div>
                             <div class="flex col-span-full gap-x-4 w-100 w-full">
                                 <div class="w-full gap-x-4">
                                     <label for="courseInstructor" class="form-label ">Slug</label>
-                                    <input type="text" id="slug" placeholder="Jhone Doe" class="form-input" required>
+                                    <input type="text" id="slug" placeholder="Slug otomatis terisi" class="form-input" required>
                                 </div>
                                 <div class="">
                                     <label for="courseInstructor" class="form-label">Kode Seri</label>
