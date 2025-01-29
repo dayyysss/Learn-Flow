@@ -17,8 +17,13 @@
                             <div class="flex flex-col w-full lg:w-1/2 gap-y-4">
                                 <div>
                                     <label for="judul" class="form-label">Judul</label>
-                                    <input type="text" id="judul" name="judul" class="form-input"
+                                    <input type="text" id="judul" name="judul" class="form-input @error('judul') is-invalid @enderror"
                                         placeholder="Masukkan judul halaman" value="{{ old('judul', $page->judul) }}">
+                                        @error('judul')
+                                            <span class="invalid-feedback" role="alert"  style="color: red;">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
                                 </div>
                                 <div>
                                     <label for="slug" class="form-label">Slug</label>

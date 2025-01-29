@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use App\Rules\ReCaptcha;
+// use App\Rules\ReCaptcha;
 
 class ContactController extends Controller
 {
@@ -40,7 +40,7 @@ class ContactController extends Controller
             'topic'   => 'required|string|max:255',
             'phone'   => 'required|string|max:15',
             'message' => 'required|string',
-            'g-recaptcha-response' => ['required', new ReCaptcha]
+            // 'g-recaptcha-response' => ['required', new ReCaptcha]
         ]);
     
         // Menyimpan data ke dalam tabel contacts

@@ -16,22 +16,29 @@
         <form method="POST" action="" accept-charset="UTF-8" role="form" id="form-purchase">
             @csrf <!-- Token CSRF untuk keamanan -->
 
-            <!-- Subscription Price -->
+            <!-- Daftar Kursus yang Dibeli -->
             <div class="bg-gray-100 rounded-lg p-4 mb-4">
-                <div class="font-semibold text-lg">Harga Kursus</div>
-                <div class="flex justify-between py-3 border-t border-gray-300">
-                    <div>{{ $course->name }}</div>
-                    <div class="text-lg text-gray-600">
-                        @if (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
-                            <span class="line-through text-red-500">Rp
-                                {{ number_format($course->harga, 0, ',', '.') }}</span>
-                            <span class="text-green-500">Rp
-                                {{ number_format($course->harga - $course->harga_diskon, 0, ',', '.') }}</span>
-                        @else
-                            Rp {{ number_format($course->harga, 0, ',', '.') }}
-                        @endif
+                <div class="font-semibold text-lg">Kursus yang Dibeli</div>
+
+                @if ($isSinglePurchase)
+                    <!-- Tampilan untuk pembelian satu kursus -->
+                    <div class="flex justify-between py-3 border-t border-gray-300">
+                        <div>{{ $registrations->first()->course->name }}</div>
+                        <div class="text-lg text-gray-600">
+                            Rp {{ number_format($registrations->first()->hargaAkhir, 0, ',', '.') }}
+                        </div>
                     </div>
-                </div>
+                @else
+                    <!-- Tampilan untuk checkout dari keranjang -->
+                    @foreach ($registrations as $registration)
+                        <div class="flex justify-between py-3 border-t border-gray-300">
+                            <div>{{ $registration->course->name }}</div>
+                            <div class="text-lg text-gray-600">
+                                Rp {{ number_format($registration->hargaAkhir, 0, ',', '.') }}
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
 
             <!-- Promo Code Section -->
@@ -40,8 +47,7 @@
                     <label for="promo-code" class="block text-sm font-semibold">Kode Promo</label>
                     <span class="text-gray-500" data-toggle="popover" data-placement="right" data-trigger="hover"
                         data-content="Kode promo bisa Anda dapatkan dari penawaran melalui email, sosial media, dsb.">
-                        <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                            class="inline-block">
+                        <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline-block">
                             <path
                                 d="M10 11C10 10.4477 10.4477 10 11 10H12C12.5523 10 13 10.4477 13 11V15C13.5523 15 14 15.4477 14 16C14 16.5523 13.5523 17 13 17H12C11.4477 17 11 16.5523 11 16V12C10.4477 12 10 11.5523 10 11Z"
                                 fill="#3F3F46"></path>
@@ -73,12 +79,13 @@
                 </div>
             </div>
 
-            <!-- Total Amount -->
+            <!-- Total Harga -->
             <div class="bg-white rounded-lg p-4 mb-6 border border-gray-300">
                 <div class="font-semibold text-lg flex justify-between mb-3">
-                    <div>Jumlah Tagihan</div>
+                    <div>Total Pembayaran</div>
                     <div id="price-to-charge" class="text-lg text-gray-600">Rp
-                        {{ number_format($hargaAkhir, 0, ',', '.') }}</div>
+                        {{ number_format($totalHargaAkhir, 0, ',', '.') }}
+                    </div>
                 </div>
                 <button type="button" id="pay-button"
                     class="w-full bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-200">
@@ -87,7 +94,7 @@
             </div>
         </form>
 
-        <!-- Payment Status -->
+        <!-- Status Pembayaran -->
         <p id="payment-status" class="text-center text-lg mt-4 font-semibold"></p>
 
     </div>
@@ -95,9 +102,9 @@
     <script src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ config('services.midtrans.client_key') }}"></script>
     <script type="text/javascript">
-        document.getElementById('pay-button').onclick = function() {
+        document.getElementById('pay-button').onclick = function () {
             snap.pay("{{ $snapToken }}", {
-                onSuccess: function(result) {
+                onSuccess: function (result) {
                     document.getElementById('payment-status').innerText = 'Pembayaran berhasil!';
 
                     // Kirim data ke backend
@@ -107,12 +114,12 @@
                     formData.append('status_pembayaran', result.transaction_status); // Status transaksi
 
                     fetch("/payment/update-method", {
-                            method: "POST",
-                            body: formData,
-                            headers: {
-                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                            }
-                        })
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                        }
+                    })
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'redirect') {
@@ -130,18 +137,17 @@
                         })
                         .catch(error => console.error("Error:", error));
                 },
-                onPending: function(result) {
+                onPending: function (result) {
                     alert("Pembayaran pending.");
                     document.getElementById('payment-status').innerText = 'Pembayaran pending.';
                     console.log(result);
                 },
-                onError: function(result) {
+                onError: function (result) {
                     alert("Pembayaran gagal.");
                     document.getElementById('payment-status').innerText = 'Pembayaran gagal.';
                     console.log(result);
                 },
             });
-
         };
     </script>
 

@@ -40,27 +40,36 @@ class CourseRegistrationController extends Controller
         return view('dashboard.pages.enrolled-courses.create', compact('cartItems'));
     }
 
-    public function showPaymentPage($snapToken)
+    public function showPaymentPage(Request $request)
     {
-        // Retrieve the course registration using the snap token
-        $transaction = CourseRegistration::where('snap_token', $snapToken)->first();
+        $snapToken = $request->snapToken;
 
-        if (!$transaction) {
-            abort(404, 'Transaksi tidak ditemukan.');
+        // Ambil semua registrasi kursus yang terkait dengan snapToken
+        $registrations = CourseRegistration::where('snap_token', $snapToken)->get();
+
+        // Tentukan apakah ini pembelian satu kursus atau lebih
+        if ($registrations->count() == 1) {
+            $isSinglePurchase = true;
+            $totalHarga = $registrations->first()->harga;
+        } else {
+            $isSinglePurchase = false;
+            $totalHarga = $registrations->sum('harga');
         }
 
-        $course = $transaction->course;
+        // Hitung harga akhir untuk setiap kursus
+        foreach ($registrations as $registration) {
+            $course = $registration->course;
 
-        // Tentukan harga akhir setelah diskon (harga asli - harga diskon)
-        $hargaAkhir = (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
-            ? $course->harga - $course->harga_diskon
-            : $course->harga;
+            // Tentukan harga akhir setelah diskon untuk masing-masing kursus
+            $registration->hargaAkhir = (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
+                ? $course->harga - $course->harga_diskon
+                : $course->harga;
+        }
 
-        return view('dashboard.pages.enrolled-courses.payment', [
-            'snapToken' => $snapToken,
-            'course' => $course,
-            'hargaAkhir' => $hargaAkhir,
-        ]);
+        // Hitung total harga akhir untuk semua kursus setelah diskon
+        $totalHargaAkhir = $registrations->sum('hargaAkhir');
+
+        return view('dashboard.pages.enrolled-courses.payment', compact('registrations', 'totalHarga', 'totalHargaAkhir', 'snapToken', 'isSinglePurchase'));
     }
 
 
@@ -148,60 +157,73 @@ class CourseRegistrationController extends Controller
         Config::$isProduction = config('services.midtrans.is_production');
         Config::$clientKey = config('services.midtrans.client_key');
 
-        $registration = CourseRegistration::where('order_id', $request->order_id)->first();
+        // Ambil semua pendaftaran berdasarkan order_id
+        $registrations = CourseRegistration::where('order_id', $request->order_id)->get();
 
-        if ($registration) {
-            try {
-                // Ambil status transaksi dari Midtrans
-                $status = Transaction::status($request->order_id);
-
-                // Ambil status transaksi dari response
-                $transactionStatus = is_array($status)
-                    ? ($status['transaction_status'] ?? 'unknown')
-                    : ($status->transaction_status ?? 'unknown');
-
-                // Jika status tidak valid atau tidak sesuai, hentikan proses
-                if ($transactionStatus == 'unknown') {
-                    return response()->json(['status' => 'error', 'message' => 'Status transaksi tidak diketahui']);
-                }
-
-                // Konversi status Midtrans ke status registrasi
-                $registration_status = $this->mapMidtransStatusToRegistrationStatus($transactionStatus);
-
-                // Pastikan hanya status yang valid yang dapat mengubah status registrasi
-                if ($registration_status === 'confirmed' && $registration->registration_status !== 'confirmed') {
-                    // Update data pendaftaran dengan status baru
-                    $registration->update([
-                        'method_pembayaran' => ucfirst($request->method_pembayaran),
-                        'registration_status' => $registration_status,
-                    ]);
-                }
-
-                // Jika sudah confirmed, redirect langsung ke halaman kursus
-                if ($registration_status === 'confirmed') {
-                    return response()->json([
-                        'status' => 'redirect',
-                        'url' => route('course'),
-                    ]);
-                }
-
-                // Berikan respons sukses jika status belum confirmed
-                return response()->json([
-                    'status' => 'success',
-                    'method_pembayaran' => ucfirst($request->method_pembayaran),
-                    'registration_status' => $registration_status,
-                ]);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Terjadi kesalahan saat mengambil status transaksi: ' . $e->getMessage(),
-                ]);
-            }
+        // Jika tidak ada pendaftaran untuk order_id ini
+        if ($registrations->isEmpty()) {
+            return response()->json(['status' => 'error', 'message' => 'Order tidak ditemukan']);
         }
 
-        return response()->json(['status' => 'error', 'message' => 'Order tidak ditemukan']);
-    }
+        try {
+            // Ambil status transaksi dari Midtrans
+            $status = Transaction::status($request->order_id);
 
+            // Ambil status transaksi dari response
+            $transactionStatus = is_array($status)
+                ? ($status['transaction_status'] ?? 'unknown')
+                : ($status->transaction_status ?? 'unknown');
+
+            // Jika status tidak valid atau tidak sesuai, hentikan proses
+            if ($transactionStatus == 'unknown') {
+                return response()->json(['status' => 'error', 'message' => 'Status transaksi tidak diketahui']);
+            }
+
+            // Konversi status Midtrans ke status registrasi
+            $registration_status = $this->mapMidtransStatusToRegistrationStatus($transactionStatus);
+
+            // Pastikan hanya status yang valid yang dapat mengubah status registrasi
+            if ($registration_status === 'confirmed') {
+                // Update status untuk setiap course registration yang terkait
+                foreach ($registrations as $registration) {
+                    // Pastikan status registrasi belum terkonfirmasi sebelum diupdate
+                    if ($registration->registration_status !== 'confirmed') {
+                        $registration->update([
+                            'method_pembayaran' => ucfirst($request->method_pembayaran),
+                            'registration_status' => $registration_status,
+                        ]);
+                    }
+                }
+            }
+
+            // Hapus item di keranjang setelah pembayaran dikonfirmasi
+            $cart = Cart::where('user_id', auth()->user()->id)->first();
+            if ($cart) {
+                $cart->cart_items = json_encode([]);
+                $cart->save();
+            }
+
+            // Jika sudah confirmed, redirect langsung ke halaman kursus
+            if ($registration_status === 'confirmed') {
+                return response()->json([
+                    'status' => 'redirect',
+                    'url' => route('course'),
+                ]);
+            }
+
+            // Berikan respons sukses jika status belum confirmed
+            return response()->json([
+                'status' => 'success',
+                'method_pembayaran' => ucfirst($request->method_pembayaran),
+                'registration_status' => $registration_status,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat mengambil status transaksi: ' . $e->getMessage(),
+            ]);
+        }
+    }
 
     private function mapMidtransStatusToRegistrationStatus($midtransStatus)
     {
@@ -251,10 +273,9 @@ class CourseRegistrationController extends Controller
             ], 400);
         }
 
-        // Debugging log
-        \Log::info('Cart Items:', ['cart_items' => $cartItems]);
-
-        $snapTokens = []; // Array untuk menyimpan semua snapToken
+        // Hitung total harga untuk semua kursus dalam keranjang
+        $totalHarga = 0;
+        $courses = [];
         foreach ($cartItems as $item) {
             if (!isset($item['course_id'], $item['total_price'])) {
                 return response()->json([
@@ -263,59 +284,68 @@ class CourseRegistrationController extends Controller
                 ], 400);
             }
 
-            // Ambil data kursus
             $course = Course::find($item['course_id']);
-            if (!$course) {
-                continue; // Skip jika kursus tidak ditemukan
+            if ($course) {
+                $courses[] = $course;
+                $totalHarga += $item['total_price'];
             }
+        }
 
-            // Tentukan harga akhir berdasarkan data keranjang
-            $hargaAkhir = $item['total_price'];
+        // Pastikan ada kursus dalam transaksi
+        if (empty($courses)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tidak ada kursus valid dalam keranjang.',
+            ], 400);
+        }
 
-            // Set konfigurasi Midtrans
-            Config::$serverKey = config('services.midtrans.server_key');
-            Config::$isProduction = config('services.midtrans.is_production');
-            Config::$clientKey = config('services.midtrans.client_key');
+        // Set konfigurasi Midtrans
+        Config::$serverKey = config('services.midtrans.server_key');
+        Config::$isProduction = config('services.midtrans.is_production');
+        Config::$clientKey = config('services.midtrans.client_key');
 
-            // Persiapkan data transaksi untuk Midtrans
-            $transaction = [
-                'transaction_details' => [
-                    'order_id' => 'ORDER-' . Str::uuid()->toString(),
-                    'gross_amount' => $hargaAkhir,
-                ],
-                'customer_details' => [
-                    'first_name' => auth()->user()->first_name,
-                    'email' => auth()->user()->email,
-                    'phone' => auth()->user()->phone_number,
-                ]
-            ];
+        // Generate satu order_id untuk semua kursus
+        $orderId = 'ORDER-' . Str::uuid()->toString();
 
-            // Generate Snap Token
-            $snapToken = Snap::getSnapToken($transaction);
-            $snapTokens[] = $snapToken;
+        // Persiapkan data transaksi untuk Midtrans
+        $transaction = [
+            'transaction_details' => [
+                'order_id' => $orderId,
+                'gross_amount' => $totalHarga, // Total semua harga kursus
+            ],
+            'customer_details' => [
+                'first_name' => auth()->user()->first_name,
+                'email' => auth()->user()->email,
+                'phone' => auth()->user()->phone_number,
+            ]
+        ];
 
-            // Simpan data registrasi
+        // Generate Snap Token (satu untuk semua kursus dalam transaksi)
+        $snapToken = Snap::getSnapToken($transaction);
+
+        // Simpan entri terpisah untuk setiap kursus di CourseRegistration
+        foreach ($courses as $course) {
             CourseRegistration::create([
                 'user_id' => auth()->user()->id,
-                'course_id' => $item['course_id'],
+                'course_id' => $course->id,
                 'registration_date' => now(),
                 'order_date' => now(),
                 'method_pembayaran' => 'Midtrans',
-                'harga' => $hargaAkhir,
+                'harga' => $course->harga,
                 'registration_status' => 'Menunggu',
-                'snap_token' => $snapToken,
-                'order_id' => $transaction['transaction_details']['order_id'],
+                'snap_token' => $snapToken,  // Sama untuk semua kursus
+                'order_id' => $orderId,  // Sama untuk semua kursus
             ]);
         }
 
-        // Hapus keranjang setelah checkout berhasil
-        $cart->delete();
+        // **Jangan hapus keranjang langsung setelah checkout!**
+        // Tunggu hingga pembayaran dikonfirmasi di Webhook Midtrans
 
-        // Redirect ke halaman pembayaran menggunakan snapToken pertama
         return response()->json([
             'status' => 'success',
             'message' => 'Checkout berhasil! Pendaftaran kursus telah dibuat.',
-            'redirect_url' => route('payment.page', ['snapToken' => $snapTokens[0]]), // Gunakan snapToken pertama
+            'redirect_url' => route('payment.page', ['snapToken' => $snapToken]), // Redirect ke pembayaran
+            'order_id' => $orderId, // Kirim order_id untuk referensi
         ]);
     }
 

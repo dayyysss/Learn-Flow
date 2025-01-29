@@ -7,7 +7,7 @@
 
             <!-- View Email -->
             <div class="col-span-full lg:col-span-6">
-                <div class="card p-0 max-h-full">
+                <div class="card p-0 h-auto">
                     <div class="p-4 sm:px-7 py-5 bg-gray-200/30 dark:bg-dark-card-two">
                         <a href="/lfcms/kontak" class="flex items-center gap-1">
                             <i class="ri-arrow-left-line text-2xl text-heading dark:text-dark-text"></i>
@@ -19,8 +19,8 @@
                         <div class="flex-center-between flex-col-reverse sm:flex-row items-end gap-4 sm:gap-[10%]">
                             <div class="flex items-center gap-4 self-start">
                                 <a href="#" class="size-12 rounded-50 relative shrink-0">
-                                    <img src="assets/images/user/user-2.png" alt="student" class="size-full rounded-50 dk-theme-card-square">
-                                    <!-- Active -->
+                                <img src="{{ asset('storage/emailicon/emailicon.png') }}" alt="user" class="size-full rounded-100 dk-theme-card-square">
+                                <!-- Active -->
                                     <div class="absolute bottom-0.5 right-0.5 size-3 border-2 border-white dark:border-dark-border rounded-50 bg-secondary"></div>
                                 </a>
                                 <div>
@@ -36,7 +36,7 @@
                     </div>
                     <!-- Email Body -->
                     <div class="font-spline_sans pt-15 pb-7 px-4 sm:px-[10%]">
-                        <p class="text-gray-500 dark:text-dark-text">Topik : {{ $contact->message }}</p>
+                        <p class="text-gray-500 dark:text-dark-text">Topik : {{ $contact->topic }}</p>
                         <p class="mt-5 text-gray-500 dark:text-dark-text">
                             Pesan : {{ $contact->message }}
                         </p>
@@ -49,60 +49,39 @@
             </div>
 
             <!-- Reply Email -->
-            <div class="col-span-full lg:col-span-6 card">
-            <div class="p-1.5">
-                <h6 class="card-title">Balas Pesan</h6>
-                <div class="mt-7 pt-0.5 flex flex-col gap-5">
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    <form action="{{ route('kontak.reply', ['id' => $contact->id]) }}" method="POST">
-                        @csrf
-                        <!-- Email Pengirim -->
-                        <input type="hidden" name="email" value="{{ $contact->email }}">
-
-                        <!-- Textarea untuk Balasan -->
-                        <div class="col-span-full">
-                            <textarea id="reply_message" name="replyMessage" rows="8" class="summernote form-input">
-                                
-                            </textarea>
-                        </div>
-
-                        <!-- Tombol Kirim -->
-                        <div class="flex-center !justify-end">
-                            <button type="submit" class="btn b-solid btn-primary-solid btn-lg dk-theme-card-square">Reply</button>
-                        </div>
-                    </form>
+<div class="col-span-full lg:col-span-6 card">
+    <div class="p-1.5">
+        <h6 class="card-title">Balas Pesan</h6>
+        <div class="mt-7 pt-0.5 flex flex-col gap-5">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
                 </div>
-            </div>
-        </div>
-    <!-- End Main Content -->
+            @endif
 
-    <!-- Start Delete Email Modal -->
-    <div id="deleteEmail" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-modal w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="p-4 w-full max-w-md max-h-full">
-            <div class="relative bg-white dark:bg-dark-card-shade rounded-lg shadow">
-                <button type="button" data-modal-hide="deleteEmail" class="absolute top-3 end-2.5 hover:bg-gray-200 dark:hover:bg-dark-icon rounded-lg size-8 flex-center">
-                    <i class="ri-close-line text-gray-500 dark:text-dark-text text-xl leading-none"></i>
-                </button>
-                <div class="p-4 md:p-5 text-center">
-                    <img src="assets/images/icons/delete-record.png" alt="delete" class="block h-12 mx-auto">
-                    <div class="mt-5 text-center">
-                        <h5 class="mb-1">Are you sure?</h5>
-                        <p class="text-gray-500 dark:text-dark-text">Are you certain you want to delete this Email?</p>
-                        <div class="flex justify-center gap-2 mt-6">
-                            <button type="reset" data-modal-hide="deleteEmail" class="btn b-light btn-danger-light btn-sm">Cancel</button>
-                            <button type="submit" data-modal-hide="deleteEmail" class="btn b-solid btn-danger-solid btn-sm">Yes, Delete It!</button>
-                        </div>
-                    </div>
+            <!-- Form Reply -->
+            <form id="reply-form">
+                @csrf
+                <!-- Email Pengirim -->
+                <input type="hidden" name="email" value="{{ $contact->email }}">
+
+                <!-- Textarea untuk Balasan -->
+                <div class="col-span-full">
+                    <textarea id="reply_message" name="replyMessage" rows="8" class="summernote form-input"></textarea>
                 </div>
-            </div>
+
+                <!-- Tombol Kirim -->
+                <div class="flex-center mt-5 !justify-end">
+                    <button type="submit" class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Balas</button>
+                </div>
+            </form>
+            <!-- End Form -->
         </div>
     </div>
-    <!-- End Delete Email Modal -->
+</div>
+<!-- End Main Content -->
+
+
 
     <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor/jquery.min.js"></script>
     <script src="assets/js/vendor/flowbite.min.js"></script>
@@ -115,4 +94,39 @@
 
 <!-- Mirrored from template.codexshaper.com/admin/dashkit/mail-read.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Nov 2024 08:13:18 GMT -->
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('reply-form'); // Ganti ID form
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted');
+            
+            let formData = new FormData(form);
+            
+            $.ajax({
+                url: "{{ route('kontak.reply', ['id' => $contact->id]) }}", // Sesuaikan rute
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Token CSRF
+                },
+                success: function(response) {
+                    console.log('Success:', response);
+                    alert('Balasan berhasil dikirim!');
+                    form.reset();
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan, silakan coba lagi.');
+                }
+            });
+        });
+    });
+</script>
 @endsection
+
+

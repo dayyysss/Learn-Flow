@@ -13,6 +13,11 @@
                     <div class="p-6">
                         <div class="flex-center-between">
                             <div class="flex items-center gap-5">
+                                <button type="button"
+                                    class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
+                                    onclick="window.location='{{ route('halaman.index') }}'">
+                                    <i class="ri-loop-right-line text-inherit text-sm"></i>
+                                </button>
                                 <form class="max-w-80 relative">
                                     <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
                                         <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
@@ -20,12 +25,6 @@
                                     <input type="text" name="search" value="{{ $search ?? '' }}"
                                         placeholder="Search for..." class="form-input pl-[30px]">
                                 </form>
-                                <button type="button"
-                                    class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
-                                    onclick="window.location='{{ route('halaman.index') }}'">
-                                    <i class="ri-loop-right-line text-inherit text-sm"></i>
-                                    <span>Refresh</span>
-                                </button>
                             </div>
                             <button class="btn b-light btn-primary-light dk-theme-card-square"
                                 onclick="window.location.href='{{ route('halaman.create') }}'">
@@ -88,21 +87,6 @@
                                                         onclick="event.preventDefault(); deleteRecord('{{ route('halaman.destroy', $page->id) }}');">
                                                         <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                     </a>
-
-                                                    <div class="relative ml-5">
-                                                        <button data-popover-target="td-3-0" data-popover-trigger="click"
-                                                            data-popover-placement="bottom-end"
-                                                            class="size-7 rounded-50 flex-center hover:bg-gray-200 dark:hover:bg-dark-icon">
-                                                            <i class="ri-more-2-fill text-inherit"></i>
-                                                        </button>
-                                                        <ul id="td-3-0"
-                                                            class="hidden popover-target invisible [&.visible]:!block"
-                                                            data-popover>
-                                                            <li>
-                                                                <a class="popover-item" href="#">More</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>

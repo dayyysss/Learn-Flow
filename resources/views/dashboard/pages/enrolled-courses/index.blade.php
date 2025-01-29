@@ -18,24 +18,20 @@
                     <button
                         class="relative py-10px px-5 md:py-15px lg:px-10 font-bold uppercase text-sm lg:text-base text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 whitespace-nowrap is-checked"
                         data-filter="enrolled">
-                        ENROLLED COURSES
+                        Kursus yang diikuti
                     </button>
 
-                    <button
-                        class="relative py-10px px-5 md:py-15px lg:px-10 font-bold uppercase text-sm lg:text-base text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 whitespace-nowrap"
-                        data-filter="active">
-                        ACTIVE COURSES
-                    </button>
+
 
                     <button
                         class="relative py-10px px-5 md:py-15px lg:px-10 font-bold uppercase text-sm lg:text-base text-blackColor bg-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300 whitespace-nowrap"
                         data-filter="completed">
-                        COMPLETED COURSES
+                        Kursus yang diSelesaikan
                     </button>
                 </div>
                 <div class="tab-contents">
                     <div class="transition-all duration-300">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-30px">
+                        <div class="flex flex-col gap-30px">
                             <!-- card 1 -->
                             @foreach ($enrolledcourses as $item)
                                 <div class="group course-item"
@@ -45,116 +41,37 @@
                                         <div
                                             class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                                             <!-- card image -->
-                                            <div class="relative mb-4">
-                                                <a href="{{ route('course.detail', $item->course->slug) }}"
-                                                    class="w-full overflow-hidden rounded">
-                                                    <img src="{{ asset('storage/' . $item->course->thumbnail) }}"
-                                                        alt=""
-                                                        class="w-full transition-all duration-300 group-hover:scale-110"
-                                                        style="height: 150px">
-                                                </a>
-                                                <div
-                                                    class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
-                                                    <div>
-                                                        <p
-                                                            class="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold">
-                                                            {{ $item->course->categories->name ?? 'No Category' }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <!-- card content -->
                                             <div>
-                                                <div class="grid grid-cols-2 mb-15px">
-                                                    <div class="flex items-center">
-                                                        <div>
-                                                            <i
-                                                                class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-sm text-black dark:text-blackColor-dark">
-                                                                {{ $item->course->babs->sum(function ($bab) {return $bab->moduls->count();}) }}
-                                                                modul
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex items-center">
-                                                        <div>
-                                                            <i
-                                                                class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
-                                                        </div>
-                                                        <div>
-                                                            <span
-                                                                class="text-sm text-black dark:text-blackColor-dark">{{ $item->course->tanggal_mulai }}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a href="{{ route('course.detail', $item->course->slug) }}"
-                                                    class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                    {!! Str::limit($item->course->name, 45) !!}
-                                                </a>
-                                                <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
-                                                    @if ($item->course->harga_diskon)
-                                                        Rp
-                                                        {{ number_format($item->course->harga - $item->course->harga_diskon, 2, ',', '.') }}
-                                                        <del class="text-sm text-lightGrey4 font-semibold">/ Rp
-                                                            {{ number_format($item->course->harga, 2, ',', '.') }}</del>
-                                                    @else
-                                                        Rp {{ number_format($item->course->harga, 2, ',', '.') }}
-                                                    @endif
-                                                    <span class="ml-6">
-                                                        @if ($item->course->harga_diskon > 0)
-                                                            <del class="text-base font-semibold text-greencolor">Gratis</del>
-                                                        @else
-                                                            <span
-                                                                class="text-base font-semibold text-greencolor">Gratis</span>
-                                                        @endif
-                                                    </span>
-                                                </div>
-                                                <div
-                                                    class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
+                                                <div class="grid grid-cols-1 md:grid-cols-2 pt-15px">
                                                     <div>
                                                         <a href="instructor-details.html"
                                                             class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
                                                             <img class="w-[30px] h-[30px] rounded-full mr-15px"
                                                                 src="{{ $item->course->instrukturs->image ? Storage::url($item->course->instrukturs->image) : asset('assets/images/grid/grid_small_2.jpg') }}"
-                                                                alt="{{ $item->course->instrukturs->name }}">
-                                                            {{ $item->course->instrukturs->name ?? 'Instruktur tidak tersedia' }}
+                                                                alt="{{ $item->name }}">
+                                                            {{ $item->course->name }}
                                                         </a>
                                                     </div>
-                                                    <div class="text-start md:text-end">
+                                                    <div class="text-start md:text-end h-fit w-fit">
                                                         <div>
-                                                            @for ($i = 1; $i <= 5; $i++)
-                                                                <i
-                                                                    class="icofont-star text-size-15 {{ $i <= ceil($item->course->average_rating) ? 'text-yellow' : 'text-gray' }}"></i>
-                                                            @endfor
+                                                            <a href="{{ route('showCourseRegistration', $item->course->slug) }}" 
+                                                                class="inline-flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mb-3">
+                                                                Masuk Kelas
+                                                            </a>
                                                         </div>
-                                                        <span class="text-xs text-lightGrey6">
-                                                            ({{ $item->course->total_feedbacks }} reviews)
-                                                        </span>
+                                                        
                                                     </div>
                                                 </div>
-                                                <!-- progress bar -->
-                                                <div class="h-25px w-full bg-blue-x-light rounded-md relative mt-5 mb-15px">
-                                                    <div class="bg-primaryColor h-full text-center text-blackColor leading-6"
-                                                        style="width: {{ $item->progress }}%">
-                                                        <span class="text-size-10 block leading-25px">
-                                                            {{ $item->progress }}%
-                                                            {{ $item->progress == 100 ? 'Complete' : '' }}
-                                                        </span>
+
+                                                <!-- progress bar with dynamic border bottom -->
+                                                <div class="mt-3">
+                                                    <div class="mt-1 text-xs text-primaryColor dark:text-primaryColor-dark">
+                                                        {{ $item->progress }}%
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    @if ($item->progress == 100)
-                                                        <a href="{{ route('certificate.index', $item->course->id) }}"
-                                                            class="text-size-15 text-whiteColor bg-secondaryColor w-full px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor rounded group text-nowrap text-center">
-                                                            Download Certificate
-                                                        </a>
-                                                    @else
-                                                        <span class="text-size-15 text-gray-500">
-                                                            Complete all modules to download certificate.
-                                                        </span>
-                                                    @endif
+                                                    <div class="h-1 bg-primaryColor" style="width: {{ $item->progress }}%">
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -162,6 +79,7 @@
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
                     </div>
                 </div>

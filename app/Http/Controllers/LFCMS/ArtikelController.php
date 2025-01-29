@@ -35,6 +35,14 @@ class ArtikelController extends Controller
             'tag' => 'nullable|string',
             'status' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:1000',
+        ],
+    
+        [
+            'judul.required' => 'The field judul is required.', // Pesan khusus untuk validasi name
+            'deskripsi_singkat.required' => 'The field deskripsi singkat is required.', // Pesan khusus untuk validasi name
+            'deskripsi.required' => 'The field deskripsi is required.', // Pesan khusus untuk validasi name
+            'category_id.required' => 'The field kategori is required.', // Pesan khusus untuk validasi name
+            'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]);
 
         $artikel = new Artikel;
@@ -79,6 +87,14 @@ class ArtikelController extends Controller
             'publish_date' => 'required|date',
             'tag' => 'nullable|string',
             'image' => 'nullable|image',
+        ],
+    
+        [
+            'judul.required' => 'The field judul is required.', // Pesan khusus untuk validasi name
+            'deskripsi_singkat.required' => 'The field deskripsi singkat is required.', // Pesan khusus untuk validasi name
+            'deskripsi.required' => 'The field deskripsi is required.', // Pesan khusus untuk validasi name
+            'category_id.required' => 'The field kategori is required.', // Pesan khusus untuk validasi name
+            'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]);
 
         $artikel = Artikel::findOrFail($id);

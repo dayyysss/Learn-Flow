@@ -10,7 +10,7 @@
             <!-- heading -->
             <div class="mb-3 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-start justify-between flex-col sm:flex-row">
                 <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark mb-3">Semua Quiz Terkirim</h2>
-                <a href="{{ route('quiz.index') }}" for="modalToggle"
+                <!-- <a href="{{ route('quiz.index') }}" for="modalToggle"
                     class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mb-3">
                     Quiz
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -19,7 +19,7 @@
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
-                </a>
+                </a> -->
             </div>
             <!-- filter content -->
             <div class="grid grid-cols md:grid-cols-3 xl:grid-cols-12 gap-x-30px">

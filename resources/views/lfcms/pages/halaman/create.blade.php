@@ -16,25 +16,39 @@
                             <div class="flex flex-col w-full lg:w-1/2 gap-y-4">
                                 <div>
                                     <label for="judul" class="form-label">Judul</label>
-                                    <input type="text" id="judul" name="judul" class="form-input"
-                                        placeholder="Masukkan judul halaman" value="{{ old('judul') }}">
+                                    <input type="text" id="judul" name="judul"
+                                        class="form-input @error('judul') is-invalid @enderror"
+                                        placeholder="Masukkan judul halaman"
+                                        value="{{ old('judul') }}">
+                                        @error('judul')
+                                            <span class="invalid-feedback" role="alert"  style="color: red;">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
                                 </div>
                                 <div>
                                     <label for="slug" class="form-label">Slug</label>
                                     <input type="text" id="slug" name="slug" class="form-input"
-                                        placeholder="Slug otomatis terisi" value="{{ old('slug') }}" readonly>
+                                    placeholder="Slug otomatis terisi" value="{{ old('slug') }}" readonly>
                                 </div>
                             </div>
                             <!-- Kolom Kanan -->
                             <div class="flex flex-col w-full lg:w-1/2 gap-y-4">
                                 <div>
+                                <div>
                                     <label for="status" class="form-label">Status</label>
-                                    <select id="status" name="status" class="form-input">
-                                        <option value="publik" {{ old('status') == 'publik' ? 'selected' : '' }}>Publik
-                                        </option>
-                                        <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft
-                                        </option>
+                                    <select id="status" name="status" class="form-input @error('status') is-invalid @enderror">
+                                        <option value="" hidden {{ old('status') == '' ? 'selected' : '' }}:>Pilih Status</option>    
+                                        <option value="publik" {{ old('status') == 'publik' ? 'selected' : '' }}>Publik</option>
+                                        <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
                                     </select>
+                                    @error('status')
+                                        <span class="invalid-feedback" role="alert" style="color: red;">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 </div>
                                 <div>
                                     <label for="keyword" class="form-label">Kata Kunci</label>
