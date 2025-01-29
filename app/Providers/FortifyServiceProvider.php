@@ -43,9 +43,12 @@ class FortifyServiceProvider extends ServiceProvider
 
                 // Coba autentikasi
                 if (auth()->attempt($credentials)) {
-                    // Jika autentikasi berhasil dan user memiliki role_id = 1
-                    if (auth()->user()->role_id == 1) {
-                        return redirect('/lfcms/dashboard');
+                    // Cek apakah role_id yang diperbolehkan (2, 3, 4)
+                    if (!in_array(auth()->user()->role_id, [2, 3, 4])) {
+                        auth()->logout(); // Langsung logout jika role tidak sesuai
+                        return redirect()->route('login')->withErrors([
+                            'login' => 'Anda tidak memiliki izin untuk login.',
+                        ]);
                     }
 
                     notify()->success('Login berhasil!', 'Selamat datang!');
