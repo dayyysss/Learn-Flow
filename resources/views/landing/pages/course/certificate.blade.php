@@ -36,12 +36,12 @@
                                     Lihat Sertifikat
                                 </button> --}}
 
-                                
+
                                 <a href="{{ route('downloadCertificate', $course->id) }}"
                                     class="inline-block px-6 py-2 font-semibold rounded text-whiteColor bg-primaryColor border-primaryColor border hover:text-primaryColor hover:bg-white rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
                                     Download PDF
                                 </a>
-                               
+
                             </div>
 
                             <div>
@@ -53,11 +53,11 @@
             </div>
         </div>
 
-       <!-- Course Details Section -->
+        <!-- Course Details Section -->
         <div class="container py-10 md:py-50px lg:py-60px 2xl:py-100px">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10px">
-        <!-- Course Content Column -->
-        <!-- Changed from lg:col-span-8 to lg:col-span-9 -->
+                <!-- Course Content Column -->
+                <!-- Changed from lg:col-span-8 to lg:col-span-9 -->
                 <div class="lg:col-start-1 lg:col-span-9 space-y-[35px]">
                     <div>
                         <div class="flex gap-10 text-2xl capitalize">
@@ -72,7 +72,8 @@
                                     <span class="text-xs text-lightGrey6">(44)</span>
                                 </div>
                                 <!-- Course Title -->
-                                <p class="text-size-15 md:text-2xl font-bold text-blackColor dark:text-blackColor-dark leading-43px md:leading-14.5">
+                                <p
+                                    class="text-size-15 md:text-2xl font-bold text-blackColor dark:text-blackColor-dark leading-43px md:leading-14.5">
                                     {{ $course->name }}
                                 </p>
                                 <!-- Instructor Information -->
@@ -84,7 +85,7 @@
                                         <span class="flex">{{ $course->instrukturs->name }}</span>
                                     </a>
                                 </div>
-                        <!-- "Know Details" Button at the Bottom -->
+                                <!-- "Know Details" Button at the Bottom -->
                                 <div class="flex-grow"></div>
                                 <div class="flex justify-end items-end mt-auto">
                                     <a class="text-sm lg:text-base text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
@@ -102,15 +103,16 @@
                 </div>
 
                 <!-- Sidebar Column -->
-        <!-- Changed from lg:col-span-4 to lg:col-span-3 -->
+                <!-- Changed from lg:col-span-4 to lg:col-span-3 -->
                 <div class="lg:col-start-10 lg:col-span-3">
                     <div class="flex flex-col">
                         <!-- Enroll Section -->
                         <div class="py-33px px-25px shadow-event mb-30px bg-whiteColor dark:bg-whiteColor-dark rounded-md"
                             data-aos="fade-up">
-                    <!-- Contact Info -->
+                            <!-- Contact Info -->
                             <div class="mt-5" data-aos="fade-up">
-                                <p class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mb-5px">
+                                <p
+                                    class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mb-5px">
                                     More inquiry about course
                                 </p>
                                 <button type="submit"
@@ -119,116 +121,114 @@
                                 </button>
                             </div>
                         </div>
-                
-                <!-- Social Media Section -->
-                <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
-                    data-aos="fade-up">
-                    <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                        Follow Us
-                    </h4>
-                    <div>
-                        <ul class="flex gap-4 items-center">
-                            <li>
-                                <a href="#"
-                                    class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
-                                    <i class="icofont-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
-                                    <i class="icofont-youtube-play"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
-                                    <i class="icofont-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
-                                    <i class="icofont-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
-                                    <i class="icofont-instagram"></i>
-                                </a>
-                            </li>
-                        </ul>
+
+                        <!-- Social Media Section -->
+                        <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
+                            data-aos="fade-up">
+                            <h4
+                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
+                                Follow Us
+                            </h4>
+                            <div>
+                                <ul class="flex gap-4 items-center">
+                                    <li>
+                                        <a href="#"
+                                            class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
+                                            <i class="icofont-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
+                                            <i class="icofont-youtube-play"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
+                                            <i class="icofont-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
+                                            <i class="icofont-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
+                                            <i class="icofont-instagram"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
+                            data-aos="fade-up">
+                            <h4
+                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
+                                Contact Us
+                            </h4>
+                            <div>
+                                <ul class="flex flex-col gap-5">
+                                    <!-- Phone Number -->
+                                    <li class="flex items-start">
+                                        <i class="icofont-ui-call mr-2"></i>
+                                        <p>+47 333 78 901</p>
+                                    </li>
+                                    <!-- Email -->
+                                    <li class="flex items-start">
+                                        <i class="icofont-email mr-2"></i>
+                                        <p>example@email.com</p>
+                                    </li>
+                                    <!-- Address -->
+                                    <li class="flex items-start">
+                                        <i class="icofont-google-map mr-2"></i>
+                                        <p>Street Name, City, Country</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                
-                <!-- Contact Form -->
-                <div class="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
-                    data-aos="fade-up">
-                    <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                        Contact Us
-                    </h4>
-                    <div>
-                        <ul class="flex flex-col gap-5">
-                            <!-- Phone Number -->
-                            <li class="flex items-start">
-                                <i class="icofont-ui-call mr-2"></i>
-                                <p>+47 333 78 901</p>
-                            </li>
-                            <!-- Email -->
-                            <li class="flex items-start">
-                                <i class="icofont-email mr-2"></i>
-                                <p>example@email.com</p>
-                            </li>
-                            <!-- Address -->
-                            <li class="flex items-start">
-                                <i class="icofont-google-map mr-2"></i>
-                                <p>Street Name, City, Country</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
             </div>
+            <!-- Modal -->
+            <div id="certificateModal"
+                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white dark:bg-gray-800 w-11/12 max-w-4xl p-6 rounded shadow-lg relative">
+                    <!-- Close Button -->
+                    <button id="closeModal" class="absolute top-3 right-3 text-black dark:text-white hover:text-red-500">
+                        <i class="icofont-close-line text-xl"></i>
+                    </button>
+                    <!-- Iframe -->
+                    <iframe src="{{ route('viewCertificate', $course->id) }}#toolbar=0&navpanes=0"
+                        class="w-full h-[70vh] rounded"></iframe>
+                </div>
+            </div>
+
         </div>
-    </div>
-    <!-- Modal -->
-<div id="certificateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white dark:bg-gray-800 w-11/12 max-w-4xl p-6 rounded shadow-lg relative">
-        <!-- Close Button -->
-        <button
-            id="closeModal"
-            class="absolute top-3 right-3 text-black dark:text-white hover:text-red-500"
-        >
-            <i class="icofont-close-line text-xl"></i>
-        </button>
-        <!-- Iframe -->
-        <iframe
-            src="{{ route('viewCertificate', $course->id) }}#toolbar=0&navpanes=0"
-            class="w-full h-[70vh] rounded"
-        ></iframe>
-    </div>
-</div>
 
-    </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script>
+            document.getElementById('openModal').addEventListener('click', function() {
+                document.getElementById('certificateModal').classList.remove('hidden');
+            });
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-    document.getElementById('openModal').addEventListener('click', function () {
-            document.getElementById('certificateModal').classList.remove('hidden');
-        });
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('certificateModal').classList.add('hidden');
+            });
 
-    document.getElementById('closeModal').addEventListener('click', function () {
-            document.getElementById('certificateModal').classList.add('hidden');
-        });
-
-        // Tutup modal saat klik di luar konten modal
-    document.getElementById('certificateModal').addEventListener('click', function (event) {
-            if (event.target === this) {
-                this.classList.add('hidden');
-            }
-        });
-    </script>
+            // Tutup modal saat klik di luar konten modal
+            document.getElementById('certificateModal').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+        </script>
 
 
-@endsection
+    @endsection

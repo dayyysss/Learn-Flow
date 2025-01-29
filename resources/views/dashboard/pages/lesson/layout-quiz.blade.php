@@ -6,23 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('page_title', 'Learn Flow | Course and LMS')</title>
+    <title>@yield('page_title', 'Learn Flow | Quiz')</title>
     <link rel="shortcut icon" type="image/x-icon" href=" {{ asset('assets/images/favicon.ico') }}">
     <!-- link stylesheet -->
-    <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/video-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/popup.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('head')
 </head>
 
 <body class="relative font-inter overflow-hidden font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
-    <!-- preloader -->
+    {{-- <!-- preloader -->
     <div
         class="preloader flex fixed top-0 left-0 h-screen w-full items-center justify-center z-xxl bg-whiteColor opacity-100 visible transition-all duration-700">
         <!-- spinner -->
@@ -71,13 +70,13 @@
         </button>
     </div>
 
-    @include('landing.partials.header')
+    @include('landing.partials.header') --}}
     <main class="bg-transparent">
         @yield('content')
     </main>
 
     <!-- scripts start from here -->
-    <script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('assets/js/accordion.js') }}"></script>
     <script src="{{ asset('assets/js/chart.js') }}"></script>
@@ -98,8 +97,8 @@
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="{{ asset('assets/js/videoModal.js') }}"></script>
     <script src="{{ asset('assets/js/vanilla-tilt.js') }}"></script>
-    <script src="{{ asset('assets/js/aos.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/aos.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/js/main.js') }}"></script> --}}
 </body>
 
 </html>

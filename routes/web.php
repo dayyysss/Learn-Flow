@@ -45,6 +45,7 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 use App\Http\Controllers\Admin\Quiz\OptionController;
 use App\Http\Controllers\Admin\Quiz\QuestionController;
+use App\Http\Controllers\Admin\Quiz\StartQuizController;
 // use App\Http\Controllers\LFCMS\ArticleController;
 // use App\Http\Controllers\LFCMS\HakAksesController;
 // use App\Http\Controllers\LFCMS\HakAksesFrontendController;
@@ -100,6 +101,7 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/zoom-webinar', 'zoomWebinar')->name('zoomWebinar');
     Route::get('/event', 'event')->name('event');
     Route::get('/menu-landing', 'indexMenu')->name('menu.landing');
+    Route::get('/roadmap', 'roadmap')->name('roadmap');
 
     Route::prefix('blog')->group(function () {
         Route::get('/', 'blog')->name('blog');
@@ -286,6 +288,8 @@ Route::middleware(['auth'])
         //quiz result
         Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');
         Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('quizresults.show');
+
+        Route::get('/start-quiz/{id}', [StartQuizController::class, 'index'])->name('startQuiz.index');
 
         //wishlist
         Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
