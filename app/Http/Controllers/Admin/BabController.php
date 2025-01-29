@@ -19,40 +19,67 @@ class BabController extends Controller
     {
         // Temukan Course berdasarkan slug
         $course = Course::where('slug', $slug)->firstOrFail();
-    
+
         // Ambil bab yang terkait dengan course
         $babs = $course->babs()->with('moduls')->get();
-    
+
         // Kirim data course dan babs ke view
         return view('dashboard.pages.modul.create', compact('course', 'babs'));
     }
-    
 
 
-// Fungsi untuk menyimpan bab baru
-public function store(Request $request)
-{
-    // Validasi data input
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'course_id' => 'required|exists:courses,id', // Memastikan course_id sesuai dengan ID yang ada di tabel courses
-    ]);
 
-    // Membuat slug berdasarkan nama
-    $slug = \Str::slug($validatedData['name']);
+    // Fungsi untuk menyimpan bab baru
+    public function store(Request $request)
+    {
+        // Validasi data input
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'course_id' => 'required|exists:courses,id', // Memastikan course_id sesuai dengan ID yang ada di tabel courses
+        ]);
 
-    // Menyimpan data ke dalam database
-    $bab = Bab::create([
-        'name' => $validatedData['name'],
-        'slug' => $slug,
-        'course_id' => $validatedData['course_id'],
-    ]);
+        // Membuat slug berdasarkan nama
+        $slug = \Str::slug($validatedData['name']);
 
-    // Mengembalikan respons sukses
-    return response()->json([
-        'message' => 'Bab berhasil ditambahkan.',
-        'data' => $bab,
-    ], 201);
-}
+        // Menyimpan data ke dalam database
+        $bab = Bab::create([
+            'name' => $validatedData['name'],
+            'slug' => $slug,
+            'course_id' => $validatedData['course_id'],
+        ]);
 
+        // Mengembalikan respons sukses
+        return response()->json([
+            'message' => 'Bab berhasil ditambahkan.',
+            'data' => $bab,
+        ], 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validasi data input
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'course_id' => 'required|exists:courses,id', // Memastikan course_id sesuai dengan ID yang ada di tabel courses
+        ]);
+
+        // Mencari data Bab berdasarkan ID
+        $bab = Bab::findOrFail($id); // Jika tidak ditemukan, akan mengembalikan 404
+
+        // Membuat slug berdasarkan nama yang baru
+        $slug = \Str::slug($validatedData['name']);
+
+        // Memperbarui data Bab
+        $bab->update([
+            'name' => $validatedData['name'],
+            'slug' => $slug,
+            'course_id' => $validatedData['course_id'],
+        ]);
+
+        // Mengembalikan respons sukses
+        return response()->json([
+            'message' => 'Bab berhasil diperbarui.',
+            'data' => $bab,
+        ], 200);
+    }
 }

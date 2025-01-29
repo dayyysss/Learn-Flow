@@ -78,8 +78,8 @@
                                         </svg>
                                     </div>
                                     <div class="flex flex-col gap-1">
-                                        <p class="text-xs text-gray-500 dark:text-dark-text">Release date</p>
-                                        <h6 class="text-heading">01 Jan 2024</h6>
+                                        <p class="text-xs text-gray-500 dark:text-dark-text">Tanggal Rilis</p>
+                                        <h6 class="text-heading">{{ $course->tanggal_mulai }}</h6>
                                     </div>
                                 </div>
                                 <div
@@ -226,41 +226,290 @@
                         <div class="flex-center-between">
                             <h6 class="card-title">Modul Pembelajaran</h6>
 
-                            <div class="card-title text-[42px] mt-3 mb-5">
-                                <span class="counter-value" data-value="1.5">0</span>k
+                            <div class="card-title">
+                                <button
+                                    class="btn px-2 py-1 bg-primaryColor text-white rounded-md text-[15px] b-light btn-primary-light dk-theme-card-square"
+                                    id="openModal">
+                                    <i class="btn ri-add-fill text-inherit"></i>
+                                    <span>Tambah</span>
+                                </button>
                             </div>
                         </div>
                         <div id="courseImpression"></div>
                     </div>
-                    <div class="card p-5">
-                        <div class="flex-center-between">
-                            <h6 class="card-title">Tes</h6>
+
+                    @foreach ($course->babs as $index => $bab)
+                        <div class="card">
+                            <details>
+                                <summary class="flex justify-between">{{ $bab->name }}
+                                    <td
+                                        class="px-3.5 py-4 bg-[#F4F4F4] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
+                                        <div class="flex items-center gap-2" style="justify-content: end">
+                                            <button class="btn-icon btn-primary-icon-light size-7 openModalTambahModul"
+                                                style="color: #0c63e4" data-bab-id="{{ $bab->id }}">
+                                                <i class="btn ri-add-fill text-inherit"></i>
+                                            </button>
+
+                                            <button class="btn-icon btn-primary-icon-light size-7" id="openEditModal"
+                                                data-id="{{ $bab->id }}">
+                                                <i class="btn ri-edit-2-line text-inherit"></i>
+                                            </button>
 
 
+
+
+                                            {{-- <a href="{{ route('babs.edit', $bab->id) }}"
+                                                class="btn-icon btn-primary-icon-light size-7">
+                                                <i class="ri-edit-2-line text-inherit text-[13px]"></i>
+                                            </a> --}}
+                                            <a href="{{ route('babs.destroy', $bab->id) }}"
+                                                class="btn-icon btn-danger-icon-light size-7"
+                                                onclick="event.preventDefault(); deleteRecord('{{ route('kursus.destroy', $course->id) }}');">
+                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                            </a>
+
+                                        </div>
+                                    </td>
+                                </summary>
+                                <table
+                                    class="table-auto w-full whitespace-nowrap mt-3 text-left text-xs text-gray-500 dark:text-dark-text font-semibold leading-none">
+                                    <tbody class="">
+                                        @foreach ($bab->moduls as $modul)
+                                            <tr class="" style="margin-top: 1100px">
+                                                <td
+                                                    class="px-3.5 mt-4 py-4 bg-[#F4F4F4] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg">
+                                                    {{ $modul->name }}
+                                                </td>
+                                                <td
+                                                    class="px-3.5 mt-4 py-4 bg-[#F4F4F4] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg">
+                                                    <div class="flex items-center gap-2" style="justify-content: end">
+                                                        <button
+                                                            class="btn-icon btn-primary-icon-light size-7 openModalEditModul"
+                                                            data-modul-id="{{ $modul->id }}">
+                                                            <i class="btn ri-edit-2-line text-inherit"></i>
+                                                        </button>
+                                                        <a href="{{ route('moduls.destroy', $modul->id) }}"
+                                                            class="btn-icon btn-danger-icon-light size-7"
+                                                            onclick="event.preventDefault(); deleteRecord('{{ route('moduls.destroy', $modul->id) }}');">
+                                                            <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Modal Edit Modul -->
+                                            <div id="editModul-{{ $modul->id }}" class="modal-back"
+                                                style="display: none">
+                                                <div class="modal-content-modul">
+                                                    <div class="flex justify-between">
+                                                        <h3>Edit Modul</h3>
+                                                        <span class="close-edit-modul">&times;</span>
+                                                    </div>
+                                                    <form action="{{ route('moduls.update', $modul->id) }}"
+                                                        method="POST" enctype="multipart/form-data" class="space-y-4">
+                                                        @csrf
+                                                        @method('PUT')
+
+                                                        <div class="modul-section">
+                                                            <div class="modul-item border p-5 mb-3">
+                                                                <div class="mb-3">
+                                                                    <label class="mb-3 block font-semibold">Judul
+                                                                        Modul</label>
+                                                                    <input type="text" name="name"
+                                                                        placeholder="Modul Name"
+                                                                        value="{{ $modul->name }}"
+                                                                        class="form-control mb-3 w-full py-2 px-3 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label
+                                                                        class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Pilih
+                                                                        Jenis Video</label>
+                                                                    <div class="flex items-center gap-5">
+                                                                        <label>
+                                                                            <input type="radio" name="video_type"
+                                                                                value="url" class="mr-2"
+                                                                                onclick="toggleVideoInput('url', {{ $modul->id }})"
+                                                                                {{ $modul->video_type == 'url' ? 'checked' : '' }}>
+                                                                            URL Video
+                                                                        </label>
+                                                                        <label>
+                                                                            <input type="radio" name="video_type"
+                                                                                value="file" class="mr-2"
+                                                                                onclick="toggleVideoInput('file', {{ $modul->id }})"
+                                                                                {{ $modul->video_type == 'file' ? 'checked' : '' }}>
+                                                                            File Video
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div id="video-url-section-{{ $modul->id }}"
+                                                                    class="mb-3 {{ $modul->video_type == 'url' ? '' : 'hidden' }}">
+                                                                    <label
+                                                                        class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">URL
+                                                                        Video Pembelajaran</label>
+                                                                    <input type="text" name="video_url"
+                                                                        value="{{ $modul->video_url }}"
+                                                                        placeholder="Masukkan URL Video"
+                                                                        class="form-control mb-1 mt-3 w-full py-2 px-3 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
+                                                                </div>
+
+                                                                <div id="video-file-section-{{ $modul->id }}"
+                                                                    class="mb-3 {{ $modul->video_type == 'file' ? '' : 'hidden' }}">
+                                                                    <label
+                                                                        class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File
+                                                                        Video Pembelajaran</label>
+                                                                    <input type="file" name="video" accept="video/*"
+                                                                        class="form-control mb-1 mt-3 w-full py-2 px-3 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label
+                                                                        class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File
+                                                                        Materi Pembelajaran</label>
+                                                                    <input type="file" name="file"
+                                                                        accept="image/*,application/pdf"
+                                                                        class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" value="{{$modul->file}}">
+                                                                </div>
+
+                                                                <div>
+                                                                    <label class="mb-3 block font-semibold">Materi</label>
+                                                                    <textarea name="materi" placeholder="Materi" id="materi"
+                                                                        class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md"
+                                                                        cols="20" rows="10">{{ $modul->materi }}</textarea>
+                                                                </div>
+
+                                                                <input type="hidden" value="{{ $modul->bab_id }}" name="bab_id" id="bab_id-{{ $bab->id }}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="submit"
+                                                                class="btn bg-indigo-700">Simpan</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+
+
+                                    </tbody>
+
+                                </table>
+                            </details>
                         </div>
-                        <div id="courseImpression"></div>
-                    </div>
-                    <div class="card p-5">
-                        <div class="flex-center-between">
-                            <h6 class="card-title">Tes</h6>
+                        {{-- Modal Tambah Modul --}}
+                        <div id="addModul-{{ $bab->id }}" class="modal-back" style="display: none">
+                            <div class="modal-content-modul">
+                                <span class="close-tambah-modul">&times;</span>
+                                <h3>Tambah Tipe Menu</h3>
+                                <form action="{{ route('moduls.store') }}" method="POST" class="space-y-4"
+                                    enctype="multipart/form-data">
+                                    @csrf
 
+                                    <div class="modul-section">
+                                        <div class="modul-item border p-5 mb-3">
+                                            <div class="mb-15px">
+                                                <label class="mb-3 block font-semibold">Judul Modul</label>
+                                                {{-- <div class="flex justify-between">
+                                                    <div class="flex mb-3 items-center gap-3">
+                                                        <label for="task-switch" class="font-semibold text-sm">Aktifkan
+                                                            Penugasan?</label>
+                                                        <input type="checkbox" id="task-switch" name="task"
+                                                            value="1" class="toggle-switch">
+                                                    </div>
+                                                </div> --}}
+                                                <input type="text" name="name" placeholder="Modul Name"
+                                                    class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
+                                            </div>
 
+                                            <div class="mb-3">
+                                                <label
+                                                    class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Pilih
+                                                    Jenis Video</label>
+                                                <div class="flex items-center gap-5 space-x-5">
+                                                    <label>
+                                                        <input type="radio" name="video_type" value="url"
+                                                            class="mr-2" onclick="toggleVideoInput('url')"> URL Video
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="video_type" value="file"
+                                                            class="mr-2" onclick="toggleVideoInput('file')"> File
+                                                        Video
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Input untuk URL Video -->
+                                            <div id="video-url-section" class="mb-3 hidden">
+                                                <label
+                                                    class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">URL
+                                                    Video Pembelajaran</label>
+                                                <input type="text" name="video_url" placeholder="Masukkan URL Video"
+                                                    class="form-control mb-1 mt-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
+                                            </div>
+
+                                            <!-- Input untuk File Video -->
+                                            <div id="video-file-section" class="mb-3 hidden">
+                                                <label
+                                                    class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File
+                                                    Video Pembelajaran</label>
+                                                <input type="file" name="video" accept="video/*"
+                                                    class="form-control mb-1 mt-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
+                                            </div>
+
+                                            <div class="grid grid-cols-1 mb-15px gap-y-15px gap-x-30px">
+                                                <div>
+                                                    <label
+                                                        class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File
+                                                        Materi Pembelajaran</label>
+                                                    <input type="file" name="file" accept="image/*,application/pdf"
+                                                        class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label class="mb-3 block font-semibold">Materi</label>
+                                                <textarea name="materi" placeholder="Materi" id="materi"
+                                                    class="form-control mt-2 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md"
+                                                    cols="20" rows="10"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="bab_id" id="bab_id-{{ $bab->id }}">
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn bg-indigo-700">Simpan</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div id="courseImpression"></div>
-                    </div>
-                    <div class="card p-5">
-                        <div class="flex-center-between">
-                            <h6 class="card-title">Tes</h6>
+
+                        <script>
+                            // Fungsi untuk menampilkan input sesuai dengan tipe video yang dipilih (URL atau file)
+                            function toggleVideoInput(type) {
+                                if (type === 'url') {
+                                    document.getElementById('video-url-section').classList.remove('hidden');
+                                    document.getElementById('video-file-section').classList.add('hidden');
+                                } else {
+                                    document.getElementById('video-url-section').classList.add('hidden');
+                                    document.getElementById('video-file-section').classList.remove('hidden');
+                                }
+                            }
+                        </script>
+                    @endforeach
 
 
-                        </div>
-                        <div id="courseImpression"></div>
-                    </div>
                 </div>
             </div>
             <!-- End Course Overview Chart -->
+
+
         </div>
     </div>
+
+    @include('lfcms.pages.kursus.modal')
 
     <script data-cfasync="false" src="{{ asset('../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js') }}">
     </script>
@@ -273,5 +522,159 @@
     <script src="assets/js/switcher.js"></script>
     <script src="assets/js/layout.js"></script>
     <script src="assets/js/main.js"></script>
+
+    @push('style')
+        <style>
+            .card {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                margin-bottom: 15px;
+                background-color: #fff;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+            }
+
+            table {
+                border-spacing: 0 10px;
+                /* Menambahkan jarak antar baris */
+            }
+
+
+            tbody tr {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+
+
+            .card details {
+                padding: 15px;
+            }
+
+            .card summary {
+                font-weight: bold;
+                font-size: 1.1em;
+                cursor: pointer;
+                outline: none;
+            }
+
+            .card summary:hover {
+                color: #007BFF;
+            }
+
+
+
+            #openModalTambahModul {
+                z-index: 999;
+            }
+
+            .bab-section {
+                max-height: 50vh;
+                overflow-y: auto
+            }
+
+            /* Styling untuk switch toggle */
+            .toggle-switch {
+                width: 40px;
+                height: 20px;
+                position: relative;
+                appearance: none;
+                background-color: #ccc;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .toggle-switch:checked {
+                background-color: #4CAF50;
+            }
+
+            .toggle-switch:before {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 16px;
+                height: 16px;
+                background-color: white;
+                border-radius: 50%;
+                transition: left 0.3s ease;
+            }
+
+            .toggle-switch:checked:before {
+                left: 22px;
+            }
+        </style>
+    @endpush
+
+    {{-- @push('script') --}}
+    {{-- <script>
+            function openModal(modalId) {
+                document.getElementById(modalId).classList.remove('hidden');
+            }
+
+            function closeModal(modalId) {
+                document.getElementById(modalId).classList.add('hidden');
+            }
+        </script>
+    @endpush --}}
+
+    @push('script')
+        <script>
+            function openModal(modalId) {
+                var modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('hidden'); // Menampilkan modal
+                } else {
+                    console.log('Modal tidak ditemukan dengan ID:', modalId); // Debugging jika modal tidak ditemukan
+                }
+            }
+
+            function closeModal(modalId) {
+                var modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('hidden'); // Menyembunyikan modal
+                } else {
+                    console.log('Modal tidak ditemukan dengan ID:', modalId); // Debugging jika modal tidak ditemukan
+                }
+            }
+
+            // Jika modal ditutup dengan mengklik luar modal
+            window.onclick = function(event) {
+                var modals = document.querySelectorAll('.modal-back');
+                modals.forEach(function(modal) {
+                    if (event.target === modal) {
+                        modal.classList.add('hidden'); // Menyembunyikan modal
+                    }
+                });
+            };
+        </script>
+    @endpush
+
+    <script>
+        function deleteRecord(url) {
+            if (confirm("Apakah Anda yakin ingin menghapus modul ini?")) {
+                fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Modul berhasil dihapus!");
+                        location.reload(); // Refresh halaman setelah penghapusan
+                    } else {
+                        alert("Gagal menghapus modul: " + data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
+    
+
 
 @endsection
