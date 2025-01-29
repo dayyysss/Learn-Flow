@@ -57,7 +57,7 @@
                                                         Mulai Belajar
                                                     </a>
                                                 @endif
-                                                <a href="{{ route('showCourseRegistration', ['course_slug' => $courseRegistration->course->slug]) }}"
+                                                <a href="{{route('certificate.index', ['courseId' => $courseRegistration->course->id] )}}"
                                                     class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3">
                                                     Unduh Sertifikat
                                                 </a>
