@@ -34,7 +34,7 @@ public function index()
     $user = User::with('roles')->paginate(10);
     $role = Role::all();
 
-    return view('lfcms.pages.user.administrator', compact('user', 'role'));
+    return view('lfcms.pages.user.administrator.administrator', compact('user', 'role'));
 }
 
 public function create()

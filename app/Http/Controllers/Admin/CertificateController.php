@@ -118,8 +118,8 @@ class CertificateController extends Controller
         $pdf->SetXY(70, 209);
         $pdf->Cell(0, 10, $completionDate, 0, 1, 'L');
 
-        $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->SetTextColor(0, 0, 0);
+        $pdf->SetFont('Helvetica', 'B', 15);
+        $pdf->SetTextColor(255, 255, 255);
         $pdf->SetXY(243, 14.5);
         $pdf->Cell(0, 10, $certificateId, 0, 1, 'L');
 

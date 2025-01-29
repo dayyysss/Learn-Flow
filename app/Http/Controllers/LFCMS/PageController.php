@@ -40,7 +40,13 @@ class PageController extends Controller
             'judul' => 'required',
             'deskripsi' => 'nullable',
             'keyword' => 'nullable',
-        ]);
+        ],
+    
+        [
+            'judul.required' => 'The field name is required.', // Pesan khusus untuk validasi judul
+            'status.required' => 'The status field is required.', // Contoh untuk field lain
+        ]
+    );
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -86,6 +92,11 @@ class PageController extends Controller
             'judul' => 'required',
             'deskripsi' => 'nullable',
             'keyword' => 'nullable',
+        ],
+    
+        [
+            'judul.required' => 'The field Judul is required.', // Pesan khusus untuk validasi judul
+            'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]);
 
         if ($validator->fails()) {

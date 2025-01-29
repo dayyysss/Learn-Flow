@@ -37,6 +37,11 @@ class ClientController extends Controller
             'status' => 'required|in:draft,publik',
             'url' => 'nullable',
             'image' => 'nullable|image|max:2048',  // Validasi file gambar
+        ],
+    
+        [
+            'name.required' => 'The field Name is required.', // Pesan khusus untuk validasi name
+            'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]);
 
         if ($validator->fails()) {
@@ -82,6 +87,11 @@ class ClientController extends Controller
             'status' => 'required|in:draft,publik',
             'image' => 'nullable|image|max:2048',  // Validasi file gambar
             'url' => 'nullable'
+        ],
+    
+        [
+            'name.required' => 'The field Name is required.', // Pesan khusus untuk validasi name
+            'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]);
 
         if ($validator->fails()) {

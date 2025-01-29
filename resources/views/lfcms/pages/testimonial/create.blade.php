@@ -15,7 +15,12 @@
                                 <div class="col-span-full xl:col-auto leading-none">
                                     <label for="name" class="form-label">Nama</label>
                                     <input type="text" id="name" name="name" placeholder="Masukan nama"
-                                        class="form-input" required>
+                                        class="form-input @error('name') is-invalid @enderror">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert"  style="color: red;">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
                                 </div>
                             </div>
                             <div>
@@ -24,77 +29,26 @@
                                     <div class="col-span-full xl:col-auto leading-none">
                                         <label for="profession" class="form-label">Profesi</label>
                                         <input type="text" id="profession" name="profession"
-                                            placeholder="Masukan Profesi" class="form-input" required>
+                                            placeholder="Masukan Profesi" class="form-input">
                                     </div>
                                 </div>
 
                                 <div class="col-span-full mt-3 xl:col-auto leading-none">
                                     <label for="status" class="form-label">Status</label>
-                                    <select class="singleSelect" name="status" id="status">
+                                    <select class="singleSelect @error('status') is-invalid @enderror" name="status" id="status">
                                         <option selected disabled>Pilih Status</option>
                                         <option value="publik">Publik</option>
                                         <option value="draft">Draft</option>
                                     </select>
+                                    @error('status')
+                                            <span class="invalid-feedback" role="alert"  style="color: red;">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
                                 </div>
-
-                                {{-- <div class="col-span-full xl:col-auto leading-none">
-                                <label for="coursePrice" class="form-label">Course price</label>
-                                <input type="number" id="coursePrice" placeholder="$200.00" class="form-input" required>
-                            </div> --}}
-                                {{-- <div class="col-span-full xl:col-auto leading-none">
-                                <label class="form-label">Courses category</label>
-                                <select class="singleSelect">
-                                    <option selected disabled>Select category</option>
-                                    <option value="val">Science</option>
-                                    <option value="val">Mathematics</option>
-                                    <option value="val">Engineering</option>
-                                    <option value="val">Humanities</option>
-                                    <option value="val">Social Sciences</option>
-                                    <option value="val">Business</option>
-                                    <option value="val">Computer Science</option>
-                                    <option value="val">Arts</option>
-                                    <option value="val">Health Sciences</option>
-                                    <option value="val">Law</option>
-                                </select>
-                            </div>
-                            <div class="col-span-full xl:col-auto leading-none">
-                                <label class="form-label">Courses level</label>
-                                <select class="singleSelect">
-                                    <option selected disabled>Select Label</option>
-                                    <option value="val">Beginner</option>
-                                    <option value="val">Intermediate</option>
-                                    <option value="val">Advanced</option>
-                                    <option value="val">Expert</option>
-                                </select>
-                            </div>
-                             --}}
-                                {{-- <div class="col-span-full mt-3 xl:col-auto leading-none">
-                                <label for="deskripsi-singkat" class="form-label">Deskripsi Singkat</label>
-                                <textarea type="text" id="deskripsi-singkat" placeholder="deskripsi singkat" class="form-input h-[100px]" required></textarea>
-                            </div> --}}
-                                {{-- <div class="col-span-full xl:col-auto leading-none">
-                                <label class="form-label">Courses Type</label>
-                                <select class="singleSelect">
-                                    <option selected disabled>Select Course Type</option>
-                                    <option value="workshop">Workshop</option>
-                                    <option value="seminar">Seminar</option>
-                                    <option value="online">Online</option>
-                                    <option value="hybrid">Hybrid</option>
-                                    <option value="self-paced">Self-paced</option>
-                                    <option value="certification">Certification</option>
-                                    <option value="bootcamp">Bootcamp</option>
-                                </select>
-                            </div>  --}}
                                 <div class="col-span-full mt-3">
                                     <label for="description" class="form-label">Deskripsi</label>
                                     <textarea id="description" name="description" rows="8" class="summernote form-input"></textarea>
-                                    <div class="flex items-center gap-2 mt-3.5">
-                                        <input type="checkbox" name="agreeTermCondition" id="agreeTermCondition"
-                                            class="accent-primary-500">
-                                        <label for="agreeTermCondition"
-                                            class="text-xs leading-none text-gray-500 dark:text-dark-text select-none">I am
-                                            totally agree with your term & condition</label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +81,7 @@
                                     </label>
                                 </div>
 
-                                <div class="flex gap-5 mt-6">
+                                <div class="flex justify-end gap-5 mt-6">
                                     <button type="submit"
                                         class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
                                     <a href="{{ route('testimonial.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>

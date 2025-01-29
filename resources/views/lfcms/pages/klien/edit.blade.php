@@ -8,28 +8,33 @@
             @method('PUT')
             <div class="grid grid-cols-12 gap-x-4">
                 <!-- Start Course Information -->
-                <div class="col-span-full lg:col-span-7 card h-fit">
+                <div class="col-span-full lg:col-span-7 card h-auto">
                     <div class="p-1.5">
                         <h6 class="card-title">Edit Klien</h6>
                         <div class="mt-7 pt-0.5">
-                            <div class="grid  gap-y-5">
+                            <div class="grid mt-4 gap-y-5">
                                 <div class="col-span-full xl:col-auto leading-none">
                                     <label for="name" class="form-label">Nama</label>
                                     <input type="text" id="name" name="name" placeholder="Masukan Nama"
-                                        class="form-input" value="{{ $client->name }}" required>
+                                        class="form-input @error('name') is-invalid @enderror" value="{{ $client->name }}">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert"  style="color: red;">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
                                 </div>
                             </div>
                             <div>
 
-                                <div class="grid mt-3 gap-y-5">
+                                <div class="grid mt-6 gap-y-5">
                                     <div class="col-span-full xl:col-auto leading-none">
                                         <label for="url" class="form-label">Url</label>
                                         <input type="text" id="url" name="url" placeholder="Masukan url"
-                                            class="form-input" value="{{ $client->url }}" required>
+                                            class="form-input" value="{{ $client->url }}">
                                     </div>
                                 </div>
 
-                                <div class="col-span-full mt-3 xl:col-auto leading-none">
+                                <div class="col-span-full mt-6 xl:col-auto leading-none">
                                     <label for="status" class="form-label">Status</label>
                                     <select class="singleSelect" name="status" id="status">
                                         <option disabled>Pilih Status</option>
@@ -40,21 +45,14 @@
 
                             </div>
                         </div>
-                        <div class="flex-center mt-5 !justify-end">
-                            <button type="submit"
-                                class="btn b-solid btn-primary-solid btn-md w-full dk-theme-card-square">Simpan</button>
-                        </div>
                     </div>
                 </div>
                 <!-- End Course Information -->
-
-                <!-- Start Course Media File -->
-
+                                 <!-- Start Course Media File -->
                 <div class="col-span-full h-fit lg:col-span-5 gap-y-3">
                     <div class="card">
                         <div class="p-1.5">
-                            <h6 class="card-title">Data Tambahan</h6>
-                            <div class="mt-7 pt-0.5 flex flex-col gap-5">
+                            <div class=" pt-0.5 flex flex-col gap-5">
                                 <div class="col-span-full sm:col-span-4">
                                     <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">
                                         Gambar</p>
@@ -82,6 +80,11 @@
                                             <p class="text-gray-500">Tidak ada gambar</p>
                                         @endif
                                     </div>
+                                    <div class="flex justify-end gap-5 mt-6">
+                            <button type="submit"
+                                class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                            <a href="{{ route('klien.index') }}" class="btn b-solid btn-secondary-solid px-5 dk-theme-card-square">Kembali</a>
+                             </div>
                                 </div>
                             </div>
                         </div>
