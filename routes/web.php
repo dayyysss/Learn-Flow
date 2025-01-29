@@ -296,10 +296,16 @@ Route::middleware(['auth'])
         Route::resource('/reviews', FeedbackController::class)->except(['show', 'index']);
 
         Route::controller(CertificateController::class)->group(function () {
-            Route::get('/certificate/{courseId}', 'show')->name('certificate.index');
-            Route::get('/view-certificate/{courseId}', 'viewCertificate')->name('viewCertificate');
-            Route::get('/download-certificate/{courseId}', 'downloadCertificate')->name('downloadCertificate');
+            // Menampilkan certificate berdasarkan certificate_id yang ada pada CourseRegistration
+            Route::get('/certificate/{certificateId}', 'show')->name('certificate.index');
+            
+            // Menampilkan certificate sesuai dengan certificate_id
+            Route::get('/view-certificate/{certificateId}', 'viewCertificate')->name('viewCertificate');
+            
+            // Download certificate berdasarkan certificate_id
+            Route::get('/download-certificate/{certificateId}', 'downloadCertificate')->name('downloadCertificate');
         });
+        
 
         // Rute untuk memperbarui progres modul
         Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'updateModulProgress'])->name('modul.updateProgress');

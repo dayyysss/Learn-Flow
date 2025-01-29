@@ -15,7 +15,7 @@
         
             <div class="flex justify-between gap-6">
                 <!-- Kolom Kiri (Diperbesar) -->
-                <div class="flex-2 card"> <!-- Menambahkan flex-2 agar kolom kiri lebih besar -->
+                <div class="flex-2 card" style="width: 500px"> <!-- Menambahkan flex-2 agar kolom kiri lebih besar -->
                     <div class="p-0.5">
                         <div class="text-center">
                             <div class="aspect-video rounded-20 overflow-hidden dk-theme-card-square" style="height: 300px; width: 500px">
@@ -74,8 +74,8 @@
                 </div>
         
                 <!-- Kolom Kanan -->
-                <div class="flex-1 transition-all duration-300"> <!-- Menambahkan flex-1 agar kolom kanan lebih kecil -->
-                    <div class="flex flex-col gap-30px">
+                <div class="flex-1 transition-all duration-300" style="width: 200px"> <!-- Menambahkan flex-1 agar kolom kanan lebih kecil -->
+                    <div class="flex flex-col gap-30px mb-5">
                         <div class="group course-item"
                             data-status="{{ $courseRegistration->status == 'confirm' ? 'enrolled' : ($courseRegistration->progress < 100 ? 'active' : 'completed') }}"
                             data-progress="{{ $courseRegistration->progress }}">
@@ -100,7 +100,53 @@
                                                         Mulai Belajar
                                                     </a>
                                                 @endif
-                                                <a href="{{ route('certificate.index', ['courseId' => $courseRegistration->course->id]) }}"
+                                                <a href="{{ route('certificate.index', ['certificateId' => $courseRegistration->certificate_id]) }}"
+                                                    class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
+                                                    Unduh Sertifikat
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- Progress Bar -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-30px">
+                        
+                        <div class="group course-item"
+                            data-status="{{ $courseRegistration->status == 'confirm' ? 'enrolled' : ($courseRegistration->progress < 100 ? 'active' : 'completed') }}"
+                            data-progress="{{ $courseRegistration->progress }}">
+
+                            
+                            <div class="tab-content-wrapper" data-aos="fade-up">
+                                
+                                <div class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
+                                    <div class="mb-6 pb-3 border-b-2 border-borderColor dark:border-borderColor-dark">
+                                        <h3 class="text-xl font-bold text-blackColor dark:text-blackColor-dark">
+                                            <i class="icofont-read-book"></i> Riwayat Ujian
+                                        </h3>
+                                    </div>
+                                    <div>
+                                        <div class="grid pt-15px">
+                                            <div class="text-center flex flex-col items-start md:items-end gap-3">
+                                                @if ($nextProsesModul)
+                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
+                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
+                                                        Lanjutkan
+                                                    </a>
+                                                @elseif ($lastAccessedModul)
+                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $lastAccessedModul->modul->slug]) }}"
+                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
+                                                        Lanjutkan
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $firstModul->slug]) }}"
+                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
+                                                        Mulai Belajar
+                                                    </a>
+                                                @endif
+                                                <a href="{{ route('certificate.index', ['certificateId' => $courseRegistration->certificate_id]) }}"
                                                     class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
                                                     Unduh Sertifikat
                                                 </a>

@@ -485,7 +485,8 @@ class CourseController extends Controller
             'assignments',
             'modul_progress',
             'status',
-            'isLastModul'
+            'isLastModul',
+            'courseRegistration'
         ));
     }
 

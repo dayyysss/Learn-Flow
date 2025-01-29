@@ -23,9 +23,10 @@
                         <div class="w-full">
                             <div class="p-6 text-center mb-10">
                                 <!-- Displaying PDF Certificate -->
-                                <iframe id="openModal" src="{{ route('viewCertificate', $course->id) }}#toolbar=0&navpanes=0"
+                                <iframe id="openModal" src="{{ route('viewCertificate', $course->courseRegistrations->first()->certificate_id) }}#toolbar=0&navpanes=0"
                                     class="flex ml-auto mr-auto mt-10 justify-center" width="605px" height="425">
                                 </iframe>
+                                
                                 <br>
                                 <!-- Download button (commented out) -->
                                 {{-- <button
