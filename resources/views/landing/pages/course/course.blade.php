@@ -189,9 +189,7 @@
                                     </a>
                                 </li>
                             </ul>
-
                         </div>
-
                     </div>
                 </div>
                 <!-- courses main -->
@@ -201,7 +199,6 @@
                         <div id="dataContainer"
                             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-30px">
                             <!-- card 1 -->
-
                             @if ($course->count())
                                 @foreach ($course as $item)
                                     <div class="group">
@@ -263,7 +260,6 @@
                                                         {{ \Illuminate\Support\Str::limit($item->name, 40, '...') }}
                                                     </a>
                                                 </div>
-
                                                 <!-- price -->
                                                 <div
                                                     class="text-lg font-semibold text-primaryColor font-inter mb-4 course-card-footer">
@@ -284,11 +280,9 @@
                                                         @endif
                                                     </span>
                                                 </div>
-
                                                 <!-- instructor -->
                                                 <div
                                                     class="course-card-instructor flex justify-between border-t pt-15px border-borderColor">
-
                                                     <div>
                                                         <a href="instructor-details.html"
                                                             class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
@@ -297,11 +291,8 @@
                                                                 alt="{{ $item->instrukturs->name }}">
                                                             <span
                                                                 class="flex capitalize">{{ $item->instrukturs->name }}</span>
-
-
                                                         </a>
                                                     </div>
-
                                                     <div class="instructor-rating text-xs">
                                                         <!-- Menampilkan rating instruktur -->
                                                         @php
@@ -313,10 +304,6 @@
                                                         @endfor
                                                         <div>({{ $item->instrukturs->total_feedbacks ?? 0 }} reviews)</div>
                                                     </div>
-
-
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -329,15 +316,10 @@
                                     Kursus tidak ditemukan untuk pencarian ini.
                                 </div>
                             @endif
-
                             {{-- <div class="pagination">
                                 {{ $course->appends(['search' => request()->get('search'), 'category' => request()->get('category'), 'tag' => request()->get('tag'), 'skill_level' => request()->get('skill_level')])->links() }}
                             </div> --}}
-
-
-
                         </div>
-
 
                         <!-- list ordered cards -->
                         <div class="hidden opacity-0 transition-all duration-300">
@@ -353,7 +335,8 @@
                                                     <div class="relative overflow-hidden w-full md:w-2/5">
                                                         <a href="{{ route('course.detail', $item->slug) }}"
                                                             class="w-full overflow-hidden rounded">
-                                                            <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
+                                                            <img src="{{ asset('storage/' . $item->thumbnail) }}"
+                                                                alt=""
                                                                 class="w-full transition-all duration-300 group-hover:scale-110 block">
                                                         </a>
 
@@ -447,7 +430,7 @@
                                                                             <i
                                                                                 class="icofont-star text-size-10 {{ $i <= min($item->average_rating, 5) ? 'text-yellow' : 'text-gray' }}"></i>
                                                                         @endfor
-                          
+
                                                                         <span class="text-xs text-lightGrey6">
                                                                             ({{ $item->total_feedbacks }} reviews)
                                                                         </span>
