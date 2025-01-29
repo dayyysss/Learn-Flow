@@ -20,36 +20,25 @@ use Endroid\QrCode\Writer\PngWriter;
 
 class CertificateController extends Controller
 {
-    public function show($courseId)
+    public function show($certificateId)
     {
-        // Ambil data kursus berdasarkan ID
-        $course = Course::findOrFail($courseId);
+        // Ambil data registrasi kursus berdasarkan certificate_id
+        $courseRegistration = CourseRegistration::where('certificate_id', $certificateId)->firstOrFail();
+        $course = $courseRegistration->course;
 
         // Pastikan pengguna yang login memiliki akses ke kursus ini
-        if ($this->checkUserAccess($course)) {
+      
             return view('landing.pages.course.certificate', compact('course'));
-        } else {
-            abort(403, 'Anda tidak memiliki akses ke kursus ini.');
-        }
+       
     }
 
-    public function generateCertificate($courseId, $download = false)
+    public function generateCertificate($certificateId, $download = false)
     {
-        $course = Course::findOrFail($courseId);
+        // Ambil data registrasi kursus berdasarkan certificate_id
+        $courseRegistration = CourseRegistration::where('certificate_id', $certificateId)->firstOrFail();
+        $course = $courseRegistration->course;
 
-        if (!$this->checkUserAccess($course)) {
-            abort(403, 'Anda tidak memiliki akses ke kursus ini.');
-        }
-
-        $user = Auth::user();
-        $courseRegistration = CourseRegistration::where('user_id', $user->id)
-            ->where('course_id', $courseId)
-            ->first();
-
-        if (!$courseRegistration) {
-            abort(404, 'Data pendaftaran kursus tidak ditemukan.');
-        }
-
+        $user = $courseRegistration->user;
         $fullName = $user->first_name . ' ' . $user->last_name;
         $completionDate = now()->format('d F Y');
         $courseName = $course->name;
@@ -74,7 +63,7 @@ class CertificateController extends Controller
         // Generate QR Code using Endroid QR Code Builder
         $builder = new Builder(
             writer: new PngWriter(),
-            data: 'http://127.0.0.1:8000/certificate/' . $courseId,
+            data: 'http://127.0.0.1:8000/certificate/' . $certificateId,
             encoding: new Encoding('UTF-8'),
             errorCorrectionLevel: ErrorCorrectionLevel::High,
             size: 300,
@@ -146,21 +135,21 @@ class CertificateController extends Controller
         }
     }
 
-    public function viewCertificate($courseId)
+    public function viewCertificate($certificateId)
     {
-        return $this->generateCertificate($courseId, false);
+        return $this->generateCertificate($certificateId, false);
     }
 
-    public function downloadCertificate($courseId)
+    public function downloadCertificate($certificateId)
     {
-        return $this->generateCertificate($courseId, true);
+        return $this->generateCertificate($certificateId, true);
     }
 
     // Fungsi untuk memeriksa apakah pengguna yang login memiliki akses ke kursus
-    private function checkUserAccess($course)
+    private function checkUserAccess($courseRegistration)
     {
         $user = Auth::user();
-        // Check if any of the course registrations have the user_id equal to the current user's id
-        return $course->courseRegistrations->contains('user_id', $user->id);
+        // Periksa apakah user yang login terkait dengan course registration ini
+        return $courseRegistration->user_id == $user->id;
     }
 }

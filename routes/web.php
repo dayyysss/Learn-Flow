@@ -45,6 +45,7 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\Admin\CourseRegistrationController;
 use App\Http\Controllers\Admin\Quiz\OptionController;
 use App\Http\Controllers\Admin\Quiz\QuestionController;
+use App\Http\Controllers\Admin\Quiz\StartQuizController;
 // use App\Http\Controllers\LFCMS\ArticleController;
 // use App\Http\Controllers\LFCMS\HakAksesController;
 // use App\Http\Controllers\LFCMS\HakAksesFrontendController;
@@ -288,6 +289,8 @@ Route::middleware(['auth'])
         Route::get('/quiz-results', [QuizResultController::class, 'index'])->name('quizResults.index');
         Route::get('/quiz-results/{id}', [QuizResultController::class, 'show'])->name('quizresults.show');
 
+        Route::get('/start-quiz/{id}', [StartQuizController::class, 'index'])->name('startQuiz.index');
+
         //wishlist
         Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
         Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
@@ -297,10 +300,16 @@ Route::middleware(['auth'])
         Route::resource('/reviews', FeedbackController::class)->except(['show', 'index']);
 
         Route::controller(CertificateController::class)->group(function () {
-            Route::get('/certificate/{courseId}', 'show')->name('certificate.index');
-            Route::get('/view-certificate/{courseId}', 'viewCertificate')->name('viewCertificate');
-            Route::get('/download-certificate/{courseId}', 'downloadCertificate')->name('downloadCertificate');
+            // Menampilkan certificate berdasarkan certificate_id yang ada pada CourseRegistration
+            Route::get('/certificate/{certificateId}', 'show')->name('certificate.index');
+            
+            // Menampilkan certificate sesuai dengan certificate_id
+            Route::get('/view-certificate/{certificateId}', 'viewCertificate')->name('viewCertificate');
+            
+            // Download certificate berdasarkan certificate_id
+            Route::get('/download-certificate/{certificateId}', 'downloadCertificate')->name('downloadCertificate');
         });
+        
 
         // Rute untuk memperbarui progres modul
         Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'updateModulProgress'])->name('modul.updateProgress');
