@@ -47,7 +47,7 @@ window.onclick = function (event) {
 <div id="addModul" class="modal-back" style="display: none">
   <div class="modal-content-modul">
       <span class="close-tambah-modul">&times;</span>
-      <h3>Tambah Tipe Menu</h3>
+      <h3>Tambah Modul</h3>
       <form action="{{ route('moduls.store') }}" method="POST" class="space-y-4">
           @csrf
 

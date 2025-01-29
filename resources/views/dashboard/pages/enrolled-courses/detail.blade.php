@@ -5,91 +5,128 @@
 @section('content')
     <div class="lg:col-start-4 lg:col-span-9">
         <!-- Courses Area -->
-        <div
-            class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
+        <div class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
             <!-- Heading -->
             <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark">
                 <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
                     {{ $courseRegistration->course->name }}
                 </h2>
             </div>
-
-            <div>
-                <div class="transition-all duration-300">
-                    <div class="flex flex-col gap-30px">
-                        <!-- Course Card -->
-                        <div class="group course-item"
-                            data-status="{{ $courseRegistration->status == 'confirm' ? 'enrolled' : ($courseRegistration->progress < 100 ? 'active' : 'completed') }}"
-                            data-progress="{{ $courseRegistration->progress }}">
-                            <div class="tab-content-wrapper" data-aos="fade-up">
+        
+            <div class="flex justify-between gap-6">
+                <!-- Kolom Kiri (Diperbesar) -->
+                <div class="flex-2 card"> <!-- Menambahkan flex-2 agar kolom kiri lebih besar -->
+                    <div class="p-0.5">
+                        <div class="text-center">
+                            <div class="aspect-video rounded-20 overflow-hidden dk-theme-card-square" style="height: 300px; width: 500px">
+                                <img src="{{ asset('storage/' . $courseRegistration->course->thumbnail) }}" alt="thumb" class="w-full h-full object-contain dark:brightness-50">
+                            </div>
+                            <div class="max-w-[540px] mx-auto mt-4">
+                                <p class="font-spline_sans leading-[1.62] text-gray-500 dark:text-dark-text mt-2">
+                                    {!! $courseRegistration->course->deskripsi !!}
+                                </p>
+                            </div>
+                            <div class="p-5 border border-dashed border-gray-200 dark:border-dark-border rounded-15 mt-4">
                                 <div
-                                    class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
-                                    <!-- Card Content -->
-                                    <div>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 pt-15px">
-                                            <!-- Instructor Info -->
-                                            <div>
-                                                <a href="instructor-details.html"
-                                                    class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
-                                                    {{ $courseRegistration->course->name ?? 'Instruktur Tidak Tersedia' }}
-                                                </a>
-                                                <div>
-                                                    {!! Str::limit($courseRegistration->course->deskripsi, 100, '...') !!}
-                                                </div>
-                                            </div>
-
-                                            <!-- Course Link -->
-                                            <div
-                                                class="text-start md:text-end flex flex-col items-start md:items-end gap-3">
-                                                @if ($nextProsesModul)
-                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
-                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3">
-                                                        Lanjutkan
-                                                    </a>
-                                                @elseif ($lastAccessedModul)
-                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $lastAccessedModul->modul->slug]) }}"
-                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3">
-                                                        Lanjutkan
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $firstModul->slug]) }}"
-                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3">
-                                                        Mulai Belajar
-                                                    </a>
-                                                @endif
-                                                <a href="{{ route('showCourseRegistration', ['course_slug' => $courseRegistration->course->slug]) }}"
-                                                    class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3">
-                                                    Unduh Sertifikat
-                                                </a>
-                                            </div>
+                                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 font-semibold text-left">
+                                    <!-- Instructor Info -->
+                                    <div class="flex items-center gap-3">
+                                        <img style="width: 40px"
+                                            src="{{ $courseRegistration->course->instrukturs->image ? Storage::url($courseRegistration->course->instrukturs->image) : asset('assets/images/grid/grid_small_1.jpg') }}"
+                                            alt="Instructor" class="size-11 rounded-full dk-theme-card-square">
+                                        <div class="flex flex-col gap-1">
+                                            <p class="text-xs text-gray-500 dark:text-dark-text">Instruktur</p>
+                                            <h6 class="text-heading">{{ $courseRegistration->course->instrukturs->name }}</h6>
                                         </div>
-
-                                        <!-- Progress Bar -->
-                                        {{-- <div class="mt-3">
-                                            <div class="mt-1 text-xs text-primaryColor dark:text-primaryColor-dark">
-                                                {{ $courseRegistration->progress }}%
-                                            </div>
-                                            <div class="h-1 bg-primaryColor" style="width: {{ $courseRegistration->progress }}%;"></div>
-                                        </div> --}}
+                                    </div>
+            
+                                    <!-- Other Info -->
+                                    <div class="flex flex-col gap-1">
+                                        <p class="text-xs text-gray-500 dark:text-dark-text">Total hour</p>
+                                        <h6 class="text-heading">02h 35m</h6>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <p class="text-xs text-gray-500 dark:text-dark-text">Tanggal Rilis</p>
+                                        <h6 class="text-heading">{{ $courseRegistration->course->tanggal_mulai }}</h6>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <p class="text-xs text-gray-500 dark:text-dark-text">Level</p>
+                                        <h6 class="text-heading">{{ $courseRegistration->course->tingkatan }}</h6>
+                                    </div>
+                                  
+                                    <div class="flex flex-col gap-1">
+                                        <p class="text-xs text-gray-500 dark:text-dark-text">Total enrolled</p>
+                                        <h6 class="text-heading">10,995</h6>
+                                    </div>
+                                    
+                                    <div class="flex flex-col gap-1">
+                                        <p class="text-xs text-gray-500 dark:text-dark-text">Certificate</p>
+                                        <h6 class="text-heading">Yes</h6>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <p class="text-xs text-gray-500 dark:text-dark-text">Reviews</p>
+                                        <h6 class="text-heading">4.9</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Course Card -->
-
-
-
-
-
+                    </div>
+                </div>
+        
+                <!-- Kolom Kanan -->
+                <div class="flex-1 transition-all duration-300"> <!-- Menambahkan flex-1 agar kolom kanan lebih kecil -->
+                    <div class="flex flex-col gap-30px">
+                        <div class="group course-item"
+                            data-status="{{ $courseRegistration->status == 'confirm' ? 'enrolled' : ($courseRegistration->progress < 100 ? 'active' : 'completed') }}"
+                            data-progress="{{ $courseRegistration->progress }}">
+                            <div class="tab-content-wrapper" data-aos="fade-up">
+                                <div class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
+                                    <div>
+                                        <div class="grid pt-15px">
+                                            <div class="text-center flex flex-col items-start md:items-end gap-3">
+                                                @if ($nextProsesModul)
+                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
+                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
+                                                        Lanjutkan
+                                                    </a>
+                                                @elseif ($lastAccessedModul)
+                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $lastAccessedModul->modul->slug]) }}"
+                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
+                                                        Lanjutkan
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $firstModul->slug]) }}"
+                                                        class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
+                                                        Mulai Belajar
+                                                    </a>
+                                                @endif
+                                                <a href="{{ route('certificate.index', ['courseId' => $courseRegistration->course->id]) }}"
+                                                    class="inline-flex items-center gap-1 text-sm font-bold text-primaryColor hover:text-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-8 px-5 leading-8 justify-center rounded-md cursor-pointer mt-3 w-full">
+                                                    Unduh Sertifikat
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- Progress Bar -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <div
             class="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
             <p class="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
                 <span data-countup-number=""></span><span></span>
             </p>
+
+            <div class="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark">
+                <h2 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
+                    Kurikulum
+                </h2>
+            </div>
             <div>
                 <ul class="accordion-container curriculum">
                     <!-- Loop untuk menampilkan semua bab -->
@@ -144,7 +181,7 @@
                                                         class="text-blackColor dark:text-blackColor-dark text-sm flex items-center">
                                                         <p>
                                                         <div class="mt-3">
-                                                            @if ($courseRegistration->progress == 100)
+                                                            @if ($modul->modul_progress && $modul->modul_progress->status == 'selesai')
                                                                 <span class="text-green-500" style="color: green">
                                                                     <i class="icofont-check-circled"></i>
                                                                 </span>
@@ -153,6 +190,10 @@
                                                                     <i class="icofont-clock-time"></i>
                                                                 </span>
                                                             @endif
+
+
+
+
                                                         </div>
 
                                                         </p>

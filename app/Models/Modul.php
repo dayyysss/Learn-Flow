@@ -39,7 +39,7 @@ class Modul extends Model
     }
     public function modul_progress()
     {
-        return $this->hasMany(Modul::class);
+        return $this->hasOne(ModulProgress::class, 'modul_id');
     }
 
 

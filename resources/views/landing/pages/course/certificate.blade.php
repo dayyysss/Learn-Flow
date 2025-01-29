@@ -20,7 +20,7 @@
             <div class="container">
                 <div class="text-center">
                     <div class="flex justify-center">
-                        <div class="w-full max-w-lg">
+                        <div class="w-full">
                             <div class="p-6 text-center mb-10">
                                 <!-- Displaying PDF Certificate -->
                                 <iframe id="openModal"
@@ -42,6 +42,10 @@
                                     Download PDF
                                 </a>
 
+                            </div>
+
+                            <div>
+                                tes
                             </div>
                         </div>
                     </div>
