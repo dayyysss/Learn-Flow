@@ -91,7 +91,7 @@ Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name
 Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
 //apexchart
-Route::get('/visitor-count', [DashboardController::class, 'visitor']);
+Route::get('/visitor-count', [DashboardCMSController::class, 'visitor']);
 
 // Landing Page
 Route::controller(LandingPageController::class)->group(function () {
@@ -194,6 +194,17 @@ Route::prefix('lfcms')
 
         Route::resource('/kursus', LFCMSCourseController::class);
         Route::get('/kursus/{slug}', [LFCMSCourseController::class, 'show'])->name('kursus.detail');
+
+        //quiz
+        Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+        Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+        Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
+        Route::get('/quiz/{slug}', [QuizController::class, 'show'])->name('quiz.show');
+        Route::get('/quiz/{slug}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
+        Route::patch('/quiz/update/{slug}', [QuizController::class, 'update'])->name('quiz.update');
+        Route::delete('/quiz/{slug}', [QuizController::class, 'destroy'])->name('quiz.destroy');
+        Route::get('/get-babs/{courseId}', [QuizController::class, 'getBabsByCourse']);
+
     });
 
 // Detail Course
