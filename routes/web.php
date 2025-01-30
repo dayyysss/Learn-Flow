@@ -1,21 +1,24 @@
 <?php
 
-use App\Http\Controllers\Admin\AssignmentController;
-use App\Http\Controllers\Admin\BabController;
 use App\Models\Course;
 use App\Models\ModulProgress;
 use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\Admin\BabController;
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\LFCMS\PageController;
+use App\Http\Controllers\Admin\ModulController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\LFCMS\ClientController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\LFCMS\ArticleController;
 use App\Http\Controllers\LFCMS\ArtikelController;
+use App\Http\Controllers\LFCMS\ContactController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WishlistController;
@@ -24,38 +27,36 @@ use App\Http\Controllers\LFCMS\MenuListController;
 use App\Http\Controllers\LFCMS\MenuTypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Quiz\QuizController;
+use App\Http\Controllers\Admin\AssignmentController;
 use App\Http\Controllers\LFCMS\PembayaranController;
 use App\Http\Controllers\Admin\CertificateController;
+use App\Http\Controllers\Admin\Quiz\OptionController;
 use App\Http\Controllers\LFCMS\TestimonialController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\LFCMS\DashboardCMSController;
 use App\Http\Controllers\Admin\ModulProgressController;
-use App\Http\Controllers\Landing\LandingPageController;
+use App\Http\Controllers\Admin\Quiz\QuestionController;
 use App\Http\Controllers\Landing\ContactFormController;
+use App\Http\Controllers\Landing\LandingPageController;
 use App\Http\Controllers\Admin\CategoryCourseController;
 use App\Http\Controllers\Admin\EnrolledCourseController;
+use App\Http\Controllers\Admin\Quiz\StartQuizController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
 use App\Http\Controllers\LFCMS\KategoriArtikelController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Admin\ModulController;
 use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 use App\Http\Controllers\LFCMS\HistoryPembayaranController;
-use App\Http\Controllers\LFCMS\ContactController;
-use Laravel\Fortify\Http\Controllers\NewPasswordController;
-use App\Http\Controllers\Admin\CourseRegistrationController;
-use App\Http\Controllers\Admin\Quiz\OptionController;
-use App\Http\Controllers\Admin\Quiz\QuestionController;
-use App\Http\Controllers\Admin\Quiz\StartQuizController;
 // use App\Http\Controllers\LFCMS\ArticleController;
 // use App\Http\Controllers\LFCMS\HakAksesController;
 // use App\Http\Controllers\LFCMS\HakAksesFrontendController;
 // use App\Http\Controllers\LFCMS\TestimoniController;
 // use App\Models\ModulProgress;
+use Laravel\Fortify\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\Admin\CourseRegistrationController;
+use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\LFCMS\CourseController as LFCMSCourseController;
-use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 // Auth
 Route::get('/login', function () {
     return view('auth.login');
@@ -147,6 +148,9 @@ Route::prefix('lfcms')
 
         //website
         Route::resource('/website', WebsiteConfigurationController::class);
+
+        //Discount
+        Route::resource('/discount', DiscountController::class)->names('admin.discounts');
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
