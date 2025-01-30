@@ -2,28 +2,27 @@
 @section('page_title', 'Roadmap | Learn Flow')
 @section('content')
 
-    @include('landing.components.breadcrumb', ['title' => 'Roadmap'])
+   
     <div class="container">
         <!-- Categories Section -->
-        <h2>Kategori Kursus</h2>
         <div class="categories">
             <div class="category-card active">
-                <div class="category-icon">💻</div>
+               
                 <h3>Web Development</h3>
                 <p>20 Kursus</p>
             </div>
             <div class="category-card">
-                <div class="category-icon">📱</div>
+                
                 <h3>Mobile Development</h3>
                 <p>15 Kursus</p>
             </div>
             <div class="category-card">
-                <div class="category-icon">🤖</div>
+                
                 <h3>Data Science</h3>
                 <p>12 Kursus</p>
             </div>
             <div class="category-card">
-                <div class="category-icon">🎨</div>
+                
                 <h3>UI/UX Design</h3>
                 <p>8 Kursus</p>
             </div>
