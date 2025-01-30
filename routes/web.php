@@ -55,6 +55,7 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\LFCMS\CourseController as LFCMSCourseController;
+use App\Http\Controllers\LFCMS\QuizController as LFCMSQuizController;
 use App\Http\Controllers\LFCMS\RoadmapController;
 use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 // Auth
@@ -122,10 +123,10 @@ Route::resource('/certificate', CertificateController::class);
 Route::controller(CertificateController::class)->group(function () {
     // Menampilkan certificate berdasarkan certificate_id yang ada pada CourseRegistration
     Route::get('/certificate/{certificateId}', 'show')->name('certificate.index');
-    
+
     // Menampilkan certificate sesuai dengan certificate_id
     Route::get('/view-certificate/{certificateId}', 'viewCertificate')->name('viewCertificate');
-    
+
     // Download certificate berdasarkan certificate_id
     Route::get('/download-certificate/{certificateId}', 'downloadCertificate')->name('downloadCertificate');
 });
@@ -161,6 +162,19 @@ Route::prefix('lfcms')
 
         //website
         Route::resource('/website', WebsiteConfigurationController::class);
+
+        Route::get('/quizzes/{slug}', [LFCMSQuizController::class, 'showQuiz'])->name('quizzes.show');
+
+        // Menyimpan pertanyaan baru ke dalam quiz
+        Route::post('/quiz/{quizId}/questions', [LFCMSQuizController::class, 'storeQuestion'])->name('quiz.storeQuestion');
+        Route::post('/quiz/{quizId}/update-question/{questionId}', [QuizController::class, 'updateQuestion'])
+            ->name('quiz.updateQuestion');
+
+        Route::put('/quiz/questions/{id}', [LFCMSQuizController::class, 'updateQuestion'])->name('quiz.questions.update');
+        Route::delete('/quiz/questions/{id}', [LFCMSQuizController::class, 'deleteQuestion'])->name('quiz.questions.delete');
+
+
+        Route::resource('/lfcms-quiz', LFCMSQuizController::class);
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
@@ -212,7 +226,7 @@ Route::prefix('lfcms')
 
         Route::resource('/kursus', LFCMSCourseController::class);
         Route::get('/kursus/{slug}', [LFCMSCourseController::class, 'show'])->name('kursus.detail');
-        
+
         // bulk 
         Route::post('/halaman/bulk-delete', [PageController::class, 'bulkDelete'])->name('halaman.bulkDelete');
         Route::post('/halaman/bulk-draft', [PageController::class, 'bulkDraft'])->name('halaman.bulkDraft');
@@ -225,8 +239,7 @@ Route::prefix('lfcms')
         Route::post('/kontak/bulk-publish', [ContactController::class, 'bulkPublish'])->name('kontak.bulkPublish');
         Route::post('/testimonial/bulk-delete', [TestimonialController::class, 'bulkDelete'])->name('testimonial.bulkDelete');
         Route::post('/testimonial/bulk-draft',  [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
-        Route::post('/testimonial/bulk-publish',[TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
-
+        Route::post('/testimonial/bulk-publish', [TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
     });
 
 // Detail Course
@@ -267,7 +280,7 @@ Route::middleware(['auth'])
 
         Route::get('/course/{course:slug}/quiz/{modul:slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
         Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
-       
+
 
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
         Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
@@ -332,8 +345,8 @@ Route::middleware(['auth'])
         //feedback
         Route::resource('/reviews', FeedbackController::class)->except(['show', 'index']);
 
-        
-        
+
+
 
         // Rute untuk memperbarui progres modul
         Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'updateModulProgress'])->name('modul.updateProgress');
