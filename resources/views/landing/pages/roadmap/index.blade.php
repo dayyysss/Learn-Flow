@@ -7,26 +7,28 @@
         <!-- Categories Section -->
         <h2>Kategori Kursus</h2>
         <div class="categories">
-            <div class="category-card active">
-                <div class="category-icon">💻</div>
-                <h3>Web Development</h3>
-                <p>20 Kursus</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">📱</div>
-                <h3>Mobile Development</h3>
-                <p>15 Kursus</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">🤖</div>
-                <h3>Data Science</h3>
-                <p>12 Kursus</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">🎨</div>
-                <h3>UI/UX Design</h3>
-                <p>8 Kursus</p>
-            </div>
+            @php
+                $categoryIcons = [
+                    'Web Development' => '💻',
+                    'Mobile Development' => '📱',
+                    'Data Science' => '📊',
+                    'UI/UX Design' => '🎨',
+                    'Business' => '💼',
+                    'Marketing' => '📈',
+                    'Default' => '📚',
+                ];
+            @endphp
+
+            @foreach ($categories as $category)
+                @php
+                    $icon = $categoryIcons[$category->name] ?? $categoryIcons['Default'];
+                @endphp
+                <div class="category-card" data-category-id="{{ $category->id }}">
+                    <div class="category-icon">{{ $icon }}</div>
+                    <h3>{{ $category->name }}</h3>
+                    <p>{{ $category->courses_count }} Kursus</p>
+                </div>
+            @endforeach
         </div>
 
         <!-- Roadmap Section -->
@@ -47,11 +49,6 @@
                     <div class="step-circle">3</div>
                     <h4>Advanced</h4>
                     <p>Backend & API</p>
-                </div>
-                <div class="step">
-                    <div class="step-circle">4</div>
-                    <h4>Expert</h4>
-                    <p>System Architecture</p>
                 </div>
                 <div class="step">
                     <div class="step-circle">4</div>
@@ -290,3 +287,25 @@
         font-size: 0.9rem;
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        categoryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Hapus class 'active' dari semua card
+                categoryCards.forEach(c => c.classList.remove('active'));
+
+                // Tambahkan class 'active' ke card yang diklik
+                this.classList.add('active');
+
+                // Ambil ID kategori yang dipilih (opsional)
+                const categoryId = this.getAttribute('data-category-id');
+                console.log('Kategori yang dipilih:', categoryId);
+
+                // Anda bisa menambahkan logika lain di sini, seperti memfilter kursus berdasarkan kategori
+            });
+        });
+    });
+</script>
