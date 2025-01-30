@@ -3,6 +3,28 @@
 @section('content')
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
+        
+        <!-- Alert Notifikasi -->
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-5" role="alert">
+                <strong class="font-bold">Berhasil!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+                    <span class="text-green-500">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ session('error') }}</span>
+                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+                    <span class="text-red-500">&times;</span>
+                </button>
+            </div>
+        @endif
+
         <form action="{{ route('halaman.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-12 gap-x-4">
@@ -22,13 +44,13 @@
                         </div>
                     </div>
                         <div class="mt-7 pt-0.5">
-                            <div class="grid  gap-y-5">
+                            <div class="grid gap-y-5">
                                 <div>
                                     <label for="judul" class="form-label">Judul</label>
                                     <input type="text" id="judul" name="judul" class="form-input @error('judul') is-invalid @enderror"
                                         placeholder="Masukkan judul halaman" value="{{ old('judul') }}">
                                         @error('judul')
-                                            <span class="invalid-feedback" role="alert"  style="color: red;">
+                                            <span class="invalid-feedback" role="alert" style="color: red;">
                                                 {{ $message }}
                                             </span>
                                         @enderror
@@ -59,48 +81,46 @@
                     
                     <div class="pt-0.5 flex flex-col gap-5">
                     <div class="col-span-full mt-3 xl:col-auto leading-none">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="singleSelect @error('status') is-invalid @enderror" name="status" id="status">
-                                        <option selected disabled>Pilih Status</option>
-                                        <option value="publik">Publik</option>
-                                        <option value="draft">Draft</option>
-                                    </select>
-                                    @error('status')
-                                            <span class="invalid-feedback" role="alert"  style="color: red;">
-                                                {{ $message }}
-                                            </span>
-                                    @enderror
-                                </div>
-                                <div>
-                                    <label for="keyword" class="form-label">Kata Kunci</label>
-                                    <input type="text" id="keyword" name="keyword" class="form-input"
-                                        placeholder="Masukkan kata kunci" value="{{ old('keyword') }}">
-                                </div>
+                        <label for="status" class="form-label">Status</label>
+                        <select class="singleSelect @error('status') is-invalid @enderror" name="status" id="status">
+                            <option selected disabled>Pilih Status</option>
+                            <option value="publik">Publik</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                        @error('status')
+                            <span class="invalid-feedback" role="alert" style="color: red;">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="keyword" class="form-label">Kata Kunci</label>
+                        <input type="text" id="keyword" name="keyword" class="form-input"
+                            placeholder="Masukkan kata kunci" value="{{ old('keyword') }}">
+                    </div>
                     <div class="flex-1 w-full">
-                                <label for="image" class="form-label">Gambar</label>
+                        <label for="image" class="form-label">Gambar</label>
+                        <label for="image"
+                            class="file-container text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/2] flex flex-col items-center justify-center gap-2.5 dk-border-one border-dashed rounded-10 w-full">
+                            <input id="image" name="image" type="file" hidden class="peer/file file-src"
+                                onchange="previewImage(this)">
+                            <span class="flex-center flex-col text-center w-full">
+                                <img id="image-preview"
+                                    src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="file-icon"
+                                    class="size-8 lg:size-auto mx-auto">
+                                <div class="file-name mt-2 text-xl font-semibold text-gray-500 dark:text-dark-text">
+                                    Unggah File Gambar
+                                </div>
                                 <label for="image"
-                                    class="file-container text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/2] flex flex-col items-center justify-center gap-2.5 dk-border-one border-dashed rounded-10 w-full">
-                                    <input id="image" name="image" type="file" hidden class="peer/file file-src"
-                                        onchange="previewImage(this)">
-                                    <span class="flex-center flex-col text-center w-full">
-                                        <img id="image-preview"
-                                            src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="file-icon"
-                                            class="size-8 lg:size-auto mx-auto">
-                                        <div class="file-name mt-2 text-xl font-semibold text-gray-500 dark:text-dark-text">
-                                            Unggah File Gambar
-                                        </div>
-                                        <label for="image"
-                                            class="cursor-pointer text-sm text-primary-500 before:text-lg font-spline_sans before:font-remix before:pr-px before:content-['\f24e'] btn b-outline btn-primary-outline py-2.5 px-[18px] mt-4">
-                                            Klik untuk mengunggah
-                                        </label>
-                                        <span class="text-sm text-gray-900 dark:text-dark-text-two mt-2">
-                                            Ukuran file maksimum adalah 1 MB
-                                        </span>
-                                    </span>
+                                    class="cursor-pointer text-sm text-primary-500 before:text-lg font-spline_sans before:font-remix before:pr-px before:content-['\f24e'] btn b-outline btn-primary-outline py-2.5 px-[18px] mt-4">
+                                    Klik untuk mengunggah
                                 </label>
-                            </div>
-                        
-                        
+                                <span class="text-sm text-gray-900 dark:text-dark-text-two mt-2">
+                                    Ukuran file maksimum adalah 1 MB
+                                </span>
+                            </span>
+                        </label>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -109,25 +129,24 @@
     </div>
 
     <script>
-                    document.getElementById('judul').addEventListener('input', function() {
-                        const judulValue = this.value;
-                        const slugValue = judulValue.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                        document.getElementById('slug').value = slugValue;
-                    });
+        document.getElementById('judul').addEventListener('input', function() {
+            const judulValue = this.value;
+            const slugValue = judulValue.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            document.getElementById('slug').value = slugValue;
+        });
 
-                    function previewImage(input) {
-                        const preview = document.getElementById('image-preview');
-                        const file = input.files[0];
-                        const reader = new FileReader();
+        function previewImage(input) {
+            const preview = document.getElementById('image-preview');
+            const file = input.files[0];
+            const reader = new FileReader();
 
-                        reader.onloadend = function() {
-                            preview.src = reader.result;
-                        }
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            }
 
-                        if (file) {
-                            reader.readAsDataURL(file);
-                        }
-                    }
-                </script>
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 @endsection
-

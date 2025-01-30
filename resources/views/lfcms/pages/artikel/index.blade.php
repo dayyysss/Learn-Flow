@@ -66,9 +66,9 @@
                                             <td class="p-6 py-4">{{ $item->user->name }}</td>
                                             <td class="p-6 py-4">
                                                 @if ($item->status == 1)
-                                                    <span class="badge badge-success-light rounded-full">Publik</span>
+                                                    <span class="badge badge-success-light">Publik</span>
                                                 @else
-                                                    <span class="badge badge-warning-light rounded-full">Draft</span>
+                                                    <span class="badge badge-warning-ligh">Draft</span>
                                                 @endif
                                             </td>
                                             <td class="p-6 py-4">

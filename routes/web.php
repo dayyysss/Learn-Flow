@@ -199,16 +199,22 @@ Route::prefix('lfcms')
         Route::post('/halaman/bulk-delete', [PageController::class, 'bulkDelete'])->name('halaman.bulkDelete');
         Route::post('/halaman/bulk-draft', [PageController::class, 'bulkDraft'])->name('halaman.bulkDraft');
         Route::post('/halaman/bulk-publish', [PageController::class, 'bulkPublish'])->name('halaman.bulkPublish');
+        
         Route::post('/klien/bulk-delete', [ClientController::class, 'bulkDelete'])->name('klien.bulkDelete');
         Route::post('/klien/bulk-draft', [ClientController::class, 'bulkDraft'])->name('klien.bulkDraft');
         Route::post('/klien/bulk-publish', [ClientController::class, 'bulkPublish'])->name('klien.bulkPublish');
+        
         Route::post('/kontak/bulk-delete', [ContactController::class, 'bulkDelete'])->name('kontak.bulkDelete');
         Route::post('/kontak/bulk-draft', [ContactController::class, 'bulkDraft'])->name('kontak.bulkDraft');
         Route::post('/kontak/bulk-publish', [ContactController::class, 'bulkPublish'])->name('kontak.bulkPublish');
+        
         Route::post('/testimonial/bulk-delete', [TestimonialController::class, 'bulkDelete'])->name('testimonial.bulkDelete');
         Route::post('/testimonial/bulk-draft',  [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
         Route::post('/testimonial/bulk-publish',[TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
-
+        
+        Route::post('/artikel/bulk-delete', [ArtikelController::class, 'bulkDelete'])->name('artikel.bulkDelete');
+        Route::post('/artikel/bulk-draft',  [ArtikelController::class, 'bulkDraft'])->name('artikel.bulkDraft');
+        Route::post('/artikel/bulk-publish',[ArtikelController::class, 'bulkPublish'])->name('artikel.bulkPublish');
     });
 
 // Detail Course
