@@ -52,76 +52,47 @@
                     <h4>Expert</h4>
                     <p>System Architecture</p>
                 </div>
-                <div class="step">
-                    <div class="step-circle">4</div>
-                    <h4>Expert</h4>
-                    <p>System Architecture</p>
-                </div>
             </div>
         </div>
 
         <!-- Courses Section -->
         <h2>Kursus Tersedia</h2>
         <div class="courses">
-            <!-- Basic Course -->
-            <div class="course-card">
-                <div class="course-image">HTML & CSS Fundamentals</div>
-                <div class="course-content">
-                    <span class="course-level level-basic">Basic</span>
-                    <h3>HTML & CSS Fundamentals</h3>
-                    <p>Pelajari dasar-dasar pembuatan website dengan HTML dan CSS</p>
-                    <div class="course-stats">
-                        <span>⭐ 4.8</span>
-                        <span>👥 1.2k siswa</span>
-                        <span>⏱️ 6 jam</span>
+            @if ($course->count())
+                @foreach ($course as $item)
+                    <div class="course-card">
+                        <div class="course-image"> <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
+                                style="
+                               height: 214px;"
+                                class="w-full transition-all duration-300 group-hover:scale-110"></div>
+                        <div class="course-content">
+                            @php
+                                $backgrounds = [
+                                    'bg-secondaryColor',
+                                    'bg-blue',
+                                    'bg-secondaryColor2',
+                                    'bg-greencolor2',
+                                    'bg-orange',
+                                    'bg-yellow',
+                                ];
+                                $bgClass = $backgrounds[array_rand($backgrounds)];
+                            @endphp
+                            <span class="course-level {{ $bgClass }}">{{ $item->tingkatan }}</span>
+                            <h3> {{ Str::limit($item->name, 80, '...') }}</h3>
+                            <div class="course-stats">
+                                <span>⭐ 4.8</span>
+                                <span>👥 1.2k siswa</span>
+                                <span>⏱️ 6 jam</span>
+                            </div>
+                        </div>
                     </div>
+                @endforeach
+            @else
+                <div
+                    class="coll-span-full text-center py-10 bg-lightGrey dark:bg-darkdeep3-dark text-xl font-semibold text-primaryColor">
+                    Kursus tidak ditemukan untuk pencarian ini.
                 </div>
-            </div>
-
-            <!-- Intermediate Course -->
-            <div class="course-card">
-                <div class="course-image">JavaScript Advanced</div>
-                <div class="course-content">
-                    <span class="course-level level-intermediate">Intermediate</span>
-                    <h3>JavaScript Advanced</h3>
-                    <p>Tingkatkan skill JavaScript Anda ke level berikutnya</p>
-                    <div class="course-stats">
-                        <span>⭐ 4.9</span>
-                        <span>👥 980 siswa</span>
-                        <span>⏱️ 8 jam</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Advanced Course -->
-            <div class="course-card">
-                <div class="course-image">React & Node.js</div>
-                <div class="course-content">
-                    <span class="course-level level-advanced">Advanced</span>
-                    <h3>Full Stack React & Node.js</h3>
-                    <p>Bangun aplikasi web modern dengan React dan Node.js</p>
-                    <div class="course-stats">
-                        <span>⭐ 4.7</span>
-                        <span>👥 750 siswa</span>
-                        <span>⏱️ 12 jam</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Expert Course -->
-            <div class="course-card">
-                <div class="course-image">System Architecture</div>
-                <div class="course-content">
-                    <span class="course-level level-expert">Expert</span>
-                    <h3>System Architecture & DevOps</h3>
-                    <p>Pelajari arsitektur sistem dan praktik DevOps modern</p>
-                    <div class="course-stats">
-                        <span>⭐ 4.9</span>
-                        <span>👥 500 siswa</span>
-                        <span>⏱️ 15 jam</span>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 @endsection
@@ -256,29 +227,10 @@
     .course-level {
         display: inline-block;
         padding: 4px 8px;
+        color: white;
         border-radius: 4px;
         font-size: 0.8rem;
         margin-bottom: 10px;
-    }
-
-    .level-basic {
-        background: #e8f5e9;
-        color: #2e7d32;
-    }
-
-    .level-intermediate {
-        background: #fff3e0;
-        color: #f57c00;
-    }
-
-    .level-advanced {
-        background: #ffebee;
-        color: #c62828;
-    }
-
-    .level-expert {
-        background: #e8eaf6;
-        color: #283593;
     }
 
     .course-stats {
@@ -289,3 +241,25 @@
         font-size: 0.9rem;
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        categoryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Hapus class 'active' dari semua card
+                categoryCards.forEach(c => c.classList.remove('active'));
+
+                // Tambahkan class 'active' ke card yang diklik
+                this.classList.add('active');
+
+                // Ambil ID kategori yang dipilih (opsional)
+                const categoryId = this.getAttribute('data-category-id');
+                console.log('Kategori yang dipilih:', categoryId);
+
+                // Anda bisa menambahkan logika lain di sini, seperti memfilter kursus berdasarkan kategori
+            });
+        });
+    });
+</script>

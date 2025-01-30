@@ -9,7 +9,18 @@
                 <!-- Start Course Information -->
                 <div class="col-span-full lg:col-span-7 card h-fit">
                     <div class="p-1.5">
-                        <h6 class="card-title">Tambah Testimonial</h6>
+                    <div class="flex justify-between items-center gap-5">
+                        <!-- Bagian Kiri -->
+                        <a href="/lfcms/testimonial" class="flex items-center gap-1">
+                            <i class="ri-arrow-left-line text-2xl text-heading dark:text-dark-text"></i>
+                            <h6 class="card-title">Tambah Testimonial</h6>
+                        </a>
+
+                        <!-- Bagian Kanan -->
+                        <div class="flex gap-3">
+                            <button type="submit" class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                        </div>
+                    </div>
                         <div class="mt-7 pt-0.5">
                             <div class="grid  gap-y-5">
                                 <div class="col-span-full xl:col-auto leading-none">
@@ -44,7 +55,7 @@
                                             <span class="invalid-feedback" role="alert"  style="color: red;">
                                                 {{ $message }}
                                             </span>
-                                        @enderror
+                                    @enderror
                                 </div>
                                 <div class="col-span-full mt-3">
                                     <label for="description" class="form-label">Deskripsi</label>
@@ -58,38 +69,37 @@
 
                 <!-- Start Course Media File -->
                 <div class="col-span-full h-fit lg:col-span-5 gap-y-3">
-                    <div class="card">
-                        <div class="p-1.5">
-                            <h6 class="card-title">Data Tambahan</h6>
-                            <div class="mt-7 pt-0.5 flex flex-col gap-5">
-                                <div class="col-span-full sm:col-span-4">
-                                    <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">
-                                        Gambar</p>
-                                    <label for="image"
-                                        class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/3] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square">
-                                        <input type="file" id="image" name="image" hidden
-                                            class="img-src peer/file">
-                                        <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
-                                            <span
-                                                class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
-                                                <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}"
-                                                    alt="icon"
-                                                    class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
-                                            </span>
-                                            <span class="mt-2 text-gray-500 dark:text-dark-text">Pilih file</span>
+                <div class="card">
+                <div class="p-1.5">
+                    <div class="pt-0.5 flex flex-col gap-5">
+                    <div class="flex-1 w-full">
+                                <label for="image" class="form-label">Gambar</label>
+                                <label for="image"
+                                    class="file-container text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/2] flex flex-col items-center justify-center gap-2.5 dk-border-one border-dashed rounded-10 w-full">
+                                    <input id="image" name="image" type="file" hidden class="peer/file file-src"
+                                        onchange="previewImage(this)">
+                                    <span class="flex-center flex-col text-center w-full">
+                                        <img id="image-preview"
+                                            src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="file-icon"
+                                            class="size-8 lg:size-auto mx-auto">
+                                        <div class="file-name mt-2 text-xl font-semibold text-gray-500 dark:text-dark-text">
+                                            Unggah File Gambar
+                                        </div>
+                                        <label for="image"
+                                            class="cursor-pointer text-sm text-primary-500 before:text-lg font-spline_sans before:font-remix before:pr-px before:content-['\f24e'] btn b-outline btn-primary-outline py-2.5 px-[18px] mt-4">
+                                            Klik untuk mengunggah
+                                        </label>
+                                        <span class="text-sm text-gray-900 dark:text-dark-text-two mt-2">
+                                            Ukuran file maksimum adalah 1 MB
                                         </span>
-                                    </label>
-                                </div>
-
-                                <div class="flex justify-end gap-5 mt-6">
-                                    <button type="submit"
-                                        class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
-                                    <a href="{{ route('testimonial.index') }}" class="btn b-solid btn-secondary-solid">Kembali</a>
-                                </div>
+                                    </span>
+                                </label>
                             </div>
-                        </div>
+                        
+                        
                     </div>
                 </div>
+            </div>
             </div>
         </form>
     </div>
