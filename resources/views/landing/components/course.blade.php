@@ -66,7 +66,7 @@
                                                 @endphp
                                                 <p
                                                     class="text-xs text-whiteColor px-4 py-[3px] {{ $bgClass }} rounded font-semibold">
-                                                    {{ $item->categories->name ?? 'No Category' }}
+                                                    {{ $item->tingkatan ?? 'No Category' }}
                                                 </p>
                                             </div>
                                             <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
