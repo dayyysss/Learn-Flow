@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "bacon/bacon-qr-code": "3.0",
         "barryvdh/laravel-dompdf": "^3.0",
+        "endroid/qr-code": "^6.0",
         "laravel/fortify": "^1.24",
         "laravel/framework": "^11.9",
         "laravel/socialite": "^5.16",
@@ -16,8 +18,17 @@
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.6",
         "spatie/laravel-flash": "^1.10",
-        "spatie/laravel-permission": "^6.10"
+        "spatie/laravel-permission": "^6.10",
+        "simplesoftware/simple-qr": "dev-main"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/SimpleSoftwareIO/simple-qrcode.git"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.1",
@@ -74,7 +85,5 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    }
 }

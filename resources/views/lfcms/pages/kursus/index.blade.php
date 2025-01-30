@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'kursus | Learn Flow CMS')
+@section('page_title', 'Kursus | Learn Flow CMS')
 @section('content')
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
@@ -79,17 +79,18 @@
                                             </td>
                                             <td class="p-6 py-4">
                                                 <div class="flex items-center gap-2">
+                                                    <a href="{{ route('kursus.detail', $row->slug) }}"
+                                                        class="btn-icon btn-warning-icon-light size-7">
+                                                        <i class="ri-eye-line text-inherit text-[13px]"></i>
+                                                    </a>
                                                     <a href="{{ route('kursus.edit', $row->id) }}"
                                                         class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </a>
-                                                    <a href="{{ route('kursus.destroy', $row->id) }}" class="btn-icon btn-danger-icon-light size-7"
-                                                    onclick="event.preventDefault(); deleteRecord('{{ route('kursus.destroy', $row->id) }}');">
-                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                    </a>
-                                                    <a href="{{ route('kursus.detail', $row->slug) }}" class="btn-icon btn-danger-icon-light size-7"
-                                                    >
-                                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                    <a href="{{ route('kursus.destroy', $row->id) }}"
+                                                        class="btn-icon btn-danger-icon-light size-7"
+                                                        onclick="event.preventDefault(); deleteRecord('{{ route('kursus.destroy', $row->id) }}');">
+                                                        <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                     </a>
 
                                                     <div class="relative ml-5">
@@ -164,32 +165,32 @@
     </div>
 
     <!-- SweetAlert Script -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function deleteRecord(url) {
-        Swal.fire({
-            title: 'Apakah anda yakin?',
-            text: 'Anda tidak akan dapat mengembalikannya!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '3085d6',
-            confirmButtonText: 'Ya, Hapus!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Dihapus!',
-                    text: 'Data berhasil dihapus.',
-                    icon: 'success',
-                    showConfirmButton: true
-                }).then((result) => {
-                    //jika tombol ok di klik, kembali ke kursus sebelumnya
-                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
-                        window.location.href = url;
-                    }
-                });
-            }
-        });
-    }
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteRecord(url) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: 'Anda tidak akan dapat mengembalikannya!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '3085d6',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Dihapus!',
+                        text: 'Data berhasil dihapus.',
+                        icon: 'success',
+                        showConfirmButton: true
+                    }).then((result) => {
+                        //jika tombol ok di klik, kembali ke kursus sebelumnya
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                            window.location.href = url;
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 @endsection

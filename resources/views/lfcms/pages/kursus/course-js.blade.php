@@ -243,16 +243,12 @@
 </script>
 
 <script>
-function toggleHargaInput() {
-    // Get the selected radio button value
-    var isPaid = document.querySelector('input[name="berbayar"]:checked')?.value === 'true';
-    
-    // Get the price and discount price groups
-    var hargaGroup = document.getElementById('harga-group');
-    var hargaDiskonGroup = document.getElementById('harga-diskon-group');
+    // Function to toggle the visibility of the price input fields
+    function toggleHargaInput() {
+        var isPaid = document.getElementById('berbayar').value === 'true';
+        var hargaGroup = document.getElementById('harga-group');
+        var hargaDiskonGroup = document.getElementById('harga-diskon-group');
 
-    // If the elements are found, update visibility
-    if (hargaGroup && hargaDiskonGroup) {
         if (isPaid) {
             hargaGroup.style.display = 'block';        // Show the price input when "Paid" is selected
             hargaDiskonGroup.style.display = 'block'; // Show the discount price input when "Paid" is selected
@@ -261,17 +257,12 @@ function toggleHargaInput() {
             hargaDiskonGroup.style.display = 'none';  // Hide the discount price input when "Free" is selected
         }
     }
-}
 
-// Initially run the toggle function to set the correct visibility
-toggleHargaInput();
+    // Initially run the toggle function to set the correct visibility
+    toggleHargaInput();
 
-// Add event listener to the radio buttons to toggle the price field visibility when the selection changes
-document.querySelectorAll('input[name="berbayar"]').forEach(function(input) {
-    input.addEventListener('change', toggleHargaInput);
-});
-
-
+    // Add event listener to the "Paid Course" dropdown to toggle the price field visibility
+    document.getElementById('berbayar').addEventListener('change', toggleHargaInput);
 </script>
 
 <script>

@@ -4,7 +4,6 @@
 
     @include('landing.components.breadcrumb', ['title' => 'Kursus'])
 
-
     <!-- courses section -->
     <div>
         <div class="container tab py-10 md:py-50px lg:py-60px 2xl:py-100px">
@@ -124,9 +123,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-
                         </div>
-
 
                         <!-- skills -->
                         <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"
@@ -189,9 +186,7 @@
                                     </a>
                                 </li>
                             </ul>
-
                         </div>
-
                     </div>
                 </div>
                 <!-- courses main -->
@@ -201,7 +196,6 @@
                         <div id="dataContainer"
                             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-30px">
                             <!-- card 1 -->
-
                             @if ($course->count())
                                 @foreach ($course as $item)
                                     <div class="group">
@@ -220,8 +214,19 @@
                                                     <div
                                                         class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
                                                         <div>
+                                                            @php
+                                                                $backgrounds = [
+                                                                    'bg-secondaryColor',
+                                                                    'bg-blue',
+                                                                    'bg-secondaryColor2',
+                                                                    'bg-greencolor2',
+                                                                    'bg-orange',
+                                                                    'bg-yellow',
+                                                                ];
+                                                                $bgClass = $backgrounds[array_rand($backgrounds)];
+                                                            @endphp
                                                             <p
-                                                                class="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold">
+                                                                class="text-xs text-whiteColor px-4 py-[3px] {{ $bgClass }} rounded font-semibold">
                                                                 {{ $item->categories->name ?? 'No Category' }}
                                                             </p>
                                                         </div>
@@ -260,10 +265,9 @@
                                                     </div>
                                                     <a href="{{ route('course.detail', $item->slug) }}"
                                                         class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                        {{ \Illuminate\Support\Str::limit($item->name, 40, '...') }}
+                                                        {{ Str::limit($item->name, 70, '...') }}
                                                     </a>
                                                 </div>
-
                                                 <!-- price -->
                                                 <div
                                                     class="text-lg font-semibold text-primaryColor font-inter mb-4 course-card-footer">
@@ -284,11 +288,9 @@
                                                         @endif
                                                     </span>
                                                 </div>
-
                                                 <!-- instructor -->
                                                 <div
                                                     class="course-card-instructor flex justify-between border-t pt-15px border-borderColor">
-
                                                     <div>
                                                         <a href="instructor-details.html"
                                                             class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
@@ -297,11 +299,8 @@
                                                                 alt="{{ $item->instrukturs->name }}">
                                                             <span
                                                                 class="flex capitalize">{{ $item->instrukturs->name }}</span>
-
-
                                                         </a>
                                                     </div>
-
                                                     <div class="instructor-rating text-xs">
                                                         <!-- Menampilkan rating instruktur -->
                                                         @php
@@ -313,10 +312,6 @@
                                                         @endfor
                                                         <div>({{ $item->instrukturs->total_feedbacks ?? 0 }} reviews)</div>
                                                     </div>
-
-
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -329,15 +324,10 @@
                                     Kursus tidak ditemukan untuk pencarian ini.
                                 </div>
                             @endif
-
                             {{-- <div class="pagination">
                                 {{ $course->appends(['search' => request()->get('search'), 'category' => request()->get('category'), 'tag' => request()->get('tag'), 'skill_level' => request()->get('skill_level')])->links() }}
                             </div> --}}
-
-
-
                         </div>
-
 
                         <!-- list ordered cards -->
                         <div class="hidden opacity-0 transition-all duration-300">
@@ -355,7 +345,8 @@
                                                             class="w-full overflow-hidden rounded">
                                                             <img src="{{ asset('storage/' . $item->thumbnail) }}"
                                                                 alt=""
-                                                                class="w-full transition-all duration-300 group-hover:scale-110 block">
+                                                                class="w-full transition-all duration-300 group-hover:scale-110 block"
+                                                                style="height: 215px;">
                                                         </a>
 
                                                         <div
@@ -375,7 +366,7 @@
                                                     <!-- card content -->
                                                     <div class="w-full md:w-3/5">
                                                         <div class="pl-0 lg:pl-30px">
-                                                            <div class="grid grid-cols-2 mb-15px">
+                                                            <div class="flex justify-between items-center mb-15px">
                                                                 <div class="flex items-center">
                                                                     <div>
                                                                         <i
@@ -402,7 +393,7 @@
                                                             </div>
                                                             <a href="{{ route('course.detail', $item->slug) }}"
                                                                 class="text-size-26 leading-30px font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                                                                {{ Str::limit($item->name, 40, '...') }}
+                                                                {{ Str::limit($item->name, 80, '...') }}
                                                             </a>
                                                             <!-- price -->
                                                             <div
@@ -457,8 +448,7 @@
 
                                                                 <div>
                                                                     <a class="text-sm lg:text-base text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                                                        href="{{ route('course.detail', $item->slug) }}">Know
-                                                                        Details
+                                                                        href="{{ route('course.detail', $item->slug) }}">Lihat Selengkapnya
                                                                         <i class="icofont-arrow-right"></i></a>
                                                                 </div>
                                                             </div>

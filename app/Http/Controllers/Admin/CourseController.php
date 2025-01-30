@@ -485,7 +485,8 @@ class CourseController extends Controller
             'assignments',
             'modul_progress',
             'status',
-            'isLastModul'
+            'isLastModul',
+            'courseRegistration'
         ));
     }
 
@@ -758,73 +759,74 @@ class CourseController extends Controller
     }
 
     public function showCourseRegistration($course_slug)
-{
-    // Ambil ID user yang sedang login
-    $userId = auth()->user()->id;
+    {
+        // Ambil ID user yang sedang login
+        $userId = auth()->user()->id;
 
-    // Ambil data course_registration yang sesuai dengan user dan course_slug
-    $courseRegistration = CourseRegistration::where('user_id', $userId)
-        ->whereHas('course', function ($query) use ($course_slug) {
-            $query->where('slug', $course_slug);
-        })
-        ->with(['course', 'course.babs', 'course.babs.moduls']) // Eager load relasi dengan course
-        ->first(); // Mengambil hanya satu data
+        // Ambil data course_registration yang sesuai dengan user dan course_slug
+        $courseRegistration = CourseRegistration::where('user_id', $userId)
+            ->whereHas('course', function ($query) use ($course_slug) {
+                $query->where('slug', $course_slug);
+            })
+            ->with(['course', 'course.babs', 'course.babs.moduls', 'course.babs.moduls.modul_progress']) // Eager load relasi dengan course
+            ->first(); // Mengambil hanya satu data
 
-    if (!$courseRegistration) {
-        abort(404, 'Course tidak ditemukan atau Anda tidak terdaftar pada course ini.');
-    }
+        if (!$courseRegistration) {
+            abort(404, 'Course tidak ditemukan atau Anda tidak terdaftar pada course ini.');
+        }
 
-    $lastAccessedModul = null;
-    $nextProsesModul = null;
+        $lastAccessedModul = null;
+        $nextProsesModul = null;
 
-    if ($courseRegistration) {
-        $lastAccessedModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
-            ->where('status', 'selesai')
-            ->orderBy('updated_at', 'desc')
-            ->first();
-
-        $nextProsesModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
-            ->where('status', 'proses')
-            ->orderBy('updated_at', 'desc')
-            ->first();
-    }
-
-    // Hitung progress per BAB
-    $babsProgress = $courseRegistration->course->babs->map(function ($bab) use ($courseRegistration) {
-        // Hitung jumlah total modul dan jumlah modul selesai
-        $totalModul = $bab->moduls->count();
-        $completedModul = $bab->moduls->filter(function ($modul) use ($courseRegistration) {
-            return ModulProgress::where('course_registrations_id', $courseRegistration->id)
-                ->where('modul_id', $modul->id)
+        if ($courseRegistration) {
+            $lastAccessedModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
                 ->where('status', 'selesai')
-                ->exists();
-        })->count();
+                ->orderBy('updated_at', 'desc')
+                ->first();
+
+            $nextProsesModul = ModulProgress::where('course_registrations_id', $courseRegistration->id)
+                ->where('status', 'proses')
+                ->orderBy('updated_at', 'desc')
+                ->first();
+        }
 
         // Hitung progress per BAB
-        $progress = $totalModul > 0 ? ($completedModul / $totalModul) * 100 : 0;
+        $babsProgress = $courseRegistration->course->babs->map(function ($bab) use ($courseRegistration) {
+            // Hitung jumlah total modul dan jumlah modul selesai
+            $totalModul = $bab->moduls->count();
+            $completedModul = $bab->moduls->filter(function ($modul) use ($courseRegistration) {
+                return ModulProgress::where('course_registrations_id', $courseRegistration->id)
+                    ->where('modul_id', $modul->id)
+                    ->where('status', 'selesai')
+                    ->exists();
+            })->count();
 
-        return [
-            'bab' => $bab,
-            'progress' => round($progress, 2)
-        ];
-    });
+            // Hitung progress per BAB
+            $progress = $totalModul > 0 ? ($completedModul / $totalModul) * 100 : 0;
 
-    // Ambil modul pertama yang perlu dipelajari
-    $firstModul = $courseRegistration->course->babs->flatMap(function ($bab) {
-        return $bab->moduls;
-    })->sortBy('id')->first();
+            return [
+                'bab' => $bab,
+                'progress' => round($progress, 2)
+            ];
+        });
 
-    // Kirim data ke view
-    return view(
-        'dashboard.pages.enrolled-courses.detail',
-        compact(
-            'courseRegistration',
-            'firstModul',
-            'lastAccessedModul',
-            'nextProsesModul',
-            'babsProgress' // Kirim data progress per BAB ke view
-        )
-    );
-}
+        // Ambil modul pertama yang perlu dipelajari
+        $firstModul = $courseRegistration->course->babs->flatMap(function ($bab) {
+            return $bab->moduls;
+        })->sortBy('id')->first();
 
+        // $modul_status = Modul::with('modul_progress')->get();
+        // Kirim data ke view
+        return view(
+            'dashboard.pages.enrolled-courses.detail',
+            compact(
+                'courseRegistration',
+                'firstModul',
+                'lastAccessedModul',
+                'nextProsesModul',
+                'babsProgress', // Kirim data progress per BAB ke view
+                // 'modul_status'
+            )
+        );
+    }
 }
