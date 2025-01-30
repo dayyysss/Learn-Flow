@@ -58,9 +58,69 @@
                                     <i class="icofont-search-1 text-base"></i>
                                 </button>
                             </form>
-
-
                         </div>
+                               <!-- skills -->
+                               <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"
+                               data-aos="fade-up">
+                               <h4
+                                   class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
+                                   Skill Level
+                               </h4>
+                               <ul class="flex flex-col gap-y-10px">
+                                   <!-- Menambahkan opsi "All" untuk melihat semua skill level -->
+                                   <li
+                                       class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                       <a href="{{ route('course') }}"
+                                           class="w-full {{ !request()->get('skill_level') ? 'text-primaryColor' : '' }}">
+                                           All
+                                       </a>
+                                   </li>
+   
+                                   <!-- Daftar Skill Level yang sudah terurut -->
+                                   <li
+                                       class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                       <a href="{{ route('course', ['skill_level' => 'beginner']) }}"
+                                           class="w-full {{ request()->get('skill_level') === 'beginner' ? 'text-primaryColor' : '' }}">
+                                           Beginner
+                                       </a>
+                                   </li>
+                                   <li
+                                       class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                       <a href="{{ route('course', ['skill_level' => 'intermediate']) }}"
+                                           class="w-full {{ request()->get('skill_level') === 'intermediate' ? 'text-primaryColor' : '' }}">
+                                           Intermediate
+                                       </a>
+                                   </li>
+                                   <li
+                                       class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                       <a href="{{ route('course', ['skill_level' => 'advanced']) }}"
+                                           class="w-full {{ request()->get('skill_level') === 'advanced' ? 'text-primaryColor' : '' }}">
+                                           Advanced
+                                       </a>
+                                   </li>
+                                   <li
+                                       class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                       <a href="{{ route('course', ['skill_level' => 'specialist']) }}"
+                                           class="w-full {{ request()->get('skill_level') === 'specialist' ? 'text-primaryColor' : '' }}">
+                                           Specialist
+                                       </a>
+                                   </li>
+                                   <li
+                                       class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                       <a href="{{ route('course', ['skill_level' => 'expert']) }}"
+                                           class="w-full {{ request()->get('skill_level') === 'expert' ? 'text-primaryColor' : '' }}">
+                                           Expert
+                                       </a>
+                                   </li>
+                                   <li
+                                       class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
+                                       <a href="{{ route('course', ['skill_level' => 'professional']) }}"
+                                           class="w-full {{ request()->get('skill_level') === 'professional' ? 'text-primaryColor' : '' }}">
+                                           Professional
+                                       </a>
+                                   </li>
+                               </ul>
+                           </div>
                         <!-- categories -->
                         <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"
                             data-aos="fade-up">
@@ -90,7 +150,6 @@
                             </ul>
 
                         </div>
-
                         <!-- tags -->
                         <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"
                             data-aos="fade-up">
@@ -122,69 +181,6 @@
                                         </a>
                                     </li>
                                 @endforeach
-                            </ul>
-                        </div>
-
-                        <!-- skills -->
-                        <div class="pt-30px pr-15px pl-10px pb-23px 2xl:pt-10 2xl:pr-25px 2xl:pl-5 2xl:pb-33px mb-30px border border-borderColor dark:border-borderColor-dark"
-                            data-aos="fade-up">
-                            <h4
-                                class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold leading-30px mb-25px">
-                                Skill Level
-                            </h4>
-                            <ul class="flex flex-col gap-y-10px">
-                                <!-- Menambahkan opsi "All" untuk melihat semua skill level -->
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="{{ route('course') }}"
-                                        class="w-full {{ !request()->get('skill_level') ? 'text-primaryColor' : '' }}">
-                                        All
-                                    </a>
-                                </li>
-
-                                <!-- Daftar Skill Level yang sudah terurut -->
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="{{ route('course', ['skill_level' => 'beginner']) }}"
-                                        class="w-full {{ request()->get('skill_level') === 'beginner' ? 'text-primaryColor' : '' }}">
-                                        Beginner
-                                    </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="{{ route('course', ['skill_level' => 'intermediate']) }}"
-                                        class="w-full {{ request()->get('skill_level') === 'intermediate' ? 'text-primaryColor' : '' }}">
-                                        Intermediate
-                                    </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="{{ route('course', ['skill_level' => 'advanced']) }}"
-                                        class="w-full {{ request()->get('skill_level') === 'advanced' ? 'text-primaryColor' : '' }}">
-                                        Advanced
-                                    </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="{{ route('course', ['skill_level' => 'specialist']) }}"
-                                        class="w-full {{ request()->get('skill_level') === 'specialist' ? 'text-primaryColor' : '' }}">
-                                        Specialist
-                                    </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="{{ route('course', ['skill_level' => 'expert']) }}"
-                                        class="w-full {{ request()->get('skill_level') === 'expert' ? 'text-primaryColor' : '' }}">
-                                        Expert
-                                    </a>
-                                </li>
-                                <li
-                                    class="text-contentColor text-size-15 font-medium hover:text-primaryColor dark:text-contentColor-darkdark:hover:text-primaryColor flex justify-between leading-26px">
-                                    <a href="{{ route('course', ['skill_level' => 'professional']) }}"
-                                        class="w-full {{ request()->get('skill_level') === 'professional' ? 'text-primaryColor' : '' }}">
-                                        Professional
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -328,7 +324,6 @@
                                 {{ $course->appends(['search' => request()->get('search'), 'category' => request()->get('category'), 'tag' => request()->get('tag'), 'skill_level' => request()->get('skill_level')])->links() }}
                             </div> --}}
                         </div>
-
                         <!-- list ordered cards -->
                         <div class="hidden opacity-0 transition-all duration-300">
                             <div class="flex flex-col gap-30px">

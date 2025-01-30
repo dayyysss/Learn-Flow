@@ -25,7 +25,7 @@
                     <div class="modul-item border p-5 mb-3">
                         <div class="mb-15px">
                             <label class="mb-3 block font-semibold">Judul Modul</label>
-                            <input type="text" name="bab[${babIndex}][moduls][0][name]" placeholder="Modul Name" class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
+                            <input type="text" name="bab[${babIndex}][moduls][0][name]" placeholder="Modul Name" class="form-control p-2 mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" required>
                         </div>
 
                         <div class='grid grid-cols-1 xl:grid-cols-2 mb-15px gap-y-15px gap-x-30px'>

@@ -14,6 +14,10 @@ class CategoryCourse extends Model
     {
         return $this->hasMany(Course::class,  'categories_id');
     }
+    public function roadmaps()
+    {
+        return $this->hasMany(roadmap::class,  'categoryCourse_id');
+    }
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
