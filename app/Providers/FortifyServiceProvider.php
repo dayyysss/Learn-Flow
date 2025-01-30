@@ -35,6 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 $login = $request->input('login');
                 $password = $request->password;
+                $currentPath = $request->path(); // Ambil path URL saat ini
 
                 // Tentukan kredensial berdasarkan input login (email atau name)
                 $credentials = filter_var($login, FILTER_VALIDATE_EMAIL)
@@ -45,8 +46,16 @@ class FortifyServiceProvider extends ServiceProvider
                 if (auth()->attempt($credentials)) {
                     $user = auth()->user();
 
-                    // Redirect berdasarkan role_id
-                    if ($user->role_id == 1) {
+                    // Cek apakah user role_id 1 login dari /login
+                    if ($user->role_id == 1 && $currentPath == 'login') {
+                        auth()->logout(); // Logout otomatis
+                        return redirect()->route('login')->withErrors([
+                            'login' => 'Akses ditolak!',
+                        ]);
+                    }
+
+                    // Redirect berdasarkan role_id dan asal login
+                    if ($user->role_id == 1 && $currentPath == 'LFCMS') {
                         return redirect('lfcms/dashboard');
                     } elseif (in_array($user->role_id, [2, 3, 4])) {
                         return redirect('/dashboard');
