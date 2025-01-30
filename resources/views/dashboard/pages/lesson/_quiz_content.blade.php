@@ -7,11 +7,21 @@
         </div>
 
         <div class="deskripsi mt-5">
-            <p>{!! $modul->start_time !!} - {!! $modul->end_time !!}</p>
-            <p>{!! $modul->description !!}</p>
+            @php
+                $totalMenit = $modul->waktu;
+                $jam = floor($totalMenit / 60);
+                $menit = $totalMenit % 60;
+            @endphp
 
+            <p>
+                {!! $jam > 0 ? $jam . ' jam ' : '' !!}
+                {!! $menit > 0 ? $menit . ' menit' : '' !!}
+            </p>
+
+            <p>{!! $modul->description !!}</p>
+            
             <!-- Button untuk membuka modal -->
-            <button onclick="startQuiz()" class="bg-primaryColor text-white py-2 px-4 rounded hover:bg-primaryColor-dark">
+            <button onclick="startQuiz()" class="bg-primaryColor text-white mt-5 py-2 px-4 rounded hover:bg-primaryColor-dark">
                 Mulai Quiz
             </button>
         </div>
