@@ -193,6 +193,58 @@
     };
 </script>
 <script>
+    document.querySelectorAll('.openModalTambahQuiz').forEach(function(btn) {
+    btn.onclick = function() {
+        var babId = btn.getAttribute('data-bab-id'); // Ambil data-bab-id
+        var courseId = btn.getAttribute('data-course-id'); // Ambil data-course-id
+        var modal = document.getElementById('addQuiz-' + babId); // ID modal sesuai dengan bab_id
+
+        if (modal) {
+            var babInput = modal.querySelector('input[name="bab_id"]');
+            var courseInput = modal.querySelector('input[name="course_id"]');
+
+            if (babInput) {
+                babInput.value = babId;
+                console.log("bab_id: ", babId);
+            } else {
+                console.error("Input bab_id tidak ditemukan dalam modal!");
+            }
+
+            if (courseInput) {
+                courseInput.value = courseId;
+                console.log("course_id: ", courseId);
+            } else {
+                console.error("Input course_id tidak ditemukan dalam modal!");
+            }
+
+            modal.style.display = "flex"; // Tampilkan modal yang sesuai
+        } else {
+            console.error("Modal tidak ditemukan untuk bab_id: " + babId);
+        }
+    };
+});
+
+// Menutup modal saat klik tombol close
+document.querySelectorAll('.close-tambah-modul').forEach(function(btn) {
+    btn.onclick = function() {
+        var modal = btn.closest('.modal-back');
+        if (modal) {
+            modal.style.display = "none";
+        }
+    };
+});
+
+// Menutup modal jika klik di luar konten modal
+window.onclick = function(event) {
+    document.querySelectorAll('.modal-back').forEach(function(modal) {
+        if (event.target == modal) {
+            modal.style.display = "none"; // Sembunyikan modal
+        }
+    });
+};
+
+</script>
+<script>
     // Fungsi untuk membuka modal edit sesuai modul_id
     document.querySelectorAll('.openModalEditModul').forEach(function(btn) {
         btn.onclick = function() {

@@ -57,6 +57,7 @@ use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\LFCMS\CourseController as LFCMSCourseController;
+use App\Http\Controllers\LFCMS\QuizController as LFCMSQuizController;
 use App\Http\Controllers\LFCMS\RoadmapController;
 
 // Auth
@@ -119,6 +120,19 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/instruktur/{id}', [LandingPageController::class, 'showinstructor'])->name('showinstructor');
 });
 
+Route::resource('/certificate', CertificateController::class);
+
+Route::controller(CertificateController::class)->group(function () {
+    // Menampilkan certificate berdasarkan certificate_id yang ada pada CourseRegistration
+    Route::get('/certificate/{certificateId}', 'show')->name('certificate.index');
+
+    // Menampilkan certificate sesuai dengan certificate_id
+    Route::get('/view-certificate/{certificateId}', 'viewCertificate')->name('viewCertificate');
+
+    // Download certificate berdasarkan certificate_id
+    Route::get('/download-certificate/{certificateId}', 'downloadCertificate')->name('downloadCertificate');
+});
+
 // Dashboard CMS
 Route::prefix('lfcms')
     ->middleware(['auth'])
@@ -151,6 +165,16 @@ Route::prefix('lfcms')
         //website
         Route::resource('/website', WebsiteConfigurationController::class);
 
+        Route::get('/quizzes/{slug}', [LFCMSQuizController::class, 'showQuiz'])->name('quizzes.show');
+
+        // Menyimpan pertanyaan baru ke dalam quiz
+        Route::post('/quiz/{quizId}/questions', [LFCMSQuizController::class, 'storeQuestion'])->name('quiz.storeQuestion');
+        Route::post('/quiz/{quizId}/update-question/{questionId}', [QuizController::class, 'updateQuestion'])
+            ->name('quiz.updateQuestion');
+
+        Route::put('/quiz/questions/{id}', [LFCMSQuizController::class, 'updateQuestion'])->name('quiz.questions.update');
+        Route::delete('/quiz/questions/{id}', [LFCMSQuizController::class, 'deleteQuestion'])->name('quiz.questions.delete');
+        
         //Discount
         Route::resource('/discount', DiscountController::class)
             ->names('admin.discounts')
@@ -222,9 +246,10 @@ Route::prefix('lfcms')
         Route::post('/kontak/bulk-publish', [ContactController::class, 'bulkPublish'])->name('kontak.bulkPublish');
 
         Route::post('/testimonial/bulk-delete', [TestimonialController::class, 'bulkDelete'])->name('testimonial.bulkDelete');
-        Route::post('/testimonial/bulk-draft', [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
-        Route::post('/testimonial/bulk-publish', [TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
-
+        Route::post('/testimonial/bulk-draft',  [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
+     
+        Route::post('/testimonial/bulk-publish',[TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
+        
         Route::post('/artikel/bulk-delete', [ArtikelController::class, 'bulkDelete'])->name('artikel.bulkDelete');
         Route::post('/artikel/bulk-draft', [ArtikelController::class, 'bulkDraft'])->name('artikel.bulkDraft');
         Route::post('/artikel/bulk-publish', [ArtikelController::class, 'bulkPublish'])->name('artikel.bulkPublish');
@@ -268,7 +293,7 @@ Route::middleware(['auth'])
 
         Route::get('/course/{course:slug}/quiz/{modul:slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
         Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
-        Route::resource('/certificate', CertificateController::class);
+
 
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
         Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
