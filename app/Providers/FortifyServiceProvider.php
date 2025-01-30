@@ -29,39 +29,44 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->instance(
-            LoginResponse::class,
-            new class implements LoginResponse {
-            public function toResponse($request)
-            {
-                $login = $request->input('login');
-                $password = $request->password;
+    LoginResponse::class,
+    new class implements LoginResponse {
+        public function toResponse($request)
+        {
+            $login = $request->input('login');
+            $password = $request->password;
 
-                // Tentukan kredensial berdasarkan input login (email atau name)
-                $credentials = filter_var($login, FILTER_VALIDATE_EMAIL)
-                    ? ['email' => $login, 'password' => $password]
-                    : ['name' => $login, 'password' => $password];
+            // Tentukan kredensial berdasarkan input login (email atau name)
+            $credentials = filter_var($login, FILTER_VALIDATE_EMAIL)
+                ? ['email' => $login, 'password' => $password]
+                : ['name' => $login, 'password' => $password];
 
-                // Coba autentikasi
-                if (auth()->attempt($credentials)) {
-                    // Cek apakah role_id yang diperbolehkan (2, 3, 4)
-                    if (!in_array(auth()->user()->role_id, [2, 3, 4])) {
-                        auth()->logout(); // Langsung logout jika role tidak sesuai
-                        return redirect()->route('login')->withErrors([
-                            'login' => 'Anda tidak memiliki izin untuk login.',
-                        ]);
-                    }
+            // Coba autentikasi
+            if (auth()->attempt($credentials)) {
+                $user = auth()->user();
 
-                    notify()->success('Login berhasil!', 'Selamat datang!');
-                    return redirect()->route('dashboard');
+                // Redirect berdasarkan role_id
+                if ($user->role_id == 1) {
+                    return redirect('lfcms/dashboard');
+                } elseif (in_array($user->role_id, [2, 3, 4])) {
+                    return redirect('/dashboard');
                 }
 
-                // Jika gagal autentikasi, arahkan kembali ke login dengan pesan kesalahan
+                // Jika role_id tidak dikenali, logout dan kembali ke login
+                auth()->logout();
                 return redirect()->route('login')->withErrors([
-                    'login' => 'Email atau password yang Anda masukkan salah. Silakan coba lagi.',
+                    'login' => 'Anda tidak memiliki izin untuk login.',
                 ]);
             }
-            }
-        );
+
+            // Jika gagal autentikasi, arahkan kembali ke login dengan pesan kesalahan
+            return redirect()->route('login')->withErrors([
+                'login' => 'Email atau password yang Anda masukkan salah. Silakan coba lagi.',
+            ]);
+        }
+    }
+);
+
 
 
         $this->app->instance(
