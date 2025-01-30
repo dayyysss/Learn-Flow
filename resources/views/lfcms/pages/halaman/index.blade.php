@@ -12,7 +12,7 @@
                     </div>
                     <div class="p-6">
                         <div class="flex-center-between">
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
                                     onclick="window.location='{{ route('halaman.index') }}'">
@@ -25,6 +25,12 @@
                                     <input type="text" name="search" value="{{ $search ?? '' }}"
                                         placeholder="Search for..." class="form-input pl-[30px]">
                                 </form>
+                                <button id="deleteSelected" class="btn b-light btn-danger-light dk-theme-card-square">
+                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>Hapus</button>
+                                <button id="publishSelected" class="btn b-light btn-success-light dk-theme-card-square">
+                                <i class="ri-arrow-up-line text-inherit text-[13px]"></i>Publik</button>
+                                <button id="draftSelected" class="btn b-light btn-warning-light dk-theme-card-square">
+                                <i class="ri-arrow-down-line text-inherit text-[13px]"></i>Draft</button>
                             </div>
                             <button class="btn b-light btn-primary-light dk-theme-card-square"
                                 onclick="window.location.href='{{ route('halaman.create') }}'">
@@ -37,6 +43,9 @@
                                 class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
                                 <thead>
                                     <tr class="text-primary-500">
+                                        <th class="p-6 py-4 text-center justify-center items-center bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
+                                            <input type="checkbox" id="selectAll" class="form-checkbox">
+                                        </th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                             No</th>
@@ -55,8 +64,12 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                    @forelse ($pages as $page)
+                                 
+                                @forelse ($pages as $page)
                                         <tr>
+                                            <td class="p-6 py-4 text-center justify-center items-center">
+                                                <input type="checkbox" class="service-checkbox" value="{{ $page->id }}">
+                                            </td>
                                             <td class="p-6 py-4">
                                                 {{ $loop->iteration + ($pages->currentPage() - 1) * $pages->perPage() }}
                                             </td>
@@ -144,6 +157,7 @@
         </div>
     </div>
 
+
     <!-- SweetAlert Script -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -173,4 +187,63 @@
             });
         }
     </script>
+
+<script>
+    // Menghandle penghapusan, draft, dan publik
+    document.getElementById('deleteSelected').onclick = function() {
+           let ids = getSelectedServices();
+           if (ids.length > 0 && confirm('Apakah Anda yakin ingin menghapus layanan ini?')) {
+               performAction('/lfcms/halaman/bulk-delete', ids);
+           } else {
+               alert('Silakan pilih halaman untuk dihapus.');
+           }
+       };
+
+       document.getElementById('draftSelected').onclick = function() {
+           let ids = getSelectedServices();
+           if (ids.length > 0) {
+               performAction('/lfcms/halaman/bulk-draft', ids);
+           } else {
+               alert('Silakan pilih halaman untuk diubah ke draft.');
+           }
+       };
+
+       document.getElementById('publishSelected').onclick = function() {
+           let ids = getSelectedServices();
+           if (ids.length > 0) {
+               performAction('/lfcms/halaman/bulk-publish', ids);
+           } else {
+               alert('Silakan pilih halaman untuk dipublikasikan.');
+           }
+       };
+
+       document.getElementById('selectAll').onclick = function() {
+           const checkboxes = document.querySelectorAll('.service-checkbox');
+           checkboxes.forEach((checkbox) => {
+               checkbox.checked = this.checked;
+           });
+       };
+
+       function getSelectedServices() {
+           return Array.from(document.querySelectorAll('.service-checkbox:checked')).map(cb => cb.value);
+       }
+
+       function performAction(url, ids) {
+           // Kirim request AJAX ke server
+           fetch(url, {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json',
+                   'X-CSRF-TOKEN': '{{ csrf_token() }}'
+               },
+               body: JSON.stringify({ ids: ids })
+           }).then(response => {
+               if (response.ok) {
+                   location.reload(); // Refresh halaman setelah berhasil
+               } else {
+                   alert('Terjadi kesalahan. Silakan coba lagi.');
+               }
+           });
+       }
+</script>
 @endsection

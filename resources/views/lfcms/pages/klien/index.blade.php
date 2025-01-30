@@ -12,24 +12,25 @@
                     </div>
                     <div class="p-6">
                         <div class="flex-center-between">
-                            <div class="flex items-center gap-5">
-                            <form class="max-w-80 relative">
-                                    <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
-                                        <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
-                                    </span>
-                                    <input 
-                                    type="text" 
-                                    name="search" 
-                                    value="{{ $search ?? '' }}" 
-                                    placeholder="Search for..." 
-                                    class="form-input pl-[30px]">
-                                </form>
+                        <div class="flex items-center gap-3">
                                 <button type="button"
                                     class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
                                     onclick="window.location='{{ route('klien.index') }}'">
                                     <i class="ri-loop-right-line text-inherit text-sm"></i>
-                                    <span>Refresh</span>
                                 </button>
+                                <form class="max-w-80 relative">
+                                    <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
+                                        <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
+                                    </span>
+                                    <input type="text" name="search" value="{{ $search ?? '' }}"
+                                        placeholder="Search for..." class="form-input pl-[30px]">
+                                </form>
+                                <button id="deleteSelected" class="btn b-light btn-danger-light dk-theme-card-square">
+                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>Hapus</button>
+                                <button id="publishSelected" class="btn b-light btn-success-light dk-theme-card-square">
+                                <i class="ri-arrow-up-line text-inherit text-[13px]"></i>Publik</button>
+                                <button id="draftSelected" class="btn b-light btn-warning-light dk-theme-card-square">
+                                <i class="ri-arrow-down-line text-inherit text-[13px]"></i>Draft</button>
                             </div>
                             <button class="btn b-light btn-primary-light dk-theme-card-square"
                                 onclick="window.location.href='{{ route('klien.create') }}'">
@@ -42,6 +43,9 @@
                                 class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
                                 <thead>
                                     <tr class="text-primary-500">
+                                        <th class="p-6 py-4 text-center justify-center items-center bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
+                                            <input type="checkbox" id="selectAll" class="form-checkbox">
+                                        </th>
                                         <th
                                             class="p-6 py-4 bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                             No</th>
@@ -62,6 +66,9 @@
                                 <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
                                     @forelse ($clients as $client)
                                         <tr>
+                                            <td class="p-6 py-4 text-center justify-center items-center">
+                                                <input type="checkbox" class="service-checkbox" value="{{ $client->id }}">
+                                            </td>
                                             <td class="p-6 py-4">
                                                 {{ $loop->iteration + ($clients->currentPage() - 1) * $clients->perPage() }}
                                             </td>
@@ -188,5 +195,64 @@
             }
         });
     }
+</script>
+
+<script>
+    // Menghandle penghapusan, draft, dan publik
+    document.getElementById('deleteSelected').onclick = function() {
+           let ids = getSelectedServices();
+           if (ids.length > 0 && confirm('Apakah Anda yakin ingin menghapus layanan ini?')) {
+               performAction('/lfcms/klien/bulk-delete', ids);
+           } else {
+               alert('Silakan pilih data klien untuk dihapus.');
+           }
+       };
+
+       document.getElementById('draftSelected').onclick = function() {
+           let ids = getSelectedServices();
+           if (ids.length > 0) {
+               performAction('/lfcms/klien/bulk-draft', ids);
+           } else {
+               alert('Silakan pilih data klien untuk diubah ke draft.');
+           }
+       };
+
+       document.getElementById('publishSelected').onclick = function() {
+           let ids = getSelectedServices();
+           if (ids.length > 0) {
+               performAction('/lfcms/klien/bulk-publish', ids);
+           } else {
+               alert('Silakan pilih data klien untuk dipublikasikan.');
+           }
+       };
+
+       document.getElementById('selectAll').onclick = function() {
+           const checkboxes = document.querySelectorAll('.service-checkbox');
+           checkboxes.forEach((checkbox) => {
+               checkbox.checked = this.checked;
+           });
+       };
+
+       function getSelectedServices() {
+           return Array.from(document.querySelectorAll('.service-checkbox:checked')).map(cb => cb.value);
+       }
+
+       function performAction(url, ids) {
+           // Kirim request AJAX ke server
+           fetch(url, {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json',
+                   'X-CSRF-TOKEN': '{{ csrf_token() }}'
+               },
+               body: JSON.stringify({ ids: ids })
+           }).then(response => {
+               if (response.ok) {
+                   location.reload(); // Refresh halaman setelah berhasil
+               } else {
+                   alert('Terjadi kesalahan. Silakan coba lagi.');
+               }
+           });
+       }
 </script>
 @endsection
