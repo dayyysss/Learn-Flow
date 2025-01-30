@@ -154,7 +154,7 @@ Route::prefix('lfcms')
             Route::get('/pengaturan', 'pengaturanCMS')->name('pengaturanCMS');
         });
         // Route::resource('/testimonial', TestimoniController::class);
-        //     // Route::get('/klien', 'klienCMS')->name('klienCMS');
+        //     // Route::get('/phpklien', 'klienCMS')->name('klienCMS');
         //     Route::resource('/klien', ClientController::class);
         //     Route::resource('/halaman', PageController::class);
     
