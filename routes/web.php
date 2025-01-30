@@ -143,16 +143,19 @@ Route::prefix('lfcms')
         //     // Route::get('/klien', 'klienCMS')->name('klienCMS');
         //     Route::resource('/klien', ClientController::class);
         //     Route::resource('/halaman', PageController::class);
-
+    
         // Route::get('/modul/{slug}/progress', [ModulProgressController::class, 'getProgress']);
         //  Route::post('/modul/{slug}/progress', [ModulProgressController::class, 'updateProgress']);
-
+    
 
         //website
         Route::resource('/website', WebsiteConfigurationController::class);
 
         //Discount
-        Route::resource('/discount', DiscountController::class)->names('admin.discounts');
+        Route::resource('/discount', DiscountController::class)
+            ->names('admin.discounts')
+            ->except(['show']);
+    
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
@@ -204,27 +207,27 @@ Route::prefix('lfcms')
 
         Route::resource('/kursus', LFCMSCourseController::class);
         Route::get('/kursus/{slug}', [LFCMSCourseController::class, 'show'])->name('kursus.detail');
-        
+
         // bulk 
         Route::post('/halaman/bulk-delete', [PageController::class, 'bulkDelete'])->name('halaman.bulkDelete');
         Route::post('/halaman/bulk-draft', [PageController::class, 'bulkDraft'])->name('halaman.bulkDraft');
         Route::post('/halaman/bulk-publish', [PageController::class, 'bulkPublish'])->name('halaman.bulkPublish');
-        
+
         Route::post('/klien/bulk-delete', [ClientController::class, 'bulkDelete'])->name('klien.bulkDelete');
         Route::post('/klien/bulk-draft', [ClientController::class, 'bulkDraft'])->name('klien.bulkDraft');
         Route::post('/klien/bulk-publish', [ClientController::class, 'bulkPublish'])->name('klien.bulkPublish');
-        
+
         Route::post('/kontak/bulk-delete', [ContactController::class, 'bulkDelete'])->name('kontak.bulkDelete');
         Route::post('/kontak/bulk-draft', [ContactController::class, 'bulkDraft'])->name('kontak.bulkDraft');
         Route::post('/kontak/bulk-publish', [ContactController::class, 'bulkPublish'])->name('kontak.bulkPublish');
-        
+
         Route::post('/testimonial/bulk-delete', [TestimonialController::class, 'bulkDelete'])->name('testimonial.bulkDelete');
-        Route::post('/testimonial/bulk-draft',  [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
-        Route::post('/testimonial/bulk-publish',[TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
-        
+        Route::post('/testimonial/bulk-draft', [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
+        Route::post('/testimonial/bulk-publish', [TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
+
         Route::post('/artikel/bulk-delete', [ArtikelController::class, 'bulkDelete'])->name('artikel.bulkDelete');
-        Route::post('/artikel/bulk-draft',  [ArtikelController::class, 'bulkDraft'])->name('artikel.bulkDraft');
-        Route::post('/artikel/bulk-publish',[ArtikelController::class, 'bulkPublish'])->name('artikel.bulkPublish');
+        Route::post('/artikel/bulk-draft', [ArtikelController::class, 'bulkDraft'])->name('artikel.bulkDraft');
+        Route::post('/artikel/bulk-publish', [ArtikelController::class, 'bulkPublish'])->name('artikel.bulkPublish');
     });
 
 // Detail Course
@@ -325,7 +328,8 @@ Route::middleware(['auth'])
         //wishlist
         Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
         Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
-        Route::post('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');;
+        Route::post('/wishlist/check', [WishlistController::class, 'check'])->name('wishlists.check');
+        ;
 
         //feedback
         Route::resource('/reviews', FeedbackController::class)->except(['show', 'index']);
@@ -333,14 +337,14 @@ Route::middleware(['auth'])
         Route::controller(CertificateController::class)->group(function () {
             // Menampilkan certificate berdasarkan certificate_id yang ada pada CourseRegistration
             Route::get('/certificate/{certificateId}', 'show')->name('certificate.index');
-            
+
             // Menampilkan certificate sesuai dengan certificate_id
             Route::get('/view-certificate/{certificateId}', 'viewCertificate')->name('viewCertificate');
-            
+
             // Download certificate berdasarkan certificate_id
             Route::get('/download-certificate/{certificateId}', 'downloadCertificate')->name('downloadCertificate');
         });
-        
+
 
         // Rute untuk memperbarui progres modul
         Route::post('/modul/{modul_id}/progress', [ModulProgressController::class, 'updateModulProgress'])->name('modul.updateProgress');

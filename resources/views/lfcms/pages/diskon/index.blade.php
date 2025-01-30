@@ -66,11 +66,15 @@
                                                         class="btn-icon btn-primary-icon-light size-7">
                                                         <i class="ri-edit-2-line text-inherit text-[13px]"></i>
                                                     </button>
-                                                    <button
-                                                        onclick="deleteRecord('{{ route('admin.discounts.destroy', $discount->id) }}')"
-                                                        class="btn-icon btn-danger-icon-light size-7">
-                                                        <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                    </button>
+                                                    <form action="{{ route('admin.discounts.destroy', $discount->id) }}"
+                                                        method="POST" class="inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn-icon btn-danger-icon-light size-7"
+                                                            onclick="return confirm('Yakin ingin menghapus diskon ini?');">
+                                                            <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
@@ -166,13 +170,13 @@
             document.getElementById('modalTitle').innerText = "Edit Diskon";
             document.getElementById('discount_code').value = discount.discount_code;
             document.getElementById('type').value = discount.type;
-            document.getElementById('course_id').value = discount.course_id ?? ''; 
-            document.getElementById('discount_amount').value = discount.discount_amount ?? ''; 
+            document.getElementById('course_id').value = discount.course_id ?? '';
+            document.getElementById('discount_amount').value = discount.discount_amount ?? '';
 
             if (discount.start_date) {
                 let startDate = new Date(discount.start_date);
                 document.getElementById('start_date').value = startDate.toISOString().slice(0,
-                16); 
+                    16);
             } else {
                 document.getElementById('start_date').value = '';
             }
@@ -180,7 +184,7 @@
             if (discount.end_date) {
                 let endDate = new Date(discount.end_date);
                 document.getElementById('end_date').value = endDate.toISOString().slice(0,
-                16); 
+                    16);
             } else {
                 document.getElementById('end_date').value = '';
             }
@@ -226,19 +230,10 @@
         });
 
         function deleteRecord(url) {
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: 'Data akan dihapus permanen!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                }
-            });
+            if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+                window.location.href = url;
+                notify('Data berhasil dihapus!', 'success');
+            }
         }
     </script>
 @endsection
