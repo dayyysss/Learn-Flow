@@ -47,8 +47,19 @@
                 <!-- Start Artikel Information -->
                 <div class="col-span-full lg:col-span-7 card">
                     <div class="p-6">
-                        <h6 class="card-title text-xl font-semibold mb-4">Edit Artikel</h6>
-                        <div class="mt-4">
+                    <div class="flex justify-between items-center gap-5">
+                        <!-- Bagian Kiri -->
+                        <a href="/lfcms/artikel" class="flex items-center gap-1">
+                            <i class="ri-arrow-left-line text-2xl text-heading dark:text-dark-text"></i>
+                            <h6 class="card-title">Edit Artikel</h6>
+                        </a>
+
+                        <!-- Bagian Kanan -->
+                        <div class="flex gap-3">
+                            <button type="submit" class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
+                        </div>
+                    </div>                         
+                    <div class="mt-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5">
                                 <div class="col-span-full">
                                     <label for="judul" class="form-label">Judul</label>
@@ -96,7 +107,7 @@
                 <!-- Start Artikel Media File -->
                 <div class="col-span-full lg:col-span-5 card">
                     <div class="p-6">
-                        <div class="mt-4 flex flex-col gap-5">
+                        <div class="flex flex-col gap-5">
                             <div class="col-span-full">
                                 <label for="category_id" class="form-label">Kategori</label>
                                 <select class="singleSelect" name="category_id" >
@@ -153,41 +164,37 @@
                                     <option value="0" {{ $artikel->status == 0 ? 'selected' : '' }}>Draft</option>
                                 </select>
                             </div>
-                            <div class="col-span-full">
-                                <p class="text-sm text-gray-500 mb-3">Gambar Artikel</p>
-
-                                <!-- Container Preview dan Upload -->
-                                <div class="flex items-center gap-4">
-                                    <!-- Preview Gambar Lama / Baru -->
-                                    <div class="relative">
+                            <label for="image" class="form-label">Gambar</label>
+                                <label for="image"
+                                    class="file-container text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/2] flex flex-col items-center justify-center gap-2.5 dk-border-one border-dashed rounded-10 w-full">
+                                    <input id="image" name="image" type="file" hidden class="peer/file file-src"
+                                        onchange="previewImage(this)">
+                                    <span class="flex-center flex-col text-center w-full">
                                         <img id="image-preview"
-                                            src="{{ $artikel->image ? asset('storage/' . $artikel->image) : asset('default-image-placeholder.jpg') }}"
-                                            alt="Gambar Artikel" class="w-32 h-32 object-cover rounded-md border">
-
-                                        <!-- Tombol Hapus Gambar -->
-                                        <button type="button"
-                                            class="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
-                                            onclick="clearImage()">
-                                            &times;
-                                        </button>
-                                    </div>
-
-                                    <!-- Input Upload -->
-                                    <label for="image"
-                                        class="flex items-center justify-center border-dashed border-gray-900 dark:border-dark-border rounded-lg cursor-pointer px-4 py-2 bg-gray-100 text-sm">
-                                        <input type="file" id="image" name="image" hidden
-                                            onchange="previewImage(event)">
-                                        <span class="text-gray-600 text-center">Pilih Gambar</span>
-                                    </label>
+                                            src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="file-icon"
+                                            class="size-8 lg:size-auto mx-auto">
+                                        <div class="file-name mt-2 text-xl font-semibold text-gray-500 dark:text-dark-text">
+                                            Unggah File Gambar
+                                        </div>
+                                        <label for="image"
+                                            class="cursor-pointer text-sm text-primary-500 before:text-lg font-spline_sans before:font-remix before:pr-px before:content-['\f24e'] btn b-outline btn-primary-outline py-2.5 px-[18px] mt-4">
+                                            Klik untuk mengunggah
+                                        </label>
+                                        <span class="text-sm text-gray-900 dark:text-dark-text-two mt-2">
+                                            Ukuran file maksimum adalah 1 MB
+                                        </span>
+                                    </span>
+                                </label>
+                                <div class="file-container text-xs leading-none font-semibold mt-5 mb-3 cursor-pointer aspect-[3/2] flex items-center gap-2.5 dk-border-one border-dashed rounded-10 w-full">
+                                        @if($artikel->image)
+                                            <div>
+                                                <img src="{{ asset('storage/' . $artikel->image) }}" alt="Gambar Halaman" class="w-20 h-20 object-cover ">
+                                            </div>
+                                            <p class="text-sm text-gray-500 dark:text-dark-text font-semibold">Preview Old Image</p>
+                                        @else
+                                        <p class="text-gray-500 mt-5 mb-5 flex justify-center items-center">  *Tidak ada gambar</p>
+                                        @endif
                                 </div>
-                            </div>
-                            <!-- Menambahkan jarak antara upload file dan tombol -->
-                            <div class="flex justify-end gap-5 mt-6">
-                            <button type="submit"
-                                class="btn b-solid btn-primary-solid px-5 dk-theme-card-square">Simpan</button>
-                            <a href="{{ route('artikel.index') }}" class="btn b-solid btn-secondary-solid px-5 dk-theme-card-square">Kembali</a>
-                             </div>
-                        </div>
                     </div>
                 </div>
                 <!-- End Artikel Media File -->

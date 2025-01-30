@@ -33,7 +33,7 @@
                 </div>
                 <!-- subject card -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-30px">
-                    @foreach ($kategoriLanding as $category)
+                    @foreach ($kategoriPopu as $category)
                         <div data-aos="fade-up">
                             <div
                                 class="p-35px group bg-whiteColor rounded-xl transition-all duration-300 shadow-dropdown-secodary hover:bg-primaryColor hover:-translate-y-5px hover:text-whiteColor dark:bg-whiteColor-dark dark:hover:bg-primaryColor">

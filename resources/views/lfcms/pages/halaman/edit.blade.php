@@ -101,7 +101,7 @@
                                         @else
                                         <p class="text-gray-500 mt-5 mb-5 flex justify-center items-center">  *Tidak ada gambar</p>
                                         @endif
-                                    </div>
+                                </div>
                                         
                             </div>
                             

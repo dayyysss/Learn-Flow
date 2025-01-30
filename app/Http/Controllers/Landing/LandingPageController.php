@@ -41,8 +41,9 @@ class LandingPageController extends Controller
         $klien = Client::where('status', 'publik')->take(5)->get();
         $categories = CategoryCourse::all(); 
         $kategoriLanding = CategoryCourse::where('status', 'publik')->orderBy('created_at', 'desc')->take(3)->get();
+        $kategoriPopu = CategoryCourse::where('status', 'publik')->orderBy('created_at', 'desc')->take(4)->get();
     
-        return view('landing-page', compact('heroSection', 'course', 'aboutSection', 'kategoriLanding', 'artikel', 'klien', 'categories', 'testimonial', 'categorySection', 'testiSection'));
+        return view('landing-page', compact('heroSection', 'course', 'aboutSection', 'kategoriPopu', 'kategoriLanding', 'artikel', 'klien', 'categories', 'testimonial', 'categorySection', 'testiSection'));
     }
 
     public function about()
