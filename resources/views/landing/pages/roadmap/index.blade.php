@@ -2,33 +2,30 @@
 @section('page_title', 'Roadmap | Learn Flow')
 @section('content')
 
-    @include('landing.components.breadcrumb', ['title' => 'Roadmap'])
+   
     <div class="container">
         <!-- Categories Section -->
-        <h2>Kategori Kursus</h2>
         <div class="categories">
-            @php
-                $categoryIcons = [
-                    'Web Development' => '💻',
-                    'Mobile Development' => '📱',
-                    'Data Science' => '📊',
-                    'UI/UX Design' => '🎨',
-                    'Business' => '💼',
-                    'Marketing' => '📈',
-                    'Default' => '📚',
-                ];
-            @endphp
-
-            @foreach ($categories as $category)
-                @php
-                    $icon = $categoryIcons[$category->name] ?? $categoryIcons['Default'];
-                @endphp
-                <div class="category-card" data-category-id="{{ $category->id }}">
-                    <div class="category-icon">{{ $icon }}</div>
-                    <h3>{{ $category->name }}</h3>
-                    <p>{{ $category->courses_count }} Kursus</p>
-                </div>
-            @endforeach
+            <div class="category-card active">
+               
+                <h3>Web Development</h3>
+                <p>20 Kursus</p>
+            </div>
+            <div class="category-card">
+                
+                <h3>Mobile Development</h3>
+                <p>15 Kursus</p>
+            </div>
+            <div class="category-card">
+                
+                <h3>Data Science</h3>
+                <p>12 Kursus</p>
+            </div>
+            <div class="category-card">
+                
+                <h3>UI/UX Design</h3>
+                <p>8 Kursus</p>
+            </div>
         </div>
 
         <!-- Roadmap Section -->
