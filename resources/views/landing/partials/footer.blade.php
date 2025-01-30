@@ -35,29 +35,12 @@
                     class="grid grid-cols-12 gap-30px md:gap-y-5 lg:gap-y-0 pt-60px pb-50px md:pt-30px md:pb-30px lg:pt-110px lg:pb-20">
                     <!-- left -->
                     <div class="col-start-1 col-span-12 md:col-span-6 lg:col-span-4 mr-30px" data-aos="fade-up">
-                        <h4 class="text-size-22 font-bold text-whiteColor mb-3">
-                            Sekilas Tentang Kami
-                        </h4>
+                            <a href=" {{ url('/') }} ">
+                                <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo LF" style="width: 180px;">
+                            </a>
                         <p class="text-base lg:text-sm 2xl:text-base text-darkgray mb-30px leading-1.8 2xl:leading-1.8">
                             {!! $pagesDeskripsi->deskripsi ?? '' !!}
                         </p>
-                        <div class="flex items-center">
-                            <div>
-                                <i
-                                    class="icofont-clock-time text-3xl text-whiteColor h-78px w-78px bg-primaryColor leading-78px mr-22px block text-center"></i>
-                            </div>
-                            <div>
-                                <h6 class="text-lg text-whiteColor font-medium leading-29px">
-                                    JAM BUKA
-                                </h6>
-                                <p class="text-sm text-whiteColor text-opacity-60 mb-1">
-                                    Senin - Sab(8.00 - 6.00)
-                                </p>
-                                <p class="text-sm text-whiteColor text-opacity-60">
-                                    Minggu - Tutup
-                                </p>
-                            </div>
-                        </div>
                     </div>
                     <!-- middle 1 -->
                     <div class="single-footer-items col-start-1 col-span-12 md:col-start-7 lg:col-start-5 md:col-span-6 lg:col-span-2"
@@ -136,19 +119,11 @@
             <!-- footer copyright  -->
             <div>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-30px pt-10 items-center">
-                    <div class="lg:col-start-1 lg:col-span-3">
-                        <a href=" {{ url('/') }} ">
-                            <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo LF" style="width: 180px;">
-                        </a>
-                    </div>
-
-                    <div class="lg:col-start-4 lg:col-span-6">
-                        <p class="text-whiteColor">
-                            Copyright © <span class="text-primaryColor">2024 </span> by
-                            Learn Flow. All Rights Reserved.
+                    <div class="lg:col-start-1 lg:col-span-4 flex items-center">
+                        <p class="text-whiteColor whitespace-nowrap">
+                            Copyright © <span class="text-primaryColor">{{ now()->year }}</span> by Learn Flow. All Rights Reserved.
                         </p>
                     </div>
-
                     <div class="lg:col-start-10 lg:col-span-3">
                         <ul class="flex gap-3 lg:gap-2 2xl:gap-3 lg:justify-end">
                             <li>

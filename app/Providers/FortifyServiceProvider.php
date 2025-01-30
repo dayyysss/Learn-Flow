@@ -35,6 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 $login = $request->input('login');
                 $password = $request->password;
+                $currentPath = $request->path(); // Ambil path URL saat ini
 
                 // Tentukan kredensial berdasarkan input login (email atau name)
                 $credentials = filter_var($login, FILTER_VALIDATE_EMAIL)
@@ -43,16 +44,28 @@ class FortifyServiceProvider extends ServiceProvider
 
                 // Coba autentikasi
                 if (auth()->attempt($credentials)) {
-                    // Cek apakah role_id yang diperbolehkan (2, 3, 4)
-                    if (!in_array(auth()->user()->role_id, [2, 3, 4])) {
-                        auth()->logout(); // Langsung logout jika role tidak sesuai
+                    $user = auth()->user();
+
+                    // Cek apakah user role_id 1 login dari /login
+                    if ($user->role_id == 1 && $currentPath == 'login') {
+                        auth()->logout(); // Logout otomatis
                         return redirect()->route('login')->withErrors([
-                            'login' => 'Anda tidak memiliki izin untuk login.',
+                            'login' => 'Akses ditolak!',
                         ]);
                     }
 
-                    notify()->success('Login berhasil!', 'Selamat datang!');
-                    return redirect()->route('dashboard');
+                    // Redirect berdasarkan role_id dan asal login
+                    if ($user->role_id == 1 && $currentPath == 'LFCMS') {
+                        return redirect('lfcms/dashboard');
+                    } elseif (in_array($user->role_id, [2, 3, 4])) {
+                        return redirect('/dashboard');
+                    }
+
+                    // Jika role_id tidak dikenali, logout dan kembali ke login
+                    auth()->logout();
+                    return redirect()->route('login')->withErrors([
+                        'login' => 'Anda tidak memiliki izin untuk login.',
+                    ]);
                 }
 
                 // Jika gagal autentikasi, arahkan kembali ke login dengan pesan kesalahan
