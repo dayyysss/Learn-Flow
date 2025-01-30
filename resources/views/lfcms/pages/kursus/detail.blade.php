@@ -237,7 +237,6 @@
                         </div>
                         <div id="courseImpression"></div>
                     </div>
-
                     @foreach ($course->babs as $index => $bab)
                         <div class="card">
                             <details>
@@ -496,13 +495,8 @@
                             }
                         </script>
                     @endforeach
-
-
                 </div>
             </div>
-            <!-- End Course Overview Chart -->
-
-
         </div>
     </div>
 
