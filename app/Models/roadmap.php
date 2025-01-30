@@ -17,8 +17,8 @@ class roadmap extends Model
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
-    public function category_courses()
+    public function categories()
     {
-        return $this->belongsTo(CategoryCourse::class, 'categoryCourse_id');
+        return $this->belongsTo(CategoryCourse::class, 'categories_id');
     }
 }

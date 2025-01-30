@@ -55,6 +55,7 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\LFCMS\CourseController as LFCMSCourseController;
+use App\Http\Controllers\LFCMS\RoadmapController;
 use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 // Auth
 Route::get('/login', function () {
@@ -191,6 +192,10 @@ Route::prefix('lfcms')
         Route::post('/website/kata-kunci', [WebsiteConfigurationController::class, 'storeKeyword'])->name('konfigurasi.kataKunci');
         Route::post('/website/kontak', [WebsiteConfigurationController::class, 'storeKontak'])->name('konfigurasi.kontak');
         Route::post('/website/Sosial-media', [WebsiteConfigurationController::class, 'storeSosial'])->name('konfigurasi.sosialMedia');
+
+        Route::resource('/roadmap', RoadmapController::class);
+        Route::post('/roadmaps/update-order', [RoadmapController::class, 'updateOrder'])->name('roadmaps.updateOrder');
+
 
         Route::resource('/kursus', LFCMSCourseController::class);
         Route::get('/kursus/{slug}', [LFCMSCourseController::class, 'show'])->name('kursus.detail');
