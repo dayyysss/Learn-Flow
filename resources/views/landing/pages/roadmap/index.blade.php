@@ -2,27 +2,27 @@
 @section('page_title', 'Roadmap | Learn Flow')
 @section('content')
 
-   
+
     <div class="container">
         <!-- Categories Section -->
         <div class="categories">
             <div class="category-card active">
-               
+
                 <h3>Web Development</h3>
                 <p>20 Kursus</p>
             </div>
             <div class="category-card">
-                
+
                 <h3>Mobile Development</h3>
                 <p>15 Kursus</p>
             </div>
             <div class="category-card">
-                
+
                 <h3>Data Science</h3>
                 <p>12 Kursus</p>
             </div>
             <div class="category-card">
-                
+
                 <h3>UI/UX Design</h3>
                 <p>8 Kursus</p>
             </div>
@@ -56,38 +56,124 @@
         </div>
 
         <!-- Courses Section -->
-        <h2>Kursus Tersedia</h2>
-        <div class="courses">
+     
+        <div class="courses grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-30px">
             @if ($course->count())
                 @foreach ($course as $item)
-                    <div class="course-card">
-                        <div class="course-image"> <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
-                                style="
-                               height: 214px;"
-                                class="w-full transition-all duration-300 group-hover:scale-110"></div>
-                        <div class="course-content">
-                            @php
-                                $backgrounds = [
-                                    'bg-secondaryColor',
-                                    'bg-blue',
-                                    'bg-secondaryColor2',
-                                    'bg-greencolor2',
-                                    'bg-orange',
-                                    'bg-yellow',
-                                ];
-                                $bgClass = $backgrounds[array_rand($backgrounds)];
-                            @endphp
-                            <span class="course-level {{ $bgClass }}">{{ $item->tingkatan }}</span>
-                            <h3> {{ Str::limit($item->name, 80, '...') }}</h3>
-                            <div class="course-stats">
-                                <span>⭐ 4.8</span>
-                                <span>👥 1.2k siswa</span>
-                                <span>⏱️ 6 jam</span>
+                    <div class="group">
+                        <div class="tab-content-wrapper" data-aos="fade-up">
+                            <div
+                                class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark course-card">
+                                <!-- card image -->
+                                <div class="relative mb-4">
+                                    <a href="{{ route('course.detail', $item->slug) }}"
+                                        class="w-full overflow-hidden rounded">
+                                        <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
+                                            class="w-full transition-all duration-300 group-hover:scale-110"
+                                            style="height: 150px">
+                                    </a>
+                                    <div class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
+                                        <div>
+                                            @php
+                                                $backgrounds = [
+                                                    'bg-secondaryColor',
+                                                    'bg-blue',
+                                                    'bg-secondaryColor2',
+                                                    'bg-greencolor2',
+                                                    'bg-orange',
+                                                    'bg-yellow',
+                                                ];
+                                                $bgClass = $backgrounds[array_rand($backgrounds)];
+                                            @endphp
+                                            <p
+                                                class="text-xs text-whiteColor px-4 py-[3px] {{ $bgClass }} rounded font-semibold">
+                                                {{ $item->categories->name ?? 'No Category' }}
+                                            </p>
+                                        </div>
+                                        <a class="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor add-to-wishlist"
+                                            href="" data-id="{{ $item->id }}">
+                                            <i class="icofont-heart-alt text-base py-1 px-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- card content -->
+                                <div class="course-card-content">
+                                    <div class="grid grid-cols-2 mb-15px">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <i class="icofont-book-alt pr-5px text-primaryColor text-lg"></i>
+                                            </div>
+                                            <div>
+                                                <span
+                                                    class="text-sm text-black dark:text-blackColor-dark">{{ $item->babs->sum(function ($bab) {
+                                                        return $bab->moduls->count();
+                                                    }) }}
+                                                    Modul</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <div>
+                                                <i class="icofont-clock-time pr-5px text-primaryColor text-lg"></i>
+                                            </div>
+                                            <div>
+                                                <span
+                                                    class="text-sm text-black dark:text-blackColor-dark">{{ $item->tanggal_mulai }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{ route('course.detail', $item->slug) }}"
+                                        class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+                                        {{ Str::limit($item->name, 70, '...') }}
+                                    </a>
+                                </div>
+                                <!-- price -->
+                                <div class="text-lg font-semibold text-primaryColor font-inter mb-4 course-card-footer">
+                                    @if ($item->harga_diskon)
+                                        Rp
+                                        {{ number_format($item->harga - $item->harga_diskon, 2, ',', '.') }}
+                                        <del class="text-sm text-lightGrey4 font-semibold">/ Rp
+                                            {{ number_format($item->harga, 2, ',', '.') }}</del>
+                                    @else
+                                        Rp {{ number_format($item->harga, 2, ',', '.') }}
+                                    @endif
+                                    <span class="ml-6">
+                                        @if ($item->harga - $item->harga_diskon > 0)
+                                            <del class="text-base font-semibold text-deepred">Free</del>
+                                        @else
+                                            <span class="text-base font-semibold text-greencolor">Free</span>
+                                        @endif
+                                    </span>
+                                </div>
+                                <!-- instructor -->
+                                <div
+                                    class="course-card-instructor flex justify-between border-t pt-15px border-borderColor">
+                                    <div>
+                                        <a href="instructor-details.html"
+                                            class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
+                                            <img class="w-[30px] h-[30px] rounded-full mr-5px"
+                                                src="{{ $item->instrukturs->image ? Storage::url($item->instrukturs->image) : asset('assets/images/grid/grid_small_1.jpg') }}"
+                                                alt="{{ $item->instrukturs->name }}">
+                                            <span class="flex capitalize">{{ $item->instrukturs->name }}</span>
+                                        </a>
+                                    </div>
+                                    <div class="instructor-rating text-xs">
+                                        <!-- Menampilkan rating instruktur -->
+                                        @php
+                                            $instructorRating = $item->instrukturs->average_rating ?? 0; // Pastikan data rating tersedia
+                                        @endphp
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i
+                                                class="icofont-star {{ $i <= $instructorRating ? 'text-yellow' : 'text-gray' }}"></i>
+                                        @endfor
+                                        <div>({{ $item->instrukturs->total_feedbacks ?? 0 }} reviews)</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             @else
+                <!-- Pesan jika tidak ada kursus ditemukan -->
                 <div
                     class="coll-span-full text-center py-10 bg-lightGrey dark:bg-darkdeep3-dark text-xl font-semibold text-primaryColor">
                     Kursus tidak ditemukan untuk pencarian ini.

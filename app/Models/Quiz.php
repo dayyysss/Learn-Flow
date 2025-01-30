@@ -38,6 +38,10 @@ class Quiz extends Model
     {
         return $this->belongsTo(Course::class);
     }
+    public function modul_progress()
+    {
+        return $this->belongsTo(ModulProgress::class);
+    }
 
     public static function boot()
     {

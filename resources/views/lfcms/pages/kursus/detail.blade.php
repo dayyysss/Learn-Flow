@@ -256,7 +256,8 @@
                                             </button>
 
 
-
+                                            
+    @include('lfcms.pages.kursus.modal')
 
                                             {{-- <a href="{{ route('babs.edit', $bab->id) }}"
                                                 class="btn-icon btn-primary-icon-light size-7">

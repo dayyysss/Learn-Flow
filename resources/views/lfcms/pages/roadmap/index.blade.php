@@ -5,8 +5,7 @@
 
 @section('content')
 
-    <div
-        class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
+    <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
         <div class="flex flex-col md:flex-row gap-5">
             <!-- Sidebar: Tipe Menu -->
             <div class="bg-white md:w-80 w-full h-fit rounded shadow-lg p-4 dark:bg-dark-card-two">
@@ -14,25 +13,47 @@
                     <label>Kategori Kursus</label>
                 </div>
 
-                <div id="categorySelectContainer" class="flex flex-col gap-4">
-                    @foreach($categories as $category)
-                        <div class="flex items-center">
-                            <input type="radio" id="category_{{ $category->id }}" name="category_id"
-                                value="{{ $category->id }}" class="form-radio h-5 w-5 text-blue-600"
-                                {{ $category->id == $selectedCategoryId ? 'checked' : '' }}>
-                            <label for="category_{{ $category->id }}" class="ml-2 capitalize">{{ $category->name }}</label>
-                        </div>
-                    @endforeach
-                </div>
+                <div id="menu_type">
+                  @foreach ($categories as $type)
+                      <div class="flex items-center justify-between border border-gray-200 p-3">
+                          <div class="flex items-center">
+                              <input type="radio" id="menu_type_{{ $type->id }}" name="menu_type"
+                                  value="{{ $type->id }}" class="mr-2 menu-type-item"
+                                  {{ $selectedCategoryId == $type->id ? 'checked' : '' }}
+                                  onchange="filterCategory({{ $type->id }})">
+                              <label class="menu_type_list capitalize"
+                                  for="menu_type_{{ $type->id }}">{{ $type->name }}</label>
+                          </div>
+                      </div>
+                  @endforeach
+              </div>
+              
+              <script>
+                  function filterCategory(categoryId) {
+                      window.location.href = '?category_id=' + categoryId;
+                  }
+              </script>
+              
             </div>
 
             <!-- Konten Utama: Menu -->
             <div class="bg-white md:w-7/12 w-full rounded dark:bg-dark-card-two shadow-lg p-4">
-                <div id="roadmapsContainer" class="dd">
-                    <ol class="dd-list">
-                        <!-- Roadmaps will be dynamically loaded here -->
-                    </ol>
-                </div>
+              <div class="dd" id="nestable3">
+                <ol class='dd-list dd3-list'>
+                    @foreach($roadmaps as $roadmap)
+                        <li class="dd-item" data-id="{{ $roadmap->id }}">
+                            <div class="dd-handle">
+                                <span>{{ $roadmap->name }}</span>
+                            </div>
+                            <span class="category-name">
+                                {{ optional($roadmap->course)->name }}
+                            </span>
+                        </li>
+                    @endforeach
+                    <div id="dd-empty-placeholder"></div>
+                </ol>
+            </div>
+            
             </div>
         </div>
     </div>
@@ -46,47 +67,6 @@
     <!-- Tambahkan Custom JS -->
     <script src="{{ asset('assets/lfcms/js/pages/menu.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-            // Inisialisasi Nestable
-            var updateOutput = function(e) {
-                var list = e.length ? e : $(e.target);
-                var output = list.data('output');
-                if (window.JSON) {
-                    output.val(window.JSON.stringify(list.nestable('serialize'))); // Output to hidden field
-                } else {
-                    alert('JSON browser support required for this demo.');
-                }
-            };
-
-            // Ketika kategori berubah
-            $('input[name="category_id"]').on('change', function() {
-                var categoryId = $(this).val();
-
-                // Kirim request AJAX
-                $.ajax({
-                    url: '{{ route('roadmap.index') }}', // Sesuaikan dengan rute yang kamu gunakan
-                    method: 'GET',
-                    data: {
-                        category_id: categoryId
-                    },
-                    success: function(response) {
-                        // Update tampilan roadmap dan pilih kategori yang dipilih
-                        $('#roadmapsContainer .dd-list').html('');
-                        response.roadmaps.forEach(function(roadmap) {
-                            var item = $('<li class="dd-item" data-id="' + roadmap.id + '">')
-                                .append('<div class="dd-handle">' + roadmap.name + '</div>');
-                            $('#roadmapsContainer .dd-list').append(item);
-                        });
-
-                        // Re-inisialisasi Nestable setelah konten baru ditambahkan
-                        $('#roadmapsContainer').nestable({
-                            group: 1
-                        }).on('change', updateOutput);
-                    }
-                });
-            });
-        });
-    </script>
+   
 
 @endsection

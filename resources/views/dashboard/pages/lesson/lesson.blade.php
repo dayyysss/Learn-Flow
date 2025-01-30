@@ -33,10 +33,9 @@
                             <div class="modul" id="modul">
                                 @yield('modul')
                             </div>
-
-                            {{-- <!-- Navigasi Modul -->
-                            <div
-                                class="modul-navigation fixed bottom-0 left-0 w-full bg-white dark:bg-blackColor-dark border-t border-gray-300 dark:border-borderColor-dark z-50">
+                
+                            <!-- Navigasi Modul -->
+                            <div class="modul-navigation fixed bottom-0 left-0 w-full bg-white dark:bg-blackColor-dark border-t border-gray-300 dark:border-borderColor-dark z-50">
                                 <div class="flex justify-between items-center px-5 py-3">
                                     @if ($previousModul)
                                         <a href="/course/{{ $course->slug }}/modul/{{ $previousModul->slug }}"
@@ -48,7 +47,7 @@
                                             <i class="icofont-arrow-left mr-2"></i> Modul Sebelumnya
                                         </span>
                                     @endif
-
+                            
                                     @if ($nextModul)
                                         <a href="/course/{{ $course->slug }}/modul/{{ $nextModul->slug }}"
                                             id="nextModulLink"
@@ -56,17 +55,20 @@
                                             Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
                                         </a>
                                     @elseif($isLastModul)
-                                        <a href="/certificate/{{ $course->id }}" id="nextModulLink"
-                                            class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
-                                            Selesaikan Course <i class="icofont-check ml-2"></i>
-                                        </a>
+                                    <a href="/certificate/{{ auth()->user()->courseRegistrations->where('course_id', $course->id)->first()->certificate_id }}"
+                                        id="nextModulLink"
+                                        class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 font-bold">
+                                        Selesaikan Course <i class="icofont-check ml-2"></i>
+                                     </a>
+                                     
                                     @else
                                         <span class="text-gray-500 dark:text-gray-400 font-bold">
                                             Modul Berikutnya <i class="icofont-arrow-right ml-2"></i>
                                         </span>
-                                    @endif --}}
+                                    @endif
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -114,92 +116,60 @@
             });
         });
     </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nextModulLink = document.querySelector('#nextModulLink');
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const nextModulLink = document.querySelector('#nextModulLink');
-            const contentContainer = document.querySelector('#modul-content-isi');
-            // Cek status modul (misalnya, berdasarkan kelas atau data atribut)
-            const isModulCompleted = nextModulLink.getAttribute('data-status') ===
-                'selesai'; // Ganti dengan logika yang sesuai dengan status modul
+        if (!nextModulLink) {
+            console.error("Elemen #nextModulLink tidak ditemukan.");
+            return;
+        }
+        
+        nextModulLink.addEventListener('click', function(e) {
+            e.preventDefault();
 
-            // Fungsi untuk memeriksa posisi scroll
-            function checkScrollPosition() {
-                const containerBottom = contentContainer.offsetTop + contentContainer.offsetHeight;
-                const scrollPosition = window.scrollY + window.innerHeight;
+            console.log('Klik tombol Modul Berikutnya');
+            console.log('Modul ID:', '{{ $modul->id }}');
+            console.log('Course ID:', '{{ $course->id }}');
+            console.log('Next Modul Link:', nextModulLink.href);
+            console.log('Mengirim request ke /update-modul-status...');
 
-                // Jika modul sudah selesai, aktifkan tombol tanpa perlu scroll
-                if (isModulCompleted || scrollPosition >= containerBottom) {
-                    nextModulLink.classList.remove('disabled'); // Aktifkan tombol
+            fetch('/update-modul-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    modulId: '{{ $modul->id }}',
+                    courseId: '{{ $course->id }}', // ✅ Kirim course_id ke backend
+                    status: nextModulLink.href.includes('/certificate') ? 'selesai' : 'proses'
+                })
+            })
+            .then(response => {
+                console.log('Response received', response);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.success) {
+                    console.log('Status modul berhasil diperbarui, mengalihkan halaman...');
+                    window.location.href = nextModulLink.href;
                 } else {
-                    nextModulLink.classList.add('disabled'); // Nonaktifkan tombol
+                    console.error('Terjadi kesalahan:', data.message);
+                    alert('Terjadi kesalahan: ' + data.message);
                 }
-            }
-
-            // Pasang event listener pada scroll
-            window.addEventListener('scroll', checkScrollPosition);
-
-            // Cek posisi saat halaman dimuat
-            checkScrollPosition();
-
-            // Mencegah klik pada tombol "Modul Berikutnya" jika belum scroll ke bawah dan status modul belum selesai
-            nextModulLink.addEventListener('click', function(e) {
-                if (nextModulLink.classList.contains('disabled') && !isModulCompleted) {
-                    e.preventDefault(); // Blokir aksi default
-                    alert('Scroll ke bawah terlebih dahulu untuk melanjutkan modul!');
-                } else if (nextModulLink.href.includes('/certificate')) {
-                    // Perbarui status modul menjadi "selesai" sebelum mengarahkan ke halaman sertifikat
-                    fetch('/update-modul-status', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                modulId: '{{ $modul->id }}',
-                                status: 'selesai'
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                window.location.href = nextModulLink.href;
-                            } else {
-                                alert('Terjadi kesalahan: ' + data.message);
-                            }
-                        })
-                        .catch(error => {
-                            alert('Tidak dapat memperbarui status modul.');
-                        });
-                } else {
-                    // Kirim request untuk memperbarui status modul
-                    fetch('/update-modul-status', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                modulId: '{{ $modul->id }}'
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                window.location.href = nextModulLink.href;
-                            } else {
-                                alert('Terjadi kesalahan: ' + data.message);
-                            }
-                        })
-                        .catch(error => {
-                            alert('Tidak dapat memperbarui status modul.');
-                        });
-                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('Tidak dapat memperbarui status modul.');
             });
         });
-    </script>
+    });
+</script>
+
+
+
 
 
 @endsection

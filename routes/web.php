@@ -117,6 +117,19 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/instruktur/{id}', [LandingPageController::class, 'showinstructor'])->name('showinstructor');
 });
 
+Route::resource('/certificate', CertificateController::class);
+
+Route::controller(CertificateController::class)->group(function () {
+    // Menampilkan certificate berdasarkan certificate_id yang ada pada CourseRegistration
+    Route::get('/certificate/{certificateId}', 'show')->name('certificate.index');
+    
+    // Menampilkan certificate sesuai dengan certificate_id
+    Route::get('/view-certificate/{certificateId}', 'viewCertificate')->name('viewCertificate');
+    
+    // Download certificate berdasarkan certificate_id
+    Route::get('/download-certificate/{certificateId}', 'downloadCertificate')->name('downloadCertificate');
+});
+
 // Dashboard CMS
 Route::prefix('lfcms')
     ->middleware(['auth'])
@@ -254,7 +267,7 @@ Route::middleware(['auth'])
 
         Route::get('/course/{course:slug}/quiz/{modul:slug}', [CourseController::class, 'showQuiz'])->name('quiz.detail');
         Route::get('/course/{slug}/lesson', [CourseController::class, 'showBab'])->name('babCourse.index');
-        Route::resource('/certificate', CertificateController::class);
+       
 
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
         Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
@@ -319,16 +332,7 @@ Route::middleware(['auth'])
         //feedback
         Route::resource('/reviews', FeedbackController::class)->except(['show', 'index']);
 
-        Route::controller(CertificateController::class)->group(function () {
-            // Menampilkan certificate berdasarkan certificate_id yang ada pada CourseRegistration
-            Route::get('/certificate/{certificateId}', 'show')->name('certificate.index');
-            
-            // Menampilkan certificate sesuai dengan certificate_id
-            Route::get('/view-certificate/{certificateId}', 'viewCertificate')->name('viewCertificate');
-            
-            // Download certificate berdasarkan certificate_id
-            Route::get('/download-certificate/{certificateId}', 'downloadCertificate')->name('downloadCertificate');
-        });
+        
         
 
         // Rute untuk memperbarui progres modul
