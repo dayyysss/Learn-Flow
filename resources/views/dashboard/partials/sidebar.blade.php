@@ -107,7 +107,7 @@
                 </li> --}}
                 <li class="py-10px border-b border-borderColor dark:border-borderColor-dark">
                     <a href="{{ route('quizResults.index') }}"
-                        class="sidebar-link {{ request()->routeIs('quizResults.index', 'quiz.index', 'quiz.create', 'quiz.edit', 'quiz.show', 'questions.create', 'questions.edit') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
+                        class="sidebar-link {{ request()->routeIs('quizResults.index') ? 'text-primaryColor' : 'text-contentColor dark:text-contentColor-dark' }} hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-help-circle">
