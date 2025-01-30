@@ -3,15 +3,15 @@
 @section('content')
 
     <div class="">
-        <div class="bg-lightGrey10 dark:bg-lightGrey10-dark relative z-0 overflow-y-visible 2xl:pb-150px 2xl:pt-40.5">
+        <div class="bg-lightGrey10 dark:bg-lightGrey10-dark relative z-0 overflow-y-visible">
             <!-- animated icons -->
             <div>
                 <img class="absolute left-0 bottom-0 md:left-[14px] lg:left-[50px] lg:bottom-[21px] 2xl:left-[165px] 2xl:bottom-[60px] animate-move-var z-10"
                     src="{{ asset('assets/images/herobanner/herobanner__1.png') }}" alt="">
                 <img class="absolute left-0 top-0 lg:left-[50px] lg:top-[100px] animate-spin-slow"
                     src="{{ asset('assets/images/herobanner/herobanner__2.png') }}" alt="">
-                <img class="absolute right-[30px] top-0 md:right-10 lg:right-[575px] 2xl:top-20 animate-move-var2 opacity-50 hidden md:block"
-                    src="{{ asset('assets/images/herobanner/herobanner__3.png') }}" alt="">
+                {{-- <img class="absolute right-[30px] top-0 md:right-10 lg:right-[575px] 2xl:top-20 animate-move-var2 opacity-50 hidden md:block"
+                    src="{{ asset('assets/images/herobanner/herobanner__3.png') }}" alt=""> --}}
                 <img class="absolute right-[30px] top-[212px] md:right-10 md:top-[157px] lg:right-[45px] lg:top-[100px] animate-move-hor"
                     src="{{ asset('assets/images/herobanner/herobanner__5.png') }}" alt="">
             </div>
@@ -23,10 +23,11 @@
                         <div class="w-full">
                             <div class="p-6 text-center mb-10">
                                 <!-- Displaying PDF Certificate -->
-                                <iframe id="openModal" src="{{ route('viewCertificate', $course->courseRegistrations->first()->certificate_id) }}#toolbar=0&navpanes=0"
+                                <iframe id="openModal"
+                                    src="{{ route('viewCertificate', $course->courseRegistrations->first()->certificate_id) }}#toolbar=0&navpanes=0"
                                     class="flex ml-auto mr-auto mt-10 justify-center" width="605px" height="425">
                                 </iframe>
-                                
+
                                 <br>
                                 <!-- Download button (commented out) -->
                                 {{-- <button
@@ -61,7 +62,8 @@
                 <div class="lg:col-start-1 lg:col-span-9 space-y-[35px]">
                     <div>
                         <div class="flex gap-10 text-2xl capitalize">
-                            <img src="{{ asset('storage/' . $course->thumbnail) }}" width="250px" alt="">
+                            <img src="{{ asset('storage/' . $course->thumbnail) }}" width="250px" height="200px"
+                                style="height:200px" alt="">
                             <div class="flex flex-col justify-between">
                                 <!-- Rating Stars -->
                                 <div class="text-start">
@@ -110,16 +112,57 @@
                         <div class="py-33px px-25px shadow-event mb-30px bg-whiteColor dark:bg-whiteColor-dark rounded-md"
                             data-aos="fade-up">
                             <!-- Contact Info -->
+
+
                             <div class="mt-5" data-aos="fade-up">
-                                <p
-                                    class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mb-5px">
-                                    More inquiry about course
-                                </p>
-                                <button type="submit"
-                                    class="w-full text-xl text-primaryColor bg-whiteColor px-25px py-10px mb-10px font-bold leading-1.8 border border-primaryColor hover:text-whiteColor hover:bg-primaryColor inline-block rounded group dark:bg-whiteColor-dark dark:text-whiteColor dark:hover:bg-primaryColor">
-                                    <i class="icofont-phone"></i> +47 333 78 901
-                                </button>
+                                <div class="flex flex-col items-center text-center">
+                                    <!-- Avatar dan Nama -->
+                                    <div class="flex flex-col items-center">
+                                        <img src="{{ asset('storage/' . $course->thumbnail) }}" width="80"
+                                            height="80" class="rounded-full object-cover border-2 border-gray-300"
+                                            alt="Thumbnail">
+
+                                        <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold mt-3">
+                                            {{ optional($course->courseRegistrations->first()->user)->first_name . ' ' . optional($course->courseRegistrations->first()->user)->last_name ?? 'Tidak ada pengguna' }}
+                                        </h4>
+
+                                        <div>
+                                            <p
+                                                class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mt-2 ">
+                                               Id Sertifikat
+                                            </p>
+                                            <h4
+                                                class="text-size-20 text-blackColor dark:text-blackColor-dark font-semibold ">
+                                                {{ $course->courseRegistrations->first()->certificate_id ?? 'Id tidak ditemukan' }}
+                                            </h4>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mt-2 ">
+                                               Diberikan pada
+                                            </p>
+                                            <h4 class="text-size-20 text-blackColor dark:text-blackColor-dark font-semibold">
+                                               {{optional($latestProgress)->updated_at ? Carbon\Carbon::parse($latestProgress->updated_at)->locale('id')->isoFormat('D MMMM YYYY') : 'Belum ada progres'}}
+                                            </h4>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <!-- Deskripsi -->
+                                    {{-- <p
+                                        class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mt-2 mb-5">
+                                        More inquiry about course
+                                    </p>
+
+                                    <!-- Tombol -->
+                                    <button type="submit"
+                                        class="w-full text-xl text-primaryColor bg-white px-6 py-2 font-bold border border-primaryColor
+                                        hover:text-white hover:bg-primaryColor rounded dark:bg-whiteColor-dark dark:text-white dark:hover:bg-primaryColor">
+                                        <i class="icofont-phone"></i> +47 333 78 901
+                                    </button> --}}
+                                </div>
                             </div>
+
                         </div>
 
                         <!-- Social Media Section -->

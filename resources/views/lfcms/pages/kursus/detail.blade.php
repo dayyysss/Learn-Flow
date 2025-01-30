@@ -321,7 +321,7 @@
                                                                         class="form-control mb-3 w-full py-2 px-3 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
                                                                 </div>
 
-                                                                <div class="mb-3">
+                                                                {{-- <div class="mb-3">
                                                                     <label
                                                                         class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Pilih
                                                                         Jenis Video</label>
@@ -361,16 +361,16 @@
                                                                         Video Pembelajaran</label>
                                                                     <input type="file" name="video" accept="video/*"
                                                                         class="form-control mb-1 mt-3 w-full py-2 px-3 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
-                                                                </div>
+                                                                </div> --}}
 
-                                                                <div class="mb-3">
+                                                                {{-- <div class="mb-3">
                                                                     <label
                                                                         class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File
                                                                         Materi Pembelajaran</label>
                                                                     <input type="file" name="file"
                                                                         accept="image/*,application/pdf"
                                                                         class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" value="{{$modul->file}}">
-                                                                </div>
+                                                                </div> --}}
 
                                                                 <div>
                                                                     <label class="mb-3 block font-semibold">Materi</label>
@@ -424,7 +424,7 @@
                                                     class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
                                             </div>
 
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label
                                                     class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Pilih
                                                     Jenis Video</label>
@@ -457,9 +457,9 @@
                                                     Video Pembelajaran</label>
                                                 <input type="file" name="video" accept="video/*"
                                                     class="form-control mb-1 mt-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
-                                            </div>
+                                            </div> --}}
 
-                                            <div class="grid grid-cols-1 mb-15px gap-y-15px gap-x-30px">
+                                            {{-- <div class="grid grid-cols-1 mb-15px gap-y-15px gap-x-30px">
                                                 <div>
                                                     <label
                                                         class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File
@@ -467,7 +467,7 @@
                                                     <input type="file" name="file" accept="image/*,application/pdf"
                                                         class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             <div>
                                                 <label class="mb-3 block font-semibold">Materi</label>

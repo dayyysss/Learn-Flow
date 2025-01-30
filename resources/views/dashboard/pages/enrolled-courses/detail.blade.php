@@ -32,8 +32,8 @@
                                     <!-- Instructor Info -->
                                     <div class="flex items-center gap-3">
                                         <img style="width: 40px"
-                                            src="{{ $courseRegistration->course->instrukturs->image ? Storage::url($courseRegistration->course->instrukturs->image) : asset('assets/images/grid/grid_small_1.jpg') }}"
-                                            alt="Instructor" class="size-11 rounded-full dk-theme-card-square">
+                                            src="{{ optional($courseRegistration->course->instrukturs->first())->image ? Storage::url(optional($courseRegistration->course->instrukturs->first())->image) : asset('assets/images/avatar/default-avatar.png') }}"
+                                            alt="Instructor" class="size-11 border rounded-full dk-theme-card-square">
                                         <div class="flex flex-col gap-1">
                                             <p class="text-xs text-gray-500 dark:text-dark-text">Instruktur</p>
                                             <h6 class="text-heading">{{ $courseRegistration->course->instrukturs->name }}</h6>
@@ -82,7 +82,7 @@
                             <div class="tab-content-wrapper" data-aos="fade-up">
                                 <div class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                                     <div>
-                                        <div class="grid pt-15px">
+                                        <div class="grid">
                                             <div class="text-center flex flex-col items-start md:items-end gap-3">
                                                 @if ($nextProsesModul)
                                                     <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
@@ -128,7 +128,7 @@
                                         </h3>
                                     </div>
                                     <div>
-                                        <div class="grid pt-15px">
+                                        <div class="grid">
                                             <div class="text-center flex flex-col items-start md:items-end gap-3">
                                                 @if ($nextProsesModul)
                                                     <a href="{{ route('modul.detail', ['course' => $courseRegistration->course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
