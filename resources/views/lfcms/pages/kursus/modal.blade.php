@@ -109,7 +109,7 @@ window.onclick = function(event) {
 
 
 
-<div id="addModul" class="modal-back" style="display: none">
+{{-- <div id="addModul" class="modal-back" style="display: none">
     <div class="modal-content-modul">
         <span class="close-tambah-modul">&times;</span>
         <h3>Tambah Modul</h3>
@@ -161,7 +161,7 @@ window.onclick = function(event) {
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 
 <script>
     document.querySelectorAll('.openModalTambahModul').forEach(function(btn) {
