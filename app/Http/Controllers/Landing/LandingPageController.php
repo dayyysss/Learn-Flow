@@ -40,9 +40,10 @@ class LandingPageController extends Controller
         $testimonial = Testimonial::where('status', 'publik')->orderBy('created_at', 'desc')->take(2)->get();
         $klien = Client::where('status', 'publik')->take(5)->get();
         $categories = CategoryCourse::all(); 
-        $kategoriLanding = CategoryCourse::where('status', 'publik')->orderBy('created_at', 'desc')->take(4)->get();
+        $kategoriLanding = CategoryCourse::where('status', 'publik')->orderBy('created_at', 'desc')->take(3)->get();
+        $kategoriPopu = CategoryCourse::where('status', 'publik')->orderBy('created_at', 'desc')->take(4)->get();
     
-        return view('landing-page', compact('heroSection', 'course', 'aboutSection', 'kategoriLanding', 'artikel', 'klien', 'categories', 'testimonial', 'categorySection', 'testiSection'));
+        return view('landing-page', compact('heroSection', 'course', 'aboutSection', 'kategoriPopu', 'kategoriLanding', 'artikel', 'klien', 'categories', 'testimonial', 'categorySection', 'testiSection'));
     }
 
     public function about()
@@ -134,6 +135,13 @@ class LandingPageController extends Controller
         $category = CategoryArtikel::all();
 
         return view('landing.pages.zoom-webinars.zoom', compact('category'));
+    }
+
+    public function detailzoomWebinar()
+    {
+        $category = CategoryArtikel::all();
+
+        return view('landing.pages.zoom-webinars.zoom-detail', compact('category'));
     }
 
     public function event()

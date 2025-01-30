@@ -100,4 +100,9 @@ class Course extends Model
         return $this->hasMany(Feedback::class);
     }
 
+    public function roadmaps()
+    {
+        return $this->hasMany(roadmap::class);
+    }
+
 }

@@ -22578,3 +22578,8 @@ body {
 .\[\&\.visible\]\:\!block.visible{
   display: block !important;
 }
+
+#lineChart {
+    height: 300px;
+    /* Atur tinggi grafik sesuai kebutuhan */
+}
