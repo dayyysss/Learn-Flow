@@ -58,7 +58,7 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\LFCMS\CourseController as LFCMSCourseController;
 use App\Http\Controllers\LFCMS\RoadmapController;
-use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
+
 // Auth
 Route::get('/login', function () {
     return view('auth.login');
