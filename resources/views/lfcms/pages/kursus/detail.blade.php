@@ -1,5 +1,5 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'kursus | Learn Flow CMS')
+@section('page_title', 'Detail Kursus | Learn Flow CMS')
 @section('content')
 
     <div
@@ -237,7 +237,6 @@
                         </div>
                         <div id="courseImpression"></div>
                     </div>
-
                     @foreach ($course->babs as $index => $bab)
                         <div class="card">
                             <details>
@@ -245,8 +244,8 @@
                                     <td
                                         class="px-3.5 py-4 bg-[#F4F4F4] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                         <div class="flex items-center gap-2" style="justify-content: end">
-                                            <button class="btn-icon btn-primary-icon-light size-7 openModalTambahModul"
-                                                style="color: #0c63e4" data-bab-id="{{ $bab->id }}">
+                                            <button class="btn-icon btn-secondary-icon-light size-7 openModalTambahModul"
+                                                data-bab-id="{{ $bab->id }}">
                                                 <i class="btn ri-add-fill text-inherit"></i>
                                             </button>
 
@@ -254,10 +253,6 @@
                                                 data-id="{{ $bab->id }}">
                                                 <i class="btn ri-edit-2-line text-inherit"></i>
                                             </button>
-
-
-
-
                                             {{-- <a href="{{ route('babs.edit', $bab->id) }}"
                                                 class="btn-icon btn-primary-icon-light size-7">
                                                 <i class="ri-edit-2-line text-inherit text-[13px]"></i>
@@ -321,7 +316,7 @@
                                                                         class="form-control mb-3 w-full py-2 px-3 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
                                                                 </div>
 
-                                                                <div class="mb-3">
+                                                                {{-- <div class="mb-3">
                                                                     <label
                                                                         class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Pilih
                                                                         Jenis Video</label>
@@ -361,16 +356,16 @@
                                                                         Video Pembelajaran</label>
                                                                     <input type="file" name="video" accept="video/*"
                                                                         class="form-control mb-1 mt-3 w-full py-2 px-3 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
-                                                                </div>
+                                                                </div> --}}
 
-                                                                <div class="mb-3">
+                                                                {{-- <div class="mb-3">
                                                                     <label
                                                                         class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File
                                                                         Materi Pembelajaran</label>
                                                                     <input type="file" name="file"
                                                                         accept="image/*,application/pdf"
                                                                         class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md" value="{{$modul->file}}">
-                                                                </div>
+                                                                </div> --}}
 
                                                                 <div>
                                                                     <label class="mb-3 block font-semibold">Materi</label>
@@ -379,7 +374,8 @@
                                                                         cols="20" rows="10">{{ $modul->materi }}</textarea>
                                                                 </div>
 
-                                                                <input type="hidden" value="{{ $modul->bab_id }}" name="bab_id" id="bab_id-{{ $bab->id }}">
+                                                                <input type="hidden" value="{{ $modul->bab_id }}"
+                                                                    name="bab_id" id="bab_id-{{ $bab->id }}">
                                                             </div>
                                                         </div>
 
@@ -421,10 +417,10 @@
                                                     </div>
                                                 </div> --}}
                                                 <input type="text" name="name" placeholder="Modul Name"
-                                                    class="form-control mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
+                                                    class="form-control p-2 mb-3 w-full py-10px px-5 text-sm text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
                                             </div>
 
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label
                                                     class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">Pilih
                                                     Jenis Video</label>
@@ -457,9 +453,9 @@
                                                     Video Pembelajaran</label>
                                                 <input type="file" name="video" accept="video/*"
                                                     class="form-control mb-1 mt-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
-                                            </div>
+                                            </div> --}}
 
-                                            <div class="grid grid-cols-1 mb-15px gap-y-15px gap-x-30px">
+                                            {{-- <div class="grid grid-cols-1 mb-15px gap-y-15px gap-x-30px">
                                                 <div>
                                                     <label
                                                         class="text-xs uppercase text-placeholder block font-semibold text-opacity-50 leading-1.8">File
@@ -467,7 +463,7 @@
                                                     <input type="file" name="file" accept="image/*,application/pdf"
                                                         class="form-control mt-3 mb-3 w-full py-5px px-2 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border -2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md">
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             <div>
                                                 <label class="mb-3 block font-semibold">Materi</label>
@@ -480,7 +476,7 @@
 
                                     <input type="hidden" name="bab_id" id="bab_id-{{ $bab->id }}">
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn bg-indigo-700">Simpan</button>
+                                        <button type="submit" class="btn b-solid btn-primary-solid dk-theme-card-square">Simpan</button>
                                     </div>
                                 </form>
                             </div>
@@ -499,13 +495,8 @@
                             }
                         </script>
                     @endforeach
-
-
                 </div>
             </div>
-            <!-- End Course Overview Chart -->
-
-
         </div>
     </div>
 
@@ -655,26 +646,26 @@
         function deleteRecord(url) {
             if (confirm("Apakah Anda yakin ingin menghapus modul ini?")) {
                 fetch(url, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Modul berhasil dihapus!");
-                        location.reload(); // Refresh halaman setelah penghapusan
-                    } else {
-                        alert("Gagal menghapus modul: " + data.error);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Modul berhasil dihapus!");
+                            location.reload(); // Refresh halaman setelah penghapusan
+                        } else {
+                            alert("Gagal menghapus modul: " + data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             }
         }
     </script>
-    
+
 
 
 @endsection

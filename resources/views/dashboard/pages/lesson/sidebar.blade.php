@@ -72,6 +72,53 @@
                                             {!! $icon !!} <!-- Menampilkan ikon dengan border -->
                                         </li>
                                     @endforeach
+                                    @foreach ($bab->quiz as $index => $modul)
+                                        @php
+                                            $modulProgress = $modul
+                                                ->modul_progress()
+                                                ->where('course_registrations_id', $courseRegistration->id)
+                                                ->first();
+
+                                            // Default: ikon kunci abu-abu (belum ada progress)
+                                            $icon = '<i class="icofont-lock text-gray-500"></i>';
+
+                                            if ($modulProgress) {
+                                                if ($modulProgress->status == 'selesai') {
+                                                    // Ceklis hijau dengan border
+                                                    $icon = '<span class="text-green-500" style="color: green">
+                                                                    <i class="icofont-check-circled"></i>
+                                                                </span>';
+                                                } elseif ($modulProgress->status == 'proses') {
+                                                    // Timer kuning dengan border
+                                                    $icon = ' <span class="text-yellow-500" style="color: yellow">
+                                                                    <i class="icofont-clock-time"></i>
+                                                                </span>';
+                                                }
+                                            }
+                                        @endphp
+
+                                        <li
+                                            class="py-4 flex items-center justify-between flex-wrap border-b border-borderColor dark:border-borderColor-dark">
+                                            <div class="flex items-center">
+                                                
+                                                <h4
+                                                    class="ml-2 text-blackColor dark:text-blackColor-dark leading-1 font-light">
+                                                    <i class="icofont-video-alt mr-10px"></i>
+                                                    <a href="#" data-id="{{ $modul->id }}"
+                                                        data-slug="{{ $modul->slug }}"
+                                                        class="modul-link font-medium text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+                                                        {{ $modul->name }}
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div
+                                                class="text-blackColor dark:text-blackColor-dark text-sm flex items-center">
+                                                <p class="font-semibold">{{ $modul->duration }}</p>
+                                            </div>
+
+                                            {!! $icon !!} <!-- Menampilkan ikon dengan border -->
+                                        </li>
+                                    @endforeach
 
                                 </ul>
 

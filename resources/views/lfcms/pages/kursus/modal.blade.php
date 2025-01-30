@@ -9,13 +9,12 @@
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label text-sm font-medium text-gray-700">Nama Bab</label>
                 <input type="text"
-                    class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-13px sm:text-sm"
+                    class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 text-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     id="name" name="name" required>
             </div>
-
             <input type="hidden" name="course_id" id="course_id" value="{{ $course->id }}">
             <div class="modal-footer">
-                <button type="submit" class="btn bg-indigo-700">Simpan</button>
+                <button type="submit" class="btn b-solid btn-primary-solid dk-theme-card-square">Simpan</button>
             </div>
         </form>
     </div>
@@ -45,71 +44,71 @@
 </script>
 
 <div id="editBab{{ $bab->id }}" class="modal-back" style="display: none">
-  <div class="modal-content">
-      <div class="flex justify-between">
-          <h3>Edit Bab</h3>
-          <span class="close-edit cursor-pointer">&times;</span>
-      </div>
-      <form action="{{ route('babs.update', $bab->id) }}" method="POST" class="space-y-4">
-          @csrf
-          @method('PUT')
-          <div class="mb-3 mt-3">
-              <label for="name" class="form-label text-sm font-medium text-gray-700">Nama Bab</label>
-              <input type="text"
-                  class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-13px sm:text-sm"
-                  id="name" name="name" value="{{ $bab->name }}" required>
-          </div>
+    <div class="modal-content">
+        <div class="flex justify-between">
+            <h3>Edit Bab</h3>
+            <span class="close-edit cursor-pointer">&times;</span>
+        </div>
+        <form action="{{ route('babs.update', $bab->id) }}" method="POST" class="space-y-4">
+            @csrf
+            @method('PUT')
+            <div class="mb-3 mt-3">
+                <label for="name" class="form-label text-sm font-medium text-gray-700">Nama Bab</label>
+                <input type="text"
+                    class="form-control mt-1 block w-full border border-slate-400 rounded-md shadow-sm p-2 text-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    id="name" name="name" value="{{ $bab->name }}" required>
+            </div>
 
-          <input type="hidden" name="course_id" id="course_id" value="{{ $course->id }}">
-          <div class="modal-footer">
-              <button type="submit" class="btn bg-indigo-700">Simpan</button>
-          </div>
-      </form>
-  </div>
+            <input type="hidden" name="course_id" id="course_id" value="{{ $course->id }}">
+            <div class="modal-footer">
+                <button type="submit" class="btn b-solid btn-primary-solid dk-theme-card-square">Simpan</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
-  document.querySelectorAll('[id^="openEditModal"]').forEach(function(button) {
-    button.addEventListener('click', function() {
-        var babId = this.getAttribute('data-id'); // Ambil ID bab
-        console.log('Mencoba membuka modal dengan ID:', 'editBab' + babId);
-        var modal = document.getElementById('editBab' + babId); // Dapatkan modal dengan ID sesuai babId
-        
-        if (modal) { // Pastikan modal ada
-            modal.style.display = 'flex'; // Tampilkan modal
-        } else {
-            console.log('Modal tidak ditemukan dengan ID:', 'editBab' + babId); // Debugging
-        }
+    document.querySelectorAll('[id^="openEditModal"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var babId = this.getAttribute('data-id'); // Ambil ID bab
+            console.log('Mencoba membuka modal dengan ID:', 'editBab' + babId);
+            var modal = document.getElementById('editBab' +
+            babId); // Dapatkan modal dengan ID sesuai babId
+
+            if (modal) { // Pastikan modal ada
+                modal.style.display = 'flex'; // Tampilkan modal
+            } else {
+                console.log('Modal tidak ditemukan dengan ID:', 'editBab' + babId); // Debugging
+            }
+        });
     });
-});
 
 
-// Menambahkan event listener untuk menutup modal
-document.querySelectorAll('.close-edit').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var modal = this.closest('.modal-back');
-        if (modal) { // Pastikan modal ada
-            modal.style.display = 'none'; // Sembunyikan modal
-        }
+    // Menambahkan event listener untuk menutup modal
+    document.querySelectorAll('.close-edit').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var modal = this.closest('.modal-back');
+            if (modal) { // Pastikan modal ada
+                modal.style.display = 'none'; // Sembunyikan modal
+            }
+        });
     });
-});
 
-// Menutup modal jika klik di luar konten modal
-window.onclick = function(event) {
-    var modals = document.querySelectorAll('.modal-back');
-    modals.forEach(function(modal) {
-        if (event.target === modal) {
-            modal.style.display = 'none'; // Menutup modal saat klik di luar konten modal
-        }
-    });
-};
-
+    // Menutup modal jika klik di luar konten modal
+    window.onclick = function(event) {
+        var modals = document.querySelectorAll('.modal-back');
+        modals.forEach(function(modal) {
+            if (event.target === modal) {
+                modal.style.display = 'none'; // Menutup modal saat klik di luar konten modal
+            }
+        });
+    };
 </script>
 
 
 
 
-<div id="addModul" class="modal-back" style="display: none">
+{{-- <div id="addModul" class="modal-back" style="display: none">
     <div class="modal-content-modul">
         <span class="close-tambah-modul">&times;</span>
         <h3>Tambah Modul</h3>
@@ -161,7 +160,7 @@ window.onclick = function(event) {
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 
 <script>
     document.querySelectorAll('.openModalTambahModul').forEach(function(btn) {
@@ -194,50 +193,50 @@ window.onclick = function(event) {
     };
 </script>
 <script>
-  // Fungsi untuk membuka modal edit sesuai modul_id
-  document.querySelectorAll('.openModalEditModul').forEach(function(btn) {
-      btn.onclick = function() {
-          var modulId = btn.getAttribute('data-modul-id');
-          var modal = document.getElementById('editModul-' + modulId);
+    // Fungsi untuk membuka modal edit sesuai modul_id
+    document.querySelectorAll('.openModalEditModul').forEach(function(btn) {
+        btn.onclick = function() {
+            var modulId = btn.getAttribute('data-modul-id');
+            var modal = document.getElementById('editModul-' + modulId);
 
-          if (modal) {
-              modal.style.display = "flex";
-          } else {
-              console.error("Modal tidak ditemukan untuk modul_id: ", modulId);
-          }
-      };
-  });
+            if (modal) {
+                modal.style.display = "flex";
+            } else {
+                console.error("Modal tidak ditemukan untuk modul_id: ", modulId);
+            }
+        };
+    });
 
-  // Menutup modal saat klik tombol close
-  document.querySelectorAll('.close-edit-modul').forEach(function(btn) {
-      btn.onclick = function() {
-          var modal = btn.closest('.modal-back');
-          modal.style.display = "none";
-      };
-  });
+    // Menutup modal saat klik tombol close
+    document.querySelectorAll('.close-edit-modul').forEach(function(btn) {
+        btn.onclick = function() {
+            var modal = btn.closest('.modal-back');
+            modal.style.display = "none";
+        };
+    });
 
-  // Menutup modal jika klik di luar konten modal
-  window.onclick = function(event) {
-      document.querySelectorAll('.modal-back').forEach(function(modal) {
-          if (event.target == modal) {
-              modal.style.display = "none";
-          }
-      });
-  };
+    // Menutup modal jika klik di luar konten modal
+    window.onclick = function(event) {
+        document.querySelectorAll('.modal-back').forEach(function(modal) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    };
 
-  // Fungsi untuk menampilkan input URL atau File berdasarkan pilihan radio button
-  function toggleVideoInput(type, modulId) {
-      var urlSection = document.getElementById('video-url-section-' + modulId);
-      var fileSection = document.getElementById('video-file-section-' + modulId);
+    // Fungsi untuk menampilkan input URL atau File berdasarkan pilihan radio button
+    function toggleVideoInput(type, modulId) {
+        var urlSection = document.getElementById('video-url-section-' + modulId);
+        var fileSection = document.getElementById('video-file-section-' + modulId);
 
-      if (type === 'url') {
-          urlSection.classList.remove('hidden');
-          fileSection.classList.add('hidden');
-      } else if (type === 'file') {
-          urlSection.classList.add('hidden');
-          fileSection.classList.remove('hidden');
-      }
-  }
+        if (type === 'url') {
+            urlSection.classList.remove('hidden');
+            fileSection.classList.add('hidden');
+        } else if (type === 'file') {
+            urlSection.classList.add('hidden');
+            fileSection.classList.remove('hidden');
+        }
+    }
 </script>
 
 <style>

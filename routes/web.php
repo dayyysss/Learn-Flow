@@ -57,6 +57,8 @@ use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\LFCMS\CourseController as LFCMSCourseController;
+use App\Http\Controllers\LFCMS\RoadmapController;
+use App\Http\Controllers\LFCMS\WebsiteConfigurationController;
 // Auth
 Route::get('/login', function () {
     return view('auth.login');
@@ -92,7 +94,7 @@ Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name
 Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
 //apexchart
-Route::get('/visitor-count', [DashboardController::class, 'visitor']);
+Route::get('/visitor-count', [DashboardCMSController::class, 'visitor']);
 
 // Landing Page
 Route::controller(LandingPageController::class)->group(function () {
@@ -196,8 +198,33 @@ Route::prefix('lfcms')
         Route::post('/website/kontak', [WebsiteConfigurationController::class, 'storeKontak'])->name('konfigurasi.kontak');
         Route::post('/website/Sosial-media', [WebsiteConfigurationController::class, 'storeSosial'])->name('konfigurasi.sosialMedia');
 
+        Route::resource('/roadmap', RoadmapController::class);
+        Route::post('/roadmaps/update-order', [RoadmapController::class, 'updateOrder'])->name('roadmaps.updateOrder');
+
+
         Route::resource('/kursus', LFCMSCourseController::class);
         Route::get('/kursus/{slug}', [LFCMSCourseController::class, 'show'])->name('kursus.detail');
+        
+        // bulk 
+        Route::post('/halaman/bulk-delete', [PageController::class, 'bulkDelete'])->name('halaman.bulkDelete');
+        Route::post('/halaman/bulk-draft', [PageController::class, 'bulkDraft'])->name('halaman.bulkDraft');
+        Route::post('/halaman/bulk-publish', [PageController::class, 'bulkPublish'])->name('halaman.bulkPublish');
+        
+        Route::post('/klien/bulk-delete', [ClientController::class, 'bulkDelete'])->name('klien.bulkDelete');
+        Route::post('/klien/bulk-draft', [ClientController::class, 'bulkDraft'])->name('klien.bulkDraft');
+        Route::post('/klien/bulk-publish', [ClientController::class, 'bulkPublish'])->name('klien.bulkPublish');
+        
+        Route::post('/kontak/bulk-delete', [ContactController::class, 'bulkDelete'])->name('kontak.bulkDelete');
+        Route::post('/kontak/bulk-draft', [ContactController::class, 'bulkDraft'])->name('kontak.bulkDraft');
+        Route::post('/kontak/bulk-publish', [ContactController::class, 'bulkPublish'])->name('kontak.bulkPublish');
+        
+        Route::post('/testimonial/bulk-delete', [TestimonialController::class, 'bulkDelete'])->name('testimonial.bulkDelete');
+        Route::post('/testimonial/bulk-draft',  [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
+        Route::post('/testimonial/bulk-publish',[TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
+        
+        Route::post('/artikel/bulk-delete', [ArtikelController::class, 'bulkDelete'])->name('artikel.bulkDelete');
+        Route::post('/artikel/bulk-draft',  [ArtikelController::class, 'bulkDraft'])->name('artikel.bulkDraft');
+        Route::post('/artikel/bulk-publish',[ArtikelController::class, 'bulkPublish'])->name('artikel.bulkPublish');
     });
 
 // Detail Course

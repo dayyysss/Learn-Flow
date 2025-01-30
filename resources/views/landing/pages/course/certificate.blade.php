@@ -3,15 +3,15 @@
 @section('content')
 
     <div class="">
-        <div class="bg-lightGrey10 dark:bg-lightGrey10-dark relative z-0 overflow-y-visible 2xl:pb-150px 2xl:pt-40.5">
+        <div class="bg-lightGrey10 dark:bg-lightGrey10-dark relative z-0 overflow-y-visible">
             <!-- animated icons -->
             <div>
                 <img class="absolute left-0 bottom-0 md:left-[14px] lg:left-[50px] lg:bottom-[21px] 2xl:left-[165px] 2xl:bottom-[60px] animate-move-var z-10"
                     src="{{ asset('assets/images/herobanner/herobanner__1.png') }}" alt="">
                 <img class="absolute left-0 top-0 lg:left-[50px] lg:top-[100px] animate-spin-slow"
                     src="{{ asset('assets/images/herobanner/herobanner__2.png') }}" alt="">
-                <img class="absolute right-[30px] top-0 md:right-10 lg:right-[575px] 2xl:top-20 animate-move-var2 opacity-50 hidden md:block"
-                    src="{{ asset('assets/images/herobanner/herobanner__3.png') }}" alt="">
+                {{-- <img class="absolute right-[30px] top-0 md:right-10 lg:right-[575px] 2xl:top-20 animate-move-var2 opacity-50 hidden md:block"
+                    src="{{ asset('assets/images/herobanner/herobanner__3.png') }}" alt=""> --}}
                 <img class="absolute right-[30px] top-[212px] md:right-10 md:top-[157px] lg:right-[45px] lg:top-[100px] animate-move-hor"
                     src="{{ asset('assets/images/herobanner/herobanner__5.png') }}" alt="">
             </div>
@@ -23,10 +23,10 @@
                         <div class="w-full">
                             <div class="p-6 text-center mb-10">
                                 <!-- Displaying PDF Certificate -->
-                                <iframe id="openModal" src="{{ route('viewCertificate', $course->courseRegistrations->first()->certificate_id) }}#toolbar=0&navpanes=0"
+                                <iframe id="openModal"
+                                    src="{{ route('viewCertificate', $course->courseRegistrations->first()->certificate_id) }}#toolbar=0&navpanes=0"
                                     class="flex ml-auto mr-auto mt-10 justify-center" width="605px" height="425">
                                 </iframe>
-                                
                                 <br>
                                 <!-- Download button (commented out) -->
                                 {{-- <button
@@ -35,17 +35,10 @@
                                 >
                                     Lihat Sertifikat
                                 </button> --}}
-
-
                                 <a href="{{ route('downloadCertificate', $course->id) }}"
                                     class="inline-block px-6 py-2 font-semibold rounded text-whiteColor bg-primaryColor border-primaryColor border hover:text-primaryColor hover:bg-white rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
                                     Download PDF
                                 </a>
-
-                            </div>
-
-                            <div>
-                                tes
                             </div>
                         </div>
                     </div>
@@ -61,7 +54,8 @@
                 <div class="lg:col-start-1 lg:col-span-9 space-y-[35px]">
                     <div>
                         <div class="flex gap-10 text-2xl capitalize">
-                            <img src="{{ asset('storage/' . $course->thumbnail) }}" width="250px" alt="">
+                            <img src="{{ asset('storage/' . $course->thumbnail) }}" width="250px" height="200px"
+                                style="height:200px" alt="">
                             <div class="flex flex-col justify-between">
                                 <!-- Rating Stars -->
                                 <div class="text-start">
@@ -89,7 +83,7 @@
                                 <div class="flex-grow"></div>
                                 <div class="flex justify-end items-end mt-auto">
                                     <a class="text-sm lg:text-base text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
-                                        href="{{ route('course.detail', $course->slug) }}">Know Details
+                                        href="{{ route('course.detail', $course->slug) }}">Lihat detail kelas
                                         <i class="icofont-arrow-right"></i>
                                     </a>
                                 </div>
@@ -111,14 +105,48 @@
                             data-aos="fade-up">
                             <!-- Contact Info -->
                             <div class="mt-5" data-aos="fade-up">
-                                <p
-                                    class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mb-5px">
-                                    More inquiry about course
-                                </p>
-                                <button type="submit"
-                                    class="w-full text-xl text-primaryColor bg-whiteColor px-25px py-10px mb-10px font-bold leading-1.8 border border-primaryColor hover:text-whiteColor hover:bg-primaryColor inline-block rounded group dark:bg-whiteColor-dark dark:text-whiteColor dark:hover:bg-primaryColor">
-                                    <i class="icofont-phone"></i> +47 333 78 901
-                                </button>
+                                <div class="flex flex-col items-center text-center">
+                                    <!-- Avatar dan Nama -->
+                                    <div class="flex flex-col items-center">
+                                        <img src="{{ asset('storage/' . $course->thumbnail) }}"
+                                            class="w-20 h-20 rounded-full object-cover border-2 border-gray-300 mx-auto"
+                                            alt="Thumbnail">
+                                        <h4 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold mt-3">
+                                            {{ optional($course->courseRegistrations->first()->user)->first_name . ' ' . optional($course->courseRegistrations->first()->user)->last_name ?? 'Tidak ada pengguna' }}
+                                        </h4>
+
+                                        <div>
+                                            <p
+                                                class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mt-2 ">
+                                                Id Sertifikat
+                                            </p>
+                                            <h4
+                                                class="text-size-20 text-blackColor dark:text-blackColor-dark font-semibold ">
+                                                {{ $course->courseRegistrations->first()->certificate_id ?? 'Id tidak ditemukan' }}
+                                            </h4>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mt-2 ">
+                                                Diberikan pada
+                                            </p>
+                                            <h4
+                                                class="text-size-20 text-blackColor dark:text-blackColor-dark font-semibold">
+                                                {{ optional($latestProgress)->updated_at ? Carbon\Carbon::parse($latestProgress->updated_at)->locale('id')->isoFormat('D MMMM YYYY') : 'Belum ada progres' }}
+                                            </h4>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-sm text-contentColor dark:text-contentColor-dark leading-1.8 text-center mt-2 ">
+                                                Berlaku sampai
+                                            </p>
+                                            <h4
+                                                class="text-size-20 text-blackColor dark:text-blackColor-dark font-semibold">
+                                                {{ optional($latestProgress)->updated_at ? Carbon\Carbon::parse($latestProgress->updated_at)->locale('id')->isoFormat('D MMMM YYYY') : 'Belum ada progres' }}
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -127,10 +155,10 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Follow Us
+                                Bagikan sertifikat:
                             </h4>
                             <div>
-                                <ul class="flex gap-4 items-center">
+                                <ul class="flex gap-3 items-center">
                                     <li>
                                         <a href="#"
                                             class="w-38px h-38px leading-38px text-center text-blackColor2 bg-whitegrey2 hover:text-whiteColor hover:bg-primaryColor dark:bg-whitegrey2-dark dark:text-blackColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor rounded">
@@ -170,24 +198,24 @@
                             data-aos="fade-up">
                             <h4
                                 class="text-size-22 text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-primaryColor before:absolute before:bottom-[5px] before:left-0 leading-30px mb-25px">
-                                Contact Us
+                                Kontak Kami
                             </h4>
                             <div>
                                 <ul class="flex flex-col gap-5">
                                     <!-- Phone Number -->
                                     <li class="flex items-start">
-                                        <i class="icofont-ui-call mr-2"></i>
-                                        <p>+47 333 78 901</p>
+                                        <i class="icofont-ui-call mr-2 mt-2"></i>
+                                        <p>+6289604688651</p>
                                     </li>
                                     <!-- Email -->
                                     <li class="flex items-start">
-                                        <i class="icofont-email mr-2"></i>
-                                        <p>example@email.com</p>
+                                        <i class="icofont-email mr-2 mt-2"></i>
+                                        <p>info.learnflow@gmail.com</p>
                                     </li>
                                     <!-- Address -->
                                     <li class="flex items-start">
-                                        <i class="icofont-google-map mr-2"></i>
-                                        <p>Street Name, City, Country</p>
+                                        <i class="icofont-google-map mr-2 mt-2"></i>
+                                        <p>Jalan Ciomas, Bogor, Las Venturas</p>
                                     </li>
                                 </ul>
                             </div>

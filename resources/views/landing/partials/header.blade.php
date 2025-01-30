@@ -26,7 +26,7 @@
                             <div>
                                 <p>
                                     <i class="icofont-location-pin text-primaryColor text-size-15 mr-5px"></i>
-                                    <span>684 Taman Pagelaran Street. Ciomas, ID</span>
+                                    <span>684 Jalan Taman Pagelaran. Ciomas, ID</span>
                                 </p>
                             </div>
                             <div>

@@ -951,12 +951,12 @@
                                 @else
                                     <!-- Tombol Mulai Belajar jika pengguna sudah terdaftar -->
                                     @if ($nextProsesModul)
-                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $nextProsesModul->modul->slug]) }}"
+                                        <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
                                             class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             Lanjutkan
                                         </a>
                                     @elseif ($lastAccessedModul)
-                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $lastAccessedModul->modul->slug]) }}"
+                                        <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
                                             class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
                                             Lanjutkan
                                         </a>

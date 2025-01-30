@@ -10,6 +10,7 @@ use BaconQrCode\Writer;
 use BaconQrCode\Renderer\Image\Png;
 use App\Models\Course;
 use App\Models\CourseRegistration;
+use App\Models\ModulProgress;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
@@ -23,12 +24,17 @@ class CertificateController extends Controller
     public function show($certificateId)
     {
         // Ambil data registrasi kursus berdasarkan certificate_id
-        $courseRegistration = CourseRegistration::where('certificate_id', $certificateId)->firstOrFail();
+        $courseRegistration = CourseRegistration::where('certificate_id', $certificateId)->with('user')->firstOrFail();
         $course = $courseRegistration->course;
+
+        $latestProgress = ModulProgress::whereIn('modul_id', $course->moduls->pluck('id'))
+                               ->latest('updated_at')
+                               ->first();
+
 
         // Pastikan pengguna yang login memiliki akses ke kursus ini
       
-            return view('landing.pages.course.certificate', compact('course'));
+            return view('landing.pages.course.certificate', compact('course', 'latestProgress'));
        
     }
 
@@ -42,6 +48,7 @@ class CertificateController extends Controller
         $fullName = $user->first_name . ' ' . $user->last_name;
         $completionDate = now()->format('d F Y');
         $courseName = $course->name;
+        $instruktur = $course->instrukturs->name;
         $certificateId = $courseRegistration->certificate_id;
 
         $certificate = $course->certificate()->first();
@@ -61,9 +68,12 @@ class CertificateController extends Controller
         }
 
         // Generate QR Code using Endroid QR Code Builder
+
+        $url = route('certificate.index', ['certificateId' => $certificateId]);
+
         $builder = new Builder(
             writer: new PngWriter(),
-            data: 'http://127.0.0.1:8000/certificate/' . $certificateId,
+            data: $url,
             encoding: new Encoding('UTF-8'),
             errorCorrectionLevel: ErrorCorrectionLevel::High,
             size: 300,
@@ -101,6 +111,11 @@ class CertificateController extends Controller
         $pdf->SetTextColor(0, 102, 204);
         $pdf->SetXY(105, 155);
         $pdf->Cell(0, 10, $courseName, 0, 1, 'L');
+
+        $pdf->SetFont('Helvetica', '', 20);
+        $pdf->SetTextColor(0, 102, 204);
+        $pdf->SetXY(200, 200);
+        $pdf->Cell(0, 10, $instruktur, 0, 1, 'L');
 
         $pdf->SetFont('Helvetica', 'I', 20);
         $pdf->SetTextColor(128, 128, 128);
