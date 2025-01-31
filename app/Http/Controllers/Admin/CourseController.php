@@ -491,26 +491,55 @@ class CourseController extends Controller
     }
 
     public function updateModulStatus(Request $request)
-    {
-        $modulId = $request->input('modulId');
-        $user = auth()->user();
+{
+    $modulId = $request->input('modulId');
+    $courseId = $request->input('courseId'); // Pastikan course_id dikirim dari frontend
+    $user = auth()->user();
 
-        $courseRegistration = CourseRegistration::where('user_id', $user->id)->first();
+    \Log::info('Request masuk ke updateModulStatus', [
+        'modulId' => $modulId,
+        'courseId' => $courseId,
+        'userId' => $user->id
+    ]);
 
-        if ($courseRegistration) {
-            // Cari progress modul berdasarkan modul ID dan course_registrations_id
-            $modulProgress = ModulProgress::where('modul_id', $modulId)
-                ->where('course_registrations_id', $courseRegistration->id)
-                ->first();
+    // Ambil course_registration berdasarkan user_id & course_id
+    $courseRegistration = CourseRegistration::where('user_id', $user->id)
+        ->where('course_id', $courseId)
+        ->first();
 
-            if ($modulProgress && $modulProgress->status === 'proses') {
-                // Perbarui status menjadi selesai
+    if ($courseRegistration) {
+        \Log::info('Course registration ditemukan', ['courseRegistrationId' => $courseRegistration->id]);
+
+        // Ambil progres modul berdasarkan modul_id & course_registrations_id
+        $modulProgress = ModulProgress::where('modul_id', $modulId)
+            ->where('course_registrations_id', $courseRegistration->id)
+            ->first();
+
+        if ($modulProgress) {
+            \Log::info('Modul progress ditemukan', ['status sebelum update' => $modulProgress->status]);
+
+            if ($modulProgress->status === 'proses') {
                 $modulProgress->update(['status' => 'selesai']);
-            }
-        }
 
-        return response()->json(['success' => true]);
+                // Cek apakah update berhasil
+                $updatedModulProgress = ModulProgress::find($modulProgress->id);
+                \Log::info('Status setelah update:', ['status' => $updatedModulProgress->status]);
+            }
+        } else {
+            \Log::warning('Modul progress tidak ditemukan', ['modulId' => $modulId]);
+        }
+    } else {
+        \Log::warning('Course registration tidak ditemukan', [
+            'userId' => $user->id,
+            'courseId' => $courseId
+        ]);
     }
+
+    return response()->json(['success' => true]);
+}
+
+
+
 
 
 

@@ -13,31 +13,19 @@ class RoadmapController extends Controller
 
     public function index(Request $request)
 {
+    $courses = Course::all();
     $categories = CategoryCourse::all();
 
-    // Defaultkan kategori yang dipilih jika tidak ada di request
+    // Ambil kategori yang dipilih dari request, jika tidak ada pilih kategori pertama
     $selectedCategoryId = $request->input('category_id', $categories->first()->id ?? null);
 
-    if ($request->ajax()) {
-        // Ambil roadmap berdasarkan kategori yang dipilih
-        $roadmaps = Roadmap::whereHas('courses', function ($query) use ($selectedCategoryId) {
-            $query->where('categories_id', $selectedCategoryId);
-        })->get();
+    // Ambil roadmap yang sesuai dengan categoryCourse_id dari course yang dipilih
+    $roadmaps = Roadmap::whereHas('courses', function ($query) use ($selectedCategoryId) {
+        $query->where('categories_id', $selectedCategoryId);
+    })->get();
 
-        // Kirim data roadmap dan kategori yang dipilih dalam format JSON
-        return response()->json([
-            'roadmaps' => $roadmaps,
-            'selectedCategoryId' => $selectedCategoryId
-        ]);
-    }
-
-    // Ambil semua course jika bukan permintaan AJAX
-    $courses = Course::all();
-
-    return view('lfcms.pages.roadmap.index', compact('courses', 'categories', 'selectedCategoryId'));
+    return view('lfcms.pages.roadmap.index', compact('courses', 'categories', 'roadmaps', 'selectedCategoryId'));
 }
-
-    
 
 
 

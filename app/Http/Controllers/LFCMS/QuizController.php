@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Quiz;
+namespace App\Http\Controllers\LFCMS;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bab;
 use App\Models\Course;
+use App\Models\Option;
+use App\Models\Question;
 use App\Models\Quiz;
-use DateTime;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class QuizController extends Controller
@@ -46,9 +44,9 @@ class QuizController extends Controller
             'name' => 'required',
             'course_id' => 'required|exists:courses,id',
             'bab_id' => 'required|exists:babs,id',
-            'waktu' => 'required', // Validasi format waktu
-            // 'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
-            'description' => 'required', // Perbaikan aturan validasi
+            'start_time' => 'required',
+            'end_time' => 'required|after:start_time',
+            'description' => 'required',
         ]);
 
         $cleanDescription = strip_tags($request->description);
@@ -66,8 +64,8 @@ class QuizController extends Controller
                 'slug' => $slug,
                 'course_id' => $request->course_id,
                 'bab_id' => $request->bab_id,
-                'waktu' => $request->waktu,
-                // 'end_time' => $request->end_time,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
                 'description' => $cleanDescription,
             ]);
 
@@ -82,7 +80,7 @@ class QuizController extends Controller
                 ->withInput();
         }
 
-        return redirect()->route('quiz.index')->with('success', 'Quiz created successfully.');
+        return redirect()->back()->with('success', 'Quiz created successfully.');
     }
 
 
@@ -102,8 +100,8 @@ class QuizController extends Controller
             'name' => 'required',
             'course_id' => 'required|exists:courses,id',
             'bab_id' => 'required|exists:babs,id',
-            'waktu' => 'required', // Format waktu
-            // 'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
+            'start_time' => 'required', // Format waktu
+            'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
             'description' => 'required',
         ]);
 
@@ -123,8 +121,8 @@ class QuizController extends Controller
             'slug' => $slug,
             'course_id' => $request->course_id,
             'bab_id' => $request->bab_id,
-            'waktu' => $request->waktu,
-            // 'end_time' => $request->end_time,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
             'description' => $cleanDescription,
         ]);
 
@@ -155,4 +153,108 @@ class QuizController extends Controller
         // Mengembalikan response dalam format JSON untuk digunakan di frontend
         return response()->json($babs);
     }
+
+    public function showQuiz($slug)
+    {
+        // Ambil quiz berdasarkan slug beserta relasi pertanyaan dan opsi jawabannya
+        $quiz = Quiz::with(['questions.options', 'quizResults', 'course', 'bab'])
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        return view('lfcms.pages.kursus.quiz', compact('quiz'));
+    }
+
+    public function storeQuestion(Request $request, $quizId)
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'question' => 'required',
+            'option_a' => 'required',
+            'option_b' => 'required',
+            'option_c' => 'required',
+            'option_d' => 'required',
+            'option_e' => 'nullable', // Opsi E bisa kosong
+            'correct_answer' => 'required', // Validasi correct_answer sesuai dengan opsi
+            'score' => 'required|numeric|min:1',
+        ]);
+
+        try {
+            // Simpan pertanyaan
+            $question = Question::create([
+                'quiz_id' => $quizId,
+                'question' => $validated['question'],
+                'score' => $validated['score'],
+            ]);
+
+            // Simpan opsi jawaban
+            Option::create([
+                'question_id' => $question->id,
+                'option_a' => $validated['option_a'],
+                'option_b' => $validated['option_b'],
+                'option_c' => $validated['option_c'],
+                'option_d' => $validated['option_d'],
+                'option_e' => $validated['option_e'] ?? null,  // Jika option_e tidak diisi, maka null
+                'correct_answer' => $validated['correct_answer'], // Menyimpan correct_answer sesuai pilihan
+            ]);
+
+            // Redirect dengan pesan sukses
+            return redirect()->back()->with('success', 'Pertanyaan berhasil ditambahkan');
+        } catch (\Exception $e) {
+            // Jika terjadi error, redirect dengan pesan error
+            return redirect()->back()->withErrors(['error' => 'Gagal menambahkan pertanyaan: ' . $e->getMessage()]);
+        }
+    }
+
+    public function updateQuestion(Request $request, $id)
+{
+    // Validasi input
+    $validated = $request->validate([
+        'question' => 'required',
+        'option_a' => 'required',
+        'option_b' => 'required',
+        'option_c' => 'required',
+        'option_d' => 'required',
+        'option_e' => 'nullable',
+        'correct_answer' => 'required',
+        'score' => 'required|numeric|min:1',
+    ]);
+
+    try {
+        // Update pertanyaan
+        $question = Question::findOrFail($id);
+        $question->update([
+            'question' => $validated['question'],
+            'score' => $validated['score'],
+        ]);
+
+        // Update opsi jawaban
+        $question->options()->update([
+            'option_a' => $validated['option_a'],
+            'option_b' => $validated['option_b'],
+            'option_c' => $validated['option_c'],
+            'option_d' => $validated['option_d'],
+            'option_e' => $validated['option_e'] ?? null,
+            'correct_answer' => $validated['correct_answer'],
+        ]);
+
+        return redirect()->back()->with('success', 'Pertanyaan berhasil diperbarui');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => 'Gagal memperbarui pertanyaan: ' . $e->getMessage()]);
+    }
+}
+
+public function deleteQuestion($id)
+{
+    try {
+        $question = Question::findOrFail($id);
+        $question->options()->delete(); // Hapus opsi terlebih dahulu
+        $question->delete(); // Hapus pertanyaan
+
+        return redirect()->back()->with('success', 'Pertanyaan berhasil dihapus');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => 'Gagal menghapus pertanyaan: ' . $e->getMessage()]);
+    }
+}
+
+    
 }

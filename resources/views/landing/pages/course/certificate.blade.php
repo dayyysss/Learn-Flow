@@ -35,7 +35,7 @@
                                 >
                                     Lihat Sertifikat
                                 </button> --}}
-                                <a href="{{ route('downloadCertificate', $course->id) }}"
+                                <a href="{{ route('downloadCertificate', $course->courseRegistrations->first()->certificate_id) }}"
                                     class="inline-block px-6 py-2 font-semibold rounded text-whiteColor bg-primaryColor border-primaryColor border hover:text-primaryColor hover:bg-white rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
                                     Download PDF
                                 </a>
