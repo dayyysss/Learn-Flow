@@ -350,6 +350,8 @@ Route::middleware(['auth'])
 
         Route::get('/start-quiz/{id}', [StartQuizController::class, 'index'])->name('startQuiz.index');
 
+        Route::post('/submit-quiz', [StartQuizController::class, 'submitQuiz'])->name('submit.quiz');
+
         //wishlist
         Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlists.store');
         Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
