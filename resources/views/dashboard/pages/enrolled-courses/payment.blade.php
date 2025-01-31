@@ -47,16 +47,9 @@
                     <label for="promo-code" class="block text-sm font-semibold">Kode Promo</label>
                     <span class="text-gray-500" data-toggle="popover" data-placement="right" data-trigger="hover"
                         data-content="Kode promo bisa Anda dapatkan dari penawaran melalui email, sosial media, dsb.">
-                        <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline-block">
-                            <path
-                                d="M10 11C10 10.4477 10.4477 10 11 10H12C12.5523 10 13 10.4477 13 11V15C13.5523 15 14 15.4477 14 16C14 16.5523 13.5523 17 13 17H12C11.4477 17 11 16.5523 11 16V12C10.4477 12 10 11.5523 10 11Z"
-                                fill="#3F3F46"></path>
-                            <path
-                                d="M12 9C12.5523 9 13 8.55229 13 8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8C11 8.55229 11.4477 9 12 9Z"
-                                fill="#3F3F46"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4Z"
-                                fill="#3F3F46"></path>
+                        <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            class="inline-block">
+                            <!-- Icon SVG -->
                         </svg>
                     </span>
                 </div>
@@ -79,6 +72,7 @@
                 </div>
             </div>
 
+
             <!-- Total Harga -->
             <div class="bg-white rounded-lg p-4 mb-6 border border-gray-300">
                 <div class="font-semibold text-lg flex justify-between mb-3">
@@ -94,6 +88,21 @@
             </div>
         </form>
 
+        <!-- Modal Daftar Promo -->
+        <div id="modal-for-promos" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden justify-center items-center">
+            <div class="bg-white p-6 rounded-lg w-96">
+                <h2 class="text-xl font-semibold mb-4">Daftar Promo</h2>
+                <div id="promo-list" class="space-y-4">
+                    <!-- Daftar promo akan ditampilkan di sini -->
+                </div>
+                <div class="mt-4 text-right">
+                    <button id="close-modal"
+                        class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Status Pembayaran -->
         <p id="payment-status" class="text-center text-lg mt-4 font-semibold"></p>
 
@@ -102,9 +111,9 @@
     <script src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ config('services.midtrans.client_key') }}"></script>
     <script type="text/javascript">
-        document.getElementById('pay-button').onclick = function () {
+        document.getElementById('pay-button').onclick = function() {
             snap.pay("{{ $snapToken }}", {
-                onSuccess: function (result) {
+                onSuccess: function(result) {
                     document.getElementById('payment-status').innerText = 'Pembayaran berhasil!';
 
                     // Kirim data ke backend
@@ -114,12 +123,12 @@
                     formData.append('status_pembayaran', result.transaction_status); // Status transaksi
 
                     fetch("/payment/update-method", {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                        }
-                    })
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                            }
+                        })
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'redirect') {
@@ -137,18 +146,87 @@
                         })
                         .catch(error => console.error("Error:", error));
                 },
-                onPending: function (result) {
+                onPending: function(result) {
                     alert("Pembayaran pending.");
                     document.getElementById('payment-status').innerText = 'Pembayaran pending.';
                     console.log(result);
                 },
-                onError: function (result) {
+                onError: function(result) {
                     alert("Pembayaran gagal.");
                     document.getElementById('payment-status').innerText = 'Pembayaran gagal.';
                     console.log(result);
                 },
             });
         };
+
+        document.getElementById('apply-promo-code').addEventListener('click', function() {
+            var promoCode = document.getElementById('promo-code').value;
+
+            if (!promoCode) {
+                alert("Silakan masukkan kode promo.");
+                return;
+            }
+
+            // Kirimkan kode promo ke backend untuk mendapatkan diskon
+            fetch(`/apply-promo/${promoCode}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update UI dengan informasi diskon
+                        document.getElementById('discount-amount').innerText = `Rp ${data.discountAmount}`;
+                        document.getElementById('cashback-amount').innerText = `Rp ${data.cashbackAmount}`;
+                        document.getElementById('discount-info').style.display = 'block';
+                        document.getElementById('cashback-info').style.display = 'block';
+                    } else {
+                        alert(data.message || "Kode promo tidak valid.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Terjadi kesalahan saat memproses kode promo.");
+                });
+        });
+
+        // Event listener untuk membuka modal
+        document.querySelector('a[href="#modal-for-promos"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Ambil data promo dari backend dan tampilkan di modal
+            fetch('/lfcms/get-promo-list')
+                .then(response => response.json())
+                .then(data => {
+                    const promoList = document.getElementById('promo-list');
+                    promoList.innerHTML = ''; // Kosongkan daftar promo yang ada
+
+                    if (data.promos.length === 0) {
+                        promoList.innerHTML = '<p>Tidak ada promo tersedia saat ini.</p>';
+                    } else {
+                        data.promos.forEach(promo => {
+                            const promoItem = document.createElement('div');
+                            promoItem.classList.add('bg-gray-100', 'p-4', 'rounded-lg', 'border',
+                                'border-gray-300');
+                            promoItem.innerHTML = `
+                    <div class="font-semibold">${promo.discount_code}</div>
+                    <div>Diskon: Rp ${promo.discount_amount}</div>
+                    <div>Tanggal Berlaku: ${promo.start_date} - ${promo.end_date}</div>
+                `;
+                            promoList.appendChild(promoItem);
+                        });
+                    }
+
+                    // Tampilkan modal
+                    document.getElementById('modal-for-promos').style.display = 'flex';
+                })
+                .catch(error => {
+                    console.error('Error fetching promo list:', error);
+                    alert('Gagal mengambil daftar promo.');
+                });
+
+        });
+
+        // Event listener untuk menutup modal
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('modal-for-promos').style.display = 'none';
+        });
     </script>
 
 </body>

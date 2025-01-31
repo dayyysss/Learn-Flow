@@ -65,4 +65,37 @@ class DiscountController extends Controller
         $discount->delete();
         return redirect()->route('admin.discounts.index')->with('success', 'Diskon berhasil dihapus.');
     }
+
+    public function applyPromoCode($promoCode)
+    {
+        // Cari diskon berdasarkan kode promo
+        $discount = Discount::where('discount_code', $promoCode)->first();
+
+        if (!$discount || !$discount->isValid()) {
+            return response()->json(['success' => false, 'message' => 'Kode promo tidak valid atau sudah kedaluwarsa.']);
+        }
+
+        // Hitung diskon yang berlaku
+        $discountAmount = $discount->discount_amount;
+        $cashbackAmount = $discount->type === 'global' ? 0 : $discountAmount * 0.1; // Misalnya, cashback 10%
+
+        return response()->json([
+            'success' => true,
+            'discountAmount' => number_format($discountAmount, 0, ',', '.'),
+            'cashbackAmount' => number_format($cashbackAmount, 0, ',', '.'),
+        ]);
+    }
+
+    public function getPromoList()
+    {
+        // Ambil semua diskon yang masih valid
+        $promos = Discount::where('end_date', '>=', now())
+            ->where('start_date', '<=', now())
+            ->get(['discount_code', 'discount_amount', 'start_date', 'end_date']);
+
+        return response()->json([
+            'promos' => $promos
+        ]);
+    }
+
 }

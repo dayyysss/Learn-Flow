@@ -179,7 +179,8 @@ Route::prefix('lfcms')
         Route::resource('/discount', DiscountController::class)
             ->names('admin.discounts')
             ->except(['show']);
-    
+        Route::get('/apply-promo/{promoCode}', [DiscountController::class, 'applyPromoCode']);
+        Route::get('/get-promo-list', [DiscountController::class, 'getPromoList']);
 
         //Artikel
         Route::resource('/artikel', ArtikelController::class);
