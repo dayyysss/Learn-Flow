@@ -11,8 +11,8 @@
         <div class="space-y-2 text-blackColor dark:text-blackColor-dark">
             <p><strong>Kursus:</strong> {{ $quiz->course->name }}</p>
             <p><strong>Bab:</strong> {{ $quiz->bab->name }}</p>
-            <p><strong>Waktu Mulai:</strong> {{ $quiz->start_time }}</p>
-            <p><strong>Waktu Selesai:</strong> {{ $quiz->end_time }}</p>
+            <p><strong>Waktu Mulai:</strong> {{ $quiz->waktu }}</p>
+            {{-- <p><strong>Waktu Selesai:</strong> {{ $quiz->end_time }}</p> --}}
             <p><strong>Deskripsi:</strong> {{ $quiz->description }}</p>
         </div>
 

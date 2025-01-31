@@ -20,7 +20,7 @@
     @yield('head')
 </head>
 
-<body class="relative font-inter overflow-hidden font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
+<body class="relative font-inter font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
     {{-- <!-- preloader -->
     <div
         class="preloader flex fixed top-0 left-0 h-screen w-full items-center justify-center z-xxl bg-whiteColor opacity-100 visible transition-all duration-700">

@@ -44,8 +44,7 @@
                             <th class="px-5px py-10px md:px-5">Nama</th>
                             <th class="px-5px py-10px md:px-5">Kursus</th>
                             <th class="px-5px py-10px md:px-5">Bab</th>
-                            <th class="px-5px py-10px md:px-5">Waktu Mulai</th>
-                            <th class="px-5px py-10px md:px-5">Waktu Selesai</th>
+                            <th class="px-5px py-10px md:px-5">Waktu</th>
                             <th class="px-5px py-10px md:px-5">Aksi</th>
                         </tr>
                     </thead>
@@ -53,19 +52,16 @@
                         @foreach ($quizzes as $quiz)
                             <tr class="leading-1.8 md:leading-1.8">
                                 <td class="px-5px py-10px md:px-5">
-                                    <p>{{ $quiz->name }}</p>
+                                    <p class="ellipsis-text">{{ $quiz->name }}</p>
                                 </td>
                                 <td class="px-5px py-10px md:px-5">
-                                    <p>{{ $quiz->course->name }}</p>
+                                    <p class="ellipsis-text">{{ $quiz->course->name }}</p>
                                 </td>
                                 <td class="px-5px py-10px md:px-5">
-                                    <p>{{ $quiz->bab ? $quiz->bab->name : 'Tidak ada Bab' }}</p>
+                                    <p class="ellipsis-text">{{ $quiz->bab ? $quiz->bab->name : 'Tidak ada Bab' }}</p>
                                 </td>
                                 <td class="px-5px py-10px md:px-5">
-                                    <p>{{ $quiz->start_time }}</p>
-                                </td>
-                                <td class="px-5px py-10px md:px-5">
-                                    <p>{{ $quiz->end_time }}</p>
+                                    <p>{{ $quiz->waktu }}</p>
                                 </td>
                                 <td class="px-5px py-10px md:px-5 flex justify-center gap-2">
                                     <a class="flex items-center gap-1 text-sm font-bold text-whiteColor hover:text-primaryColor bg-primaryColor hover:bg-whiteColor dark:hover:bg-whiteColor-dark border border-primaryColor h-30px w-full px-14px leading-30px justify-center rounded-md my-5px"

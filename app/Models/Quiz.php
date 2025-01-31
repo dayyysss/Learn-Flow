@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Quiz extends Model
 {
     protected $table = 'quizzes';
-    
+
     protected $fillable = [
         'name',
         'slug',
         'course_id',
         'bab_id',
-        'start_time',
-        'end_time',
+        'waktu',
+        // 'end_time',
         'description',
     ];
 

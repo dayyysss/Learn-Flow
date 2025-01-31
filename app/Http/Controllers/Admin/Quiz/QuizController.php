@@ -43,8 +43,8 @@ class QuizController extends Controller
             'name' => 'required',
             'course_id' => 'required|exists:courses,id',
             'bab_id' => 'required|exists:babs,id',
-            'start_time' => 'required', // Validasi format waktu
-            'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
+            'waktu' => 'required', // Validasi format waktu
+            // 'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
             'description' => 'required', // Perbaikan aturan validasi
         ]);
 
@@ -62,8 +62,8 @@ class QuizController extends Controller
                 'slug' => $slug,
                 'course_id' => $request->course_id,
                 'bab_id' => $request->bab_id,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
+                'waktu' => $request->waktu,
+                // 'end_time' => $request->end_time,
                 'description' => $cleanDescription,
             ]);
         } catch (\Exception $e) {
@@ -91,8 +91,8 @@ class QuizController extends Controller
             'name' => 'required',
             'course_id' => 'required|exists:courses,id',
             'bab_id' => 'required|exists:babs,id',
-            'start_time' => 'required', // Format waktu
-            'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
+            'waktu' => 'required', // Format waktu
+            // 'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
             'description' => 'required',
         ]);
 
@@ -112,8 +112,8 @@ class QuizController extends Controller
             'slug' => $slug,
             'course_id' => $request->course_id,
             'bab_id' => $request->bab_id,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
+            'waktu' => $request->waktu,
+            // 'end_time' => $request->end_time,
             'description' => $cleanDescription,
         ]);
 
