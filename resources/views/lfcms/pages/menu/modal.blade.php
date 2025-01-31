@@ -11,7 +11,7 @@
                     id="name" name="name" required>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn bg-indigo-700">Simpan</button>
+                <button type="submit" class="btn b-solid btn-primary-solid p-2 dk-theme-card-square">Simpan</button>
             </div>
         </form>
     </div>
@@ -73,7 +73,7 @@
             </div>
 
             <div class="flex justify-end mt-4">
-                <button type="submit" class="px-4 py-2 bg-indigo-700 text-white rounded-lg">Simpan</button>
+                <button type="submit" class="btn b-solid btn-primary-solid dk-theme-card-square py-3">Simpan</button>
             </div>
         </form>
     </div>
@@ -94,7 +94,7 @@
                     id="edit_name" name="name" required>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn bg-indigo-700">Simpan</button>
+                <button type="submit" class="btn b-solid btn-primary-solid dk-theme-card-square">Simpan</button>
             </div>
         </form>
     </div>
@@ -158,7 +158,7 @@
 
             <!-- Save Button -->
             <div class="modal-footer">
-                <button type="submit" class="btn bg-indigo-700 text-white">Simpan</button>
+                <button type="submit" class="btn b-solid btn-primary-solid dk-theme-card-square">Simpan</button>
             </div>
         </form>
     </div>

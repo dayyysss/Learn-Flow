@@ -432,7 +432,7 @@
                         <div id="addModul-{{ $bab->id }}" class="modal-back" style="display: none">
                             <div class="modal-content-modul">
                                 <span class="close-tambah-modul">&times;</span>
-                                <h3>Tambah Tipe Menu</h3>
+                                <h3>Tambah Modul</h3>
                                 <form action="{{ route('moduls.store') }}" method="POST" class="space-y-4"
                                     enctype="multipart/form-data">
                                     @csrf
@@ -533,7 +533,7 @@
                             <div class="modal-content-modul">
                                 <span class="close-tambah-modul">&times;</span>
                                 <h3>Tambah Quiz</h3>
-                                <form action="{{ route('lfcms-quiz.store') }}" method="POST" class="space-y-4"
+                                <form action="{{ route('quiz.store') }}" method="POST" class="space-y-4"
                                     enctype="multipart/form-data">
                                     @csrf
 
@@ -548,12 +548,12 @@
 
                                             <div class="flex col-span-full mb-3 gap-x-4 w-full">
                                                 <div class="w-full gap-x-4">
-                                                    <label class="mb-3 block font-semibold">Judul Quiz</label>
+                                                    <label class="mb-3 block font-semibold">Waktu Mulai</label>
                                                     <input type="time" id="slug" name="start_time"
                                                         placeholder="" class="form-input" required>
                                                 </div>
                                                 <div class="w-full">
-                                                    <label class="mb-3 block font-semibold">Judul Quiz</label>
+                                                    <label class="mb-3 block font-semibold">Waktu Akhir</label>
                                                     <input type="time" id="kode_seri" name="end_time" placeholder="-"
                                                         class="form-input" required>
                                                 </div>
