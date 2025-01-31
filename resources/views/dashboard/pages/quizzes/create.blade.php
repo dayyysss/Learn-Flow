@@ -53,20 +53,11 @@
             </div>
 
             <div>
-                <label for="start_time"
+                <label for="waktu"
                     class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
-                    Waktu Mulai
+                    Waktu
                 </label>
-                <input type="text" id="start_time" name="start_time"
-                    class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
-                    required />
-            </div>
-
-            <div>
-                <label for="end_time" class="block mb-2 pt-5 text-sm font-medium text-blackColor dark:text-blackColor-dark">
-                    Waktu Selesai
-                </label>
-                <input type="text" id="end_time" name="end_time"
+                <input id="waktu" name="waktu"
                     class="block w-full px-3 py-2 border border-borderColor dark:border-borderColor-dark rounded-md text-sm bg-transparent dark:bg-transparent-dark text-blackColor dark:text-blackColor-dark focus:ring-primaryColor focus:border-primaryColor"
                     required />
             </div>
@@ -112,21 +103,13 @@
         }
 
         // Inisialisasi Flatpickr untuk input waktu
-        flatpickr("#start_time", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i", // Format jam:menit (24 jam)
-            time_24hr: true,
-            locale: "id", // Bahasa Indonesia
-        });
-
-        flatpickr("#end_time", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i", // Format jam:menit (24 jam)
-            time_24hr: true,
-            locale: "id", // Bahasa Indonesia
-        });
+        // flatpickr("#waktu", {
+        //     enableTime: true,
+        //     noCalendar: true,
+        //     dateFormat: "H:i", // Format jam:menit (24 jam)
+        //     time_24hr: true,
+        //     locale: "id", // Bahasa Indonesia
+        // });
 
         // Menangani perubahan course_id dan mengambil babs terkait
         document.getElementById('course_id').addEventListener('change', function() {
