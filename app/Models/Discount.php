@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     use HasFactory;
-
+    protected $table = 'discounts';
+    protected $hidden = [];
     protected $fillable = [
         'discount_code',
         'type',

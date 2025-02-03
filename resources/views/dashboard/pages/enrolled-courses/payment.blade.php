@@ -90,9 +90,9 @@
 
         <!-- Modal Daftar Promo -->
         <div id="modal-for-promos" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden justify-center items-center">
-            <div class="bg-white p-6 rounded-lg w-96">
+            <div class="bg-white p-6 rounded-lg w-96 max-h-[80vh] overflow-hidden">
                 <h2 class="text-xl font-semibold mb-4">Daftar Promo</h2>
-                <div id="promo-list" class="space-y-4">
+                <div id="promo-list" class="space-y-4 max-h-60 overflow-y-auto pr-2">
                     <!-- Daftar promo akan ditampilkan di sini -->
                 </div>
                 <div class="mt-4 text-right">
@@ -190,25 +190,46 @@
         // Event listener untuk membuka modal
         document.querySelector('a[href="#modal-for-promos"]').addEventListener('click', function(e) {
             e.preventDefault();
-            // Ambil data promo dari backend dan tampilkan di modal
             fetch('/lfcms/get-promo-list')
                 .then(response => response.json())
                 .then(data => {
                     const promoList = document.getElementById('promo-list');
-                    promoList.innerHTML = ''; // Kosongkan daftar promo yang ada
+                    promoList.innerHTML = '';
 
-                    if (data.promos.length === 0) {
+                    if (!data.promos || data.promos.length === 0) {
                         promoList.innerHTML = '<p>Tidak ada promo tersedia saat ini.</p>';
                     } else {
                         data.promos.forEach(promo => {
                             const promoItem = document.createElement('div');
                             promoItem.classList.add('bg-gray-100', 'p-4', 'rounded-lg', 'border',
                                 'border-gray-300');
+
+                            // Pastikan nilai tidak undefined dan format lebih rapi
+                            const discountCode = promo.discount_code || 'Tanpa Kode';
+                            const discountAmount = promo.discount_amount ?
+                                `Rp ${parseInt(promo.discount_amount).toLocaleString('id-ID')}` :
+                                'Rp 0';
+
+                            // Format tanggal ke "03 Februari 2025"
+                            const formatTanggal = (tanggal) => {
+                                if (!tanggal) return '-';
+                                const date = new Date(tanggal);
+                                return date.toLocaleDateString('id-ID', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric'
+                                });
+                            };
+
+                            const startDate = formatTanggal(promo.start_date);
+                            const endDate = formatTanggal(promo.end_date);
+
                             promoItem.innerHTML = `
-                    <div class="font-semibold">${promo.discount_code}</div>
-                    <div>Diskon: Rp ${promo.discount_amount}</div>
-                    <div>Tanggal Berlaku: ${promo.start_date} - ${promo.end_date}</div>
-                `;
+                        <div class="font-semibold">${discountCode}</div>
+                        <div>Diskon: ${discountAmount}</div>
+                        <div>Tanggal Berlaku: ${startDate} - ${endDate}</div>
+                    `;
+
                             promoList.appendChild(promoItem);
                         });
                     }
@@ -220,7 +241,6 @@
                     console.error('Error fetching promo list:', error);
                     alert('Gagal mengambil daftar promo.');
                 });
-
         });
 
         // Event listener untuk menutup modal
