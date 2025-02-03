@@ -65,10 +65,13 @@
 
                 <!-- Discount & Cashback -->
                 <div class="text-right mt-2 text-sm text-green-500" id="discount-info">
-                    <div class="text-lg" id="discount-amount">Rp 0</div>
+                    <div class="text-gray-700">Diskon:</div>
+                    <div class="text-lg font-semibold" id="discount-amount">Rp 0</div>
                 </div>
+
                 <div class="text-right mt-2 text-sm text-green-500" id="cashback-info">
-                    <div class="text-lg" id="cashback-amount">Rp 0</div>
+                    <div class="text-gray-700">Cashback:</div>
+                    <div class="text-lg font-semibold" id="cashback-amount">Rp 0</div>
                 </div>
             </div>
 
@@ -77,8 +80,9 @@
             <div class="bg-white rounded-lg p-4 mb-6 border border-gray-300">
                 <div class="font-semibold text-lg flex justify-between mb-3">
                     <div>Total Pembayaran</div>
-                    <div id="price-to-charge" class="text-lg text-gray-600">Rp
-                        {{ number_format($totalHargaAkhir, 0, ',', '.') }}
+                    <div id="price-to-charge" class="text-lg text-gray-600"
+                        data-original-price="{{ $totalHargaAkhir }}">
+                        Rp {{ number_format($totalHargaAkhir, 0, ',', '.') }}
                     </div>
                 </div>
                 <button type="button" id="pay-button"
@@ -159,33 +163,58 @@
             });
         };
 
-        document.getElementById('apply-promo-code').addEventListener('click', function() {
-            var promoCode = document.getElementById('promo-code').value;
+        document.getElementById("apply-promo-code").addEventListener("click", function() {
+            let promoCode = document.getElementById("promo-code").value.trim();
 
             if (!promoCode) {
-                alert("Silakan masukkan kode promo.");
+                alert("Masukkan kode promo terlebih dahulu!");
                 return;
             }
 
-            // Kirimkan kode promo ke backend untuk mendapatkan diskon
-            fetch(`/apply-promo/${promoCode}`)
+            fetch(`/lfcms/apply-promo/${promoCode}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        // Update UI dengan informasi diskon
-                        document.getElementById('discount-amount').innerText = `Rp ${data.discountAmount}`;
-                        document.getElementById('cashback-amount').innerText = `Rp ${data.cashbackAmount}`;
-                        document.getElementById('discount-info').style.display = 'block';
-                        document.getElementById('cashback-info').style.display = 'block';
-                    } else {
-                        alert(data.message || "Kode promo tidak valid.");
+                    if (!data.success) {
+                        alert(data.message);
+                        return;
+                    }
+
+                    // Ambil harga awal dari elemen total harga
+                    let totalHargaElement = document.getElementById("price-to-charge");
+                    let totalHarga = parseInt(totalHargaElement.dataset.originalPrice || totalHargaElement
+                        .innerText.replace(/[^\d]/g, ''));
+
+                    // Konversi nilai diskon dan cashback dari format rupiah ke angka
+                    let discountAmount = parseInt(data.discountAmount.replace(/[^\d]/g, '')) || 0;
+                    let cashbackAmount = parseInt(data.cashbackAmount.replace(/[^\d]/g, '')) || 0;
+
+                    // Hitung total harga baru setelah diskon
+                    let newTotal = totalHarga - discountAmount;
+                    if (newTotal < 0) newTotal = 0; // Pastikan harga tidak negatif
+
+                    // Update elemen HTML dengan nilai baru
+                    document.getElementById("discount-amount").innerText =
+                        `Rp ${discountAmount.toLocaleString("id-ID")}`;
+                    document.getElementById("cashback-amount").innerText =
+                        `Rp ${cashbackAmount.toLocaleString("id-ID")}`;
+                    totalHargaElement.innerText = `Rp ${newTotal.toLocaleString("id-ID")}`;
+
+                    // Simpan harga awal jika belum ada
+                    if (!totalHargaElement.dataset.originalPrice) {
+                        totalHargaElement.dataset.originalPrice = totalHarga;
                     }
                 })
                 .catch(error => {
                     console.error("Error:", error);
-                    alert("Terjadi kesalahan saat memproses kode promo.");
+                    alert("Terjadi kesalahan saat menerapkan kode promo.");
                 });
         });
+
 
         // Event listener untuk membuka modal
         document.querySelector('a[href="#modal-for-promos"]').addEventListener('click', function(e) {
