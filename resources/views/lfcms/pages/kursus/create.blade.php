@@ -66,40 +66,41 @@
                             <div class="col-span-full xl:col-auto leading-none">
                                 <label class="form-label">Status</label>
                                 <select class="singleSelect" name="status">
-                                    <option selected disabled>Select Course Type</option>
+                                    <option selected disabled>Pilih Status Kursus</option>
                                     <option value="publik">Publik</option>
                                     <option value="draft">Draft</option>
                                     <option value="terjadwal">Terjadwal</option>
                                 </select>
                             </div>
+
                             <div class="col-span-full xl:col-auto leading-none">
-                                <label for="berbayar" class="form-label">Paid Course</label>
+                                <label for="berbayar" class="form-label">Tipe Kursus</label>
                                 <div id="berbayar" class="flex items-center gap-x-4" style="margin-top: 15px">
                                     <label class="flex items-center">
                                         <input type="radio" id="free" name="berbayar" value="false" class="mr-2">
-                                        Free
+                                        Gratis
                                     </label>
                                     <label class="flex items-center">
                                         <input type="radio" id="paid" name="berbayar" value="true" class="mr-2">
-                                        Paid
+                                        Berbayar
                                     </label>
                                 </div>
                             </div>
-    
+
                             <div class="col-span-full xl:col-auto leading-none">
                                 <div class="form-label" id="harga-group" style="display: none;">
-                                    <label for="harga" class="mb-3 block font-semibold">Price</label>
+                                    <label for="harga" class="mb-3 block font-semibold">Harga</label>
                                     <input type="text" name="harga" id="harga" class="form-input">
                                 </div>
                             </div>
                             
                             <div class="col-span-full xl:col-auto leading-none" id="harga-diskon-group" style="display: none;">
-                                <label for="harga_diskon" class="mb-3 block font-semibold form-label">Discount Price</label>
+                                <label for="harga_diskon" class="mb-3 block font-semibold form-label">Harga Diskon</label>
                                 <input type="text" id="harga_diskon" name="harga_diskon" class="form-input">
                             </div>
     
                             <div class="col-span-full">
-                                <label for="description" class="form-label">Description</label>
+                                <label for="description" class="form-label">Deskripsi</label>
                                 <textarea id="description" name="deskripsi" rows="8" class="summernote form-input"></textarea>
                                 <div class="flex items-center gap-2 mt-3.5">
                                     <input type="checkbox" name="agreeTermCondition" id="agreeTermCondition" class="accent-primary-500">
@@ -110,8 +111,7 @@
                     </div>
                 </div>
             </div>
-    
-            <!-- Start Course Media File -->
+
             <div class="col-span-full lg:col-span-5 card h-fit">
                 <div class="p-1.5">
                     <h6 class="card-title">Data Tambahan</h6>
@@ -126,7 +126,7 @@
                                     <span class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
                                         <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon" class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
                                     </span>
-                                    <span class="mt-2 text-gray-500 dark:text-dark-text">Choose file</span>
+                                    <span class="mt-2 text-gray-500 dark:text-dark-text">Pilih File</span>
                                 </span>
                             </label>
                         </div>
@@ -140,7 +140,7 @@
                                     <span class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
                                         <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon" class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
                                     </span>
-                                    <span class="file-name text-gray-500 dark:text-dark-text mt-2">Choose file</span>
+                                    <span class="file-name text-gray-500 dark:text-dark-text mt-2">Pilih File</span>
                                 </span>
                             </label>
                         
@@ -157,9 +157,9 @@
                                 <input type="file" name="certificate_ttd[]" id="intro-file-src" hidden class="peer/file file-src">
                                 <span class="flex-center flex-col">
                                     <span class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
-                                        <img src="assets/images/icons/upload-file.svg" alt="icon" class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
+                                        <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon" class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
                                     </span>
-                                    <span class="file-name text-gray-500 dark:text-dark-text mt-2">Choose file</span>
+                                    <span class="file-name text-gray-500 dark:text-dark-text mt-2">Pilih File</span>
                                 </span>
                             </label>
                         </div>
