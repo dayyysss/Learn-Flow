@@ -234,9 +234,10 @@ class CourseRegistrationController extends Controller
 
             // Jika sudah confirmed, redirect langsung ke halaman kursus
             if ($registration_status === 'confirmed') {
+                $firstCourse = $registrations->first()->course;
                 return response()->json([
                     'status' => 'redirect',
-                    'url' => route('course'),
+                    'url' => route('course.detail', ['slug' => $firstCourse->slug]),
                 ]);
             }
 
