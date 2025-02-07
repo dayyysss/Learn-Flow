@@ -44,8 +44,8 @@ class QuizController extends Controller
             'name' => 'required',
             'course_id' => 'required|exists:courses,id',
             'bab_id' => 'required|exists:babs,id',
-            'start_time' => 'required',
-            'end_time' => 'required|after:start_time',
+            'waktu' => 'required',
+           
             'description' => 'required',
         ]);
 
@@ -64,8 +64,7 @@ class QuizController extends Controller
                 'slug' => $slug,
                 'course_id' => $request->course_id,
                 'bab_id' => $request->bab_id,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
+                'waktu' => $request->waktu,
                 'description' => $cleanDescription,
             ]);
 
@@ -83,7 +82,6 @@ class QuizController extends Controller
         return redirect()->back()->with('success', 'Quiz created successfully.');
     }
 
-
     public function edit(string $slug)
     {
         $quiz = Quiz::where('slug', $slug)->firstOrFail();
@@ -100,8 +98,8 @@ class QuizController extends Controller
             'name' => 'required',
             'course_id' => 'required|exists:courses,id',
             'bab_id' => 'required|exists:babs,id',
-            'start_time' => 'required', // Format waktu
-            'end_time' => 'required|after:start_time', // Waktu akhir harus setelah waktu mulai
+            'waktu' => 'required', // Format waktu
+           
             'description' => 'required',
         ]);
 
@@ -121,8 +119,7 @@ class QuizController extends Controller
             'slug' => $slug,
             'course_id' => $request->course_id,
             'bab_id' => $request->bab_id,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
+            'waktu' => $request->waktu,
             'description' => $cleanDescription,
         ]);
 
@@ -130,19 +127,19 @@ class QuizController extends Controller
     }
 
     // Hanya superadmin dan instructor yang bisa menghapus quiz
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
         if (!auth()->user()->hasRole(['superadmin', 'instructor', 'admin'])) {
             abort(403, 'Unauthorized action.');
         }
 
         // Temukan Quiz berdasarkan slug
-        $quiz = Quiz::where('slug', $slug)->firstOrFail();
+        $quiz = Quiz::where('id', $id)->firstOrFail();
 
         // Hapus Quiz (cascading deletion akan bekerja jika diatur di database)
         $quiz->delete();
 
-        return redirect()->route('quiz.index')->with('success', 'Quiz deleted successfully.');
+        return redirect()->back()->with('success', 'Quiz deleted successfully.');
     }
 
     public function getBabsByCourse(Request $request, $courseId)

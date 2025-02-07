@@ -366,11 +366,14 @@
                                                             data-modul-id="{{ $modul->id }}">
                                                             <i class="btn ri-edit-2-line text-inherit"></i>
                                                         </button>
-                                                        <a href="{{ route('moduls.destroy', $modul->id) }}"
-                                                            class="btn-icon btn-danger-icon-light size-7"
-                                                            onclick="event.preventDefault(); deleteRecord('{{ route('moduls.destroy', $modul->id) }}');">
-                                                            <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
-                                                        </a>
+                                                        <form action="{{ route('lfcms-quiz.destroy', $modul->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn-icon btn-danger-icon-light size-7">
+                                                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
+                                                            </button>
+                                                        </form>
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>
@@ -548,15 +551,15 @@
 
                                             <div class="flex col-span-full mb-3 gap-x-4 w-full">
                                                 <div class="w-full gap-x-4">
-                                                    <label class="mb-3 block font-semibold">Judul Quiz</label>
-                                                    <input type="time" id="slug" name="start_time"
+                                                    <label class="mb-3 block font-semibold">Waktu</label>
+                                                    <input type="number" id="slug" name="waktu"
                                                         placeholder="" class="form-input" required>
                                                 </div>
-                                                <div class="w-full">
+                                                {{-- <div class="w-full">
                                                     <label class="mb-3 block font-semibold">Judul Quiz</label>
                                                     <input type="time" id="kode_seri" name="end_time" placeholder="-"
                                                         class="form-input" required>
-                                                </div>
+                                                </div> --}}
                                             </div>
 
 

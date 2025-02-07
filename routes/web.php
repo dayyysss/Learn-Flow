@@ -165,6 +165,7 @@ Route::prefix('lfcms')
         //website
         Route::resource('/website', WebsiteConfigurationController::class);
 
+        Route::resource('lfcms-quiz', App\Http\Controllers\LFCMS\QuizController::class);
         Route::get('/quizzes/{slug}', [LFCMSQuizController::class, 'showQuiz'])->name('quizzes.show');
 
         // Menyimpan pertanyaan baru ke dalam quiz
