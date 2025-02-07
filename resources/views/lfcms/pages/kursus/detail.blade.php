@@ -551,29 +551,16 @@
 
                                             <div class="flex col-span-full mb-3 gap-x-4 w-full">
                                                 <div class="w-full gap-x-4">
-<<<<<<< HEAD
-                                                    <label class="mb-3 block font-semibold">Waktu</label>
-                                                    <input type="number" id="slug" name="waktu"
-                                                        placeholder="" class="form-input" required>
-                                                </div>
-                                                {{-- <div class="w-full">
-                                                    <label class="mb-3 block font-semibold">Judul Quiz</label>
-=======
                                                     <label class="mb-3 block font-semibold">Waktu Mulai</label>
                                                     <input type="time" id="slug" name="start_time"
                                                         placeholder="" class="form-input" required>
                                                 </div>
                                                 <div class="w-full">
                                                     <label class="mb-3 block font-semibold">Waktu Akhir</label>
->>>>>>> bd288da6479432f8408ab47f04f39d8c2aa7390c
                                                     <input type="time" id="kode_seri" name="end_time" placeholder="-"
                                                         class="form-input" required>
-                                                </div> --}}
+                                                </div>
                                             </div>
-
-
-
-
                                             <div>
                                                 <label class="mb-3 block font-semibold">Deskripsi</label>
                                                 <textarea name="description" placeholder="Deskripsi" id="description"
