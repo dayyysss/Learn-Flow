@@ -18,7 +18,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $enrolledCourses = CourseRegistration::where('registration_status', 'confirmed')->count();
+        $user=Auth::user();
+        $enrolledCourses = CourseRegistration::where('registration_status', 'confirmed')->where('user_id', $user->id)->count();
 
         $activeCourses = CourseRegistration::whereBetween('progress', [0, 99])->count();
 
