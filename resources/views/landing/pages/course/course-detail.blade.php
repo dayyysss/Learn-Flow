@@ -923,55 +923,68 @@
                                 </div>
                             </div>
                             <div class="mb-5" data-aos="fade-up">
-                            <form action="{{ route('cart.store') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                @guest
+                                    <!-- Tombol untuk user yang belum login -->
+                                    <form action="{{ route('cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        <button type="submit"
+                                            class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                            Tambah ke Keranjang
+                                        </button>
+                                    </form>
 
-                                <button type="submit" class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                    Tambah ke Keranjang
-                                </button>
-                            </form>
-                                @if (auth()->user() &&
-                                        !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
-                                    <!-- Tombol Add to Cart dan Buy Now jika pengguna belum terdaftar -->
-                                    
-
-                                    <form id="course-registration-form"
-                                        action="{{ route('course-registrations.store') }}" method="POST"
-                                        style="display: inline;">
+                                    <form id="course-registration-form" action="{{ route('course-registrations.store') }}"
+                                        method="POST" style="display: inline;">
                                         @csrf
                                         <input type="hidden" name="course_id" id="course-id-input" value="">
-
-                                        <!-- Tombol Buy Now -->
                                         <button type="button" onclick="submitCourseRegistration({{ $course->id }})"
                                             class="w-full text-center text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark">
                                             Beli Sekarang
                                         </button>
                                     </form>
                                 @else
-                                    <!-- Tombol Mulai Belajar jika pengguna sudah terdaftar -->
-                                    @if ($nextProsesModul)
-                                        <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
-                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Lanjutkan
-                                        </a>
-                                    @elseif ($lastAccessedModul)
-                                        <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
-                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Lanjutkan
-                                        </a>
+                                    @if (auth()->user() && !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
+                                        <!-- Tombol untuk user yang sudah login tapi belum terdaftar di course -->
+                                        <form action="{{ route('cart.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                            <button type="submit"
+                                                class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                                Tambah ke Keranjang
+                                            </button>
+                                        </form>
+
+                                        <form id="course-registration-form"
+                                            action="{{ route('course-registrations.store') }}" method="POST"
+                                            style="display: inline;">
+                                            @csrf
+                                            <input type="hidden" name="course_id" id="course-id-input" value="">
+                                            <button type="button" onclick="submitCourseRegistration({{ $course->id }})"
+                                                class="w-full text-center text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark">
+                                                Beli Sekarang
+                                            </button>
+                                        </form>
                                     @else
-                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
-                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Mulai Belajar
-                                        </a>
+                                        <!-- Tombol untuk user yang sudah login dan terdaftar di course -->
+                                        @if ($nextProsesModul)
+                                            <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
+                                                class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                                Lanjutkan
+                                            </a>
+                                        @elseif ($lastAccessedModul)
+                                            <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
+                                                class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                                Lanjutkan
+                                            </a>
+                                        @else
+                                            <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
+                                                class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                                Mulai Belajar
+                                            </a>
+                                        @endif
                                     @endif
-
-                                @endif
-
-                                <span class="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
-                                    <i class="icofont-ui-rotation"></i> 45-Days Money-Back Guarantee
-                                </span>
+                                @endguest
                             </div>
 
                             <ul>

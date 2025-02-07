@@ -73,7 +73,7 @@
                                         class="w-full overflow-hidden rounded">
                                         <img src="{{ asset('storage/' . $item->thumbnail) }}" alt=""
                                             class="w-full transition-all duration-300 group-hover:scale-110"
-                                            style="height: 150px">
+                                            style="height: 200px; object-fit: cover;">
                                     </a>
                                     <div class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
                                         <div>
