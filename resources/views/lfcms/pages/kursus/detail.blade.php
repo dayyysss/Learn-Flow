@@ -10,14 +10,15 @@
                 <div class="p-0.5">
                     <div class="flex-center-between">
                         <h5 class="text-heading sm:text-[22px] leading-none font-semibold">Detail Kursus</h5>
-                        <a href="edit-course.html" class="btn b-light btn-primary-light dk-theme-card-square">
+                        <a href="{{ route('kursus.index') }}" class="btn b-light btn-primary-light dk-theme-card-square">
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"
                                 fill="none" class="hidden sm:block">
-                                <path
-                                    d="M14.6492 3.70261L11.2974 0.351573C11.186 0.240112 11.0537 0.151695 10.908 0.0913719C10.7624 0.0310484 10.6064 0 10.4488 0C10.2911 0 10.1351 0.0310484 9.98947 0.0913719C9.84386 0.151695 9.71156 0.240112 9.60012 0.351573L0.35176 9.59993C0.239844 9.71096 0.151113 9.84313 0.0907265 9.98875C0.03034 10.1344 -0.000497585 10.2905 6.07129e-06 10.4482V13.8C6.07129e-06 14.1182 0.126436 14.4235 0.351482 14.6485C0.576528 14.8736 0.881757 15 1.20002 15H13.8002C13.9593 15 14.1119 14.9368 14.2244 14.8243C14.337 14.7117 14.4002 14.5591 14.4002 14.4C14.4002 14.2409 14.337 14.0882 14.2244 13.9757C14.1119 13.8632 13.9593 13.8 13.8002 13.8H6.24908L14.6492 5.39988C14.7606 5.28845 14.8491 5.15615 14.9094 5.01054C14.9697 4.86493 15.0008 4.70886 15.0008 4.55125C15.0008 4.39364 14.9697 4.23757 14.9094 4.09196C14.8491 3.94635 14.7606 3.81405 14.6492 3.70261ZM4.55181 13.8H1.20002V10.4482L7.8001 3.84811L11.1519 7.19991L4.55181 13.8ZM12.0002 6.35165L8.64911 2.99985L10.4491 1.19983L13.8002 4.55162L12.0002 6.35165Z"
-                                    fill="currentColor" />
+                                <path d="M5.5 2L1 6.5L5.5 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M2 6.5H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
-                            <span>Edit course</span>
+                            <span>Kembali</span>
                         </a>
                     </div>
                     <div class="text-center mt-5">
@@ -354,26 +355,27 @@
                                                 <td
                                                     class="px-3.5 mt-4 py-4 bg-[#F4F4F4] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg">
                                                     <div class="flex items-center gap-2" style="justify-content: end">
-                                                        <a href="{{route('quizzes.show', $modul->slug)}}">
-                                                        <button
-                                                            class="btn-icon btn-secondary-icon-light size-7"
-                                                            >
-                                                            <i class="btn ri-add-fill text-inherit"></i>
-                                                        </button></a>
+                                                        <a href="{{ route('quizzes.show', $modul->slug) }}">
+                                                            <button class="btn-icon btn-secondary-icon-light size-7">
+                                                                <i class="btn ri-add-fill text-inherit"></i>
+                                                            </button></a>
 
                                                         <button
                                                             class="btn-icon btn-primary-icon-light size-7 openModalEditModul"
                                                             data-modul-id="{{ $modul->id }}">
                                                             <i class="btn ri-edit-2-line text-inherit"></i>
                                                         </button>
-                                                        <form action="{{ route('lfcms-quiz.destroy', $modul->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                        <form action="{{ route('lfcms-quiz.destroy', $modul->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn-icon btn-danger-icon-light size-7">
+                                                            <button type="submit"
+                                                                class="btn-icon btn-danger-icon-light size-7">
                                                                 <i class="ri-delete-bin-line text-inherit text-[13px]"></i>
                                                             </button>
                                                         </form>
-                                                        
+
                                                     </div>
                                                 </td>
                                             </tr>
