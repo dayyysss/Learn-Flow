@@ -116,51 +116,69 @@
         data-client-key="{{ config('services.midtrans.client_key') }}"></script>
     <script type="text/javascript">
         document.getElementById('pay-button').onclick = function() {
-            snap.pay("{{ $snapToken }}", {
-                onSuccess: function(result) {
-                    document.getElementById('payment-status').innerText = 'Pembayaran berhasil!';
+            fetch("/payment/generate-snap-token", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status !== "success") {
+                        alert("Gagal mendapatkan token pembayaran.");
+                        return;
+                    }
 
-                    // Kirim data ke backend
-                    var formData = new FormData();
-                    formData.append('method_pembayaran', result.payment_type); // Metode pembayaran
-                    formData.append('order_id', result.order_id); // ID pesanan
-                    formData.append('status_pembayaran', result.transaction_status); // Status transaksi
+                    let snapToken = data.snap_token;
+                    let newOrderId = data.order_id; // Dapatkan order_id baru dari backend
 
-                    fetch("/payment/update-method", {
-                            method: "POST",
-                            body: formData,
-                            headers: {
-                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'redirect') {
-                                // Redirect ke halaman kursus
-                                window.location.href = data.url;
-                            } else if (data.status === 'success') {
-                                // Update UI dengan status pembayaran
-                                document.getElementById('method-pembayaran').innerText = data
-                                    .method_pembayaran;
-                                document.getElementById('registration-status').innerText = data
-                                    .registration_status;
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => console.error("Error:", error));
-                },
-                onPending: function(result) {
-                    alert("Pembayaran pending.");
-                    document.getElementById('payment-status').innerText = 'Pembayaran pending.';
-                    console.log(result);
-                },
-                onError: function(result) {
-                    alert("Pembayaran gagal.");
-                    document.getElementById('payment-status').innerText = 'Pembayaran gagal.';
-                    console.log(result);
-                },
-            });
+                    snap.pay(snapToken, {
+                        onSuccess: function(result) {
+                            console.log("Pembayaran sukses:", result);
+
+                            let formData = new FormData();
+                            formData.append("order_id", newOrderId); // Kirim order_id baru ke backend
+                            formData.append("status_pembayaran", result.transaction_status);
+                            formData.append("method_pembayaran", result.payment_type);
+
+                            fetch("/payment/update-method", {
+                                    method: "POST",
+                                    body: formData,
+                                    headers: {
+                                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log("Response dari server:", data);
+                                    if (data.status === 'redirect') {
+                                        window.location.href = data.url;
+                                    } else if (data.status === 'success') {
+                                        document.getElementById('method-pembayaran').innerText =
+                                            data.method_pembayaran;
+                                        document.getElementById('registration-status').innerText =
+                                            data.registration_status;
+                                    } else {
+                                        alert(data.message);
+                                    }
+                                })
+                                .catch(error => console.error("Error saat update pembayaran:", error));
+                        },
+                        onPending: function(result) {
+                            alert("Pembayaran pending.");
+                            console.log("Status Pending:", result);
+                        },
+                        onError: function(result) {
+                            alert("Pembayaran gagal.");
+                            console.log("Error Pembayaran:", result);
+                        },
+                    });
+                })
+                .catch(error => {
+                    console.error("Error saat generate Snap Token:", error);
+                    alert("Terjadi kesalahan saat memproses pembayaran.");
+                });
         };
 
         document.getElementById("apply-promo-code").addEventListener("click", function() {
@@ -172,9 +190,10 @@
             }
 
             fetch(`/lfcms/apply-promo/${promoCode}`, {
-                    method: "GET",
+                    method: "POST", // Ubah ke POST agar lebih aman
                     headers: {
                         "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}" // Tambahkan CSRF token agar Laravel menerima request
                     }
                 })
                 .then(response => response.json())
@@ -184,30 +203,10 @@
                         return;
                     }
 
-                    // Ambil harga awal dari elemen total harga
-                    let totalHargaElement = document.getElementById("price-to-charge");
-                    let totalHarga = parseInt(totalHargaElement.dataset.originalPrice || totalHargaElement
-                        .innerText.replace(/[^\d]/g, ''));
-
-                    // Konversi nilai diskon dan cashback dari format rupiah ke angka
-                    let discountAmount = parseInt(data.discountAmount.replace(/[^\d]/g, '')) || 0;
-                    let cashbackAmount = parseInt(data.cashbackAmount.replace(/[^\d]/g, '')) || 0;
-
-                    // Hitung total harga baru setelah diskon
-                    let newTotal = totalHarga - discountAmount;
-                    if (newTotal < 0) newTotal = 0; // Pastikan harga tidak negatif
-
-                    // Update elemen HTML dengan nilai baru
-                    document.getElementById("discount-amount").innerText =
-                        `Rp ${discountAmount.toLocaleString("id-ID")}`;
-                    document.getElementById("cashback-amount").innerText =
-                        `Rp ${cashbackAmount.toLocaleString("id-ID")}`;
-                    totalHargaElement.innerText = `Rp ${newTotal.toLocaleString("id-ID")}`;
-
-                    // Simpan harga awal jika belum ada
-                    if (!totalHargaElement.dataset.originalPrice) {
-                        totalHargaElement.dataset.originalPrice = totalHarga;
-                    }
+                    // Update elemen UI dengan harga setelah diskon
+                    document.getElementById("discount-amount").innerText = `Rp ${data.discountAmount}`;
+                    document.getElementById("cashback-amount").innerText = `Rp ${data.cashbackAmount}`;
+                    document.getElementById("price-to-charge").innerText = `Rp ${data.newTotalPrice}`;
                 })
                 .catch(error => {
                     console.error("Error:", error);
