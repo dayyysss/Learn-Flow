@@ -175,12 +175,12 @@ Route::prefix('lfcms')
 
         Route::put('/quiz/questions/{id}', [LFCMSQuizController::class, 'updateQuestion'])->name('quiz.questions.update');
         Route::delete('/quiz/questions/{id}', [LFCMSQuizController::class, 'deleteQuestion'])->name('quiz.questions.delete');
-        
+
         //Discount
         Route::resource('/discount', DiscountController::class)
             ->names('admin.discounts')
             ->except(['show']);
-        Route::get('/apply-promo/{promoCode}', [DiscountController::class, 'applyPromoCode']);
+        Route::post('/apply-promo/{promoCode}', [DiscountController::class, 'applyPromoCode']);
         Route::get('/get-promo-list', [DiscountController::class, 'getPromoList']);
 
         //Artikel
@@ -248,10 +248,10 @@ Route::prefix('lfcms')
         Route::post('/kontak/bulk-publish', [ContactController::class, 'bulkPublish'])->name('kontak.bulkPublish');
 
         Route::post('/testimonial/bulk-delete', [TestimonialController::class, 'bulkDelete'])->name('testimonial.bulkDelete');
-        Route::post('/testimonial/bulk-draft',  [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
-     
-        Route::post('/testimonial/bulk-publish',[TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
-        
+        Route::post('/testimonial/bulk-draft', [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
+
+        Route::post('/testimonial/bulk-publish', [TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
+
         Route::post('/artikel/bulk-delete', [ArtikelController::class, 'bulkDelete'])->name('artikel.bulkDelete');
         Route::post('/artikel/bulk-draft', [ArtikelController::class, 'bulkDraft'])->name('artikel.bulkDraft');
         Route::post('/artikel/bulk-publish', [ArtikelController::class, 'bulkPublish'])->name('artikel.bulkPublish');
@@ -310,7 +310,8 @@ Route::middleware(['auth'])
         Route::post('/payment/update-method', [CourseRegistrationController::class, 'updateMethod']);
         Route::post('/payment/notification', [CourseRegistrationController::class, 'paymentNotification']);
         Route::post('/payment/store', [CourseRegistrationController::class, 'store'])->name('payment.store');
-        Route::get('/payment/{snapToken}', [CourseRegistrationController::class, 'showPaymentPage'])->name('payment.page');
+        Route::get('/payment', [CourseRegistrationController::class, 'showPaymentPage'])->name('payment.page');
+        Route::post('/payment/generate-snap-token', [CourseRegistrationController::class, 'generateSnapToken'])->name('payment.generateSnapToken');
 
 
         //cart
