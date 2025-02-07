@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Discount;
 use App\Models\Course;
+use App\Models\Discount;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class DiscountController extends Controller
 {
@@ -88,14 +89,18 @@ class DiscountController extends Controller
 
     public function getPromoList()
     {
-        // Ambil semua diskon yang masih valid
-        $promos = Discount::where('end_date', '>=', now())
-            ->where('start_date', '<=', now())
-            ->get(['discount_code', 'discount_amount', 'start_date', 'end_date']);
+        $now = now();
+
+        $promos = Discount::where('start_date', '<=', $now)
+            ->where('end_date', '>=', $now)
+            ->select('discount_code', 'discount_amount', 'start_date', 'end_date')
+            ->get();
 
         return response()->json([
+            'message' => $promos->isEmpty() ? 'Tidak ada promo yang tersedia saat ini.' : 'Data promo berhasil diambil.',
             'promos' => $promos
         ]);
     }
+
 
 }

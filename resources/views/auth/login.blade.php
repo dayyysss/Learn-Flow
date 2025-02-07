@@ -189,7 +189,7 @@
                                     </div>
                                 @endif
 
-                                <form class="pt-25px" action="{{ route('register') }}" method="POST"
+                                <form class="pt-25px" action="{{ route('register.post') }}" method="POST"
                                     data-aos="fade-up">
                                     @csrf
 
@@ -259,7 +259,7 @@
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
-                                            <input type="password" name="password_regist"
+                                            <input type="password" name="password"
                                                 placeholder="Password minimal 8 karakter"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                             @error('password')
