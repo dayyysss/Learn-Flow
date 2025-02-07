@@ -577,56 +577,8 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
-                            <div class="md:col-start-5 md:col-span-8">
-                                <h4 class="text-2xl font-bold text-blackColor dark:text-blackColor-dark mb-15px !leading-38px"
-                                    data-aos="fade-up">
-                                    Why search Is Important ?
-                                </h4>
-                                <ul class="space-y-[15px] max-w-127">
-
-                                    <li class="flex items-center group" data-aos="fade-up">
-                                        <i
-                                            class="icofont-check px-2 py-2 text-primaryColor bg-whitegrey3 bg-opacity-40 group-hover:bg-primaryColor group-hover:text-white group-hover:opacity-100 mr-15px dark:bg-whitegrey1-dark"></i>
-                                        <p
-                                            class="text-sm lg:text-xs 2xl:text-sm font-medium leading-25px lg:leading-21px 2xl:leading-25px text-contentColor dark:text-contentColor-dark">
-                                            Lorem Ipsum is simply dummying text of the printing
-                                            andtypesetting industry most of the standard.
-                                        </p>
-                                    </li>
-                                    <li class="flex items-center group" data-aos="fade-up">
-                                        <i
-                                            class="icofont-check px-2 py-2 text-primaryColor bg-whitegrey3 bg-opacity-40 group-hover:bg-primaryColor group-hover:text-white group-hover:opacity-100 mr-15px dark:bg-whitegrey1-dark"></i>
-                                        <p
-                                            class="text-sm lg:text-xs 2xl:text-sm font-medium leading-25px lg:leading-21px 2xl:leading-25px text-contentColor dark:text-contentColor-dark">
-                                            Lorem Ipsum is simply dummying text of the printing
-                                            andtypesetting industry most of the standard.
-                                        </p>
-                                    </li>
-                                    <li class="flex items-center group" data-aos="fade-up">
-                                        <i
-                                            class="icofont-check px-2 py-2 text-primaryColor bg-whitegrey3 bg-opacity-40 group-hover:bg-primaryColor group-hover:text-white group-hover:opacity-100 mr-15px dark:bg-whitegrey1-dark"></i>
-                                        <p
-                                            class="text-sm lg:text-xs 2xl:text-sm font-medium leading-25px lg:leading-21px 2xl:leading-25px text-contentColor dark:text-contentColor-dark">
-                                            Lorem Ipsum is simply dummying text of the printing
-                                            andtypesetting industry most of the standard.
-                                        </p>
-                                    </li>
-                                    <li class="flex items-center group" data-aos="fade-up">
-                                        <i
-                                            class="icofont-check px-2 py-2 text-primaryColor bg-whitegrey3 bg-opacity-40 group-hover:bg-primaryColor group-hover:text-white group-hover:opacity-100 mr-15px dark:bg-whitegrey1-dark"></i>
-                                        <p
-                                            class="text-sm lg:text-xs 2xl:text-sm font-medium leading-25px lg:leading-21px 2xl:leading-25px text-contentColor dark:text-contentColor-dark">
-                                            Lorem Ipsum is simply dummying text of the printing
-                                            andtypesetting industry most of the standard.
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- tag and share  -->
 
                             <div class="flex justify-between items-center flex-wrap py-10 mb-10 border-y border-borderColor2 dark:border-borderColor2-dark gap-y-10px"
                                 data-aos="fade-up">
@@ -683,7 +635,7 @@
                                 <!-- other courses heading -->
                                 <div class="flex items-center justify-between mb-10px">
                                     <h4 class="text-3xl font-bold text-blackColor dark:text-blackColor-dark leading-1.2">
-                                        instructor More Courses
+                                        Kursus Terbaik Lainnya
                                     </h4>
                                     <a href="{{ url('/course') }}"
                                         class="text-contentColor dark:text-contentColor-dark">Kursus Lainnya...</a>
@@ -923,55 +875,68 @@
                                 </div>
                             </div>
                             <div class="mb-5" data-aos="fade-up">
-                            <form action="{{ route('cart.store') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                @guest
+                                    <!-- Tombol untuk user yang belum login -->
+                                    <form action="{{ route('cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        <button type="submit"
+                                            class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                            Tambah ke Keranjang
+                                        </button>
+                                    </form>
 
-                                <button type="submit" class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                    Tambah ke Keranjang
-                                </button>
-                            </form>
-                                @if (auth()->user() &&
-                                        !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
-                                    <!-- Tombol Add to Cart dan Buy Now jika pengguna belum terdaftar -->
-                                    
-
-                                    <form id="course-registration-form"
-                                        action="{{ route('course-registrations.store') }}" method="POST"
-                                        style="display: inline;">
+                                    <form id="course-registration-form" action="{{ route('course-registrations.store') }}"
+                                        method="POST" style="display: inline;">
                                         @csrf
                                         <input type="hidden" name="course_id" id="course-id-input" value="">
-
-                                        <!-- Tombol Buy Now -->
                                         <button type="button" onclick="submitCourseRegistration({{ $course->id }})"
                                             class="w-full text-center text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark">
                                             Beli Sekarang
                                         </button>
                                     </form>
                                 @else
-                                    <!-- Tombol Mulai Belajar jika pengguna sudah terdaftar -->
-                                    @if ($nextProsesModul)
-                                        <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
-                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Lanjutkan
-                                        </a>
-                                    @elseif ($lastAccessedModul)
-                                        <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
-                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Lanjutkan
-                                        </a>
+                                    @if (auth()->user() && !auth()->user()->courseRegistrations()->where('course_id', $course->id)->exists())
+                                        <!-- Tombol untuk user yang sudah login tapi belum terdaftar di course -->
+                                        <form action="{{ route('cart.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                            <button type="submit"
+                                                class="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                                Tambah ke Keranjang
+                                            </button>
+                                        </form>
+
+                                        <form id="course-registration-form"
+                                            action="{{ route('course-registrations.store') }}" method="POST"
+                                            style="display: inline;">
+                                            @csrf
+                                            <input type="hidden" name="course_id" id="course-id-input" value="">
+                                            <button type="button" onclick="submitCourseRegistration({{ $course->id }})"
+                                                class="w-full text-center text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark">
+                                                Beli Sekarang
+                                            </button>
+                                        </form>
                                     @else
-                                        <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
-                                            class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                            Mulai Belajar
-                                        </a>
+                                        <!-- Tombol untuk user yang sudah login dan terdaftar di course -->
+                                        @if ($nextProsesModul)
+                                            <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
+                                                class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                                Lanjutkan
+                                            </a>
+                                        @elseif ($lastAccessedModul)
+                                            <a href="{{ route('showCourseRegistration', ['course_slug' => $course->slug]) }}"
+                                                class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                                Lanjutkan
+                                            </a>
+                                        @else
+                                            <a href="{{ route('modul.detail', ['course' => $course->slug, 'modul' => $firstModul->slug]) }}"
+                                                class="w-full text-center text-size-15 text-whiteColor bg-primaryColor px-25px py-10px mb-10px leading-1.8 border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
+                                                Mulai Belajar
+                                            </a>
+                                        @endif
                                     @endif
-
-                                @endif
-
-                                <span class="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
-                                    <i class="icofont-ui-rotation"></i> 45-Days Money-Back Guarantee
-                                </span>
+                                @endguest
                             </div>
 
                             <ul>

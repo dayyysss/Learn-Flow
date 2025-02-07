@@ -19,7 +19,7 @@
                             <option>Yearly</option>
                         </select>
                         <div>
-                            <a href="create-course.html" class="btn b-solid btn-primary-solid dk-theme-card-square">
+                            <a href="{{ route('kursus.create') }}" class="btn b-solid btn-primary-solid dk-theme-card-square">
                                 <i class="ri-add-circle-line text-inherit"></i>
                                 Tambah Kursus
                             </a>

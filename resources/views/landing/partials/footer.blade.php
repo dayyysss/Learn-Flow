@@ -2,7 +2,7 @@
     <footer class="bg-darkblack">
         <div class="container pt-65px pb-5 lg:pb-10">
             <!-- footer top or subscription -->
-            <section>
+            {{-- <section>
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 gap-y-30px md:gap-y-0 items-center pb-45px border-b border-darkcolor">
                     <div data-aos="fade-up">
@@ -27,7 +27,7 @@
                         </form>
                     </div>
                 </div>
-            </section>
+            </section> --}}
 
             <!-- footer main -->
             <section>
