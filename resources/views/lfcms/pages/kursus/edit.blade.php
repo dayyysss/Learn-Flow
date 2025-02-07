@@ -128,7 +128,7 @@
                 <!-- Start Course Media File -->
                 <div class="col-span-full lg:col-span-5 card h-fit">
                   <div class="p-1.5">
-                      <h6 class="card-title">Add media files</h6>
+                      <h6 class="card-title">Data Tambahan</h6>
                       <div class="mt-7 pt-0.5 flex flex-col gap-5">
                           <div class="col-span-full sm:col-span-4">
                               <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">
@@ -140,7 +140,7 @@
                                   <span class="flex-center flex-col peer-[.uploaded]/file:hidden">
                                       <span
                                           class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
-                                          <img src="assets/images/icons/upload-file.svg" alt="icon"
+                                          <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon"
                                               class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
                                       </span>
                                       <span class="mt-2 text-gray-500 dark:text-dark-text">Choose file</span>
@@ -159,7 +159,7 @@
                                   <span class="flex-center flex-col">
                                       <span
                                           class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
-                                          <img src="assets/images/icons/upload-file.svg" alt="icon"
+                                          <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon"
                                               class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
                                       </span>
                                       <span class="file-name text-gray-500 dark:text-dark-text mt-2">Choose file</span>
@@ -186,7 +186,7 @@
                                   <span class="flex-center flex-col">
                                       <span
                                           class="size-10 md:size-15 flex-center bg-primary-200 dark:bg-dark-icon rounded-50 dk-theme-card-square">
-                                          <img src="assets/images/icons/upload-file.svg" alt="icon"
+                                          <img src="{{ asset('assets/lfcms/images/icons/upload-file.svg') }}" alt="icon"
                                               class="dark:brightness-200 dark:contrast-100 w-1/2 sm:w-auto">
                                       </span>
                                       <span class="file-name text-gray-500 dark:text-dark-text mt-2">Choose file</span>

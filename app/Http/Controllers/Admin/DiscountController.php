@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Discount;
 use App\Models\Course;
+use App\Models\Discount;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class DiscountController extends Controller
 {
@@ -65,4 +66,41 @@ class DiscountController extends Controller
         $discount->delete();
         return redirect()->route('admin.discounts.index')->with('success', 'Diskon berhasil dihapus.');
     }
+
+    public function applyPromoCode($promoCode)
+    {
+        // Cari diskon berdasarkan kode promo
+        $discount = Discount::where('discount_code', $promoCode)->first();
+
+        if (!$discount || !$discount->isValid()) {
+            return response()->json(['success' => false, 'message' => 'Kode promo tidak valid atau sudah kedaluwarsa.']);
+        }
+
+        // Hitung diskon yang berlaku
+        $discountAmount = $discount->discount_amount;
+        $cashbackAmount = $discount->type === 'global' ? 0 : $discountAmount * 0.1; // Misalnya, cashback 10%
+
+        return response()->json([
+            'success' => true,
+            'discountAmount' => number_format($discountAmount, 0, ',', '.'),
+            'cashbackAmount' => number_format($cashbackAmount, 0, ',', '.'),
+        ]);
+    }
+
+    public function getPromoList()
+    {
+        $now = now();
+
+        $promos = Discount::where('start_date', '<=', $now)
+            ->where('end_date', '>=', $now)
+            ->select('discount_code', 'discount_amount', 'start_date', 'end_date')
+            ->get();
+
+        return response()->json([
+            'message' => $promos->isEmpty() ? 'Tidak ada promo yang tersedia saat ini.' : 'Data promo berhasil diambil.',
+            'promos' => $promos
+        ]);
+    }
+
+
 }

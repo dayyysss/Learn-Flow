@@ -43,7 +43,7 @@ class DashboardController extends Controller
     public function indexUser()
     {
 
-        return view('dashboard.layouts.layouts', compact('user'));
+        return view('dashboard.layouts.layouts');
     }
 
     public function myProfile()

@@ -14,7 +14,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
                     <div class="w-fit">
                         {{-- @permission('hak-akses.create') --}}
                             <button onclick="document.getElementById('addRoleModal').style.display='flex'"
-                                class="btn btn-primary bg-indigo-700 items-center text-white flex p-1 rounded">
+                                class="btn b-solid btn-primary-solid dk-theme-card-square">
                                Tambah
                             </button>
                         {{-- @endpermission --}}
@@ -71,7 +71,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
                         <h4 class="text-lg font-semibold mb-4">Hak Akses Menu</h4>
                         {{-- @permission('hak-akses.update') --}}
                             <button type="submit"
-                                class="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan Hak
+                                class="btn b-solid btn-primary-solid dk-theme-card-square">Simpan Hak
                                 Akses</button>
                         {{-- @endpermission --}}
                     </div>
