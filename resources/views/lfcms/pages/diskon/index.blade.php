@@ -129,8 +129,12 @@
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-900">Nominal Diskon</label>
-                    <input type="number" id="discount_amount" name="discount_amount" class="form-input w-full" required>
-                </div>
+                    <div class="relative">
+                        <span class="absolute left-3 top-2.5 text-gray-500">Rp</span>
+                        <input type="number" id="discount_amount" name="discount_amount" 
+                               class="form-input w-full pl-8" required placeholder="0">
+                    </div>
+                </div>                
 
                 <!-- Start Date and Time -->
                 <div class="mb-4">
