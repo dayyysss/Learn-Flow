@@ -150,7 +150,7 @@
                                     <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
                                         <div class="mr-5 cursor-pointer group relative flex items-center">
                                             <!-- Gambar Profil -->
-                                            <img src="{{ Auth::user()->image ?? asset('assets/images/avatar/default-avatar.png') }}"
+                                            <img src="{{ asset('storage/' . (Auth::user()->image ?? 'profile_images/default.png')) }}"
                                                 alt="Profil" class="w-10 h-auto rounded-full border-2 border-darkdeep7 p-1">
                                             <!-- Tambahkan panah sebagai ikon -->
                                             <i
