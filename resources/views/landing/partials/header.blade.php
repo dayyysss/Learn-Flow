@@ -210,7 +210,6 @@
                                                     @csrf
                                                 </form>
 
-
                                     <li class="hidden lg:block">
 
                                         <!-- Jika sudah login, tampilkan tautan ke dashboard -->
@@ -219,12 +218,43 @@
                                             Dashboard
                                         </a>
                                     @else
-                                        <!-- Jika belum login, tampilkan tautan ke login -->
-                                        <a href="{{ url('/login') }}"
-                                            class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                                            Masuk / Daftar
-                                        </a>
-                                    @endauth
+                                        <!-- Icon Search button -->
+                                    <li class="hidden lg:block mr-5">
+                                        <button id="searchButton"
+                                            class="text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
+                                            <i class="icofont-search-2 text-2xl"></i>
+                                        </button>
+                                    </li>
+
+                                    <!-- Search Modal -->
+                                    <div id="searchModal" class="fixed inset-0 bg-black bg-opacity-50 z-[9999] hidden">
+                                        <div class="fixed top-0 left-0 right-0 bg-white dark:bg-whiteColor-dark transform transition-transform duration-300 ease-out search-panel">
+                                            <div class="container mx-auto px-4 py-6">
+                                                <div class="flex justify-between items-center mb-4">
+                                                    <h3 class="text-xl font-semibold text-darkdeep1 dark:text-whiteColor">Pencarian</h3>
+                                                    <button id="closeSearchModal" class="text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
+                                                        <i class="icofont-close-line text-2xl"></i>
+                                                    </button>
+                                                </div>
+                                                <form action="" method="GET" class="relative">
+                                                    <input type="text" 
+                                                           name="query" 
+                                                           placeholder="Cari sesuatu disini..." 
+                                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primaryColor dark:bg-darkblack-dark dark:border-borderColor-dark dark:text-whiteColor"
+                                                           autocomplete="off">
+                                                    <button type="submit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
+                                                        <i class="icofont-search-2 text-xl"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Jika belum login, tampilkan tautan ke login -->
+                                    <a href="{{ url('/login') }}"
+                                        class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
+                                        Masuk / Daftar
+                                    </a>
+                                @endauth
                                 </li>
 
                                 <li class="block lg:hidden">
@@ -344,6 +374,24 @@
     </header>
 @show
 
+<style>
+    .search-panel {
+        transform: translateY(-100%);
+    }
+
+    #searchModal.active {
+        opacity: 1;
+    }
+
+    #searchModal.active .search-panel {
+        transform: translateY(0);
+    }
+
+    .modal-open {
+        overflow: hidden;
+    }
+</style>
+
 <script>
     document.getElementById('logout-link').addEventListener('click', function(event) {
         event.preventDefault();
@@ -351,7 +399,6 @@
     });
 </script>
 
-{{-- MENU HEADER --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -415,7 +462,6 @@
     });
 </script>
 
-{{-- HEADER MOBILE --}}
 <script>
     $(document).ready(function() {
         $.ajax({
@@ -456,9 +502,9 @@
                                            class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
                                             ${child.content}
                                             ${child.badge ? `
-                                            <span class="px-15px py-5px text-primaryColor bg-whitegrey3 text-xs rounded ml-5px">
-                                                ${child.badge}
-                                            </span>` : ''}
+                                                    <span class="px-15px py-5px text-primaryColor bg-whitegrey3 text-xs rounded ml-5px">
+                                                        ${child.badge}
+                                                    </span>` : ''}
                                         </a>
                                     </div>
                                 </li>`;
@@ -560,4 +606,52 @@
             });
         });
     });
+</script>
+
+<script>
+    if (typeof initSearchModal === 'undefined') {
+        function initSearchModal() {
+            const searchButton = document.getElementById('searchButton');
+            const searchModal = document.getElementById('searchModal');
+            const closeSearchModal = document.getElementById('closeSearchModal');
+
+            if (!searchButton || !searchModal || !closeSearchModal) {
+                console.error('Some search modal elements are missing');
+                return;
+            }
+
+            const searchInput = searchModal.querySelector('input[name="query"]');
+
+            function openModal() {
+                searchModal.classList.remove('hidden');
+                searchModal.offsetHeight;
+                searchModal.classList.add('active');
+                document.body.classList.add('modal-open');
+                if (searchInput) {
+                    setTimeout(() => searchInput.focus(), 300);
+                }
+            }
+
+            function closeModal() {
+                searchModal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                setTimeout(() => searchModal.classList.add('hidden'), 300);
+            }
+
+            searchButton.addEventListener('click', openModal);
+            closeSearchModal.addEventListener('click', closeModal);
+
+            searchModal.addEventListener('click', (e) => {
+                if (e.target === searchModal) closeModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initSearchModal);
+    }
 </script>
