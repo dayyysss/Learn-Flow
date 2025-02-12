@@ -286,7 +286,6 @@
     });
 </script>
 
-
 <script>
     function previewImage(event) {
         const input = event.target;
@@ -327,3 +326,54 @@
         /* Warna merah yang lebih terang saat hover */
     }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tagContainer = document.getElementById("tag-container");
+    const tagInput = document.getElementById("tag-input");
+    let tags = [];
+
+    function addTag(tag) {
+        tag = tag.trim();
+        if (tag && !tags.includes(tag)) {
+            tags.push(tag);
+            renderTags();
+        }
+        tagInput.value = "";
+    }
+
+    function removeTag(index) {
+        tags.splice(index, 1);
+        renderTags();
+    }
+
+    function renderTags() {
+        tagContainer.innerHTML = "";
+        tags.forEach((tag, index) => {
+            const tagElement = document.createElement("div");
+            tagElement.className = "relative flex items-center bg-gray-200 text-black text-sm px-3 py-1 rounded-md";
+            tagElement.innerHTML = `
+                <button onclick="removeTag(${index})" class="absolute -top-3 -right-3 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs shadow-md">&times;</button>
+                <span>${tag}</span>
+                <input type="hidden" name="tags[]" value="${tag}">
+            `;
+            tagContainer.appendChild(tagElement);
+        });
+        tagContainer.appendChild(tagInput);
+        tagInput.focus();
+    }
+
+    tagInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === ",") {
+            event.preventDefault();
+            addTag(tagInput.value);
+        } else if (event.key === "Backspace" && tagInput.value === "" && tags.length > 0) {
+            event.preventDefault();
+            removeTag(tags.length - 1);
+        }
+    });
+
+    window.removeTag = removeTag;
+});
+
+</script>

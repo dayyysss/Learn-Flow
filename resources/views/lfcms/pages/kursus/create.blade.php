@@ -116,6 +116,12 @@
                 <div class="p-1.5">
                     <h6 class="card-title">Data Tambahan</h6>
                     <div class="mt-7 pt-0.5 flex flex-col gap-5">
+                        <div>
+                            <label for="tags" class="form-label text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">Tags</label>
+                            <div id="tag-container" class="flex flex-wrap gap-2 border border-gray-300 p-2 rounded-md min-h-[40px] relative">
+                                <input type="text" id="tag-input" name="tags" class="border-none outline-none flex-1 min-w-[100px] bg-transparent" placeholder="Masukkan tag">
+                            </div>
+                        </div>
                         <div class="col-span-full sm:col-span-4">
                             <p class="text-xs text-gray-500 dark:text-dark-text leading-none font-semibold mb-3">Thumbnail (548x234)</p>
                             <label for="thumbnailsrc" class="file-container ac-bg text-xs leading-none font-semibold mb-3 cursor-pointer aspect-[4/1.5] flex flex-col items-center justify-center gap-2.5 border border-dashed border-gray-900 dark:border-dark-border rounded-10 dk-theme-card-square">
@@ -164,8 +170,8 @@
                             </label>
                         </div>
                         <div class="flex-center w-100 gap-5 w-full">
+                            <button type="submit" class="btn w-50 b-solid btn-secondary-solid btn-lg dk-theme-card-square">Submit</button>
                             <a href="{{route('kursus.index')}}" class="btn w-50 b-solid btn-primary-solid btn-lg dk-theme-card-square">Kembali</a>
-                            <button type="submit" class="btn w-50 b-solid btn-primary-solid btn-lg dk-theme-card-square">Submit</button>
                         </div>
                     </div>
                 </div>
