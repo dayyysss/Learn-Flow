@@ -9475,3 +9475,39 @@ video {
     background-color: #bbb;
     border-radius: 10px;
 }
+
+/* alert */
+
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: #fff;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.5s forwards, fadeOut 0.5s 3s forwards;
+}
+
+.alert-success {
+    background-color: #28a745; /* Hijau */
+}
+
+.alert-danger {
+    background-color: #dc3545; /* Merah */
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}

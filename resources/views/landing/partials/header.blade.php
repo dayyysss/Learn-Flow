@@ -211,7 +211,6 @@
                                                 </form>
 
                                     <li class="hidden lg:block">
-
                                         <!-- Jika sudah login, tampilkan tautan ke dashboard -->
                                         <a href="{{ url('/dashboard') }}"
                                             class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
@@ -228,21 +227,23 @@
 
                                     <!-- Search Modal -->
                                     <div id="searchModal" class="fixed inset-0 bg-black bg-opacity-50 z-[9999] hidden">
-                                        <div class="fixed top-0 left-0 right-0 bg-white dark:bg-whiteColor-dark transform transition-transform duration-300 ease-out search-panel">
+                                        <div
+                                            class="fixed top-0 left-0 right-0 bg-white dark:bg-whiteColor-dark transform transition-transform duration-300 ease-out search-panel">
                                             <div class="container mx-auto px-4 py-6">
                                                 <div class="flex justify-between items-center mb-4">
-                                                    <h3 class="text-xl font-semibold text-darkdeep1 dark:text-whiteColor">Pencarian</h3>
-                                                    <button id="closeSearchModal" class="text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
+                                                    <h3 class="text-xl font-semibold text-darkdeep1 dark:text-whiteColor">
+                                                        Pencarian</h3>
+                                                    <button id="closeSearchModal"
+                                                        class="text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
                                                         <i class="icofont-close-line text-2xl"></i>
                                                     </button>
                                                 </div>
                                                 <form action="" method="GET" class="relative">
-                                                    <input type="text" 
-                                                           name="query" 
-                                                           placeholder="Cari sesuatu disini..." 
-                                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primaryColor dark:bg-darkblack-dark dark:border-borderColor-dark dark:text-whiteColor"
-                                                           autocomplete="off">
-                                                    <button type="submit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
+                                                    <input type="text" name="query" placeholder="Cari sesuatu disini..."
+                                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primaryColor dark:bg-darkblack-dark dark:border-borderColor-dark dark:text-whiteColor"
+                                                        autocomplete="off">
+                                                    <button type="submit"
+                                                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
                                                         <i class="icofont-search-2 text-xl"></i>
                                                     </button>
                                                 </form>

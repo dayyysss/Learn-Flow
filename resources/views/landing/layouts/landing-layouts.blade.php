@@ -72,6 +72,7 @@
 
     @include('landing.partials.header')
     <main class="bg-transparent">
+        @include('landing.components.alert.alert')
         @yield('content')
     </main>
     @include('landing.partials.footer')
