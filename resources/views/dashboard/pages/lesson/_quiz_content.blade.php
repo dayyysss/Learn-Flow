@@ -41,7 +41,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Hanya redirect jika user mengonfirmasi
-                    window.location.href = "{{ route('startQuiz.index', $modul->id) }}";
+                    window.location.href = "{{ route('startQuiz.index', $modul->slug) }}";
                 }
             });
         }
