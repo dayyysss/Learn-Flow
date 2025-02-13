@@ -397,6 +397,9 @@ Route::middleware(['auth'])
 
 
         Route::get('/kelas/{course_slug}', [CourseController::class, 'showCourseRegistration'])->name('showCourseRegistration');
+
+        //review
+        Route::post('/reviews/store', [FeedbackController::class, 'store'])->name('reviews.store');
     });
 
 Route::post('/kontak-masuk', [ContactController::class, 'store'])->name('contact.store');

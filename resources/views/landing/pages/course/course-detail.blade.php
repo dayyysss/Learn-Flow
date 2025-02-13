@@ -473,48 +473,34 @@
                                                 data-aos="fade-up">
                                                 Add a Review
                                             </h4>
+
+                                            <!-- Rating Stars -->
                                             <div class="flex gap-15px items-center mb-30px">
                                                 <h6
                                                     class="font-bold text-blackColor dark:text-blackColor-dark !leading-[19.2px]">
-                                                    Your Ratings:
-                                                </h6>
-                                                <div class="text-secondaryColor leading-1.8">
-                                                    <i class="icofont-star hover:text-primaryColor"></i>
-                                                    <i class="icofont-star hover:text-primaryColor"></i>
-                                                    <i class="icofont-star hover:text-primaryColor"></i>
-                                                    <i class="icofont-star hover:text-primaryColor"></i>
-                                                    <i class="icofont-star hover:text-primaryColor"></i>
+                                                    Your Ratings:</h6>
+                                                <div class="text-secondaryColor leading-1.8" id="star-rating">
+                                                    <i class="icofont-star star" data-value="1"></i>
+                                                    <i class="icofont-star star" data-value="2"></i>
+                                                    <i class="icofont-star star" data-value="3"></i>
+                                                    <i class="icofont-star star" data-value="4"></i>
+                                                    <i class="icofont-star star" data-value="5"></i>
                                                 </div>
                                             </div>
+
                                             <form class="pt-5" data-aos="fade-up" method="POST"
                                                 action="{{ route('reviews.store') }}">
                                                 @csrf
-                                                <textarea name="comment" placeholder="Type your comments...."
-                                                    class="w-full p-5 mb-8 bg-transparent text-sm text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder k"
+                                                <input type="hidden" name="course_id" value="{{ $course->id ?? '' }}">
+                                                <input type="hidden" name="rating" id="rating">
+
+                                                <textarea name="komentar" placeholder="Type your comments...." class="w-full p-5 mb-8 bg-transparent border rounded"
                                                     cols="30" rows="6"></textarea>
-                                                <div class="grid grid-cols-1 mb-10 gap-10">
-                                                    <input type="text" name="name" placeholder="Type your name...."
-                                                        class="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-                                                    <input type="email" name="email"
-                                                        placeholder="Type your email...."
-                                                        class="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-                                                </div>
-                                                <div class="grid grid-cols-1 mb-10 gap-10">
-                                                    <input type="text" name="website"
-                                                        placeholder="Type your website...."
-                                                        class="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark placeholder:text-placeholder border border-transparent dark:border-borderColor2-dark placeholder:opacity-80 h-15 leading-15 font-medium rounded">
-                                                </div>
-                                                <div>
-                                                    <input type="checkbox" name="save_info">
-                                                    <span class="text-size-15 text-darkBlue dark:text-darkBlue-dark">
-                                                        Save my name, email, and website in this browser for the next time I
-                                                        comment.
-                                                    </span>
-                                                </div>
+
                                                 <div class="mt-30px">
                                                     <button type="submit"
-                                                        class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
-                                                        Submit
+                                                        class="text-white bg-primaryColor px-5 py-2 rounded">
+                                                        Submit Review
                                                     </button>
                                                 </div>
                                             </form>
@@ -1143,6 +1129,25 @@
                     alert('Terjadi kesalahan, silakan coba lagi.');
                 });
         }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const stars = document.querySelectorAll(".star");
+            const ratingInput = document.getElementById("rating");
+    
+            stars.forEach(star => {
+                star.addEventListener("click", function () {
+                    let value = this.getAttribute("data-value");
+                    ratingInput.value = value;
+
+                    stars.forEach(s => s.classList.remove("text-primaryColor"));
+
+                    for (let i = 0; i < value; i++) {
+                        stars[i].classList.add("text-primaryColor");
+                    }
+                });
+            });
+        });
     </script>
     <script id="dsq-count-scr" src="//learnflow-1.disqus.com/count.js" async></script>
 @endsection

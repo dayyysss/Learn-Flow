@@ -60,8 +60,6 @@ class FeedbackController extends Controller
         $request->validate([
             'rating' => 'required|numeric|min:1|max:5',
             'komentar' => 'required|string|max:100',
-            'instructor_rating' => 'nullable|numeric|min:1|max:5',
-            'instructor_komentar' => 'nullable|string|max:100',
             'course_id' => 'required|exists:courses,id',
         ]);
 
@@ -69,47 +67,39 @@ class FeedbackController extends Controller
             $userId = auth()->id();
             $courseId = $request->input('course_id');
 
-            // Cek apakah pengguna sudah memberikan ulasan untuk kursus ini
-            $existingFeedback = Feedback::where('user_id', $userId)
+            // Cek apakah pengguna sudah membeli kursus ini dan statusnya "confirmed"
+            $hasPurchased = \App\Models\CourseRegistration::where('user_id', $userId)
                 ->where('course_id', $courseId)
-                ->first();
+                ->where('registration_status', 'confirmed')
+                ->exists();
 
-            if ($existingFeedback) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Anda sudah memberikan ulasan untuk kursus ini.'
-                ]);
+            if (!$hasPurchased) {
+                return redirect()->back()->with('error', 'Anda hanya dapat memberikan ulasan untuk kursus yang telah dibeli.');
             }
 
-            $feedback = new Feedback();
-            $feedback->user_id = $userId;
-            $feedback->course_id = $courseId;
-            $feedback->rating = $request->input('rating');
-            $feedback->komentar = $request->input('komentar');
-            $feedback->instructor_rating = $request->input('instructor_rating');
-            $feedback->instructor_komentar = $request->input('instructor_komentar');
+            // Cek apakah pengguna sudah memberikan ulasan untuk kursus ini
+            if (Feedback::where('user_id', $userId)->where('course_id', $courseId)->exists()) {
+                return redirect()->back()->with('error', 'Anda sudah memberikan ulasan untuk kursus ini.');
+            }
 
-            $now = now()->setTimezone('Asia/Jakarta');
-            $feedback->created_at = $now;
-            $feedback->updated_at = $now;
+            $course = Course::findOrFail($courseId);
 
-            $course = Course::find($courseId);
-
-            $feedback->instruktur_id = $course ? $course->user_id : null;
-
-            $feedback->save();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Ulasan berhasil ditambahkan!'
+            Feedback::create([
+                'user_id' => $userId,
+                'course_id' => $courseId,
+                'rating' => $request->input('rating'),
+                'komentar' => $request->input('komentar'),
+                'instruktur_id' => $course->instruktur_id ?? null, // Gunakan instruktur dari course
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
+
+            return redirect()->back()->with('success', 'Ulasan berhasil ditambahkan!');
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Ulasan gagal ditambahkan.'
-            ]);
+            return redirect()->back()->with('error', 'Terjadi kesalahan, ulasan gagal ditambahkan.');
         }
     }
+
 
 
     // Dapatkan semua ulasan berdasarkan kursus
