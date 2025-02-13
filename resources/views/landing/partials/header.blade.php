@@ -187,7 +187,7 @@
                                                     </svg>
                                                     Pengaturan
                                                 </a>
-
+                                                @include('landing.components.alert.alert')
                                                 <a href="#"
                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                                     class="flex items-center mt-2 text-darkblack hover:text-secondaryColor dark:text-whiteColor-dark dark:hover:text-secondaryColor">

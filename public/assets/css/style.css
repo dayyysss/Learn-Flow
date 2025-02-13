@@ -2436,7 +2436,7 @@ video {
     max-width: 100%;
 }
 
-.flex-1{
+.flex-1 {
     flex: 1;
 }
 
@@ -3422,12 +3422,16 @@ video {
 
 .bg-gray {
     --tw-bg-opacity: 1;
-    background-color: rgb(128 128 128 / var(--tw-bg-opacity)); /* Warna abu-abu */
+    background-color: rgb(
+        128 128 128 / var(--tw-bg-opacity)
+    ); /* Warna abu-abu */
 }
 
 .bg-gray-light {
     --tw-bg-opacity: 1;
-    background-color: rgb(245 245 245 / var(--tw-bg-opacity)); /* Warna abu-abu sangat muda */
+    background-color: rgb(
+        245 245 245 / var(--tw-bg-opacity)
+    ); /* Warna abu-abu sangat muda */
 }
 
 .bg-deepgreen {
@@ -9414,10 +9418,10 @@ video {
 }
 
 .ellipsis-text {
-    white-space: nowrap;       /* Pastikan teks tidak turun ke baris baru */
-    overflow: hidden;          /* Sembunyikan teks yang melebihi batas */
-    text-overflow: ellipsis;   /* Tambahkan titik-titik (...) */
-    max-width: 150px;          /* Atur batas lebar agar bisa dipotong */
+    white-space: nowrap; /* Pastikan teks tidak turun ke baris baru */
+    overflow: hidden; /* Sembunyikan teks yang melebihi batas */
+    text-overflow: ellipsis; /* Tambahkan titik-titik (...) */
+    max-width: 150px; /* Atur batas lebar agar bisa dipotong */
     display: block;
 }
 
@@ -9486,11 +9490,18 @@ video {
     border-radius: 5px;
     color: #fff;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     opacity: 0;
     transform: translateX(100%);
-    animation: slideIn 0.5s forwards, fadeOut 0.5s 3s forwards;
+    animation: slideIn 0.5s forwards, stayVisible 3s 1.5s forwards, fadeOut 0.5s 5s forwards;
 }
 
+/* Variasi warna alert */
 .alert-success {
     background-color: #28a745; /* Hijau */
 }
@@ -9499,6 +9510,12 @@ video {
     background-color: #dc3545; /* Merah */
 }
 
+/* Styling ikon */
+.alert i {
+    font-size: 20px;
+}
+
+/* Animasi masuk (slide-in) */
 @keyframes slideIn {
     to {
         opacity: 1;
@@ -9506,11 +9523,20 @@ video {
     }
 }
 
+/* Tetap terlihat selama beberapa detik */
+@keyframes stayVisible {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animasi keluar (fade-out setelah beberapa detik) */
 @keyframes fadeOut {
     to {
         opacity: 0;
     }
 }
+
 
 /*----------------------------------------*/
 /*  10 - Search Box
@@ -9523,8 +9549,8 @@ video {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; 
-    background-color:rgba(0,0,0,.9);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
     -webkit-transition: all 300ms;
     -o-transition: all 300ms;
     -moz-transition: all 300ms;
@@ -9541,11 +9567,11 @@ video {
     right: 25px;
     top: 25px;
     cursor: pointer;
-    z-index: 99999
+    z-index: 99999;
 }
 .pbmit-icon-close:before {
     font-weight: normal;
-    opacity: .5;
+    opacity: 0.5;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -9601,7 +9627,7 @@ video {
     text-align: left;
     height: 70px;
     line-height: 70px;
-	width: 100%;
+    width: 100%;
     border-radius: 0;
     background-color: transparent;
     border-bottom: 3px solid #fff;
@@ -9610,7 +9636,7 @@ video {
     position: absolute;
     top: 5px;
     right: 5px;
-    padding: 10px; 
+    padding: 10px;
     font-size: 24px;
     height: 60px;
     line-height: 60px;

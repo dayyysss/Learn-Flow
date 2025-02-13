@@ -45,6 +45,8 @@ class FortifyServiceProvider extends ServiceProvider
             if (auth()->attempt($credentials)) {
                 $user = auth()->user();
 
+                session()->flash('success', 'Login berhasil! Selamat datang, ' . $user->name . '.');
+                
                 // Redirect berdasarkan role_id
                 if ($user->role_id == 1) {
                     return redirect('lfcms/dashboard');
@@ -54,6 +56,7 @@ class FortifyServiceProvider extends ServiceProvider
 
                 // Jika role_id tidak dikenali, logout dan kembali ke login
                 auth()->logout();
+                session()->flash('error', 'Anda tidak memiliki izin untuk login.');
                 return redirect()->route('login')->withErrors([
                     'login' => 'Anda tidak memiliki izin untuk login.',
                 ]);
@@ -74,6 +77,7 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements LogoutResponse {
             public function toResponse($request)
             {
+                session()->flash('success', 'Logout berhasil! Sampai jumpa lagi.');
                 notify()->success('Logout berhasil!', 'Sampai jumpa!');
                 return redirect()->route('index');
             }
@@ -85,6 +89,7 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements RegisterResponse {
             public function toResponse($request)
             {
+                session()->flash('success', 'Registrasi berhasil! Silakan login.');
                 notify()->success('Registrasi berhasil!', 'Silakan login.');
                 return redirect()->route('login');
             }
