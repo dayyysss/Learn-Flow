@@ -5,27 +5,18 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  mixed  ...$roles
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next, ...$roles)
+    public function handle(Request $request, Closure $next, $roles)
     {
-        // Cek apakah user sedang login
+        // Pastikan user sudah login
         if (!auth()->check()) {
-            return redirect('/login');
+            return $this->redirectToLogin($request);
         }
 
-        // Ambil nama role user yang sedang login
-        $userRoleName = auth()->user()->getRoleNames();
+        // Ambil role user yang sedang login
+        $userRoleName = auth()->user()->getRoleNames(); // Sesuaikan jika pakai spatie/role
 
         Log::info('RoleMiddleware Debug', [
             'user_id' => auth()->id(),
@@ -33,13 +24,28 @@ class RoleMiddleware
             'required_roles' => $roles,
         ]);
 
-        $roles = explode('|', implode('|', $roles));
+        // Pisahkan role berdasarkan '|'
+        $rolesArray = explode('|', $roles);
 
-        // Jika tidak ada peran yang cocok, tampilkan 403
-        if (!$userRoleName->intersect($roles)->count()) {
-            return response()->view('errors.403');
+        // Jika user tidak memiliki salah satu role yang diperbolehkan, redirect ke 403
+        if (!$userRoleName->intersect($rolesArray)->count()) {
+            return redirect('/403');
         }
 
         return $next($request);
     }
+
+    /**
+     * Redirect user ke halaman login yang sesuai berdasarkan role
+     */
+    private function redirectToLogin(Request $request)
+    {
+        // Tentukan route login berdasarkan prefix URL atau session
+        if ($request->is('lfcms*')) {
+            return redirect('/LFCMS/login'); // Login khusus Superadmin
+        }
+
+        return redirect('/login'); // Login default untuk user biasa
+    }
 }
+
