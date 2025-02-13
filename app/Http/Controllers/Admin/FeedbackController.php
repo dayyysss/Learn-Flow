@@ -67,6 +67,16 @@ class FeedbackController extends Controller
             $userId = auth()->id();
             $courseId = $request->input('course_id');
 
+            // Cek apakah pengguna sudah membeli kursus ini dan statusnya "confirmed"
+            $hasPurchased = \App\Models\CourseRegistration::where('user_id', $userId)
+                ->where('course_id', $courseId)
+                ->where('registration_status', 'confirmed')
+                ->exists();
+
+            if (!$hasPurchased) {
+                return redirect()->back()->with('error', 'Anda hanya dapat memberikan ulasan untuk kursus yang telah dibeli.');
+            }
+
             // Cek apakah pengguna sudah memberikan ulasan untuk kursus ini
             if (Feedback::where('user_id', $userId)->where('course_id', $courseId)->exists()) {
                 return redirect()->back()->with('error', 'Anda sudah memberikan ulasan untuk kursus ini.');
@@ -79,7 +89,7 @@ class FeedbackController extends Controller
                 'course_id' => $courseId,
                 'rating' => $request->input('rating'),
                 'komentar' => $request->input('komentar'),
-                'instruktur_id' => $course->instruktur_id, // Gunakan instruktur dari course
+                'instruktur_id' => $course->instruktur_id ?? null, // Gunakan instruktur dari course
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -89,6 +99,7 @@ class FeedbackController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan, ulasan gagal ditambahkan.');
         }
     }
+
 
 
     // Dapatkan semua ulasan berdasarkan kursus
