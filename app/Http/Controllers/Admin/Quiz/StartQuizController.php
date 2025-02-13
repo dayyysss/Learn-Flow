@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Quiz;
 use App\Http\Controllers\Controller;
 use App\Models\Answer_quiz;
 use App\Models\Option;
-use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Start_quiz;
 use Illuminate\Http\Request;
@@ -13,26 +12,32 @@ use Illuminate\Support\Facades\Auth;
 
 class StartQuizController extends Controller
 {
-    public function index($id)
+    public function index($slug)
     {
-        $data['quizzes'] = Quiz::with('questions.options')->find($id);
+        // Ambil quiz berdasarkan slug
+        $quiz = Quiz::with(['questions.options', 'course', 'babs.moduls', 'babs.quiz'])->where('slug', $slug)->firstOrFail();
 
-        $startQuiz = Start_quiz::where('quiz_id', $id)->first();
+        // Pastikan quiz ditemukan
+        if (!$quiz) {
+            return redirect()->back()->with('error', 'Quiz tidak ditemukan');
+        }
+
+        // Ambil atau buat startQuiz berdasarkan quiz_id
+        $startQuiz = Start_quiz::where('quiz_id', $quiz->id)->first();
 
         if (!$startQuiz) {
-            Start_quiz::create([
-                'quiz_id' => $id,
-                'waktu_akhir' => now()->addMinute($data['quizzes']->waktu),
+            $startQuiz = Start_quiz::create([
+                'quiz_id' => $quiz->id,
+                'waktu_akhir' => now()->addMinutes($quiz->waktu),
             ]);
         }
 
-        $data['start_quiz'] = $startQuiz;
-
-        // echo '<pre>';
-        // echo print_r($quizzes->questions->options);
-        // echo '</pre>';
-        // $question = Question::where('quiz_id', $id)->get();
-        return view('dashboard.pages.lesson.quiz', $data);
+        return view('dashboard.pages.lesson.quiz', [
+            'quizzes' => $quiz,
+            'start_quiz' => $startQuiz,
+            'course' => $quiz->course, // Pastikan relasi 'course' sudah dimuat
+            'firstModul' => $quiz->babs->moduls->first() ?? null, // Ambil modul pertama jika ada
+        ]);
     }
 
     public function submitQuiz(Request $request)
@@ -45,16 +50,15 @@ class StartQuizController extends Controller
         ]);
 
         $userId = Auth::id();
-        $quizId = $request->start_quiz_id;
-        dd($quizId);
+        $startQuizId = $request->start_quiz_id;
 
         foreach ($request->answers as $answer) {
-            $option = Option::where('id', $answer['option_id'])->first();
-            $isCorrect = $option ? $option->is_correct : false; // Ambil status jawaban dari database
+            $correctAnswer = Option::where('id', $answer['option_id'])->value('correct_answer');
+            $isCorrect = $correctAnswer === $answer['selected'] ? 1 : 0; // Ambil status jawaban dari database
 
             Answer_quiz::create([
                 'user_id' => $userId,
-                'start_quiz_id' => $quizId,
+                'start_quiz_id' => $startQuizId,
                 'question_id' => $answer['question_id'],
                 'option_id' => $answer['option_id'],
                 'is_correct' => $isCorrect,

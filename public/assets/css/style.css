@@ -9466,7 +9466,7 @@ video {
     max-height: 500px; /* Batasi tinggi agar tidak terlalu panjang */
     overflow-y: auto; /* Tambahkan scrollbar saat konten melebihi batas */
     padding: 10px;
-    border: 1px solid #d1d5db; /* Border untuk tampilan lebih rapi */
+    border: transparent; /* Border untuk tampilan lebih rapi */
     border-radius: 10px;
 }
 

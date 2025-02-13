@@ -24,7 +24,7 @@
                         </div>
                         <div class="accordion-content transition-all duration-500 h-0">
                             <div class="content-wrapper p-10px md:px-30px">
-                                <ul>
+                                {{-- <ul>
                                     @foreach ($bab->moduls as $index => $modul)
                                         @php
                                             $modulProgress = $modul
@@ -120,7 +120,7 @@
                                         </li>
                                     @endforeach
 
-                                </ul>
+                                </ul> --}}
 
                             </div>
                         </div>
