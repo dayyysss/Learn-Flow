@@ -72,5 +72,31 @@ smoothScroll();
 
 })
 
-
-
+ /*-------------------------------------
+    Header Search Form
+    -------------------------------------*/
+    document.addEventListener("DOMContentLoaded", function () {
+      // Tombol search
+      document.getElementById("searchButton").addEventListener("click", function () {
+          document.querySelector(".pbmit-search-overlay").classList.add("st-show");
+          document.body.classList.add("st-prevent-scroll");
+      });
+  
+      // Tombol close modal search
+      document.querySelector(".pbmit-icon-close").addEventListener("click", function () {
+          document.querySelector(".pbmit-search-overlay").classList.remove("st-show");
+          document.body.classList.remove("st-prevent-scroll");
+      });
+  
+      // Cegah modal tertutup saat klik di dalam form
+      document.querySelector(".pbmit-site-searchform").addEventListener("click", function (event) {
+          event.stopPropagation();
+      });
+  
+      // Tutup modal jika klik di luar form pencarian
+      document.querySelector(".pbmit-search-overlay").addEventListener("click", function () {
+          this.classList.remove("st-show");
+          document.body.classList.remove("st-prevent-scroll");
+      });
+  });
+  
