@@ -2,15 +2,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
-    let babIndex = 0;
+    document.addEventListener('DOMContentLoaded', function() {
+        let babIndex = 0;
 
-    // Pasang event listener pada tombol "Add Bab"
-    document.querySelector('.add-bab-btn').addEventListener('click', function () {
-        babIndex++;
-        const babSection = document.createElement('div');
-        babSection.classList.add('bab-item', 'rounded', 'bg-whiteColor');
-        babSection.innerHTML = `
+        // Pasang event listener pada tombol "Add Bab"
+        document.querySelector('.add-bab-btn').addEventListener('click', function() {
+            babIndex++;
+            const babSection = document.createElement('div');
+            babSection.classList.add('bab-item', 'rounded', 'bg-whiteColor');
+            babSection.innerHTML = `
             <div class="bab-header bg-whiteColor rounded flex justify-between items-center cursor-pointer">
                 <h3 class="bab-title">Bab ${babIndex + 1}</h3>
                 <span class="toggle-icon">▼</span>
@@ -51,41 +51,41 @@
             </div>
         `;
 
-        // Tambahkan bab baru di bagian paling bawah
-        document.querySelector('.bab-section').appendChild(babSection);
+            // Tambahkan bab baru di bagian paling bawah
+            document.querySelector('.bab-section').appendChild(babSection);
 
-        // Attach event listener untuk buka/tutup konten
-        attachToggleContentHandler(babSection);
+            // Attach event listener untuk buka/tutup konten
+            attachToggleContentHandler(babSection);
 
-        // Attach event listener untuk tombol "Add Modul" pada bab baru
-        attachModulHandler(babSection, babIndex);
+            // Attach event listener untuk tombol "Add Modul" pada bab baru
+            attachModulHandler(babSection, babIndex);
 
-        // Attach event listener untuk tombol "Remove Bab"
-        attachRemoveBabHandler(babSection);
-    });
-
-    // Fungsi untuk menghandle buka/tutup konten bab
-    function attachToggleContentHandler(babElement) {
-        const babHeader = babElement.querySelector('.bab-header');
-        const babContent = babElement.querySelector('.bab-content');
-        const toggleIcon = babElement.querySelector('.toggle-icon');
-
-        babHeader.addEventListener('click', function () {
-            babContent.classList.toggle('hidden');
-            babHeader.classList.toggle('open');
+            // Attach event listener untuk tombol "Remove Bab"
+            attachRemoveBabHandler(babSection);
         });
-    }
 
-    // Fungsi untuk menghandle event tambah modul
-    function attachModulHandler(babElement, babIndex) {
-        let modulIndex = 0;
+        // Fungsi untuk menghandle buka/tutup konten bab
+        function attachToggleContentHandler(babElement) {
+            const babHeader = babElement.querySelector('.bab-header');
+            const babContent = babElement.querySelector('.bab-content');
+            const toggleIcon = babElement.querySelector('.toggle-icon');
 
-        babElement.querySelector('.add-modul-btn').addEventListener('click', function () {
-            modulIndex++;
-            const modulSection = babElement.querySelector('.modul-section');
-            const modulItem = document.createElement('div');
-            modulItem.classList.add('modul-item', 'border', 'p-5', 'mb-3');
-            modulItem.innerHTML = `
+            babHeader.addEventListener('click', function() {
+                babContent.classList.toggle('hidden');
+                babHeader.classList.toggle('open');
+            });
+        }
+
+        // Fungsi untuk menghandle event tambah modul
+        function attachModulHandler(babElement, babIndex) {
+            let modulIndex = 0;
+
+            babElement.querySelector('.add-modul-btn').addEventListener('click', function() {
+                modulIndex++;
+                const modulSection = babElement.querySelector('.modul-section');
+                const modulItem = document.createElement('div');
+                modulItem.classList.add('modul-item', 'border', 'p-5', 'mb-3');
+                modulItem.innerHTML = `
                 <div class="mb-15px relative">
     <div>
         <label class="mb-3 block font-semibold">Judul Modul</label>
@@ -130,32 +130,31 @@
 
             `;
 
-            modulSection.appendChild(modulItem);
+                modulSection.appendChild(modulItem);
 
-            // Attach event listener untuk tombol "Remove Modul"
-            attachRemoveModulHandler(modulItem);
-        });
-    }
+                // Attach event listener untuk tombol "Remove Modul"
+                attachRemoveModulHandler(modulItem);
+            });
+        }
 
-    // Fungsi untuk menghandle event hapus modul
-    function attachRemoveModulHandler(modulElement) {
-        modulElement.querySelector('.remove-modul-btn').addEventListener('click', function () {
-            modulElement.remove();
-        });
-    }
+        // Fungsi untuk menghandle event hapus modul
+        function attachRemoveModulHandler(modulElement) {
+            modulElement.querySelector('.remove-modul-btn').addEventListener('click', function() {
+                modulElement.remove();
+            });
+        }
 
-    // Fungsi untuk menghandle event hapus bab
-    function attachRemoveBabHandler(babElement) {
-        babElement.querySelector('.remove-bab-btn').addEventListener('click', function () {
-            babElement.remove();
-        });
-    }
+        // Fungsi untuk menghandle event hapus bab
+        function attachRemoveBabHandler(babElement) {
+            babElement.querySelector('.remove-bab-btn').addEventListener('click', function() {
+                babElement.remove();
+            });
+        }
 
-    // Attach event listener untuk modul pada form pertama
-    attachModulHandler(document.querySelector('.bab-item'), 0);
-    attachToggleContentHandler(document.querySelector('.bab-item'));
-});
-
+        // Attach event listener untuk modul pada form pertama
+        attachModulHandler(document.querySelector('.bab-item'), 0);
+        attachToggleContentHandler(document.querySelector('.bab-item'));
+    });
 </script>
 
 
@@ -206,20 +205,20 @@
             sisa = split[0].length % 3,
             rupiah = split[0].substr(0, sisa),
             ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-  
+
         if (ribuan) {
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
-  
+
         rupiah = split[1] ? rupiah + ',' + split[1] : rupiah;
         return 'Rp ' + rupiah;
     }
-  
+
     document.getElementById('harga_diskon').addEventListener('input', function() {
         this.value = formatRupiah(this.value);
     });
-  </script>
+</script>
 
 <script>
     // Script to add new signature input dynamically
@@ -243,41 +242,50 @@
 </script>
 
 <script>
-    // Function to toggle the visibility of the price input fields
-    function toggleHargaInput() {
-        var isPaid = document.getElementById('berbayar').value === 'true';
-        var hargaGroup = document.getElementById('harga-group');
-        var hargaDiskonGroup = document.getElementById('harga-diskon-group');
+    const radioButtons = document.querySelectorAll('input[name="berbayar"]');
+    const hargaGroup = document.getElementById('harga-group');
+    const hargaDiskonGroup = document.getElementById('harga-diskon-group');
+
+    // Function to toggle price fields visibility
+    function toggleHargaInput(event) {
+        const isPaid = event.target.value === 'true';
 
         if (isPaid) {
-            hargaGroup.style.display = 'block';        // Show the price input when "Paid" is selected
-            hargaDiskonGroup.style.display = 'block'; // Show the discount price input when "Paid" is selected
+            hargaGroup.style.display = 'block';
+            hargaDiskonGroup.style.display = 'block';
         } else {
-            hargaGroup.style.display = 'none';        // Hide the price input when "Free" is selected
-            hargaDiskonGroup.style.display = 'none';  // Hide the discount price input when "Free" is selected
+            hargaGroup.style.display = 'none';
+            hargaDiskonGroup.style.display = 'none';
         }
     }
 
-    // Initially run the toggle function to set the correct visibility
-    toggleHargaInput();
+    // Add event listeners to both radio buttons
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', toggleHargaInput);
+    });
 
-    // Add event listener to the "Paid Course" dropdown to toggle the price field visibility
-    document.getElementById('berbayar').addEventListener('change', toggleHargaInput);
+    // Set initial state based on default selected radio
+    const initialSelectedRadio = document.querySelector('input[name="berbayar"]:checked');
+    if (initialSelectedRadio) {
+        const event = {
+            target: initialSelectedRadio
+        };
+        toggleHargaInput(event);
+    }
 </script>
 
 <script>
     // Function to generate kode seri from course name
     document.getElementById('name').addEventListener('input', function() {
         var courseName = this.value;
-        var words = courseName.split(' ');  // Split the course name into words
+        var words = courseName.split(' '); // Split the course name into words
         var kodeSeri = words.map(function(word) {
-            return word.charAt(0).toUpperCase();  // Take the first letter of each word
-        }).join('');  // Join the first letters to form the kode seri
-        document.getElementById('kode_seri').value = kodeSeri;  // Set the kode seri input value
+            return word.charAt(0).toUpperCase(); // Take the first letter of each word
+        }).join(''); // Join the first letters to form the kode seri
+        document.getElementById('kode_seri').value = kodeSeri; // Set the kode seri input value
     });
 </script>
 
- 
 <script>
     function previewImage(event) {
         const input = event.target;
@@ -286,7 +294,7 @@
         if (input.files && input.files[0]) {
             const reader = new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 preview.src = e.target.result;
                 preview.style.display = 'block'; // Tampilkan gambar setelah di-load
             }
@@ -298,18 +306,74 @@
 
 <style>
     .signature-item .remove-signature-btn {
-    font-size: 20px; /* Ukuran font tombol */
-    padding: 10px; /* Hilangkan padding default tombol */
-    width: 30px;
-    height: 30px;
-    border: none; /* Menghilangkan border tombol */
-    background-color: transparent; /* Tombol tanpa latar belakang */
-    cursor: pointer; /* Menambahkan cursor pointer */
-    margin-left: 20px;
-}
+        font-size: 20px;
+        /* Ukuran font tombol */
+        padding: 10px;
+        /* Hilangkan padding default tombol */
+        width: 30px;
+        height: 30px;
+        border: none;
+        /* Menghilangkan border tombol */
+        background-color: transparent;
+        /* Tombol tanpa latar belakang */
+        cursor: pointer;
+        /* Menambahkan cursor pointer */
+        margin-left: 20px;
+    }
 
-.signature-item .remove-signature-btn:hover {
-    color: #e74c3c; /* Warna merah yang lebih terang saat hover */
-}
-
+    .signature-item .remove-signature-btn:hover {
+        color: #e74c3c;
+        /* Warna merah yang lebih terang saat hover */
+    }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tagContainer = document.getElementById("tag-container");
+    const tagInput = document.getElementById("tag-input");
+    let tags = [];
+
+    function addTag(tag) {
+        tag = tag.trim();
+        if (tag && !tags.includes(tag)) {
+            tags.push(tag);
+            renderTags();
+        }
+        tagInput.value = "";
+    }
+
+    function removeTag(index) {
+        tags.splice(index, 1);
+        renderTags();
+    }
+
+    function renderTags() {
+        tagContainer.innerHTML = "";
+        tags.forEach((tag, index) => {
+            const tagElement = document.createElement("div");
+            tagElement.className = "relative flex items-center bg-gray-200 text-black text-sm px-3 py-1 rounded-md";
+            tagElement.innerHTML = `
+                <button onclick="removeTag(${index})" class="absolute -top-3 -right-3 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs shadow-md">&times;</button>
+                <span>${tag}</span>
+                <input type="hidden" name="tags[]" value="${tag}">
+            `;
+            tagContainer.appendChild(tagElement);
+        });
+        tagContainer.appendChild(tagInput);
+        tagInput.focus();
+    }
+
+    tagInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === ",") {
+            event.preventDefault();
+            addTag(tagInput.value);
+        } else if (event.key === "Backspace" && tagInput.value === "" && tags.length > 0) {
+            event.preventDefault();
+            removeTag(tags.length - 1);
+        }
+    });
+
+    window.removeTag = removeTag;
+});
+
+</script>

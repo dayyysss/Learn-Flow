@@ -18,15 +18,8 @@
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.6",
         "spatie/laravel-flash": "^1.10",
-        "spatie/laravel-permission": "^6.10",
-        "simplesoftware/simple-qr": "dev-main"
+        "spatie/laravel-permission": "^6.10"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/SimpleSoftwareIO/simple-qrcode.git"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {

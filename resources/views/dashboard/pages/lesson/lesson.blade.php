@@ -34,7 +34,7 @@
                                 @yield('modul')
                             </div>
 
-                            {{-- <!-- Navigasi Modul -->
+                            <!-- Navigasi Modul -->
                             <div
                                 class="modul-navigation fixed bottom-0 left-0 w-full bg-white dark:bg-blackColor-dark border-t border-gray-300 dark:border-borderColor-dark z-50">
                                 <div class="flex justify-between items-center px-5 py-3">
@@ -67,7 +67,7 @@
                                         </span>
                                     @endif
                                 </div>
-                            </div> --}}
+                            </div>
 
                         </div>
                     </div>

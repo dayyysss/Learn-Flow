@@ -106,7 +106,7 @@
                                                     <i class="icofont-video-alt mr-10px"></i>
                                                     <a href="#" data-id="{{ $modul->id }}"
                                                         data-slug="{{ $modul->slug }}"
-                                                        class="modul-link font-medium text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+                                                        class="quiz-link font-medium text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                                         {{ $modul->name }}
                                                     </a>
                                                 </h4>

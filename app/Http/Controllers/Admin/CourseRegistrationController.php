@@ -12,6 +12,7 @@ use Midtrans\Notification;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\CourseRegistration;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class CourseRegistrationController extends Controller
@@ -72,23 +73,70 @@ class CourseRegistrationController extends Controller
         return view('dashboard.pages.enrolled-courses.payment', compact('registrations', 'totalHarga', 'totalHargaAkhir', 'snapToken', 'isSinglePurchase'));
     }
 
+    public function generateSnapToken(Request $request)
+    {
+        $user = auth()->user();
+
+        // Ambil kursus yang masih dalam status "Menunggu"
+        $registrations = CourseRegistration::where('user_id', $user->id)
+            ->where('registration_status', 'Menunggu')
+            ->get();
+
+        if ($registrations->isEmpty()) {
+            return response()->json(['status' => 'error', 'message' => 'Tidak ada kursus yang perlu dibayar.']);
+        }
+
+        // Pastikan harga yang diambil adalah harga terbaru setelah diskon
+        $totalHargaAkhir = $registrations->sum('harga'); // Ambil harga dari database
+
+        $orderId = 'ORDER-' . str::uuid()->toString();
+
+        // Debugging: Cek apakah harga yang dikirim sudah benar
+        \Log::info("Total Harga yang dikirim ke Midtrans: " . $totalHargaAkhir);
+
+        // Set konfigurasi Midtrans
+        Config::$serverKey = config('services.midtrans.server_key');
+        Config::$isProduction = config('services.midtrans.is_production');
+
+        // Buat transaksi baru untuk Midtrans
+        $transaction = [
+            'transaction_details' => [
+                'order_id' => $orderId,
+                'gross_amount' => $totalHargaAkhir,  // Gunakan harga terbaru dari database
+            ],
+            'customer_details' => [
+                'first_name' => $user->first_name,
+                'email' => $user->email,
+                'phone' => $user->phone_number,
+            ]
+        ];
+
+        // Generate Snap Token
+        $snapToken = Snap::getSnapToken($transaction);
+
+        // Simpan Snap Token di database agar bisa dipakai kembali
+        foreach ($registrations as $registration) {
+            $registration->update(['snap_token' => $snapToken]);
+            $registration->update(['order_id' => $orderId]);
+        }
+
+        return response()->json(['status' => 'success', 'snap_token' => $snapToken, 'order_id' => $orderId]);
+    }
 
     public function store(Request $request)
     {
-        // Cek apakah pengguna sudah login
         if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Silakan login atau daftar terlebih dahulu untuk melanjutkan.');
+            return redirect()->route('login')->with('error', 'Silakan login atau daftar terlebih dahulu.');
         }
 
         $request->validate([
             'course_id' => 'required|exists:courses,id',
         ]);
 
-        // Ambil data kursus
         $course = Course::findOrFail($request->course_id);
 
-        // Cek apakah pengguna sudah pernah membeli kursus ini dengan status confirmed
-        $existingRegistration = CourseRegistration::where('user_id', auth()->user()->id)
+        // Cek apakah user sudah beli kursus ini
+        $existingRegistration = CourseRegistration::where('user_id', auth()->id())
             ->where('course_id', $course->id)
             ->where('registration_status', 'confirmed')
             ->first();
@@ -97,53 +145,29 @@ class CourseRegistrationController extends Controller
             return redirect()->route('course')->with('info', 'Anda sudah membeli kursus ini.');
         }
 
-        // Tentukan harga akhir berdasarkan diskon
+        // Hitung harga akhir
         $hargaAkhir = (!empty($course->harga_diskon) && is_numeric($course->harga_diskon))
             ? $course->harga - $course->harga_diskon
             : $course->harga;
 
-        // Set konfigurasi Midtrans
-        Config::$serverKey = config('services.midtrans.server_key');
-        Config::$isProduction = config('services.midtrans.is_production');
-        Config::$clientKey = config('services.midtrans.client_key');
-
-        // Persiapkan data transaksi untuk Midtrans
-        $transaction = [
-            'transaction_details' => [
-                'order_id' => 'ORDER-' . Str::uuid()->toString(),
-                'gross_amount' => $hargaAkhir,
-            ],
-            'customer_details' => [
-                'first_name' => auth()->user()->first_name,
-                'email' => auth()->user()->email,
-                'phone' => auth()->user()->phone_number,
-            ]
-        ];
-
-        // Generate Snap Token
-        $snapToken = Snap::getSnapToken($transaction);
-
-        // Simpan data transaksi
+        // Simpan data tanpa Snap Token
         $registration = CourseRegistration::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->id(),
             'course_id' => $request->course_id,
             'registration_date' => now(),
             'order_date' => now(),
             'method_pembayaran' => 'Midtrans',
             'harga' => $hargaAkhir,
             'registration_status' => 'Menunggu',
-            'snap_token' => $snapToken,
-            'order_id' => $transaction['transaction_details']['order_id'],
+            'snap_token' => null,
+            'order_id' => 'ORDER-' . Str::uuid()->toString(),
         ]);
 
-        // Redirect ke halaman pembayaran
         return response()->json([
             'status' => 'success',
-            'redirect_url' => route('payment.page', ['snapToken' => $snapToken]),
+            'redirect_url' => route('payment.page'),
         ]);
     }
-
-
 
     public function updateMethod(Request $request)
     {
@@ -157,10 +181,11 @@ class CourseRegistrationController extends Controller
         Config::$isProduction = config('services.midtrans.is_production');
         Config::$clientKey = config('services.midtrans.client_key');
 
+        Log::info('Request updateMethod:', $request->all());
+
         // Ambil semua pendaftaran berdasarkan order_id
         $registrations = CourseRegistration::where('order_id', $request->order_id)->get();
 
-        // Jika tidak ada pendaftaran untuk order_id ini
         if ($registrations->isEmpty()) {
             return response()->json(['status' => 'error', 'message' => 'Order tidak ditemukan']);
         }
@@ -168,25 +193,18 @@ class CourseRegistrationController extends Controller
         try {
             // Ambil status transaksi dari Midtrans
             $status = Transaction::status($request->order_id);
-
-            // Ambil status transaksi dari response
             $transactionStatus = is_array($status)
                 ? ($status['transaction_status'] ?? 'unknown')
                 : ($status->transaction_status ?? 'unknown');
 
-            // Jika status tidak valid atau tidak sesuai, hentikan proses
             if ($transactionStatus == 'unknown') {
                 return response()->json(['status' => 'error', 'message' => 'Status transaksi tidak diketahui']);
             }
 
-            // Konversi status Midtrans ke status registrasi
             $registration_status = $this->mapMidtransStatusToRegistrationStatus($transactionStatus);
 
-            // Pastikan hanya status yang valid yang dapat mengubah status registrasi
             if ($registration_status === 'confirmed') {
-                // Update status untuk setiap course registration yang terkait
                 foreach ($registrations as $registration) {
-                    // Pastikan status registrasi belum terkonfirmasi sebelum diupdate
                     if ($registration->registration_status !== 'confirmed') {
                         $registration->update([
                             'method_pembayaran' => ucfirst($request->method_pembayaran),
@@ -196,22 +214,30 @@ class CourseRegistrationController extends Controller
                 }
             }
 
-            // Hapus item di keranjang setelah pembayaran dikonfirmasi
+            // Ambil cart user
             $cart = Cart::where('user_id', auth()->user()->id)->first();
-            if ($cart) {
+            $cartItems = $cart ? json_decode($cart->cart_items, true) : [];
+
+            // Ambil daftar course_id dari registrasi order_id ini
+            $registeredCourseIds = $registrations->pluck('course_id')->toArray();
+
+            // Cek apakah semua course di order_id ini berasal dari cart
+            $isFromCart = !empty($cartItems) && empty(array_diff($registeredCourseIds, array_column($cartItems, 'course_id')));
+
+            // Jika pembelian berasal dari cart, kosongkan cart setelah pembayaran berhasil
+            if ($isFromCart) {
                 $cart->cart_items = json_encode([]);
                 $cart->save();
             }
 
-            // Jika sudah confirmed, redirect langsung ke halaman kursus
             if ($registration_status === 'confirmed') {
+                $firstCourse = $registrations->first()->course;
                 return response()->json([
                     'status' => 'redirect',
-                    'url' => route('course'),
+                    'url' => route('course.detail', ['slug' => $firstCourse->slug]),
                 ]);
             }
 
-            // Berikan respons sukses jika status belum confirmed
             return response()->json([
                 'status' => 'success',
                 'method_pembayaran' => ucfirst($request->method_pembayaran),
@@ -224,6 +250,7 @@ class CourseRegistrationController extends Controller
             ]);
         }
     }
+
 
     private function mapMidtransStatusToRegistrationStatus($midtransStatus)
     {

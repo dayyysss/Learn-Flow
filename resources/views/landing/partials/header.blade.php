@@ -150,7 +150,7 @@
                                     <li class="relative px-1 lg:px-10px 2xl:px-1 lg:py-1 2xl:py-1px 3xl:py-1 group">
                                         <div class="mr-5 cursor-pointer group relative flex items-center">
                                             <!-- Gambar Profil -->
-                                            <img src="{{ Auth::user()->image ?? asset('assets/images/avatar/default-avatar.png') }}"
+                                            <img src="{{ asset('assets/images/avatar/default-avatar.png') ?? Auth::user()->image }}"
                                                 alt="Profil" class="w-10 h-auto rounded-full border-2 border-darkdeep7 p-1">
                                             <!-- Tambahkan panah sebagai ikon -->
                                             <i
@@ -182,12 +182,12 @@
                                                         class="feather feather-settings mr-2">
                                                         <circle cx="12" cy="12" r="3"></circle>
                                                         <path
-                                                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                                            d="M19.4  15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
                                                         </path>
                                                     </svg>
                                                     Pengaturan
                                                 </a>
-
+                                                @include('landing.components.alert.alert')
                                                 <a href="#"
                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                                     class="flex items-center mt-2 text-darkblack hover:text-secondaryColor dark:text-whiteColor-dark dark:hover:text-secondaryColor">
@@ -210,21 +210,26 @@
                                                     @csrf
                                                 </form>
 
-
                                     <li class="hidden lg:block">
-
                                         <!-- Jika sudah login, tampilkan tautan ke dashboard -->
                                         <a href="{{ url('/dashboard') }}"
                                             class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
                                             Dashboard
                                         </a>
                                     @else
-                                        <!-- Jika belum login, tampilkan tautan ke login -->
-                                        <a href="{{ url('/login') }}"
-                                            class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
-                                            Masuk / Daftar
-                                        </a>
-                                    @endauth
+                                        <!-- Icon Search button -->
+                                    <li class="hidden lg:block mr-5 pbmit-header-search-btn">
+                                        <button id="searchButton"
+                                            class="text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
+                                            <i class="icofont-search-2 text-2xl"></i>
+                                        </button>
+                                    </li>
+                                    <!-- Jika belum login, tampilkan tautan ke login -->
+                                    <a href="{{ url('/login') }}"
+                                        class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor">
+                                        Masuk / Daftar
+                                    </a>
+                                @endauth
                                 </li>
 
                                 <li class="block lg:hidden">
@@ -344,6 +349,24 @@
     </header>
 @show
 
+<style>
+    .search-panel {
+        transform: translateY(-100%);
+    }
+
+    #searchModal.active {
+        opacity: 1;
+    }
+
+    #searchModal.active .search-panel {
+        transform: translateY(0);
+    }
+
+    .modal-open {
+        overflow: hidden;
+    }
+</style>
+
 <script>
     document.getElementById('logout-link').addEventListener('click', function(event) {
         event.preventDefault();
@@ -351,7 +374,6 @@
     });
 </script>
 
-{{-- MENU HEADER --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -415,7 +437,6 @@
     });
 </script>
 
-{{-- HEADER MOBILE --}}
 <script>
     $(document).ready(function() {
         $.ajax({
@@ -456,9 +477,9 @@
                                            class="leading-1 text-darkdeep1 text-sm pl-15px pt-3 pb-7px font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
                                             ${child.content}
                                             ${child.badge ? `
-                                            <span class="px-15px py-5px text-primaryColor bg-whitegrey3 text-xs rounded ml-5px">
-                                                ${child.badge}
-                                            </span>` : ''}
+                                                    <span class="px-15px py-5px text-primaryColor bg-whitegrey3 text-xs rounded ml-5px">
+                                                        ${child.badge}
+                                                    </span>` : ''}
                                         </a>
                                     </div>
                                 </li>`;
@@ -560,4 +581,52 @@
             });
         });
     });
+</script>
+
+<script>
+    if (typeof initSearchModal === 'undefined') {
+        function initSearchModal() {
+            const searchButton = document.getElementById('searchButton');
+            const searchModal = document.getElementById('searchModal');
+            const closeSearchModal = document.getElementById('closeSearchModal');
+
+            if (!searchButton || !searchModal || !closeSearchModal) {
+                console.error('Some search modal elements are missing');
+                return;
+            }
+
+            const searchInput = searchModal.querySelector('input[name="query"]');
+
+            function openModal() {
+                searchModal.classList.remove('hidden');
+                searchModal.offsetHeight;
+                searchModal.classList.add('active');
+                document.body.classList.add('modal-open');
+                if (searchInput) {
+                    setTimeout(() => searchInput.focus(), 300);
+                }
+            }
+
+            function closeModal() {
+                searchModal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                setTimeout(() => searchModal.classList.add('hidden'), 300);
+            }
+
+            searchButton.addEventListener('click', openModal);
+            closeSearchModal.addEventListener('click', closeModal);
+
+            searchModal.addEventListener('click', (e) => {
+                if (e.target === searchModal) closeModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initSearchModal);
+    }
 </script>

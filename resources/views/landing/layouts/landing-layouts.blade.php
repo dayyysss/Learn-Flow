@@ -72,9 +72,23 @@
 
     @include('landing.partials.header')
     <main class="bg-transparent">
+        @include('landing.components.alert.alert')
         @yield('content')
     </main>
     @include('landing.partials.footer')
+
+    <div class="pbmit-search-overlay">
+        <div class="pbmit-icon-close"><i class="icofont-close"></i></div>
+        <div class="pbmit-search-outer">
+            <form class="pbmit-site-searchform">
+                <input type="search" class="form-control field searchform-s text-white" style="color: white;"
+                    name="s" placeholder="Cari…">
+                <button type="submit">
+                    <i class="icofont-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- scripts start from here -->
     <script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
@@ -100,6 +114,18 @@
     <script src="{{ asset('assets/js/vanilla-tilt.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    @if (session('success'))
+        <script>
+            alert("{{ session('success') }}");
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            alert("{{ session('error') }}");
+        </script>
+    @endif
+
 </body>
 
 </html>

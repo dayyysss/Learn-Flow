@@ -2436,7 +2436,7 @@ video {
     max-width: 100%;
 }
 
-.flex-1{
+.flex-1 {
     flex: 1;
 }
 
@@ -3422,12 +3422,16 @@ video {
 
 .bg-gray {
     --tw-bg-opacity: 1;
-    background-color: rgb(128 128 128 / var(--tw-bg-opacity)); /* Warna abu-abu */
+    background-color: rgb(
+        128 128 128 / var(--tw-bg-opacity)
+    ); /* Warna abu-abu */
 }
 
 .bg-gray-light {
     --tw-bg-opacity: 1;
-    background-color: rgb(245 245 245 / var(--tw-bg-opacity)); /* Warna abu-abu sangat muda */
+    background-color: rgb(
+        245 245 245 / var(--tw-bg-opacity)
+    ); /* Warna abu-abu sangat muda */
 }
 
 .bg-deepgreen {
@@ -9414,10 +9418,10 @@ video {
 }
 
 .ellipsis-text {
-    white-space: nowrap;       /* Pastikan teks tidak turun ke baris baru */
-    overflow: hidden;          /* Sembunyikan teks yang melebihi batas */
-    text-overflow: ellipsis;   /* Tambahkan titik-titik (...) */
-    max-width: 150px;          /* Atur batas lebar agar bisa dipotong */
+    white-space: nowrap; /* Pastikan teks tidak turun ke baris baru */
+    overflow: hidden; /* Sembunyikan teks yang melebihi batas */
+    text-overflow: ellipsis; /* Tambahkan titik-titik (...) */
+    max-width: 150px; /* Atur batas lebar agar bisa dipotong */
     display: block;
 }
 
@@ -9474,4 +9478,183 @@ video {
 .quiz-container::-webkit-scrollbar-thumb {
     background-color: #bbb;
     border-radius: 10px;
+}
+
+/* alert */
+
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: #fff;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.5s forwards, stayVisible 3s 1.5s forwards, fadeOut 0.5s 5s forwards;
+}
+
+/* Variasi warna alert */
+.alert-success {
+    background-color: #28a745; /* Hijau */
+}
+
+.alert-danger {
+    background-color: #dc3545; /* Merah */
+}
+
+/* Styling ikon */
+.alert i {
+    font-size: 20px;
+}
+
+/* Animasi masuk (slide-in) */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Tetap terlihat selama beberapa detik */
+@keyframes stayVisible {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animasi keluar (fade-out setelah beberapa detik) */
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+
+/*----------------------------------------*/
+/*  10 - Search Box
+/*----------------------------------------*/
+.pbmit-search-overlay {
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    z-index: 100001 !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    -webkit-transition: all 300ms;
+    -o-transition: all 300ms;
+    -moz-transition: all 300ms;
+    transition: all 300ms;
+    -webkit-transform: translateY(-30%);
+    -moz-transform: translateY(-30%);
+    -ms-transform: translateY(-30%);
+    -o-transform: translateY(-30%);
+    transform: translateY(-30%);
+}
+.pbmit-icon-close {
+    position: absolute;
+    color: #fff;
+    right: 25px;
+    top: 25px;
+    cursor: pointer;
+    z-index: 99999;
+}
+.pbmit-icon-close:before {
+    font-weight: normal;
+    opacity: 0.5;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    display: block;
+    opacity: 1;
+}
+
+.icofont-close:before {
+    font-size: 30px;
+}
+
+.pbmit-search-outer {
+    max-width: 1140px;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.pbmit-search-outer .pbmit-search-logo {
+    margin-bottom: 60px;
+    position: absolute;
+    margin-top: -125px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -khtml-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+.pbmit-search-outer .pbmit-search-logo img {
+    max-height: 65px;
+}
+.pbmit-search-overlay .pbmit-site-searchform {
+    position: relative;
+}
+.pbmit-search-overlay input[type="search"] {
+    border-bottom-color: #7fc540;
+}
+.pbmit-search-overlay input[type="search"] {
+    border: none;
+    font-size: 28px;
+    color: #09162a;
+    padding: 0;
+    padding-left: 16px;
+    text-align: left;
+    height: 70px;
+    line-height: 70px;
+    width: 100%;
+    border-radius: 0;
+    background-color: transparent;
+    border-bottom: 3px solid #fff;
+}
+.pbmit-search-overlay .pbmit-site-searchform button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 10px;
+    font-size: 24px;
+    height: 60px;
+    line-height: 60px;
+    padding: 0;
+    width: 60px;
+    border: 0;
+    border-radius: 4px;
+    color: #fff;
+    background: transparent;
+}
+.pbmit-search-overlay.st-show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+    z-index: 9999999 !important;
 }

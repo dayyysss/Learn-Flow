@@ -552,6 +552,13 @@ class CourseController extends Controller
         $bab = $course->babs()->with(['moduls', 'quiz'])->get();
         $contactData = $this->getContactsLogo();
 
+        $user = auth()->user();
+
+        $courseRegistration = CourseRegistration::where('user_id', $user->id)
+        ->where('course_id', $course->id)
+        ->first();
+
+
         // Cari modul sebelumnya
         $previousModul = Modul::where('bab_id', $modul->bab_id)
             ->where('id', '<', $modul->id)
@@ -564,7 +571,7 @@ class CourseController extends Controller
             ->orderBy('id', 'asc')
             ->first();
 
-        return view('dashboard.pages.lesson._quiz_content', compact('course', 'modul', 'bab', 'previousModul', 'nextModul'));
+        return view('dashboard.pages.lesson._quiz_content', compact('course', 'modul', 'bab', 'previousModul', 'nextModul', 'courseRegistration'));
     }
 
 

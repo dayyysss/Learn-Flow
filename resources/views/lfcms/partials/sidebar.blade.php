@@ -4,8 +4,10 @@
     <div
         class="px-4 h-header flex items-center shrink-0 group-data-[sidebar-size=sm]:px-2 group-data-[sidebar-size=sm]:justify-center">
         <a href="{{ route('dashboard.index') }}" class="group-data-[sidebar-size=lg]:block hidden" style="width: 170px;">
-            <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo" class="group-[.dark]:hidden">
-            <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo" class="group-[.light]:hidden">
+            <img src="{{ asset('assets/images/logo/logo_1.png') }}"
+            srcset="{{ asset('assets/images/logo/logo_1.png') }}"
+            media="(prefers-color-scheme: dark)"
+            alt="logo">
         </a>
         <a href="index.html" class="group-data-[sidebar-size=lg]:hidden block">
             <img src="{{ asset('assets/images/logo/logo_1.png') }}" alt="logo">

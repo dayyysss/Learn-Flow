@@ -15,17 +15,6 @@
 </head>
 
 <body class="relative font-inter font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
-    <!-- preloader -->
-    <div
-        class="preloader flex fixed top-0 left-0 h-screen w-full items-center justify-center z-xxl bg-whiteColor opacity-100 visible transition-all duration-700">
-        <!-- spinner -->
-        <div
-            class="w-90px h-90px border-5px border-t-blue border-r-blue border-b-blue-light border-l-blue-light rounded-full animate-spin-infinit">
-        </div>
-        <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-            <img src="assets/images/pre.png" alt="Preloader" class="h-10 w-10 block">
-        </div>
-    </div>
     <!-- theme fixed shadow -->
     <div>
         <div class="fixed-shadow left-[-250px]"></div>
@@ -99,7 +88,7 @@
                                         Masuk Learn Flow
                                     </h3>
                                 </div>
-
+                                @include('landing.components.alert.alert')
                                 <form class="pt-25px" action="{{ route('login') }}" method="POST" data-aos="fade-up">
                                     @csrf
                                     <div class="mb-25px">
@@ -141,7 +130,6 @@
                                             </a>
                                         </div>
                                     </div>
-
                                     <div class="my-25px text-center">
                                         <button type="submit"
                                             class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark">
@@ -174,7 +162,7 @@
                             <!-- sign up form-->
                             <div id="signup-form"
                                 class="hidden opacity-0 transition-opacity duration-150 ease-linear">
-
+                                @include('landing.components.alert.alert')
                                 <!-- heading   -->
                                 <div class="text-center">
                                     <h3
@@ -189,7 +177,7 @@
                                     </div>
                                 @endif
 
-                                <form class="pt-25px" action="{{ route('register') }}" method="POST"
+                                <form class="pt-25px" action="{{ route('register.post') }}" method="POST"
                                     data-aos="fade-up">
                                     @csrf
 
@@ -259,7 +247,7 @@
                                         <div>
                                             <label
                                                 class="text-contentColor dark:text-contentColor-dark mb-10px block">Password</label>
-                                            <input type="password" name="password_regist"
+                                            <input type="password" name="password"
                                                 placeholder="Password minimal 8 karakter"
                                                 class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border @error('password') border-red-500 @else border-borderColor dark:border-borderColor-dark @enderror placeholder:text-placeholder placeholder:opacity-80 font-medium rounded" />
                                             @error('password')
