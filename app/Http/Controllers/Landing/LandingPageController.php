@@ -72,7 +72,8 @@ class LandingPageController extends Controller
 
         // Query kursus dengan filter kategori, tag, skill_level, dan pencarian
         $courseQuery = Course::where('publish_date', '<=', Carbon::now())
-            ->with(['users', 'categories', 'babs.moduls', 'instrukturs']);
+        ->where('status', 'publik') 
+        ->with(['users', 'categories', 'babs.moduls', 'instrukturs']);
 
         if ($selectedCategory) {
             $courseQuery->whereHas('categories', function ($query) use ($selectedCategory) {
