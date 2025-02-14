@@ -3,33 +3,47 @@
 @section('content')
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
+        @if(session('success'))
+            <div class="success-message">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="error-message">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="grid grid-cols-12">
             <div class="col-span-full">
-                <div class="card p-0">
-                    <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
+                <div class="card p-4">
+                    <div class="flex-center-between p-4 pb-4 border-b border-gray-200 dark:border-dark-border">
                         <h3 class="text-lg card-title leading-none">Kontak Masuk</h3>
                         @include('lfcms.components.breadcrumb.custom', ['title' => 'Kontak'])
                     </div>
-                    <div class="p-6">
-                    <div class="flex-center-between">
-                        <div class="flex items-center gap-3">
-                                <button type="button"
-                                    class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
-                                    onclick="window.location='{{ route('kontak.index') }}'">
-                                    <i class="ri-loop-right-line text-inherit text-sm"></i>
-                                </button>
-                                <form class="max-w-80 relative">
-                                    <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
-                                        <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
-                                    </span>
-                                    <input type="text" name="search" value="{{ $search ?? '' }}"
-                                        placeholder="Search for..." class="form-input pl-[30px]">
-                                </form>
+                    <div class="p-0 mt-5 mb-5">
+                            <div class="flex flex-col flex-center-between md:flex-row md:items-center md:justify-between center-between gap-2">
+                                <div class="flex flex-wrap items-center gap-1">
+                                    <button class="btn b-light btn-danger-light dk-theme-card-square" id="deleteButton">
+                                    <i class="ri-delete-bin-line text-inherit text-[13px]"></i> Hapus</button>
+                                </div>
+                                
+                                <div class="w-full md:w-auto flex items-center gap-3">
+                                    <form class="w-full md:max-w-80 relative">
+                                        <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
+                                            <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
+                                        </span>
+                                        <input type="text" name="search" value="{{ $search ?? '' }}"
+                                            placeholder="Cari data..." class="form-input pl-[30px] w-full md:w-auto">
+                                    </form>
+                                    <button type="button"
+                                        class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
+                                        onclick="window.location='{{ route('kontak.index') }}'">
+                                        <i class="ri-loop-right-line text-inherit text-sm"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <button id="deleteSelected" class="btn b-light btn-danger-light dk-theme-card-square">
-                                <i class="ri-delete-bin-line text-inherit text-[13px]"></i>Hapus</button>
                         </div>
-                        <div class="overflow-x-auto mt-5">
+                        <div class="overflow-x-auto mt-0">
                             <table
                                 class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
                                 <thead>
@@ -141,62 +155,103 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function deleteRecord(url) {
-        Swal.fire({
-            title: 'Apakah anda yakin?',
-            text: 'Anda tidak akan dapat mengembalikannya!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '3085d6',
-            confirmButtonText: 'Ya, Hapus!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Dihapus!',
-                    text: 'Data berhasil dihapus.',
-                    icon: 'success',
-                    showConfirmButton: true
-                }).then((result) => {
-                    //jika tombol ok di klik, kembali ke halaman sebelumnya
-                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
-                        window.location.href = url;
-                    }
-                });
-            }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.success-message');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000); // 5 detik
+            });
         });
-    }
-</script>
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.error-message');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000); // 5 detik
+            });
+        });
+    </script>
+
+
+    <!-- SweetAlert Script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("deleteButton").addEventListener("click", function() {
+                deleteSelectedRecords();
+            });
+        });
+
+        function deleteSelectedRecords() {
+            let ids = getSelectedServices(); // Ambil ID yang dipilih
+            if (ids.length === 0) {
+                Swal.fire({
+                    title: 'Pilih data terlebih dahulu!',
+                    text: 'Silakan pilih kontak untuk dihapus.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: 'Data yang dipilih akan dihapus!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    performAction('/lfcms/kontak/bulk-delete', ids); // Jalankan bulk delete
+
+                    Swal.fire({
+                        title: 'Dihapus!',
+                        text: 'Data berhasil dihapus.',
+                        icon: 'success',
+                        showConfirmButton: true
+                    });
+                }
+            });
+        }
+    </script>
+    
+    <script>
+        function deleteRecord(url) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: 'Anda tidak akan dapat mengembalikannya!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '3085d6',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Dihapus!',
+                        text: 'Data berhasil dihapus.',
+                        icon: 'success',
+                        showConfirmButton: true
+                    }).then((result) => {
+                        //jika tombol ok di klik, kembali ke kontak sebelumnya
+                        if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                            window.location.href = url;
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+
 <script>
-    // Menghandle penghapusan, draft, dan publik
-    document.getElementById('deleteSelected').onclick = function() {
-           let ids = getSelectedServices();
-           if (ids.length > 0 && confirm('Apakah Anda yakin ingin menghapus layanan ini?')) {
-               performAction('/lfcms/kontak/bulk-delete', ids);
-           } else {
-               alert('Silakan pilih data kontak untuk dihapus.');
-           }
-       };
-
-       document.getElementById('draftSelected').onclick = function() {
-           let ids = getSelectedServices();
-           if (ids.length > 0) {
-               performAction('/lfcms/kontak/bulk-draft', ids);
-           } else {
-               alert('Silakan pilih data kontak untuk diubah ke draft.');
-           }
-       };
-
-       document.getElementById('publishSelected').onclick = function() {
-           let ids = getSelectedServices();
-           if (ids.length > 0) {
-               performAction('/lfcms/kontak/bulk-publish', ids);
-           } else {
-               alert('Silakan pilih data kontak untuk dipublikasikan.');
-           }
-       };
+    // Menghandle checkbox
 
        document.getElementById('selectAll').onclick = function() {
            const checkboxes = document.querySelectorAll('.service-checkbox');
@@ -220,11 +275,12 @@
                body: JSON.stringify({ ids: ids })
            }).then(response => {
                if (response.ok) {
-                   location.reload(); // Refresh halaman setelah berhasil
+                   location.reload(); // Refresh kontak setelah berhasil
                } else {
                    alert('Terjadi kesalahan. Silakan coba lagi.');
                }
            });
        }
 </script>
+
 @endsection

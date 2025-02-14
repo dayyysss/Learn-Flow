@@ -40,6 +40,11 @@
     </style>
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
+        @if(session('error'))
+            <div class="error-message">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('artikel.update', $artikel->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -203,6 +208,16 @@
     </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.error-message');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000); // 5 detik
+            });
+        });
+    </script>
     <script>
         function previewImage(event) {
             const input = event.target;
