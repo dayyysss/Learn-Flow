@@ -1,12 +1,12 @@
 @extends('lfcms.layouts.app')
-@section('page_title', 'Halaman | Learn Flow CMS')
+@section('page_title', 'halaman | Learn Flow CMS')
 @section('content')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
         @if(session('success'))
-            <div class="success-message"> 
+            <div class="success-message">
+                {{ session('success') }}
+            </div>
         @endif
         @if(session('error'))
             <div class="error-message">
@@ -20,7 +20,6 @@
                         <h3 class="text-lg card-title leading-none">Data Halaman</h3>
                         @include('lfcms.components.breadcrumb.custom', ['title' => 'Halaman'])
                     </div>
-                
                     <div class="p-0 mt-5 mb-5">
                             <div class="flex flex-col flex-center-between md:flex-row md:items-center md:justify-between center-between gap-2">
                                 <div class="flex flex-wrap items-center gap-1">
@@ -56,12 +55,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="overflow-x-auto mt-0">
                             <table
                                 class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
                                 <thead>
-                                    <tr class="text-primary-500">
+                                <tr class="text-primary-500">
                                         <th class="p-6 py-4 text-center justify-center items-center bg-[#F2F4F9] dark:bg-dark-card-two first:rounded-l-lg last:rounded-r-lg first:dk-theme-card-square-left last:dk-theme-card-square-right">
                                             <input type="checkbox" id="selectAll" class="form-checkbox">
                                         </th>
@@ -83,9 +81,8 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-dark-border-three">
-                                 
-                                @forelse ($pages as $page)
-                                        <tr>
+                                    @forelse ($pages as $page)
+                                    <tr>
                                             <td class="p-6 py-4 text-center justify-center items-center">
                                                 <input type="checkbox" class="service-checkbox" value="{{ $page->id }}">
                                             </td>
@@ -123,22 +120,21 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center">
-                                                <div class="alert alert-danger" style="margin: 20px 0;">
-                                                    Data Tidak Tersedia!
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforelse
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            <div class="alert alert-danger" style="margin: 20px 0;">
+                                                Data Tidak Tersedia!
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>
                         <!-- START PAGINATION -->
                         <div class="flex-center-between mt-5">
                             <div class="font-spline_sans text-sm text-gray-900 dark:text-dark-text">
-                                Showing {{ $pages->firstItem() }} to {{ $pages->lastItem() }} of {{ $pages->total() }}
-                                entries
+                                Showing {{ $pages->firstItem() }} to {{ $pages->lastItem() }} of {{ $pages->total() }} entries
                             </div>
                             <nav>
                                 <ul class="flex items-center gap-1">
@@ -149,15 +145,14 @@
                                             <i class="ri-arrow-left-s-line text-inherit"></i>
                                         </a>
                                     </li>
-
+                                    
                                     <!-- Page Links -->
                                     @foreach ($pages->getUrlRange(1, $pages->lastPage()) as $page => $url)
                                         <li>
                                             <a href="{{ $url }}"
-                                                class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text {{ $pages->currentPage() == $page ? 'bg-primary-500 text-white' : '' }}">
+                                                class="font-spline_sans font-medium flex-center size-8 rounded-50 text-gray-900 dark:text-dark-text {{ $page == $pages->currentPage() ? 'bg-primary-500 text-white' : '' }}">
                                                 {{ $page }}
                                             </a>
-
                                         </li>
                                     @endforeach
                                     <!-- Next Page Link -->
@@ -188,7 +183,7 @@
         });
     </script>
 
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', function () {
             const alerts = document.querySelectorAll('.error-message');
             alerts.forEach(alert => {
@@ -200,7 +195,6 @@
     </script>
 
 
-            </script>
     <!-- SweetAlert Script -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -359,35 +353,37 @@
         }
     </script>
 
-    <script>
-        // Menghandle checkbox
-        document.getElementById('selectAll').onclick = function() {
-            const checkboxes = document.querySelectorAll('.service-checkbox');
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = this.checked;
-            });
-        };
+<script>
+    // Menghandle checkbox
 
-        function getSelectedServices() {
-            return Array.from(document.querySelectorAll('.service-checkbox:checked')).map(cb => cb.value);
-        }
+       document.getElementById('selectAll').onclick = function() {
+           const checkboxes = document.querySelectorAll('.service-checkbox');
+           checkboxes.forEach((checkbox) => {
+               checkbox.checked = this.checked;
+           });
+       };
 
-        function performAction(url, ids) {
-            // Kirim request AJAX ke server
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ ids: ids })
-            }).then(response => {
-                if (response.ok) {
-                    location.reload(); // Refresh halaman setelah berhasil
-                } else {
-                    alert('Terjadi kesalahan. Silakan coba lagi.');
-                }
-            });
-        }
-    </script>
+       function getSelectedServices() {
+           return Array.from(document.querySelectorAll('.service-checkbox:checked')).map(cb => cb.value);
+       }
+
+       function performAction(url, ids) {
+           // Kirim request AJAX ke server
+           fetch(url, {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json',
+                   'X-CSRF-TOKEN': '{{ csrf_token() }}'
+               },
+               body: JSON.stringify({ ids: ids })
+           }).then(response => {
+               if (response.ok) {
+                   location.reload(); // Refresh halaman setelah berhasil
+               } else {
+                   alert('Terjadi kesalahan. Silakan coba lagi.');
+               }
+           });
+       }
+</script>
+
 @endsection

@@ -45,7 +45,16 @@ class ClientController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('error', 'Terjadi kesalahan! Harap periksa kembali input Anda.');
+        }
+        $cekNama = Client::where('name', $request->name)->exists();
+        if ($cekNama) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Nama ini sudah digunakan, silakan gunakan judul lain.');
         }
 
         // Menangani upload gambar
