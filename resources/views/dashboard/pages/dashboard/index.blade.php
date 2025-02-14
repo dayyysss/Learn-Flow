@@ -131,9 +131,9 @@
                 </div>
 
                 <!-- chart area-->
-                <div
-                    class="py-10 px-5 mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5">
-                    <div class="flex flex-wrap">
+                {{-- <div
+                    class="py-10 px-5 mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5"> --}}
+                    {{-- <div class="flex flex-wrap">
                         <!-- linechart -->
                         <div class="w-full md:w-100%">
                             <div class="md:px-5 py-10px md:py-0">
@@ -207,7 +207,7 @@
                             </div>
                             <div id="lineChart"></div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- <!-- piechart -->
                     <div class="w-full md:w-50% mt-5">
@@ -232,7 +232,7 @@
                             <canvas id="pieChart"></canvas>
                         </div>
                     </div> --}}
-                </div>
+                {{-- </div> --}}
             </div>
         </div>
     </section>
