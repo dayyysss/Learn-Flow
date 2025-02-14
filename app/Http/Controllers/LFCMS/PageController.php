@@ -91,12 +91,11 @@ class PageController extends Controller
 
     public function update(Request $request, $id)
     {
-        Log::info('Request Data: ', $request->all());
 
         $validator = Validator::make($request->all(), [
+            'judul' => 'required|string|max:255',
             'status' => 'required|in:draft,publik',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'judul' => 'required',
             'deskripsi' => 'nullable',
             'keyword' => 'nullable',
         ],
