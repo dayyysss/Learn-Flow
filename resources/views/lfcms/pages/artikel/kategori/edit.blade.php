@@ -1,5 +1,5 @@
 <div id="editModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white dark:bg-dark-card p-6 rounded shadow-xl w-1/3">
+<div class="bg-white dark:bg-dark-card p-6 rounded shadow-xl w-1/3">
         <h2 class="text-lg mb-4 text-gray-900 dark:text-white">Edit Kategori</h2>
         <form id="editForm">
             <input type="hidden" id="editCategoryId">
@@ -123,3 +123,4 @@
         document.getElementById('editModal').classList.add('hidden');
     });
 </script>
+

@@ -3,6 +3,11 @@
 @section('content')
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
+        @if(session('success'))
+            <div class="success-message">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="grid grid-cols-12">
             <div class="col-span-full">
                 <div class="card p-0">
@@ -158,6 +163,16 @@
     </div>
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.success-message');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000); // 5 detik
+            });
+        });
+    </script>
     <script>
         function openModal() {
             document.getElementById('discountModal').classList.remove('hidden');

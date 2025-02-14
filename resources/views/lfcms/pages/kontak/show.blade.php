@@ -3,7 +3,12 @@
 @section('content')
      <!-- Start Main Content -->
      <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
-       <div class="grid grid-cols-12 gap-4">
+        @if(session('error'))
+            <div class="error-message">
+                {{ session('error') }}
+            </div>
+        @endif  
+     <div class="grid grid-cols-12 gap-4">
 
             <!-- View Email -->
             <div class="col-span-full lg:col-span-6">

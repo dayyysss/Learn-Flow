@@ -13261,6 +13261,24 @@ div[modal-backdrop]{
   justify-content: center;
 }
 
+.success-message{
+        background-color: #A7D477; /* Warna hijau */
+        color: white;
+        padding:5px 5px 5px 5px;
+        margin-bottom:10px;
+        padding:10px 10px;
+        border-radius:5px;
+}
+
+.error-message{
+        background-color: #E52020; /* Warna hijau */
+        color: white;
+        padding:5px 5px 5px 5px;
+        margin-bottom:10px;
+        padding:10px 10px;
+        border-radius:5px;
+}
+
 .btn{
   display: inline-flex;
   width: -moz-max-content;

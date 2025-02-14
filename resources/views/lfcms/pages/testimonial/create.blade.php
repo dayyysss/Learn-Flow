@@ -3,6 +3,12 @@
 @section('content')
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
+        <!-- Alert Notifikasi -->
+        @if(session('error'))
+            <div class="error-message">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('testimonial.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-12 gap-x-4">
@@ -103,4 +109,14 @@
             </div>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.error-message');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000); // 5 detik
+            });
+        });
+    </script>
 @endsection
