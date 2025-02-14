@@ -9,7 +9,7 @@ class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-
             <div class="success-message">
                 {{ session('success') }}
             </div>
-        @endif        
+    @endif        
 <div class="flex">
             <!-- Sidebar untuk memilih role -->
             <div class="w-80 bg-white h-fit rounded shadow-lg p-4">

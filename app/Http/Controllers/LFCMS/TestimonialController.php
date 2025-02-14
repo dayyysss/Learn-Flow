@@ -12,8 +12,14 @@ class TestimonialController extends Controller
 {
     public function index(Request $request)
     {
-        $testimonials = Testimonial::paginate(10);
-        return view('lfcms.pages.testimonial.index', compact('testimonials'));
+        $search = $request->input('search');
+ 
+        $testimonials = Testimonial::when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%");
+        })->paginate(10);
+        
+ 
+        return view('lfcms.pages.testimonial.index', compact('testimonials', 'search'));
     }
 
     public function create()

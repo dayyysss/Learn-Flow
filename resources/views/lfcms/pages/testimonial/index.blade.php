@@ -362,25 +362,6 @@
         }
     </script>
 
-    <script>
-        document.getElementById("searchInput").addEventListener("keyup", function() {
-            const query = this.value.toLowerCase(); // Ambil nilai input pencarian dan ubah ke huruf kecil
-            const rows = document.querySelectorAll("#dataContainer tr"); // Ambil semua baris dalam tabel
-
-            rows.forEach(row => {
-                const name = row.children[1].textContent.toLowerCase(); // Ambil kolom nama
-                const profession = row.children[2].textContent.toLowerCase(); // Ambil kolom email
-
-                // Periksa apakah query ada di nama atau email
-                if (name.includes(query) || profession.includes(query)) {
-                    row.style.display = ""; // Tampilkan baris
-                } else {
-                    row.style.display = "none"; // Sembunyikan baris
-                }
-            });
-        });
-    </script>
-
 <script>
     // Menghandle checkbox
 

@@ -47,12 +47,6 @@ class PageController extends Controller
             'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]
     );
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput()
-                ->with('error', 'Terjadi kesalahan! Harap periksa kembali input Anda.');
-        }
         // Cek apakah judul sudah ada di database
         $cekJudul = Page::where('judul', $request->judul)->exists();
         if ($cekJudul) {
@@ -112,12 +106,6 @@ class PageController extends Controller
             'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput()
-                ->with('error', 'Terjadi kesalahan! Harap periksa kembali input Anda.');
-        }
         // Cek apakah judul sudah ada di database
         $cekJudul = Page::where('judul', $request->judul)->exists();
         if ($cekJudul) {
