@@ -169,9 +169,6 @@ class CourseRegistrationController extends Controller
         ]);
     }
 
-
-
-
     public function updateMethod(Request $request)
     {
         $request->validate([
@@ -189,7 +186,6 @@ class CourseRegistrationController extends Controller
         // Ambil semua pendaftaran berdasarkan order_id
         $registrations = CourseRegistration::where('order_id', $request->order_id)->get();
 
-        // Jika tidak ada pendaftaran untuk order_id ini
         if ($registrations->isEmpty()) {
             return response()->json(['status' => 'error', 'message' => 'Order tidak ditemukan']);
         }
@@ -197,25 +193,18 @@ class CourseRegistrationController extends Controller
         try {
             // Ambil status transaksi dari Midtrans
             $status = Transaction::status($request->order_id);
-
-            // Ambil status transaksi dari response
             $transactionStatus = is_array($status)
                 ? ($status['transaction_status'] ?? 'unknown')
                 : ($status->transaction_status ?? 'unknown');
 
-            // Jika status tidak valid atau tidak sesuai, hentikan proses
             if ($transactionStatus == 'unknown') {
                 return response()->json(['status' => 'error', 'message' => 'Status transaksi tidak diketahui']);
             }
 
-            // Konversi status Midtrans ke status registrasi
             $registration_status = $this->mapMidtransStatusToRegistrationStatus($transactionStatus);
 
-            // Pastikan hanya status yang valid yang dapat mengubah status registrasi
             if ($registration_status === 'confirmed') {
-                // Update status untuk setiap course registration yang terkait
                 foreach ($registrations as $registration) {
-                    // Pastikan status registrasi belum terkonfirmasi sebelum diupdate
                     if ($registration->registration_status !== 'confirmed') {
                         $registration->update([
                             'method_pembayaran' => ucfirst($request->method_pembayaran),
@@ -225,14 +214,22 @@ class CourseRegistrationController extends Controller
                 }
             }
 
-            // Hapus item di keranjang setelah pembayaran dikonfirmasi
+            // Ambil cart user
             $cart = Cart::where('user_id', auth()->user()->id)->first();
-            if ($cart) {
+            $cartItems = $cart ? json_decode($cart->cart_items, true) : [];
+
+            // Ambil daftar course_id dari registrasi order_id ini
+            $registeredCourseIds = $registrations->pluck('course_id')->toArray();
+
+            // Cek apakah semua course di order_id ini berasal dari cart
+            $isFromCart = !empty($cartItems) && empty(array_diff($registeredCourseIds, array_column($cartItems, 'course_id')));
+
+            // Jika pembelian berasal dari cart, kosongkan cart setelah pembayaran berhasil
+            if ($isFromCart) {
                 $cart->cart_items = json_encode([]);
                 $cart->save();
             }
 
-            // Jika sudah confirmed, redirect langsung ke halaman kursus
             if ($registration_status === 'confirmed') {
                 $firstCourse = $registrations->first()->course;
                 return response()->json([
@@ -241,7 +238,6 @@ class CourseRegistrationController extends Controller
                 ]);
             }
 
-            // Berikan respons sukses jika status belum confirmed
             return response()->json([
                 'status' => 'success',
                 'method_pembayaran' => ucfirst($request->method_pembayaran),
@@ -254,6 +250,7 @@ class CourseRegistrationController extends Controller
             ]);
         }
     }
+
 
     private function mapMidtransStatusToRegistrationStatus($midtransStatus)
     {

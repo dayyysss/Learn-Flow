@@ -23,6 +23,11 @@ class Quiz extends Model
         return $this->belongsTo(Bab::class, 'bab_id');
     }
 
+    public function babs()
+    {
+        return $this->belongsTo(Bab::class, 'bab_id');
+    }
+
     public function quizResults()
     {
         return $this->hasMany(QuizResult::class);
@@ -41,6 +46,16 @@ class Quiz extends Model
     public function modul_progress()
     {
         return $this->belongsTo(ModulProgress::class);
+    }
+
+    public function startquiz()
+    {
+        return $this->hasMany(Start_quiz::class);
+    }
+
+    public function modul()
+    {
+        return $this->belongsTo(Modul::class);
     }
 
     public static function boot()

@@ -97,6 +97,7 @@
             <div class="lg:col-start-4 lg:col-span-9">
                 <main class="bg-transparent">
                     @yield('content')
+                    @include('landing.components.alert.alert')
                     <x-notify::notify />
                 </main>
             </div>
@@ -128,6 +129,18 @@
     <script src="{{ asset('assets/js/vanilla-tilt.js') }}"></script>
     <script src="{{ asset('assets/js/aos.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    @if (session('success'))
+        <script>
+            alert("{{ session('success') }}");
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            alert("{{ session('error') }}");
+        </script>
+    @endif
+
     {{-- @vite(['public/assets/js/main.js']) --}}
     @notifyJs
 </body>
