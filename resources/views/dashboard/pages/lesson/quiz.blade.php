@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="flex flex-col items-center justify-center space-y-6 text-center lg:col-span-9 lg:col-start-4">
-        <p class="my-4 text-lg font-semibold" id="timer"></p>
+        <div class="time">
+            <p class="my-4 text-lg font-semibold" id="timer"></p>
+        </div>
         @php
             $counter = 1; // Variabel penghitung untuk nomor pertanyaan
         @endphp
@@ -61,10 +63,10 @@
                 $counter++; // Increment nomor pertanyaan
             @endphp
         @endforeach
-        <footer class="footer">
-            <button class="finish-btn" id="finishQuiz">Selesai</button>
-        </footer>
     </div>
+    <footer class="footer">
+        <button class="finish-btn" id="finishQuiz">Selesai</button>
+    </footer>
 
     @php
         use Carbon\Carbon;
@@ -163,7 +165,7 @@
                             confirmButtonColor: '#3085d6',
                         }).then(() => {
                             window.location.href =
-                                "{{ route('quiz.detail', ['course' => $quizzes->course->slug, 'modul' => optional($quizzes->babs->moduls->first())->slug]) }}";
+                                "{{ route('quiz.detail', ['course' => $quizzes->course->slug, 'modul' => optional($quizzes->babs->quiz->first())->slug]) }}";
                         });
                     },
                     error: function(xhr) {

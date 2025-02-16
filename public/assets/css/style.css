@@ -9428,12 +9428,14 @@ video {
 .footer {
     display: flex;
     justify-content: flex-end;
-    padding: 7px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background-color: white; /* Sesuaikan jika perlu */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    /* padding: 10px 20px; */
+    position: fixed;
+    bottom: 20px; /* Agar sedikit mengambang dari bawah */
+    right: 20px; /* Jarak dari kanan */
+    background-color: rgba(255, 255, 255, 0.9); /* Warna dengan transparansi */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Membuat sudut membulat */
 }
 
 .finish-btn {
@@ -9450,6 +9452,22 @@ video {
 
 .finish-btn:hover {
     background-color: darkblue;
+}
+
+.time {
+    position: fixed;
+    top: 10px; /* Mengambang di atas footer */
+    left: 8%;
+    transform: translateX(-50%);
+    /* width: 100%; */
+    /* max-width: 1200px; */
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
 }
 
 .card {

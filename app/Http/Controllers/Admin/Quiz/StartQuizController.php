@@ -15,7 +15,7 @@ class StartQuizController extends Controller
     public function index($slug)
     {
         // Ambil quiz berdasarkan slug
-        $quiz = Quiz::with(['questions.options', 'course', 'babs.moduls', 'babs.quiz'])->where('slug', $slug)->firstOrFail();
+        $quiz = Quiz::with(['questions.options', 'course', 'babs.quiz'])->where('slug', $slug)->firstOrFail();
 
         // Pastikan quiz ditemukan
         if (!$quiz) {
@@ -36,7 +36,7 @@ class StartQuizController extends Controller
             'quizzes' => $quiz,
             'start_quiz' => $startQuiz,
             'course' => $quiz->course, // Pastikan relasi 'course' sudah dimuat
-            'firstModul' => $quiz->babs->moduls->first() ?? null, // Ambil modul pertama jika ada
+            'firstModul' => $quiz->babs->quiz->first() ?? null, // Ambil modul pertama jika ada
         ]);
     }
 

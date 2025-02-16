@@ -29,6 +29,12 @@ class Bab extends Model
 
     }
 
+    public function modul()
+    {
+        return $this->hasMany(Modul::class);
+
+    }
+
     public function startQuiz()
     {
         return $this->hasMany(Start_quiz::class);

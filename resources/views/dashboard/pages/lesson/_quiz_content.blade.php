@@ -11,6 +11,7 @@
                 $totalMenit = $modul->waktu;
                 $jam = floor($totalMenit / 60);
                 $menit = $totalMenit % 60;
+                $quizSelesai = $modul->quiz_selesai; // Pastikan variabel ini dikirim dari backend
             @endphp
 
             <p>
@@ -19,10 +20,13 @@
             </p>
 
             <p>{!! $modul->description !!}</p>
-            
+
             <!-- Button untuk membuka modal -->
-            <button onclick="startQuiz()" class="bg-primaryColor text-white mt-5 py-2 px-4 rounded hover:bg-primaryColor-dark">
-                Mulai Quiz
+            <button id="startQuizBtn" onclick="startQuiz()"
+                class="mt-5 py-2 px-4 rounded text-white 
+                   {{ $quizSelesai ? 'bg-gray-400 cursor-not-allowed' : 'bg-primaryColor hover:bg-primaryColor-dark' }}"
+                {{ $quizSelesai ? 'disabled' : '' }}>
+                {{ $quizSelesai ? 'Quiz Selesai' : 'Mulai Quiz' }}
             </button>
         </div>
     </div>
@@ -40,7 +44,6 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Hanya redirect jika user mengonfirmasi
                     window.location.href = "{{ route('startQuiz.index', $modul->slug) }}";
                 }
             });
