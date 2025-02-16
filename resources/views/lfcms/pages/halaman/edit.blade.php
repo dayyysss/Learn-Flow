@@ -3,7 +3,12 @@
 @section('content')
     <div
         class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
-            <form action="{{ route('halaman.update', $page->id) }}" method="POST" enctype="multipart/form-data">
+        @if(session('error'))
+            <div class="error-message">
+                {{ session('error') }}
+            </div>
+        @endif    
+        <form action="{{ route('halaman.update', $page->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="grid grid-cols-12 gap-x-4">
@@ -114,6 +119,16 @@
         </form>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.error-message');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000); // 5 detik
+            });
+        });
+    </script>
     <script>
                     document.getElementById('judul').addEventListener('input', function() {
                         const judulValue = this.value;

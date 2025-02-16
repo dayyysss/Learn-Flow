@@ -2,33 +2,46 @@
 @section('page_title', 'Administrator | Learn Flow CMS')
 @section('content')
 <div class="main-content group-data-[sidebar-size=lg]:xl:ml-[calc(theme('spacing.app-menu')_+_16px)] group-data-[sidebar-size=sm]:xl:ml-[calc(theme('spacing.app-menu-sm')_+_16px)] group-data-[theme-width=box]:xl:px-0 px-3 xl:px-4 ac-transition">
-    <div class="grid grid-cols-12">
+        @if(session('success'))
+            <div class="success-message">
+                {{ session('success') }}
+            </div>
+        @endif  
+<div class="grid grid-cols-12">
         <div class="col-span-full">
-            <div class="card p-0">
-                <div class="flex-center-between p-6 pb-4 border-b border-gray-200 dark:border-dark-border">
+            <div class="card p-4">
+                <div class="flex-center-between p-4 pb-4 border-b border-gray-200 dark:border-dark-border">
                     <h3 class="text-lg card-title leading-none">Data Pengguna</h3>
                     @include('lfcms.components.breadcrumb.custom', ['title' => 'Pengguna'])
                 </div>
-                <div class="p-6">
-                    <div class="flex-center-between">
-                        <div class="flex items-center gap-5">
-                            <form class="max-w-80 relative">
-                                <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
-                                    <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
-                                </span>
-                                <input type="text" id="searchInput" placeholder="Search for..." class="form-input pl-[30px]">
-                            </form>
-                            
-                            <button type="button" id="refreshButton" class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5">
-                                <i class="ri-loop-right-line text-inherit text-sm"></i>
-                                <span>Refresh</span>
-                            </button>
-                        </div>
-                        <button class="btn b-light btn-primary-light dk-theme-card-square"
-                               id="openModal">
-                                <i class="btn ri-add-fill text-inherit"></i>
-                                <span>Tambah</span>
-                            </button>
+                <div class="p-0 mt-5 mb-5">
+                <div class="flex flex-col flex-center-between md:flex-row md:items-center md:justify-between center-between gap-2">
+                                <div class="flex flex-wrap items-center gap-1">
+                                    <!-- <button class="btn b-light btn-primary-light dk-theme-card-square"id="openModal">
+                                        <i class="btn ri-add-fill text-inherit"></i>
+                                        <span>Tambah</span>
+                                    </button> -->
+                                    <button class="btn b-light btn-primary-light dk-theme-card-square" id="openModal">
+                                        <i class="ri-add-fill text-inherit"></i>
+                                        <span>Tambah</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="w-full md:w-auto flex items-center gap-3">
+                                    <form class="w-full md:max-w-80 relative">
+                                        <span class="absolute top-1/2 -translate-y-[40%] left-2.5">
+                                            <i class="ri-search-line text-gray-900 dark:text-dark-text text-[14px]"></i>
+                                        </span>
+                                        <input type="text" name="search" value="{{ $search ?? '' }}"
+                                            placeholder="Cari data..." class="form-input pl-[30px] w-full md:w-auto">
+                                    </form>
+                                    <button type="button"
+                                        class="font-spline_sans text-sm px-1 text-gray-900 dark:text-dark-text flex-center gap-1.5"
+                                        onclick="window.location='{{ route('halaman.index') }}'">
+                                        <i class="ri-loop-right-line text-inherit text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
                     </div>
                     <div class="overflow-x-auto mt-5">
                         <table class="table-auto border-collapse w-full whitespace-nowrap text-left text-gray-500 dark:text-dark-text font-medium">
@@ -75,6 +88,16 @@
     </div>
 </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.success-message');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000); // 5 detik
+            });
+        });
+    </script>
 <script>
     document.getElementById("refreshButton").addEventListener("click", function () {
         const url = "/lfcms/administrator"; // Pastikan endpoint ini mengembalikan JSON

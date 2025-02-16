@@ -47,33 +47,40 @@ class PageController extends Controller
             'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]
     );
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        // Cek apakah judul sudah ada di database
+        $cekJudul = Page::where('judul', $request->judul)->exists();
+        if ($cekJudul) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Judul ini sudah digunakan, silakan gunakan judul lain.');
         }
 
-        $imagePath = null;
-
-        if ($request->hasFile('image')) {
-            $uploadedFile = $request->file('image')->store('pages', 'public');
-            $imagePath = str_replace('public/halaman', '', $uploadedFile);
+        try {
+            $imagePath = null;
+    
+            if ($request->hasFile('image')) {
+                $uploadedFile = $request->file('image')->store('pages', 'public');
+                $imagePath = str_replace('public/halaman', '', $uploadedFile);
+            }
+    
+            $slug = Str::slug($request->judul);
+            $count = Page::where('slug', 'like', $slug . '%')->count();
+            $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
+    
+            Page::create([
+                'user_id' => auth()->user()->id,
+                'judul' => $request->judul,
+                'status' => $request->status,
+                'image' => $imagePath,
+                'slug' => $slug,
+                'deskripsi' => $request->deskripsi,
+                'keyword' => $request->keyword,
+            ]);
+    
+            return redirect()->route('halaman.index')->with('success', 'Halaman berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
-
-        $slug = Str::slug($request->judul);
-        $count = Page::where('slug', 'like', $slug . '%')->count();
-        $slug = $count > 0 ? $slug . '-' . ($count + 1) : $slug;
-
-        Page::create([
-            'user_id' => auth()->user()->id,
-            'judul' => $request->judul,
-            'status' => $request->status,
-            'image' => $imagePath,
-            'slug' => $slug,
-            'deskripsi' => $request->deskripsi,
-            'keyword' => $request->keyword,
-        ]);
-
-        return redirect()->route('halaman.index')->with('success', 'Halaman berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -84,12 +91,11 @@ class PageController extends Controller
 
     public function update(Request $request, $id)
     {
-        Log::info('Request Data: ', $request->all());
 
         $validator = Validator::make($request->all(), [
+            'judul' => 'required|string|max:255',
             'status' => 'required|in:draft,publik',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'judul' => 'required',
             'deskripsi' => 'nullable',
             'keyword' => 'nullable',
         ],
@@ -99,10 +105,15 @@ class PageController extends Controller
             'status.required' => 'The status field is required.', // Contoh untuk field lain
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        // Cek apakah judul sudah ada di database
+        $cekJudul = Page::where('judul', $request->judul)->exists();
+        if ($cekJudul) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Judul ini sudah digunakan, silakan gunakan judul lain.');
         }
 
+        try {
         $page = Page::findOrFail($id);
         $imagePath = $page->image;
 
@@ -129,6 +140,9 @@ class PageController extends Controller
         ]);
 
         return redirect()->route('halaman.index')->with('success', 'Halaman berhasil diperbarui!');
+        } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
     }
 
     public function destroy($id)

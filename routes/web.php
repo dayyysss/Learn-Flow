@@ -38,7 +38,7 @@ use App\Http\Controllers\Admin\ModulProgressController;
 use App\Http\Controllers\Admin\Quiz\QuestionController;
 use App\Http\Controllers\Landing\ContactFormController;
 use App\Http\Controllers\Landing\LandingPageController;
-use App\Http\Controllers\Admin\CategoryCourseController;
+use App\Http\Controllers\LFCMS\CategoryCourseController;
 use App\Http\Controllers\Admin\EnrolledCourseController;
 use App\Http\Controllers\Admin\Quiz\StartQuizController;
 use App\Http\Controllers\Admin\Quiz\QuizResultController;
@@ -135,7 +135,7 @@ Route::controller(CertificateController::class)->group(function () {
 
 // Dashboard CMS
 Route::prefix('lfcms')
-    ->middleware(['auth'])
+    ->middleware(['auth', RoleMiddleware::class . ':superadmin'])
     ->group(function () {
         Route::controller(DashboardCMSController::class)->group(function () {
             Route::get('/dashboard', 'indexCMS')->name('dashboard.index');
@@ -192,7 +192,7 @@ Route::prefix('lfcms')
         Route::get('/pembayaran', [PembayaranController::class, 'pembayaranCMS'])->name('pembayaran.index');
         Route::get('/riwayat-pembayaran', [HistoryPembayaranController::class, 'historypembayaranCMS'])->name('riwayat-pembayaran.index');
 
-
+        Route::resource('/kategori-kursus', CategoryCourseController::class);
         //user
         Route::resource('/administrator', UserController::class);
 
@@ -249,19 +249,14 @@ Route::prefix('lfcms')
 
         Route::post('/testimonial/bulk-delete', [TestimonialController::class, 'bulkDelete'])->name('testimonial.bulkDelete');
         Route::post('/testimonial/bulk-draft', [TestimonialController::class, 'bulkDraft'])->name('testimonial.bulkDraft');
-
         Route::post('/testimonial/bulk-publish', [TestimonialController::class, 'bulkPublish'])->name('testimonial.bulkPublish');
-
-        Route::post('/artikel/bulk-delete', [ArtikelController::class, 'bulkDelete'])->name('artikel.bulkDelete');
-        Route::post('/artikel/bulk-draft', [ArtikelController::class, 'bulkDraft'])->name('artikel.bulkDraft');
-        Route::post('/artikel/bulk-publish', [ArtikelController::class, 'bulkPublish'])->name('artikel.bulkPublish');
     });
 
 // Detail Course
 Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course.detail');
 
 // Dashboard
-Route::middleware(['auth'])
+Route::middleware(['auth', RoleMiddleware::class . ':student|instructor'])
     ->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/indexUser', [DashboardController::class, 'indexUser'])->name('index.user');
@@ -299,7 +294,6 @@ Route::middleware(['auth'])
 
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('dashboard.wishlist');
         Route::get('/checkout', [DashboardController::class, 'checkout'])->name('dashboard.checkout');
-        Route::resource('/kategori-kursus', CategoryCourseController::class);
 
         // course-registrations
         Route::get('/course-registrations/create', [CourseRegistrationController::class, 'create'])->name('course-registrations.create');
@@ -403,3 +397,7 @@ Route::middleware(['auth'])
     });
 
 Route::post('/kontak-masuk', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/403', function () {
+    return response()->view('errors.403', [], 403);
+})->name('errors.403');

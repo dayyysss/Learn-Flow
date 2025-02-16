@@ -5,33 +5,28 @@ namespace App\Http\Controllers\LFCMS;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class TestimonialController extends Controller
 {
-    /**
-     * Display a listing of the testimonials
-     */
     public function index(Request $request)
     {
-        // Example with paginated data
-        $testimonials = Testimonial::paginate(10);
-
-        return view('lfcms.pages.testimonial.index', compact('testimonials'));
+        $search = $request->input('search');
+ 
+        $testimonials = Testimonial::when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%");
+        })->paginate(10);
+        
+ 
+        return view('lfcms.pages.testimonial.index', compact('testimonials', 'search'));
     }
 
-
-
-    /**
-     * Show the form for creating a new testimonial.
-     */
     public function create()
     {
         return view('lfcms.pages.testimonial.create');
     }
 
-    /**
-     * Store a newly created testimonial in storage.
-     */
     public function store(Request $request)
     {
         // Validasi input
@@ -41,132 +36,126 @@ class TestimonialController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required|in:draft,publik',
-        ],
-    
-        [
-            'name.required' => 'The field Name is required.', // Pesan khusus untuk validasi name
-            'status.required' => 'The status field is required.', // Contoh untuk field lain
+        ], [
+            'name.required' => 'The field Name is required.',
+            'status.required' => 'The status field is required.',
         ]);
 
-        // Jika ada file image, simpan file tersebut
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('testimonials', 'public');
+        // Cek apakah nama sudah ada di database
+        $cekName = Testimonial::where('name', $request->name)->exists();
+        if ($cekName) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Nama ini sudah digunakan, silakan gunakan nama lain.');
         }
 
-        // Simpan data ke database
-        Testimonial::create($validated);
+        try {
+            // Jika ada file image, simpan file tersebut
+            if ($request->hasFile('image')) {
+                $validated['image'] = $request->file('image')->store('testimonials', 'public');
+            }
 
-        return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil dibuat.');
+            // Simpan data ke database
+            Testimonial::create($validated);
+
+            return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
     }
 
-    /**
-     * Show the form for editing the specified testimonial.
-     */
     public function edit($id)
     {
         $testimonial = Testimonial::findOrFail($id);
-
         return view('lfcms.pages.testimonial.edit', compact('testimonial'));
     }
 
-    /**
-     * Update the specified testimonial in storage.
-     */
     public function update(Request $request, $id)
     {
-        // Validasi input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'profession' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required|in:draft,publik',
-        ],
-    
-        [
-            'name.required' => 'The field Name is required.', // Pesan khusus untuk validasi name
+        ], [
+            'name.required' => 'The field Name is required.',
         ]);
+
+        // Cek apakah nama sudah ada di database
+        $cekName = Testimonial::where('name', $request->name)->exists();
+        if ($cekName) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Nama ini sudah digunakan, silakan gunakan nama lain.');
+        }
+
+        try {
 
         $testimonial = Testimonial::findOrFail($id);
 
         // Jika ada file image baru, simpan dan hapus file lama
         if ($request->hasFile('image')) {
-            if ($testimonial->image && \Storage::exists('public/' . $testimonial->image)) {
-                \Storage::delete('public/' . $testimonial->image);
+            if ($testimonial->image && Storage::exists('public/testimonials/' . $testimonial->image)) {
+                Storage::delete('public/testimonials/' . $testimonial->image);
             }
             $validated['image'] = $request->file('image')->store('testimonials', 'public');
         }
 
-        // Update data di database
         $testimonial->update($validated);
 
-        return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil diperbarui.');
+        return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil diubah!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
+
     }
 
-    /**
-     * Remove the specified testimonial from storage.
-     */
     public function destroy($id)
     {
         $testimonial = Testimonial::findOrFail($id);
 
-        // Hapus file image jika ada
-        if ($testimonial->image && \Storage::exists('public/' . $testimonial->image)) {
-            \Storage::delete('public/' . $testimonial->image);
+        if ($testimonial->image && Storage::exists('public/testimonials/' . $testimonial->image)) {
+            Storage::delete('public/testimonials/' . $testimonial->image);
         }
 
-        // Hapus data dari database
         $testimonial->delete();
-
         return redirect()->route('testimonial.index')->with('success', 'Testimonial berhasil dihapus.');
     }
 
-    /**
-     * Display the specified testimonial.
-     */
     public function show($id)
     {
         $testimonial = Testimonial::findOrFail($id);
-
         return view('lfcms.pages.testimonial.show', compact('testimonial'));
     }
 
     public function indexPublik()
     {
-        // Ambil hanya data testimonial yang memiliki status 'publik'
         $testimonials = Testimonial::where('status', 'publik')->get();
-
         return view('lfcms.pages.testimonial.index', compact('testimonials'));
     }
 
     public function bulkDelete(Request $request)
     {
-        // Retrieve the array of IDs from the request
         $ids = $request->input('ids');
 
-        // Check if IDs are provided
         if (empty($ids)) {
-            return response()->json(['success' => false, 'message' => 'Tidak ada layanan yang dipilih.'], 400);
+            return response()->json(['success' => false, 'message' => 'Tidak ada testimonial yang dipilih.'], 400);
         }
 
-        // Retrieve the services by the given IDs
-        $services = Testimonial::whereIn('id', $ids)->get();
+        $testimonials = Testimonial::whereIn('id', $ids)->get();
 
-        // Loop through each service to delete its associated image if it exists
-        foreach ($services as $service) {
-            if ($service->image) {
-                Storage::delete('public/' . $service->image);
+        foreach ($testimonials as $testimonial) {
+            if ($testimonial->image) {
+                Storage::delete('public/testimonials/' . $testimonial->image);
             }
         }
 
-        // Delete the services from the database
         Testimonial::whereIn('id', $ids)->delete();
 
-        return response()->json(['success' => true, 'message' => 'Layanan berhasil dihapus.']);
+        return response()->json(['success' => true, 'message' => 'Testimonial berhasil dihapus.']);
     }
 
-
-    // Metode untuk mengubah status layanan ke draft
     public function bulkDraft(Request $request)
     {
         $ids = $request->input('ids');
@@ -179,7 +168,6 @@ class TestimonialController extends Controller
         return response()->json(['success' => false, 'message' => 'Tidak ada layanan yang dipilih.'], 400);
     }
 
-    // Metode untuk mempublikasikan layanan
     public function bulkPublish(Request $request)
     {
         $ids = $request->input('ids');
